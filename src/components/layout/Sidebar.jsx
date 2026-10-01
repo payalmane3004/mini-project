@@ -9,9 +9,13 @@ import {
   CalendarDays,
   TriangleAlert,
   BarChart3,
+  FlaskConical,
   Brain,
   Bell,
+  Wifi,
+  Settings,
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const menuGroups = [
   {
@@ -42,8 +46,16 @@ const menuGroups = [
     title: "INTELLIGENCE",
     items: [
       { name: "Analytics", icon: BarChart3, path: "/analytics" },
+      { name: "Scenario Lab", icon: FlaskConical, path: "/scenario-lab" },
       { name: "Predictions", icon: Brain, path: "/predictions" },
       { name: "Alerts", icon: Bell, path: "/alerts" },
+    ],
+  },
+  {
+    title: "SYSTEM",
+    items: [
+      { name: "Users", icon: Users, path: "/users" },
+      { name: "Settings", icon: Settings, path: "/settings" },
     ],
   },
 ];
@@ -53,7 +65,7 @@ function Sidebar() {
     <aside className="sidebar">
       {/* Logo */}
       <div className="sidebar-logo">
-        <div className="logo-icon">⌁</div>
+        <div className="logo-icon"><Wifi size={22} strokeWidth={2.2} /></div>
 
         <div>
           <h1>SMART CAMPUS</h1>
@@ -71,16 +83,15 @@ function Sidebar() {
               const Icon = item.icon;
 
               return (
-                <a
-                  href={item.path}
-                  className={`nav-item ${
-                    item.name === "Dashboard" ? "active" : ""
-                  }`}
+                <NavLink
+                  to={item.path}
+                  end={item.path === "/"}
+                  className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
                   key={item.name}
                 >
                   <Icon size={18} strokeWidth={1.8} />
                   <span>{item.name}</span>
-                </a>
+                </NavLink>
               );
             })}
           </div>

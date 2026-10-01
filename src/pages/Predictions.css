@@ -1,0 +1,77 @@
+.predictions-page { width:100%; }
+.predictions-heading { display:flex; align-items:center; gap:15px; margin:6px 0 29px; }
+.predictions-heading-icon { width:45px; height:45px; flex:none; display:grid; place-items:center; color:#22d3ee; background:rgba(34,211,238,.09); border:1px solid rgba(34,211,238,.22); border-radius:10px; }
+.predictions-heading h1 { color:#f1f5f9; font-size:26px; line-height:1.25; font-weight:700; letter-spacing:-.45px; }
+.predictions-heading p { margin-top:4px; color:#91a1b6; font-size:16px; line-height:1.4; }
+.predictions-engine-banner { min-height:57px; display:flex; align-items:center; gap:10px; padding:12px 25px; margin-bottom:29px; color:#22d3ee; background:rgba(9,26,30,.72); border:1px solid rgba(34,211,238,.18); border-radius:10px; }
+.predictions-engine-banner > svg { flex:none; }
+.predictions-engine-banner > strong { flex:none; font-size:16px; font-weight:550; }
+.predictions-engine-banner > span { color:#718197; }
+.predictions-engine-banner > p { color:#91a1b6; font-size:14px; }
+.predictions-engine-banner > code { margin-left:auto; padding:4px 9px; color:#22d3ee; background:rgba(34,211,238,.08); border-radius:5px; font-size:12px; }
+.forecast-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px; }
+.forecast-panel { min-width:0; min-height:445px; overflow:hidden; background:#151c25; border:1px solid #293441; border-radius:10px; }
+.forecast-panel-heading { min-height:91px; display:flex; align-items:center; padding:17px 25px; border-bottom:1px solid #293441; }
+.forecast-panel-heading h2 { display:flex; align-items:center; gap:10px; color:#e5eaf0; font-size:17px; line-height:1.35; font-weight:650; }
+.forecast-panel-heading h2 svg { color:#22d3ee; }
+.energy-forecast-panel .forecast-panel-heading h2 svg { color:#f59e0b; }
+.forecast-panel-heading p { margin-top:4px; color:#91a1b6; font-size:14px; line-height:1.4; }
+.forecast-content { padding:25px 25px 20px; }
+.forecast-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.forecast-stat { min-width:0; min-height:82px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; background:#1b2430; border-radius:8px; text-align:center; }
+.forecast-stat strong { color:#22d3ee; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:20px; line-height:1.2; font-weight:700; white-space:nowrap; }
+.forecast-stat span { overflow:hidden; max-width:100%; padding:0 4px; color:#91a1b6; font-size:14px; line-height:1.25; text-overflow:ellipsis; white-space:nowrap; }
+.forecast-stat.amber strong { color:#f59e0b; font-size:17px; }
+.forecast-chart { height:199px; margin-top:16px; }
+.energy-forecast-chart { height:199px; }
+.predictive-maintenance-panel { min-height:0; margin-top:29px; }
+.predictive-maintenance-panel .forecast-panel-heading h2 svg { color:#f59e0b; }
+.maintenance-forecast-item { min-height:119px; display:flex; flex-direction:column; justify-content:center; gap:11px; padding:17px 25px; border-bottom:1px solid #293441; }
+.maintenance-forecast-item:last-child { border-bottom:0; }
+.maintenance-forecast-top { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.maintenance-forecast-top strong { display:block; color:#e5eaf0; font-size:16px; line-height:1.35; font-weight:650; }
+.maintenance-forecast-top p { margin-top:3px; color:#91a1b6; font-size:14px; line-height:1.35; }
+.maintenance-risk { padding:4px 11px; border:1px solid; border-radius:99px; font-size:13px; line-height:1.2; text-transform:lowercase; }
+.maintenance-risk.high { color:#ef4444; background:rgba(239,68,68,.08); border-color:rgba(239,68,68,.2); }
+.maintenance-risk.medium { color:#f59e0b; background:rgba(245,158,11,.08); border-color:rgba(245,158,11,.2); }
+.maintenance-risk.low { color:#22c55e; background:rgba(34,197,94,.08); border-color:rgba(34,197,94,.2); }
+.maintenance-probability { display:grid; grid-template-columns:130px minmax(0,1fr) 35px; align-items:center; gap:11px; color:#91a1b6; font-size:14px; }
+.maintenance-probability-track { height:8px; overflow:hidden; background:#293441; border-radius:99px; }
+.maintenance-probability-track > span { height:100%; display:block; border-radius:99px; }
+.maintenance-probability-track > span.high { background:#ef4444; }
+.maintenance-probability-track > span.medium { background:#f59e0b; }
+.maintenance-probability-track > span.low { background:#22c55e; }
+.maintenance-probability b { text-align:right; font-size:13px; font-weight:550; }
+.maintenance-probability b.high { color:#ef4444; }
+.maintenance-probability b.medium { color:#f59e0b; }
+.maintenance-probability b.low { color:#22c55e; }
+
+@media (max-width:1100px) {
+  .forecast-grid { grid-template-columns:1fr; }
+}
+@media (max-width:700px) {
+  .predictions-heading { align-items:flex-start; }
+  .predictions-heading h1 { font-size:23px; }
+  .predictions-heading p { font-size:14px; }
+  .predictions-engine-banner { align-items:flex-start; flex-wrap:wrap; padding:13px; gap:7px; }
+  .predictions-engine-banner > p { flex-basis:100%; margin-left:25px; font-size:12px; }
+  .predictions-engine-banner > code { position:static; margin-left:auto; }
+  .forecast-grid { gap:16px; }
+  .forecast-panel { min-height:400px; }
+  .forecast-panel-heading { min-height:76px; padding:14px 16px; }
+  .forecast-panel-heading h2 { font-size:15px; }
+  .forecast-panel-heading p { font-size:12px; }
+  .forecast-content { padding:15px 12px; }
+  .forecast-stats { gap:7px; }
+  .forecast-stat { min-height:72px; }
+  .forecast-stat strong { font-size:16px; }
+  .forecast-stat.amber strong { font-size:14px; }
+  .forecast-stat span { font-size:10px; }
+  .forecast-chart { height:210px; }
+  .maintenance-forecast-item { min-height:116px; padding:15px 14px; }
+  .maintenance-forecast-top strong { font-size:14px; }
+  .maintenance-forecast-top p { font-size:12px; }
+  .maintenance-risk { padding:3px 7px; font-size:10px; }
+  .maintenance-probability { grid-template-columns:1fr 35px; gap:8px; font-size:11px; }
+  .maintenance-probability > span { grid-column:1/-1; }
+}

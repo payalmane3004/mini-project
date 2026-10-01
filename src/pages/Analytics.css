@@ -1,0 +1,80 @@
+.analytics-page { width:100%; }
+.analytics-page-heading { margin:1px 0 29px; }
+.analytics-page-heading h1 { color:#f1f5f9; font-size:26px; line-height:1.25; font-weight:700; letter-spacing:-.45px; }
+.analytics-page-heading p { margin-top:5px; color:#91a1b6; font-size:16px; line-height:1.45; }
+.analytics-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; margin-bottom:29px; }
+.analytics-metric { position:relative; min-height:161px; padding:23px 20px 16px; background:#151c25; border:1px solid #293441; border-radius:10px; }
+.analytics-metric-title { max-width:calc(100% - 52px); display:block; color:#91a1b6; font-size:14px; line-height:17px; font-weight:650; letter-spacing:.065em; }
+.analytics-metric-icon { position:absolute; top:20px; right:20px; width:40px; height:40px; display:grid; place-items:center; border:1px solid; border-radius:8px; }
+.analytics-metric-icon.cyan,.analytics-metric-icon.blue { color:#22d3ee; background:rgba(34,211,238,.09); border-color:rgba(34,211,238,.23); }
+.analytics-metric-icon.green { color:#22c55e; background:rgba(34,197,94,.09); border-color:rgba(34,197,94,.23); }
+.analytics-metric-icon.amber { color:#f59e0b; background:rgba(245,158,11,.09); border-color:rgba(245,158,11,.23); }
+.analytics-metric > strong { display:block; margin-top:39px; color:#f1f5f9; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:31px; line-height:34px; font-weight:700; }
+.analytics-metric > small { display:flex; align-items:center; gap:7px; margin-top:7px; color:#95a5ba; font-size:14px; line-height:18px; }
+.analytics-metric-trend { display:inline-flex; align-items:center; gap:2px; color:#22c55e; font-weight:600; }
+.analytics-panel { min-width:0; overflow:hidden; background:#151c25; border:1px solid #293441; border-radius:10px; }
+.analytics-panel-heading { min-height:66px; display:flex; align-items:center; padding:15px 25px; border-bottom:1px solid #293441; }
+.analytics-panel-heading h2 { color:#e5eaf0; font-size:17px; line-height:1.35; font-weight:650; letter-spacing:-.15px; }
+.analytics-panel-heading p { margin-top:3px; color:#91a1b6; font-size:14px; line-height:1.35; }
+.analytics-chart-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px; margin-bottom:29px; }
+.analytics-chart-grid .analytics-panel { min-height:341px; }
+.analytics-trend-panel .analytics-panel-heading,.analytics-energy-panel .analytics-panel-heading { min-height:89px; padding:16px 25px; }
+.analytics-occupancy-chart,.analytics-energy-chart { position:relative; height:250px; padding:18px 20px 10px 16px; }
+.analytics-hover-label { position:absolute; top:13%; left:64%; display:flex; flex-direction:column; gap:7px; padding:13px 14px; color:#95a5ba; background:#1b2430; border:1px solid #293847; border-radius:7px; font-size:13px; pointer-events:none; }
+.analytics-hover-label strong { color:#22d3ee; font-size:14px; font-weight:600; }
+.analytics-resource-grid { display:grid; grid-template-columns:minmax(0,2.06fr) minmax(360px,1fr); gap:29px; margin-bottom:29px; align-items:stretch; }
+.analytics-utilization-panel,.analytics-performance-panel { min-height:448px; }
+.utilization-list { padding:30px 25px 24px; }
+.utilization-item { margin-bottom:20px; }
+.utilization-item:last-child { margin-bottom:0; }
+.utilization-meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; line-height:20px; }
+.utilization-meta > div { display:flex; align-items:baseline; gap:11px; }
+.utilization-meta strong { color:#e5eaf0; font-size:16px; font-weight:550; }
+.utilization-meta span { color:#91a1b6; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; }
+.utilization-meta b { font-size:16px; font-weight:650; }
+.utilization-track { width:100%; height:10px; overflow:hidden; background:#293441; border-radius:99px; }
+.utilization-track span { height:100%; display:block; border-radius:99px; }
+.analytics-radar-chart { height:377px; padding:5px 15px 12px; }
+.analytics-scores-panel { margin-bottom:26px; }
+.analytics-scores-panel .analytics-panel-heading { min-height:88px; padding:16px 25px; }
+.efficiency-score-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; padding:25px; }
+.efficiency-score-card { min-height:179px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; background:#1b2430; border-radius:9px; }
+.efficiency-score-card > span { color:#91a1b6; font-size:14px; }
+.efficiency-ring { width:82px; height:82px; overflow:visible; }
+.efficiency-ring-track,.efficiency-ring-value { fill:none; stroke-width:5.5; }
+.efficiency-ring-track { stroke:#293441; }
+.efficiency-ring-value { stroke:#22c55e; stroke-linecap:round; transform:rotate(-90deg); transform-origin:41px 41px; }
+.efficiency-ring.needs-attention .efficiency-ring-value { stroke:#ef4444; }
+.efficiency-ring text { fill:#f1f5f9; font-size:15px; font-weight:700; font-family:Inter,system-ui,sans-serif; }
+.efficiency-score-card > strong { font-size:14px; font-weight:550; }
+.efficiency-score-card > strong.excellent { color:#22c55e; }
+.efficiency-score-card > strong.attention { color:#ef4444; }
+
+@media (max-width:1100px) {
+  .analytics-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .analytics-resource-grid { grid-template-columns:1fr; }
+}
+@media (max-width:700px) {
+  .analytics-page-heading h1 { font-size:23px; }
+  .analytics-page-heading p { font-size:14px; }
+  .analytics-metrics { gap:10px; }
+  .analytics-metric { min-height:145px; padding:14px; }
+  .analytics-metric-title { font-size:11px; }
+  .analytics-metric-icon { top:13px; right:13px; width:34px; height:34px; }
+  .analytics-metric > strong { margin-top:25px; font-size:25px; }
+  .analytics-metric > small { font-size:12px; }
+  .analytics-chart-grid { grid-template-columns:1fr; gap:16px; }
+  .analytics-chart-grid .analytics-panel { min-height:320px; }
+  .analytics-panel-heading { padding:14px 16px; }
+  .analytics-panel-heading h2 { font-size:15px; }
+  .analytics-panel-heading p { font-size:12px; }
+  .analytics-occupancy-chart,.analytics-energy-chart { height:240px; padding:12px 8px 8px; }
+  .analytics-hover-label { display:none; }
+  .analytics-resource-grid { grid-template-columns:minmax(0,1fr); gap:16px; }
+  .utilization-list { padding:18px 15px; }
+  .utilization-meta strong { font-size:14px; }
+  .analytics-radar-chart { height:320px; }
+  .efficiency-score-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:14px; }
+  .efficiency-score-card { min-height:155px; }
+  .efficiency-score-card > span { font-size:12px; }
+}
