@@ -1,0 +1,877 @@
+{
+  "source": "college land.dxf",
+  "coordinateSystem": "Original DXF model-space coordinates",
+  "entityCounts": {
+    "TEXT": 199,
+    "MTEXT": 0
+  },
+  "includedCount": 86,
+  "excludedCount": 113,
+  "exclusionReasons": {
+    "map title, road, north arrow, scale, or title-block annotation layer": 9,
+    "adjacent Government Colony Road annotation": 2,
+    "outside WCE site-line extent (shifted duplicate/layout content)": 102
+  },
+  "labels": [
+    {
+      "id": "cad-label-001",
+      "type": "TEXT",
+      "text": "40",
+      "x": 509.8510855828533,
+      "y": 586.4244825911561,
+      "height": 4.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-002",
+      "type": "TEXT",
+      "text": "M.S.E.B.",
+      "x": 130.8930823992708,
+      "y": 109.1798496234097,
+      "height": 5.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-003",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 183.5386889165302,
+      "y": 248.2615078967422,
+      "height": 4.0,
+      "rotation": 0,
+      "layer": "H1"
+    },
+    {
+      "id": "cad-label-004",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 727.8390186209012,
+      "y": 244.1358749824835,
+      "height": 4.0,
+      "rotation": 0,
+      "layer": "H1"
+    },
+    {
+      "id": "cad-label-005",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 552.849647789958,
+      "y": 218.1552200598571,
+      "height": 4.0,
+      "rotation": 0,
+      "layer": "H1"
+    },
+    {
+      "id": "cad-label-006",
+      "type": "TEXT",
+      "text": "Main Building",
+      "x": 338.2711855945217,
+      "y": 554.8571868958527,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-007",
+      "type": "TEXT",
+      "text": "PG",
+      "x": 299.3463733842484,
+      "y": 530.2748470367941,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-008",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 298.6914143421002,
+      "y": 524.2257957996762,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-009",
+      "type": "TEXT",
+      "text": "PE",
+      "x": 395.2659090801578,
+      "y": 526.1923489674185,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-010",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 394.6109500380097,
+      "y": 520.1432977303007,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-011",
+      "type": "TEXT",
+      "text": "Chemistry",
+      "x": 251.8489555347225,
+      "y": 558.8128289624559,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-012",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 266.4468923203085,
+      "y": 558.6905336754148,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-013",
+      "type": "TEXT",
+      "text": "Metallurgy",
+      "x": 249.6101107551515,
+      "y": 537.0265527494145,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-014",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 248.9551517130034,
+      "y": 530.9775015122966,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-015",
+      "type": "TEXT",
+      "text": "Electrical Deptt",
+      "x": 374.7323223077469,
+      "y": 492.0919159260525,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-016",
+      "type": "TEXT",
+      "text": "Mechanical Lab",
+      "x": 306.7300319149919,
+      "y": 493.2567585191155,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-017",
+      "type": "TEXT",
+      "text": "Mechanical Workshop",
+      "x": 258.0475259697319,
+      "y": 484.9972895864591,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-018",
+      "type": "TEXT",
+      "text": "Mechanical Deptt",
+      "x": 258.8493288072705,
+      "y": 460.8648927995448,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-019",
+      "type": "TEXT",
+      "text": "Civil",
+      "x": 246.3198187565008,
+      "y": 419.3857857729049,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-020",
+      "type": "TEXT",
+      "text": "Deptt",
+      "x": 246.2891461840245,
+      "y": 414.3743177315683,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-021",
+      "type": "TEXT",
+      "text": "Hyd Lab",
+      "x": 273.4587640987047,
+      "y": 399.4171677436286,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-022",
+      "type": "TEXT",
+      "text": "Civil Drg Hall",
+      "x": 257.398829955268,
+      "y": 370.1790851007761,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-023",
+      "type": "TEXT",
+      "text": "Quadrangle",
+      "x": 338.3653013701069,
+      "y": 417.0038833344495,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-024",
+      "type": "TEXT",
+      "text": "Tilak Hall",
+      "x": 375.5741708778928,
+      "y": 414.9765534076748,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-025",
+      "type": "TEXT",
+      "text": "Vartak Hall",
+      "x": 387.8265494464995,
+      "y": 337.7763112517634,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-026",
+      "type": "TEXT",
+      "text": "Lawn Tennis",
+      "x": 311.1235519411713,
+      "y": 336.7876866511652,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-027",
+      "type": "TEXT",
+      "text": "Gun Wall",
+      "x": 288.9999775389665,
+      "y": 331.1106401216555,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-028",
+      "type": "TEXT",
+      "text": "Gymkhana",
+      "x": 428.1799863925832,
+      "y": 339.393681514048,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-029",
+      "type": "TEXT",
+      "text": "Canteen",
+      "x": 469.7801343457309,
+      "y": 311.9631064212114,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-030",
+      "type": "TEXT",
+      "text": "Physics",
+      "x": 491.7676345534323,
+      "y": 320.349410994151,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-031",
+      "type": "TEXT",
+      "text": "Maths",
+      "x": 455.5909741298458,
+      "y": 325.6002923032487,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-032",
+      "type": "TEXT",
+      "text": "Vision Office",
+      "x": 508.2256033924136,
+      "y": 414.3786498787126,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-033",
+      "type": "TEXT",
+      "text": "Exam",
+      "x": 501.6788543864745,
+      "y": 389.8690905710005,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-034",
+      "type": "TEXT",
+      "text": "Cell",
+      "x": 501.5408488310018,
+      "y": 386.3392044540942,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-035",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 521.0693136740801,
+      "y": 391.1547526120273,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-036",
+      "type": "TEXT",
+      "text": "Ajit Gulabchand",
+      "x": 444.6875930073311,
+      "y": 453.5119190912053,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-037",
+      "type": "TEXT",
+      "text": "Central Library",
+      "x": 443.9736653549744,
+      "y": 445.8055773892017,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-038",
+      "type": "TEXT",
+      "text": "Ganapati",
+      "x": 422.4154190750505,
+      "y": 481.2202147139512,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-039",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 422.1103058063495,
+      "y": 505.4263130481049,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-040",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 418.6622396368873,
+      "y": 498.0597579425503,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-041",
+      "type": "TEXT",
+      "text": "Society",
+      "x": 421.7893734581394,
+      "y": 492.1517208954531,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-042",
+      "type": "TEXT",
+      "text": "Cyber Hostel",
+      "x": 449.3369428103198,
+      "y": 533.1935059063815,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-043",
+      "type": "TEXT",
+      "text": "Watchman",
+      "x": 465.0801435816134,
+      "y": 540.4831899782187,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-044",
+      "type": "TEXT",
+      "text": "Director Bunglow",
+      "x": 505.4775342653247,
+      "y": 574.0948798832187,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-045",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 508.2737591029084,
+      "y": 537.3226311244749,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-046",
+      "type": "TEXT",
+      "text": "Medical",
+      "x": 493.5777106072869,
+      "y": 533.2962850154952,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-047",
+      "type": "TEXT",
+      "text": "Old Rector Office",
+      "x": 528.1975293647941,
+      "y": 534.7234623348645,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-048",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 505.7217136640392,
+      "y": 513.7011597521526,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-049",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 502.9323096225644,
+      "y": 497.4697078390366,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-050",
+      "type": "TEXT",
+      "text": "Rector Office",
+      "x": 500.8797185746957,
+      "y": 476.9721025852252,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-051",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 531.4184861327421,
+      "y": 476.8405525973651,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-052",
+      "type": "TEXT",
+      "text": "D1",
+      "x": 578.4621664781148,
+      "y": 552.7479799794917,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-053",
+      "type": "TEXT",
+      "text": "D2",
+      "x": 579.0329270403017,
+      "y": 490.538869977456,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-054",
+      "type": "TEXT",
+      "text": "D3",
+      "x": 658.2423023422116,
+      "y": 444.2883345923476,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-055",
+      "type": "TEXT",
+      "text": "D4",
+      "x": 602.7726878078583,
+      "y": 444.3079982970851,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-056",
+      "type": "TEXT",
+      "text": "D8",
+      "x": 578.0397209794114,
+      "y": 399.7514034840349,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-057",
+      "type": "TEXT",
+      "text": "D7",
+      "x": 577.164774449187,
+      "y": 328.2781041217766,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-058",
+      "type": "TEXT",
+      "text": "D6",
+      "x": 599.0714810943388,
+      "y": 283.8633227447891,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-059",
+      "type": "TEXT",
+      "text": "D5",
+      "x": 666.229946372111,
+      "y": 283.8704377599627,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-060",
+      "type": "TEXT",
+      "text": "Old Mess",
+      "x": 670.9384444307475,
+      "y": 331.1915664035953,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-061",
+      "type": "TEXT",
+      "text": "Hot Bath",
+      "x": 702.348880160157,
+      "y": 453.142908708998,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-062",
+      "type": "TEXT",
+      "text": "Hot Bath Quarters",
+      "x": 705.2315915922973,
+      "y": 424.2920022472538,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-063",
+      "type": "TEXT",
+      "text": "ME Hostels",
+      "x": 667.7307501369896,
+      "y": 478.8471716631541,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-064",
+      "type": "TEXT",
+      "text": "ME Hostels",
+      "x": 667.1261591709733,
+      "y": 509.7929280739241,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-065",
+      "type": "TEXT",
+      "text": "New Mess",
+      "x": 661.0799003055317,
+      "y": 558.1218185368818,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-066",
+      "type": "TEXT",
+      "text": "Rainbow Staff Quaters",
+      "x": 795.5701076927626,
+      "y": 556.5763655081657,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-067",
+      "type": "TEXT",
+      "text": "Wadar Well Staff Quarters",
+      "x": 915.9886942560652,
+      "y": 510.8767819350653,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-068",
+      "type": "TEXT",
+      "text": "Agricultural Staff Quarters",
+      "x": 686.7016003686635,
+      "y": 119.5840780523415,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-069",
+      "type": "TEXT",
+      "text": "Ganesh Staff Quarters",
+      "x": 429.7868441915889,
+      "y": 103.5589420901283,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-070",
+      "type": "TEXT",
+      "text": "Bara Staff Quarters",
+      "x": 271.661069098951,
+      "y": 82.16322320292102,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-071",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 79.85851303879781,
+      "y": 210.5930200606131,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-072",
+      "type": "TEXT",
+      "text": "Staff Quarters",
+      "x": 135.5957502576757,
+      "y": 321.7056850112531,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-073",
+      "type": "TEXT",
+      "text": "Community Polytechnic",
+      "x": 199.7874084879204,
+      "y": 300.6503470182245,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-074",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 73.72587594360812,
+      "y": 343.4408006232327,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-075",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 73.39365184546841,
+      "y": 338.6046334958821,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-076",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 72.99558986108195,
+      "y": 410.3536439806323,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-077",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 72.66336576294225,
+      "y": 405.5174768532818,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-078",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 71.16456227511935,
+      "y": 474.8689857091501,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-079",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 70.83233817697965,
+      "y": 470.0328185817996,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-080",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 74.44400280772925,
+      "y": 543.7267348055486,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-081",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 131.0284327126806,
+      "y": 550.6591985149887,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-082",
+      "type": "TEXT",
+      "text": "Bank",
+      "x": 117.2646517731558,
+      "y": 618.4397247199242,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-083",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 224.2673882206436,
+      "y": 561.3386018297163,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-084",
+      "type": "TEXT",
+      "text": "Smithy Workshop",
+      "x": 208.2934496628309,
+      "y": 534.0568885311066,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "TXT"
+    },
+    {
+      "id": "cad-label-085",
+      "type": "TEXT",
+      "text": "Hyd Well",
+      "x": 286.0226310166563,
+      "y": 406.0813075061399,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "H1"
+    },
+    {
+      "id": "cad-label-086",
+      "type": "TEXT",
+      "text": "Wadar Well",
+      "x": 929.1818306379687,
+      "y": 517.3286914701282,
+      "height": 2.0,
+      "rotation": 0,
+      "layer": "H1"
+    }
+  ]
+}
