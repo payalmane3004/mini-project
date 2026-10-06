@@ -1,8 +1,8 @@
-import StatsGrid from "../components/dashboard/StatsGrid";
-import CampusTwinPreview from "../components/dashboard/CampusTwinPreview";
-import CampusStatus from "../components/dashboard/CampusStatus";
-import OccupancyChart from "../components/dashboard/OccupancyChart";
-import RecentAlerts from "../components/dashboard/RecentAlerts";
+import StatsGrid from "../../components/dashboard/StatsGrid";
+import CampusTwinPreview from "../../components/dashboard/CampusTwinPreview";
+import CampusStatus from "../../components/dashboard/CampusStatus";
+import OccupancyChart from "../../components/dashboard/OccupancyChart";
+import RecentAlerts from "../../components/dashboard/RecentAlerts";
 
 function Dashboard() {
   return (
