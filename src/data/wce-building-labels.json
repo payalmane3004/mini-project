@@ -1,0 +1,229 @@
+{
+  "source": "college land.dxf",
+  "sourceTextLayer": "TXT/H1",
+  "description": "Source text labels mapped to exact BUILT UP footprint IDs by polygon containment.",
+  "buildingsWithLabels": 35,
+  "buildings": [
+    {
+      "footprintId": "BU-002",
+      "labels": [
+        "Main Building",
+        "PG",
+        "Lab"
+      ]
+    },
+    {
+      "footprintId": "BU-019",
+      "labels": [
+        "PE",
+        "Lab"
+      ]
+    },
+    {
+      "footprintId": "BU-026",
+      "labels": [
+        "Metallurgy",
+        "Lab"
+      ]
+    },
+    {
+      "footprintId": "BU-007",
+      "labels": [
+        "Electrical Deptt"
+      ]
+    },
+    {
+      "footprintId": "BU-008",
+      "labels": [
+        "Mechanical Lab"
+      ]
+    },
+    {
+      "footprintId": "BU-009",
+      "labels": [
+        "Mechanical Workshop"
+      ]
+    },
+    {
+      "footprintId": "BU-003",
+      "labels": [
+        "Mechanical Deptt",
+        "Civil",
+        "Deptt"
+      ]
+    },
+    {
+      "footprintId": "BU-048",
+      "labels": [
+        "Hyd Lab"
+      ]
+    },
+    {
+      "footprintId": "BU-005",
+      "labels": [
+        "Civil Drg Hall"
+      ]
+    },
+    {
+      "footprintId": "BU-001",
+      "labels": [
+        "Quadrangle",
+        "Tilak Hall"
+      ]
+    },
+    {
+      "footprintId": "BU-015",
+      "labels": [
+        "Vartak Hall"
+      ]
+    },
+    {
+      "footprintId": "BU-027",
+      "labels": [
+        "Lawn Tennis"
+      ]
+    },
+    {
+      "footprintId": "BU-044",
+      "labels": [
+        "Gymkhana"
+      ]
+    },
+    {
+      "footprintId": "BU-013",
+      "labels": [
+        "Canteen",
+        "Physics",
+        "Maths"
+      ]
+    },
+    {
+      "footprintId": "BU-012",
+      "labels": [
+        "Vision Office"
+      ]
+    },
+    {
+      "footprintId": "BU-039",
+      "labels": [
+        "Exam",
+        "Cell"
+      ]
+    },
+    {
+      "footprintId": "BU-004",
+      "labels": [
+        "Ajit Gulabchand",
+        "Central Library"
+      ]
+    },
+    {
+      "footprintId": "BU-037",
+      "labels": [
+        "Cyber Hostel"
+      ]
+    },
+    {
+      "footprintId": "BU-040",
+      "labels": [
+        "Director Bunglow"
+      ]
+    },
+    {
+      "footprintId": "BU-054",
+      "labels": [
+        "Ladies Mess"
+      ]
+    },
+    {
+      "footprintId": "BU-029",
+      "labels": [
+        "Old Rector Office"
+      ]
+    },
+    {
+      "footprintId": "BU-043",
+      "labels": [
+        "Ladies Mess"
+      ]
+    },
+    {
+      "footprintId": "BU-025",
+      "labels": [
+        "D1"
+      ]
+    },
+    {
+      "footprintId": "BU-021",
+      "labels": [
+        "D2"
+      ]
+    },
+    {
+      "footprintId": "BU-020",
+      "labels": [
+        "D3"
+      ]
+    },
+    {
+      "footprintId": "BU-024",
+      "labels": [
+        "D4"
+      ]
+    },
+    {
+      "footprintId": "BU-017",
+      "labels": [
+        "D8"
+      ]
+    },
+    {
+      "footprintId": "BU-016",
+      "labels": [
+        "D7"
+      ]
+    },
+    {
+      "footprintId": "BU-018",
+      "labels": [
+        "D5"
+      ]
+    },
+    {
+      "footprintId": "BU-006",
+      "labels": [
+        "Old Mess"
+      ]
+    },
+    {
+      "footprintId": "BU-031",
+      "labels": [
+        "Hot Bath"
+      ]
+    },
+    {
+      "footprintId": "BU-010",
+      "labels": [
+        "Community Polytechnic"
+      ]
+    },
+    {
+      "footprintId": "BU-046",
+      "labels": [
+        "Bank"
+      ]
+    },
+    {
+      "footprintId": "BU-011",
+      "labels": [
+        "Smithy Workshop"
+      ]
+    },
+    {
+      "footprintId": "BU-023",
+      "labels": [
+        "Wadar Well"
+      ]
+    }
+  ]
+}
