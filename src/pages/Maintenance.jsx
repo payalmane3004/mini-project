@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AlertCircle, CheckCircle2, ChevronRight, Clock3, QrCode, Plus, Wrench, X, MapPin, Building2, CalendarDays, Upload, Camera, ArrowLeft, Check, Printer, Download, UserRound, ClipboardList, ShieldCheck } from "lucide-react";
+import { AlertCircle, CheckCircle2, ChevronRight, Clock3, QrCode, Plus, Wrench, X, MapPin, Building2, CalendarDays, Upload, Camera, ArrowLeft, Check, Printer, Download, ClipboardList, ShieldCheck } from "lucide-react";
 
 const assetDirectory = [
   { code: "ASSET-CSE-LAB2-PROJ02", building: "CSE Department", floor: "2", room: "Computer Lab 2", roomNumber: "CSE-204", equipment: "Projector #02", status: "Operational", lastMaintenance: "12 Aug 2026", qrId: "QR-CSE-204-P02" },

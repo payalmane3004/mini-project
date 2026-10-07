@@ -1,6 +1,13 @@
-import { Search, ChevronDown, Bell } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Search, ChevronDown, Bell, LogOut, UserRound } from "lucide-react";
+import { useAuth } from "../../auth/useAuth";
 
 function Topbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [profileOpen, setProfileOpen] = useState(false);
+  function signOut() { logout(); navigate("/login", { replace: true }); }
   return (
     <header className="topbar">
 
@@ -44,9 +51,13 @@ function Topbar() {
           <span className="notification-count">3</span>
         </div>
 
-        <div className="profile">
-          <div className="avatar">A</div>
-          <span>Admin</span>
+        <div className="admin-profile-menu">
+          <button className="profile" onClick={() => setProfileOpen((open) => !open)} aria-expanded={profileOpen}>
+            <div className="avatar">{(user?.role === "ADMIN" ? "A" : user?.name || "A").slice(0, 1).toUpperCase()}</div>
+            <span>{user?.role === "ADMIN" ? "Admin" : user?.name || "Admin"}<small>Administrator</small></span>
+            <ChevronDown size={14}/>
+          </button>
+          {profileOpen && <div className="admin-profile-dropdown"><span><UserRound size={15}/>{user?.email}</span><button onClick={signOut}><LogOut size={15}/>Sign out</button></div>}
         </div>
 
       </div>
