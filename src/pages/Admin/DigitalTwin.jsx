@@ -8,7 +8,7 @@
 } from "lucide-react";
 import { useState } from "react";
 
-import CampusScene from "../components/digital-twin/CampusScene";
+import CampusScene from "../../components/digital-twin/CampusScene";
 
 function DigitalTwin() {
   const [selectedBuilding, setSelectedBuilding] =
