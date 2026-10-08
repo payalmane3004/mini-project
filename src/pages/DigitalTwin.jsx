@@ -1,4 +1,4 @@
-import {
+﻿import {
   Building2,
   RotateCcw,
   Maximize2,
@@ -207,7 +207,7 @@ function DigitalTwin() {
                   <span>Geometry</span>
 
                   <strong className="online-text">
-                    Exact CAD footprint
+                    Exact CAD footprint · illustrative height
                   </strong>
                 </div>
 
@@ -215,7 +215,7 @@ function DigitalTwin() {
                   <span>3D Height</span>
 
                   <strong>
-                    Not provided
+                    Temporary visualization only; not surveyed
                   </strong>
                 </div>
 
@@ -231,3 +231,4 @@ function DigitalTwin() {
 }
 
 export default DigitalTwin;
+
