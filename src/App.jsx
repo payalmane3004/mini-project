@@ -1,39 +1,40 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import AppLayout from "./components/layout/AppLayout";
 import StudentLayout from "./components/layout/StudentLayout";
 
-import Login from "./pages/login";
-
-// Admin pages
-import Dashboard from "./pages/Admin/Dashboard";
-import DigitalTwin from "./pages/Admin/DigitalTwin";
-import Buildings from "./pages/Admin/Buildings";
-import WorkspacePage from "./pages/Admin/WorkspacePage";
-import Occupancy from "./pages/Admin/Occupancy";
-import Energy from "./pages/Admin/Energy";
-import Maintenance from "./pages/Admin/Maintenance";
-import RoomBooking from "./pages/Admin/RoomBooking";
-import Analytics from "./pages/Admin/Analytics";
-import ScenarioLab from "./pages/Admin/ScenarioLab";
-import Predictions from "./pages/Admin/Predictions";
-import Alerts from "./pages/Admin/Alerts";
-import SettingsPage from "./pages/Admin/SettingsPage";
-import StudentBuildings from "./pages/Student/StudentBuildings";
-import StudentRooms from "./pages/Student/StudentRooms";
-
-// Student pages
-import StudentDashboard from "./pages/Student/StudentDashboard";
-import StudentMaintenance from "./pages/Student/StudentMaintenance";
-import StudentBooking from "./pages/Student/StudentBooking";
-import StudentEvents from "./pages/Student/StudentEvents";
-import StudentEmergency from "./pages/Student/StudentEmergency";
-import StudentProfile from "./pages/Student/StudentProfile";
-import StudentMap from "./pages/Student/StudentMap";
+const Login = lazy(() => import("./pages/login"));
+const Dashboard = lazy(() => import("./pages/Admin/Dashboard"));
+const DigitalTwin = lazy(() => import("./pages/Admin/DigitalTwin"));
+const Buildings = lazy(() => import("./pages/Admin/Buildings"));
+const WorkspacePage = lazy(() => import("./pages/Admin/WorkspacePage"));
+const Occupancy = lazy(() => import("./pages/Admin/Occupancy"));
+const Energy = lazy(() => import("./pages/Admin/Energy"));
+const Maintenance = lazy(() => import("./pages/Admin/Maintenance"));
+const RoomBooking = lazy(() => import("./pages/Admin/RoomBooking"));
+const Analytics = lazy(() => import("./pages/Admin/Analytics"));
+const ScenarioLab = lazy(() => import("./pages/Admin/ScenarioLab"));
+const Predictions = lazy(() => import("./pages/Admin/Predictions"));
+const Alerts = lazy(() => import("./pages/Admin/Alerts"));
+const SettingsPage = lazy(() => import("./pages/Admin/SettingsPage"));
+const StudentBuildings = lazy(() => import("./pages/Student/StudentBuildings"));
+const StudentRooms = lazy(() => import("./pages/Student/StudentRooms"));
+const MainBuildingInteriorPrototype = lazy(() => import("./pages/Admin/MainBuildingInteriorPrototype"));
+const BuildingExplorer = lazy(() => import("./pages/Admin/BuildingExplorer"));
+const Rooms = lazy(() => import("./pages/Admin/Rooms"));
+const StudentDashboard = lazy(() => import("./pages/Student/StudentDashboard"));
+const StudentMaintenance = lazy(() => import("./pages/Student/StudentMaintenance"));
+const StudentBooking = lazy(() => import("./pages/Student/StudentBooking"));
+const StudentEvents = lazy(() => import("./pages/Student/StudentEvents"));
+const StudentEmergency = lazy(() => import("./pages/Student/StudentEmergency"));
+const StudentProfile = lazy(() => import("./pages/Student/StudentProfile"));
+const StudentMap = lazy(() => import("./pages/Student/StudentMap"));
 
 function App() {
   return (
     <BrowserRouter>
+      <Suspense fallback={<main className="route-loading" role="status">Loading page…</main>}>
       <Routes>
         {/* Login: no sidebar or topbar */}
         <Route path="/login" element={<Login />} />
@@ -57,6 +58,21 @@ function App() {
           }
         />
 
+        {/* Standalone interior study; intentionally absent from the sidebar. */}
+        <Route
+          path="/building-explorer/:buildingId"
+          element={<AppLayout><BuildingExplorer /></AppLayout>}
+        />
+
+        <Route
+          path="/main-building-interior"
+          element={
+            <AppLayout>
+              <MainBuildingInteriorPrototype />
+            </AppLayout>
+          }
+        />
+
         <Route
           path="/buildings"
           element={
@@ -70,7 +86,7 @@ function App() {
           path="/rooms"
           element={
             <AppLayout>
-              <WorkspacePage page="rooms" />
+              <Rooms />
             </AppLayout>
           }
         />
@@ -188,6 +204,7 @@ function App() {
         {/* Unknown route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

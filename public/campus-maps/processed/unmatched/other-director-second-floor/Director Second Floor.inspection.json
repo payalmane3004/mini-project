@@ -1,0 +1,161 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/Director Second Floor.dwg",
+  "convertedDxf": "Director Second Floor.dxf",
+  "dxfUnitsCode": 4,
+  "modelSpaceEntityCount": 152,
+  "entityCounts": {
+    "LINE": 136,
+    "MTEXT": 16
+  },
+  "dimensionEntityCount": 0,
+  "dimensions": [],
+  "layers": {
+    "0": {
+      "LINE": 136,
+      "MTEXT": 16
+    }
+  },
+  "bounds": {
+    "minX": 3020.775520750657,
+    "minY": 803.8948716046962,
+    "maxX": 3036.071467718153,
+    "maxY": 827.1031787744696
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 3020.775520750657,
+    "minY": 803.8948716046962,
+    "maxX": 3036.071467718153,
+    "maxY": 827.1031787744696
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance Hall\\P5.13 m X 7.26 m",
+      "x": 3026.613174581742,
+      "y": 810.7166158952687
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room I\\P4.65 m X 4.65 m",
+      "x": 3031.564373786187,
+      "y": 808.6459188873991
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room II\\P4.65 m X 2.52 m",
+      "x": 3031.565993228547,
+      "y": 812.585913200779
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Common Passage\\P5.13 m X 4.0 m",
+      "x": 3026.574423639581,
+      "y": 816.2867660489328
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "\\pxi-3,l4,t4;Attach Toilet\\P3.30 m X 1.42 m",
+      "x": 3030.553711620405,
+      "y": 817.634798237671
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "\\pxi-3,l4,t4;Attach Toilet\\P3.30 m X 1.42 m",
+      "x": 3021.637047532413,
+      "y": 817.5919200591884
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Common Passage\\P4.0 m X 1.60 m",
+      "x": 3025.894662709387,
+      "y": 819.3589223972592
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room III\\P4.0 m X3.90 m",
+      "x": 3030.304606683256,
+      "y": 820.5097437668683
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room IV\\P4.0 m X 3.41 m",
+      "x": 3030.421004102809,
+      "y": 824.3037111298786
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room V\\P3.80 m X 2.85 m",
+      "x": 3022.049745066437,
+      "y": 820.0319623674272
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room VI\\P2.90 mX2.20 m",
+      "x": 3021.817514140294,
+      "y": 822.6540409148834
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room VI\\P3.80 m X 2.25 m",
+      "x": 3022.049051019713,
+      "y": 824.9191929007607
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Hall\\P4.0 m X 5.80 m",
+      "x": 3026.220589943443,
+      "y": 822.8083357071541
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance",
+      "x": 3021.776391871821,
+      "y": 807.117664472788
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Layout of Second Floor at Main Building (Over Director Office)",
+      "x": 3022.515537174946,
+      "y": 803.8948716046962
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "North",
+      "x": 3035.139885625271,
+      "y": 823.9245264015414
+    }
+  ],
+  "floorClues": [
+    "Layout of Second Floor at Main Building (Over Director Office)"
+  ],
+  "rendererSupportedEntities": [
+    "LINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 136,
+    "MTEXT": 16
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {},
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

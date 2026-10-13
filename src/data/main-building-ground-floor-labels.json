@@ -1,0 +1,133 @@
+{
+  "building": "Main Building",
+  "floor": "Ground Floor",
+  "source": "public/campus-maps/processed/main-building-converted.dxf",
+  "coordinateSystem": "converted DXF model space; local, uncalibrated",
+  "bounds": {
+    "xRange": [
+      -20.4321,
+      198.6996
+    ],
+    "yRange": [
+      30.3143,
+      86.7941
+    ]
+  },
+  "entityCounts": {
+    "total": 1955,
+    "LINE": 1873,
+    "LWPOLYLINE": 64,
+    "MTEXT": 18
+  },
+  "labels": [
+    {
+      "text": "R&D",
+      "x": 34.5519,
+      "y": 75.4119,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "(COMPUTER SCIENCE DEPT.)",
+      "x": 181.2031,
+      "y": 74.7289,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "UP",
+      "x": 44.2601,
+      "y": 62.4576,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "UP",
+      "x": 145.0728,
+      "y": 76.2509,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electrical/ PE Lab",
+      "x": 135.8759,
+      "y": 54.631,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electrical/ PE Lab",
+      "x": 135.9348,
+      "y": 45.1267,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Chemistry Lab/ CCF",
+      "x": -9.7184,
+      "y": 75.8387,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "(COMPUTER SCIENCE DEPT.)",
+      "x": 54.0348,
+      "y": 73.5046,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "(Electronics Dept.)",
+      "x": 102.8515,
+      "y": 72.3942,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "(Electronics Dept.)",
+      "x": 117.8725,
+      "y": 72.4051,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "P.G. Lab",
+      "x": 37.7285,
+      "y": 46.6358,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Office Entrance",
+      "x": 83.9214,
+      "y": 62.111,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Mech Comp Lab",
+      "x": 18.6553,
+      "y": 77.328,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Metallurgy Lab",
+      "x": -14.8283,
+      "y": 58.2423,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "R&D",
+      "x": 34.5143,
+      "y": 70.8733,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Conference Hall",
+      "x": 35.998,
+      "y": 58.9653,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Classroom N8",
+      "x": 38.4283,
+      "y": 73.8153,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 94.3049,
+      "y": 64.3088,
+      "sourceEntityType": "MTEXT"
+    }
+  ],
+  "associationStatus": "source annotations only; no room associations verified"
+}

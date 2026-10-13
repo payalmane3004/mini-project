@@ -1,0 +1,762 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/Physics NAC.dwg",
+  "convertedDxf": "Physics NAC.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 995,
+  "entityCounts": {
+    "CIRCLE": 1,
+    "DIMENSION": 8,
+    "HATCH": 1,
+    "LEADER": 5,
+    "LINE": 906,
+    "LWPOLYLINE": 3,
+    "MTEXT": 71
+  },
+  "dimensionEntityCount": 8,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.1,
+      "definitionPoints": [
+        {
+          "x": 58.9817877853589,
+          "y": 96.86589730338376
+        },
+        {
+          "x": 47.93445568173129,
+          "y": 96.62309410703095
+        },
+        {
+          "x": 36.85017540700897,
+          "y": 98.06140023228748
+        },
+        {
+          "x": 58.94483961426416,
+          "y": 98.54700662499309
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.09999999999999,
+      "definitionPoints": [
+        {
+          "x": 139.4186723606192,
+          "y": 116.3448829647563
+        },
+        {
+          "x": 140.6229193622795,
+          "y": 105.3606993738382
+        },
+        {
+          "x": 140.1556665618384,
+          "y": 94.19326150568654
+        },
+        {
+          "x": 137.747172558518,
+          "y": 116.1616286875226
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.09999999999999,
+      "definitionPoints": [
+        {
+          "x": 149.2305246510064,
+          "y": 40.44861668995985
+        },
+        {
+          "x": 150.4347716526666,
+          "y": 29.46443309904183
+        },
+        {
+          "x": 149.9675188522256,
+          "y": 18.29699523089013
+        },
+        {
+          "x": 147.5590248489052,
+          "y": 40.26536241272615
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.09999999999999,
+      "definitionPoints": [
+        {
+          "x": 273.6094756775005,
+          "y": 110.6157741019432
+        },
+        {
+          "x": 274.8137226791607,
+          "y": 99.6315905110252
+        },
+        {
+          "x": 274.3464698787196,
+          "y": 88.46415264287353
+        },
+        {
+          "x": 271.9379758753993,
+          "y": 110.4325198247095
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 8.92244642704145,
+      "definitionPoints": [
+        {
+          "x": 336.5148178107607,
+          "y": -38.39096960805435
+        },
+        {
+          "x": 332.5375843208788,
+          "y": -40.41189175594081
+        },
+        {
+          "x": 327.500196473445,
+          "y": -40.34639933327616
+        },
+        {
+          "x": 335.4546634532088,
+          "y": -36.30455503750327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 16.69952180108135,
+      "definitionPoints": [
+        {
+          "x": 351.6511146637595,
+          "y": -45.54754264419502
+        },
+        {
+          "x": 344.3065101152942,
+          "y": -41.5757305737592
+        },
+        {
+          "x": 337.6881753638747,
+          "y": -36.26091325529028
+        },
+        {
+          "x": 352.3773844608055,
+          "y": -44.20453739616192
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 7.842559894020212,
+      "definitionPoints": [
+        {
+          "x": 357.562560308371,
+          "y": -38.0927099113281
+        },
+        {
+          "x": 355.6972868938851,
+          "y": -41.54194047944557
+        },
+        {
+          "x": 352.3773844608055,
+          "y": -44.20453739616185
+        },
+        {
+          "x": 356.1079312897774,
+          "y": -37.30607625992702
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 3.267440105979773,
+      "definitionPoints": [
+        {
+          "x": 359.1093689055066,
+          "y": -35.21458210396659
+        },
+        {
+          "x": 358.3322413801234,
+          "y": -36.65163256266075
+        },
+        {
+          "x": 354.3486941964159,
+          "y": -36.3547167856267
+        },
+        {
+          "x": 355.9029492471822,
+          "y": -33.48061586823834
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 1,
+      "DIMENSION": 8,
+      "HATCH": 1,
+      "LINE": 901,
+      "LWPOLYLINE": 3,
+      "MTEXT": 51
+    },
+    "WALL": {
+      "MTEXT": 5
+    },
+    "window": {
+      "LEADER": 5,
+      "LINE": 5,
+      "MTEXT": 15
+    }
+  },
+  "bounds": {
+    "minX": 0.0,
+    "minY": -48.95478181902422,
+    "maxX": 359.1093689055066,
+    "maxY": 143.6654629641052
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 23.41768449960248,
+    "minY": -48.95478181902422,
+    "maxX": 357.2336975571486,
+    "maxY": 143.6654629641052
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Canteen\\P5.42 X 7.65}",
+      "x": 31.09238407948274,
+      "y": 109.5344059075896
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics\\P15.26 X 7.65}",
+      "x": 47.92596123405828,
+      "y": 102.8628019466712
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Department}",
+      "x": 36.59360502254387,
+      "y": 92.06446324773287
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Canteen\\P5.42 X 7.65}",
+      "x": 131.4468734901504,
+      "y": 86.79299689169098
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics\\P15.35 X 7.65}",
+      "x": 136.9900582805999,
+      "y": 104.6597511643337
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 101.0291835315628,
+      "y": 122.4690216244856
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Department}",
+      "x": 117.5804592669056,
+      "y": 77.02471260261865
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 160.4722412055915,
+      "y": 114.4227395993419
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 159.4078437757014,
+      "y": 111.5942957594302
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 157.9987578386508,
+      "y": 112.6095138954356
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 157.3092769746251,
+      "y": 110.5039034395123
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD\\P3.66 X 3.10}",
+      "x": 135.1952310475113,
+      "y": 96.04377414887466
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dark room\\P3.86 X 4.58}",
+      "x": 138.9721454330125,
+      "y": 96.84289710968474
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Diploma Faculty\\P3.10 X 3.10}",
+      "x": 134.0029780992378,
+      "y": 114.3738002725775
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Diploma Faculty\\P3.00 X 3.10}",
+      "x": 137.3489085459577,
+      "y": 114.5901895336215
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty Cabin\\P3.05 X 5.35}",
+      "x": 134.0546951051864,
+      "y": 91.66711261311231
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3 X 6}",
+      "x": 143.6626382584105,
+      "y": 15.30416427997663
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Canteen\\P5.42 X 7.65}",
+      "x": 141.2587257805376,
+      "y": 10.89673061689457
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics\\P10.58 X 7.65}",
+      "x": 146.8019105709871,
+      "y": 28.76348488953727
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dip Lab\\P7.65 X 3.10}",
+      "x": 145.2364777436736,
+      "y": 38.45688957417107
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 110.84103582195,
+      "y": 46.57275534968917
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Department}",
+      "x": 127.3923115572929,
+      "y": 1.128446327822246
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 170.5303365471053,
+      "y": 37.99828202856369
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 167.5449429352501,
+      "y": 37.52874882783618
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 167.7328580326902,
+      "y": 39.25527104252737
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 165.5611726597,
+      "y": 38.81622446790067
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty cabin\\P3.70 X 2.96}",
+      "x": 142.9145284314667,
+      "y": 35.24401843973246
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty cabin\\P3.70 X 2.96}",
+      "x": 147.5700163096872,
+      "y": 35.6217627750441
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD\\P3.87 X 3.87}",
+      "x": 145.0070833378985,
+      "y": 20.14750787407826
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dark room\\P3.65 X 5.85}",
+      "x": 148.7839977233997,
+      "y": 20.94663083488834
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3 X 6}",
+      "x": 268.0415892849046,
+      "y": 85.47132169196003
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Canteen\\P5.42 X 7.65}",
+      "x": 265.6376768070317,
+      "y": 81.06388802887797
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics\\P10.58 X 7.65}",
+      "x": 271.1808615974812,
+      "y": 98.93064230152066
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dip Lab\\P7.65 X 3.10}",
+      "x": 269.6154287701676,
+      "y": 108.6240469861545
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 235.2199868484441,
+      "y": 116.7399127616726
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Department}",
+      "x": 251.7712625837869,
+      "y": 71.29560373980564
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty cabin\\P3.70 X 2.96}",
+      "x": 267.2934794579608,
+      "y": 105.4111758517159
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty cabin\\P3.70 X 2.96}",
+      "x": 271.9489673361812,
+      "y": 105.7889201870275
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD\\P3.87 X 3.87}",
+      "x": 269.3860343643926,
+      "y": 90.31466528606165
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dark room\\P3.65 X 5.85}",
+      "x": 273.1629487498938,
+      "y": 91.11378824687174
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Lab\\P7.65 X 3.10}",
+      "x": 57.69545697168085,
+      "y": 101.6992828699159
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dark Room\\P5.20 X 3.10}",
+      "x": 54.60831404716408,
+      "y": 101.9348494400601
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD\\P4.25 X 3.65}",
+      "x": 40.29189563007814,
+      "y": 104.4628830310717
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty\\P3.28 X 3.65}",
+      "x": 40.04871792700915,
+      "y": 100.2669121842362
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty\\P3.10 X 4.10}",
+      "x": 35.94850483233392,
+      "y": 105.1533797079653
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Faculty\\P2.40 X3.10}",
+      "x": 54.33706955544536,
+      "y": 99.30553459901022
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Boys\\P15.26 X 7.65}",
+      "x": 347.6424317819055,
+      "y": -32.80472939960728
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Kitchen\\P3 X 4.75}",
+      "x": 340.7266821766029,
+      "y": -27.78153946624251
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3.5 X 5}",
+      "x": 337.7539907922582,
+      "y": -25.9330883772971
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3 X 6}",
+      "x": 334.0116446979872,
+      "y": -25.94137656021383
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Counter\\P4.5 X 6}",
+      "x": 337.2577273872807,
+      "y": -31.08077749550377
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff\\P9.15 X 7.65}",
+      "x": 331.6370871139216,
+      "y": -30.35901575396475
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha 3 m wide}",
+      "x": 338.993005258786,
+      "y": -34.7005675704207
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Canteen}",
+      "x": 332.7402472543981,
+      "y": -45.50052099542105
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Dark Room\\P3.5 X 7.65}",
+      "x": 262.0567249346441,
+      "y": 76.22579934506618
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Lab\\P3.5 X 7.65}",
+      "x": 28.94762309615094,
+      "y": 114.1208178899645
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 288.9416799628288,
+      "y": 107.9915957763031
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 285.9562863509736,
+      "y": 107.5220625755756
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 286.1442014484138,
+      "y": 109.2485847902668
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 283.9725160754236,
+      "y": 108.8095382156401
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 64.57318697125147,
+      "y": 105.1675248740463
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 62.17105141782001,
+      "y": 107.0013136370262
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 63.54902686186219,
+      "y": 108.0583731042677
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 61.73114674782244,
+      "y": 109.3249792565226
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Scale - 1: 100, Bup Area = 220 Sqm}",
+      "x": 49.20455057017509,
+      "y": 89.80816101231773
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Scale - 1: 100, Bup Area = 238 Sqm}",
+      "x": 340.2545625347092,
+      "y": -48.95478181902422
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;You are here}",
+      "x": 337.9400351628958,
+      "y": -40.17958500347648
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 357.2336975571486,
+      "y": -22.55442587088237
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 354.8315620037171,
+      "y": -20.72063710790241
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 356.2095374477593,
+      "y": -19.6635776406609
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 354.3916573337195,
+      "y": -18.39697148840598
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 1,
+    "LINE": 906,
+    "LWPOLYLINE": 3,
+    "MTEXT": 71
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 8,
+    "HATCH": 1,
+    "LEADER": 5
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

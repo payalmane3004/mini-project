@@ -1,0 +1,288 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "academic/IT NAC.dwg",
+  "convertedDxf": "IT NAC.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 658,
+  "entityCounts": {
+    "CIRCLE": 2,
+    "HATCH": 2,
+    "LEADER": 2,
+    "LINE": 597,
+    "LWPOLYLINE": 24,
+    "MTEXT": 31
+  },
+  "dimensionEntityCount": 0,
+  "dimensions": [],
+  "layers": {
+    "0": {
+      "CIRCLE": 2,
+      "HATCH": 2,
+      "LINE": 26
+    },
+    "TEXT": {
+      "MTEXT": 3
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 2,
+      "LINE": 571,
+      "LWPOLYLINE": 24,
+      "MTEXT": 27
+    }
+  },
+  "bounds": {
+    "minX": 0.0,
+    "minY": -3.79531240304356,
+    "maxX": 105.9598910733883,
+    "maxY": 166.829689210413
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 2.611057735005524,
+    "minY": 117.9838800417929,
+    "maxX": 77.6702725352773,
+    "maxY": 166.7985352995452
+  },
+  "sourceText": [
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HOD\\P3.23 X 4.50}",
+      "x": 36.51358693741438,
+      "y": 160.6719587351359
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LMain Building}",
+      "x": 105.9598910733883,
+      "y": -3.79531240304356
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Office",
+      "x": 60.80454088109803,
+      "y": 158.3858580740262
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Waiting\\P3.23 X 4.50}",
+      "x": 36.49904731477639,
+      "y": 156.3309477325263
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Microprocessor\\PLab \\P4.30 X 9.15}",
+      "x": 40.61888010310295,
+      "y": 154.9147354520863
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P2.75 X 2.85}",
+      "x": 36.78398240090727,
+      "y": 120.7358629010795
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P2.75 X 2.85}",
+      "x": 39.95920345324297,
+      "y": 120.7585449851727
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.10 X 2.85}",
+      "x": 43.22417091707465,
+      "y": 120.7695255196028
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.1 X 4.57}",
+      "x": 36.89997294064236,
+      "y": 127.0724598066617
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Discussion Room\\P5.80 X 3.66}",
+      "x": 41.29465888340841,
+      "y": 127.2127643465527
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Program Lab\\P9.15 X 4.26}",
+      "x": 39.11392455750823,
+      "y": 132.1560548345959
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Unix Lab\\P9.15 X 4.26}",
+      "x": 38.7931178271488,
+      "y": 137.7696893398168
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Seminar Hall\\P9.15 X 6.40}",
+      "x": 37.95485466536964,
+      "y": 144.8563633707054
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P4.30 x 3.45}",
+      "x": 36.98712683140198,
+      "y": 149.4300287847302
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;IT  Board Room\\P7.0 X 9.15}",
+      "x": 47.51788151430541,
+      "y": 158.8622152040636
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;IT - Classroom 1  \\P10.65 X 7.65}",
+      "x": 22.47569602678235,
+      "y": 162.3291098615047
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;IT - PG 2 Lab\\P8.10 X 5.10}",
+      "x": 12.90190297329358,
+      "y": 160.0594074659666
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fSwis721 BT|b0|i0|c0|p34;IT Department}",
+      "x": 20.02195864801962,
+      "y": 108.6515085019179
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fSwis721 BT|b0|i0|c0|p34;Scale - 1: 100, Bup Area - 381 Sqm}",
+      "x": 42.74281267109774,
+      "y": 105.4981541575411
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 47.67450924195072,
+      "y": 123.8229476073188
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 38.88070264823131,
+      "y": 152.0307201078855
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;P.G. 1 Lab\\P2.45 X 7.65}",
+      "x": 8.47367339452242,
+      "y": 162.7234947921456
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 77.0303619369863,
+      "y": 161.7685380134733
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 75.9428815870043,
+      "y": 164.5881874478346
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 77.6702725352773,
+      "y": 164.7679415951932
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 76.78389312340185,
+      "y": 166.7985352995452
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Project Lab\\P9.15 X 2.26}",
+      "x": 38.45214285116177,
+      "y": 141.297254136829
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P2.45X2.45}",
+      "x": 44.24718228675054,
+      "y": 161.6250247192577
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.75X2.45}",
+      "x": 11.51931646178625,
+      "y": 164.6266255266833
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.75X2.45}",
+      "x": 15.50842111506606,
+      "y": 164.6792856519919
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;CCF - II}",
+      "x": 2.611057735005524,
+      "y": 161.5013525208556
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 2,
+    "LINE": 597,
+    "LWPOLYLINE": 24,
+    "MTEXT": 28
+  },
+  "rendererFilteredTextEntityCount": 3,
+  "rendererOmittedEntityTypes": {
+    "HATCH": 2,
+    "LEADER": 2
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

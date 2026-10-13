@@ -1,0 +1,57 @@
+{
+  "reviewedAgainst": "src/data/wce-building-labels.json and source CAD text in each inspection report",
+  "verifiedAssociations": [
+    {
+      "buildingId": "BU-004",
+      "sourceDwg": "library/New library  GF.dwg",
+      "evidence": "Source titles identify the New Library Building and name its ground and first floor plans; campus CAD identifies BU-004 as Central Library.",
+      "floorSupport": "Ground and first floor plan labels are explicit. The source is one combined drawing and has not been split into floor geometries.",
+      "roomSupport": "Room and facility labels are source annotations; no verified room-to-boundary mapping is available."
+    },
+    {
+      "buildingId": "BU-013",
+      "sourceDwg": "other/Canteen.dwg",
+      "evidence": "Source CAD labels Canteen, Physics, and Maths, matching the label group assigned to BU-013.",
+      "floorSupport": "No floor grouping is identified.",
+      "roomSupport": "Source labels are searchable; no verified room-to-boundary mapping is available."
+    },
+    {
+      "buildingId": "BU-039",
+      "sourceDwg": "other/exam hall with toilet.dwg",
+      "evidence": "Source CAD labels Examination Cell at W.C.E., Sangli; campus CAD identifies BU-039 as Exam / Cell.",
+      "floorSupport": "Ground and first floor labels are explicit. The source is combined and has not been split into floor geometries.",
+      "roomSupport": "Named rooms are CAD annotations; no verified room-to-boundary mapping is available."
+    },
+    {
+      "buildingId": "BU-044",
+      "sourceDwg": "other/Ladies Gymkhana.dwg",
+      "evidence": "Source title and labels identify Ladies Gymkhana; campus CAD labels BU-044 as Gymkhana, with no competing Gymkhana ID.",
+      "floorSupport": "The drawing includes layouts and a rafter plan, but no reliable selectable floor grouping.",
+      "roomSupport": "Source labels are searchable; no verified room-to-boundary mapping is available."
+    }
+  ],
+  "stillUnmatched": [
+    { "sourceDwg": "academic/Civil Department.dwg", "reason": "Civil is a sub-label of BU-003, which already has a verified Mechanical Department drawing; BU-005 is specifically Civil Drg Hall. This source does not disambiguate those footprints." },
+    { "sourceDwg": "academic/clasrroms at old library.dwg", "reason": "The drawing combines proposed plans for Old Library classrooms, a research center, and a Mechanical Department laboratory; no single campus footprint is established." },
+    { "sourceDwg": "academic/Computer deptt NAC.dwg", "reason": "The source identifies Computer Science and Engineering and also references Electronics; neither has a matching unique campus building label." },
+    { "sourceDwg": "academic/Electronics depttdwg.dwg", "reason": "Electronics Department is not a campus label; it cannot be conflated with the distinct Electrical Department BU-007." },
+    { "sourceDwg": "academic/IT NAC.dwg", "reason": "The source is an IT Department plan and includes a Main Building reference, but no unique campus ID or footprint match is supported." },
+    { "sourceDwg": "hostels/D5-D8 hostel Hostel.dwg", "reason": "The source combines D5/D8 and D6/D7 hostel plans; separating it among four campus IDs would require geometry grouping not established by the source report." },
+    { "sourceDwg": "library/old library.dwg", "reason": "The drawing identifies Mathematics Department at Old Library; it does not match the Central Library label assigned to BU-004 or another unique campus ID." },
+    { "sourceDwg": "other/APM NAC.dwg", "reason": "The drawing contains APM, Quadrangle basement, and Sathe Hall content, spanning multiple campus labels without one supported footprint." },
+    { "sourceDwg": "other/Boys mess.dwg", "reason": "The drawing identifies Boys Mess; the campus label inventory has Old Mess BU-006, which is not a verified match." },
+    { "sourceDwg": "other/CCF NAC.dwg", "reason": "The source references Main Building and learning halls but no distinct campus building ID; Main Building remains outside this integration pass." },
+    { "sourceDwg": "other/Central store.dwg", "reason": "Source text describes Barve Mess and proposed Diploma CCF layouts; no unique matching campus label is supported." },
+    { "sourceDwg": "other/college land.dwg", "reason": "This is a campus/site drawing with many building labels, not a single building plan suitable for one explorer association." },
+    { "sourceDwg": "other/Director cabin layout.dwg", "reason": "The source describes administrative office cabins, not the separately identified Director Bungalow BU-040." },
+    { "sourceDwg": "other/Director Second Floor.dwg", "reason": "The drawing explicitly describes a second floor over Director Office in Main Building; integrating it would modify the protected Main Building explorer." },
+    { "sourceDwg": "other/Ladies mess.dwg", "reason": "Campus CAD has two Ladies Mess IDs, BU-054 and BU-043; the source does not identify which footprint it represents." },
+    { "sourceDwg": "other/Mini CCF computer laboratory.dwg", "reason": "The drawing combines multiple proposed Computer Department labs and cabin layouts without a unique campus building association." },
+    { "sourceDwg": "other/Old rector office to ladies hostel.dwg", "reason": "The source combines Ladies Gymkhana and Old Rector Office renovation layouts; the geometry is not isolated to one ID." },
+    { "sourceDwg": "other/Physics NAC.dwg", "reason": "Physics matches a BU-013 label, but BU-013 now has a verified combined Canteen/Physics/Maths source; adding this separate plan would conflict with the single-plan association." },
+    { "sourceDwg": "other/Quadrangle NAC.dwg", "reason": "The source includes Quadrangle/Tilak Hall plus APM and Sathe Hall content; BU-001 already has a verified Tilak Hall plan and the combined geometry is not separable by ID." },
+    { "sourceDwg": "other/Rector office.dwg", "reason": "The source describes Rector Office renovations while BU-029 is labeled Old Rector Office and another source also contains that plan; a unique current footprint is not established." },
+    { "sourceDwg": "other/Sathe hall.dwg", "reason": "The source identifies Sathe Hall and references Tilak Hall, but no unique Sathe Hall campus building ID is present." }
+  ],
+  "floorAndRoomPolicy": "Explicit floor titles are reported as source clues only. Combined drawings remain one source view unless floor geometry can be isolated without inference. CAD text is searchable annotation, not a verified room record or room center."
+}

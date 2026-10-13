@@ -1,0 +1,478 @@
+{
+  "buildingId": "BU-001",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "public/campus-maps/other/Tilak hall NAC.dwg",
+  "convertedDxf": "BU-001-tilak-hall-nac.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 609,
+  "entityCounts": {
+    "CIRCLE": 1,
+    "DIMENSION": 10,
+    "HATCH": 1,
+    "INSERT": 347,
+    "LEADER": 1,
+    "LINE": 208,
+    "LWPOLYLINE": 21,
+    "MTEXT": 20
+  },
+  "dimensionEntityCount": 10,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.81729555655096,
+      "definitionPoints": [
+        {
+          "x": 122.8295515706357,
+          "y": 30.08414140302643
+        },
+        {
+          "x": 121.4209037923602,
+          "y": 30.08414140302643
+        },
+        {
+          "x": 120.0122560140847,
+          "y": 29.45894439271175
+        },
+        {
+          "x": 122.8295515706357,
+          "y": 29.45894439271178
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.86999999999999,
+      "definitionPoints": [
+        {
+          "x": 122.3228707972719,
+          "y": 29.45894439271178
+        },
+        {
+          "x": 122.3228707972719,
+          "y": 30.89394439271179
+        },
+        {
+          "x": 122.8295515706357,
+          "y": 32.32894439271177
+        },
+        {
+          "x": 122.8295515706357,
+          "y": 29.45894439271178
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 0.9000000000000057,
+      "definitionPoints": [
+        {
+          "x": 124.5466574565955,
+          "y": 31.42894439271178
+        },
+        {
+          "x": 124.5466574565955,
+          "y": 31.87894439271182
+        },
+        {
+          "x": 124.2622560140844,
+          "y": 32.32894439271178
+        },
+        {
+          "x": 124.5363560140519,
+          "y": 31.42894439271178
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 1.500000000000085,
+      "definitionPoints": [
+        {
+          "x": 123.79196093718,
+          "y": 23.87894439271168
+        },
+        {
+          "x": 123.79196093718,
+          "y": 24.59924803080528
+        },
+        {
+          "x": 124.5339115432032,
+          "y": 25.37894439271177
+        },
+        {
+          "x": 124.3806734094853,
+          "y": 23.87894439271168
+        }
+      ]
+    },
+    {
+      "layer": "staircase",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 0.9007655242775172,
+      "definitionPoints": [
+        {
+          "x": 125.1630215383634,
+          "y": 16.24151058290414
+        },
+        {
+          "x": 124.7126387762246,
+          "y": 16.24151058290414
+        },
+        {
+          "x": 124.2622560140859,
+          "y": 16.4249402327461
+        },
+        {
+          "x": 125.1630215383634,
+          "y": 16.52894439271165
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 0.9006425621477945,
+      "definitionPoints": [
+        {
+          "x": 128.7071065906747,
+          "y": 16.93130290439733
+        },
+        {
+          "x": 128.7071065906747,
+          "y": 17.38162418547124
+        },
+        {
+          "x": 128.9875792517064,
+          "y": 17.83194546654512
+        },
+        {
+          "x": 128.713489901414,
+          "y": 16.93130290439733
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 25.70407882897776,
+      "definitionPoints": [
+        {
+          "x": 145.2663348430622,
+          "y": 35.73698178730012
+        },
+        {
+          "x": 132.4142954285733,
+          "y": 35.73698178730012
+        },
+        {
+          "x": 119.5622560140844,
+          "y": 32.72894439271173
+        },
+        {
+          "x": 145.2663348430622,
+          "y": 32.72894439271173
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   161",
+      "textOverride": null,
+      "measurement": 16.20000000000013,
+      "definitionPoints": [
+        {
+          "x": 146.9248566050236,
+          "y": 32.72894439271173
+        },
+        {
+          "x": 146.9248566050236,
+          "y": 25.2789443927117
+        },
+        {
+          "x": 145.2663348430622,
+          "y": 16.5289443927116
+        },
+        {
+          "x": 145.2663348430621,
+          "y": 32.72894439271173
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 28.65425226300711,
+      "definitionPoints": [
+        {
+          "x": 116.6253290335401,
+          "y": 36.58603041166343
+        },
+        {
+          "x": 130.9523684480295,
+          "y": 36.53618260649695
+        },
+        {
+          "x": 145.2663348430621,
+          "y": 32.72894439271173
+        },
+        {
+          "x": 116.6122560140833,
+          "y": 32.82864000304471
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 19.80000000028923,
+      "definitionPoints": [
+        {
+          "x": 148.9523834121298,
+          "y": 14.72894439242251
+        },
+        {
+          "x": 148.9523834121298,
+          "y": 24.62894439256715
+        },
+        {
+          "x": 145.2663348430621,
+          "y": 34.52894439271174
+        },
+        {
+          "x": 145.2663348545701,
+          "y": 14.72894439242251
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 1,
+      "DIMENSION": 9,
+      "HATCH": 1,
+      "LINE": 73,
+      "LWPOLYLINE": 1,
+      "MTEXT": 1
+    },
+    "COLUMN": {
+      "LWPOLYLINE": 16
+    },
+    "DOOR": {
+      "INSERT": 8
+    },
+    "FUR": {
+      "LINE": 13,
+      "LWPOLYLINE": 4
+    },
+    "FURN": {
+      "INSERT": 337,
+      "LINE": 27
+    },
+    "TEXT": {
+      "LEADER": 1,
+      "MTEXT": 19
+    },
+    "WALL": {
+      "INSERT": 2,
+      "LINE": 41
+    },
+    "hatch-1": {
+      "LINE": 38
+    },
+    "staircase": {
+      "DIMENSION": 1,
+      "LINE": 16
+    }
+  },
+  "bounds": {
+    "minX": 0.0,
+    "minY": -57283.4821605929,
+    "maxX": 448180.2673223479,
+    "maxY": 57332.74070294985
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 115.9798369462556,
+    "minY": 11.70320026945186,
+    "maxX": 145.7638504891693,
+    "maxY": 35.27894439271174
+  },
+  "sourceText": [
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "STAGE\\P5.75 m X 7.80 m",
+      "x": 141.0699840698337,
+      "y": 24.09277099884347
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "1.80  m WIDE PASSAGE",
+      "x": 130.6590751989145,
+      "y": 15.64123936740815
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "1.80 m WIDE PASSAGE",
+      "x": 130.7725044574202,
+      "y": 33.55293600774085
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\H0.7143x;0.2X0.2M\\PCOLUMN}",
+      "x": 140.1328255040706,
+      "y": 13.54892878918455
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "2.5M WIDE PASSAGE",
+      "x": 118.0877518755006,
+      "y": 25.01932567371311
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Ground floor seating  capcity of Hall 264 + 30 + 48 =342 Seats}",
+      "x": 130.8737428674318,
+      "y": 24.25023099577346
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "+ 0.98",
+      "x": 140.7666935295159,
+      "y": 25.79784843835831
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "GREEN ROOM\\P6.05 m X 3.57 m",
+      "x": 142.3082733455241,
+      "y": 18.65003642573064
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "GREEN ROOM\\P6.05 m X 3.57 m",
+      "x": 142.2638265370933,
+      "y": 30.81868326921447
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "0.40 X 0.40 \\PColumn",
+      "x": 142.4470202842593,
+      "y": 19.85464602591814
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "0.40 X 0.40 \\PColumn",
+      "x": 142.3559564185414,
+      "y": 29.09918290243773
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Seating capcity \\P15 Seats}",
+      "x": 121.4480282868877,
+      "y": 27.14064578983312
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "1.90  m",
+      "x": 136.9429428955364,
+      "y": 26.30127239692394
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "1.50 m",
+      "x": 123.7841671473474,
+      "y": 22.02250467790277
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Seating capcity \\P15 Seats}",
+      "x": 121.5449169763974,
+      "y": 22.23809767063802
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "Hall\\P18.48 X 15.40",
+      "x": 130.2038262231435,
+      "y": 25.00987271375518
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;100 mm thick RCC Parapet with railing}",
+      "x": 121.8442961143195,
+      "y": 25.77484954913968
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 121.2737802792813,
+      "y": 24.69111220235411
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "TILAK HALL",
+      "x": 129.8623372118816,
+      "y": 11.70320026945186
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "Scale - 1:100, Bup AreA = 466 SQM",
+      "x": 133.2945079907117,
+      "y": 10.67128160048052
+    }
+  ],
+  "floorClues": [
+    "{\\fVerdana|b1|i0|c0|p34;Ground floor seating  capcity of Hall 264 + 30 + 48 =342 Seats}"
+  ],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 1,
+    "LINE": 208,
+    "LWPOLYLINE": 21,
+    "MTEXT": 19
+  },
+  "rendererFilteredTextEntityCount": 1,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 10,
+    "HATCH": 1,
+    "INSERT": 347,
+    "LEADER": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

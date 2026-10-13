@@ -1,0 +1,257 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/Director cabin layout.dwg",
+  "convertedDxf": "Director cabin layout.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 255,
+  "entityCounts": {
+    "CIRCLE": 19,
+    "DIMENSION": 2,
+    "HATCH": 1,
+    "INSERT": 12,
+    "LINE": 192,
+    "LWPOLYLINE": 1,
+    "TEXT": 26,
+    "VIEWPORT": 2
+  },
+  "dimensionEntityCount": 2,
+  "dimensions": [
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 162.0,
+      "definitionPoints": [
+        {
+          "x": 3571.076965852739,
+          "y": -1330.456087023759
+        },
+        {
+          "x": 3490.076965852739,
+          "y": -1323.074985732121
+        },
+        {
+          "x": 3409.076965852739,
+          "y": -1309.841429362131
+        },
+        {
+          "x": 3571.076965852739,
+          "y": -1309.841429362131
+        }
+      ]
+    },
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 65.99999999999977,
+      "definitionPoints": [
+        {
+          "x": 3174.921454991997,
+          "y": -1309.841429362131
+        },
+        {
+          "x": 3167.540353700359,
+          "y": -1342.841429362131
+        },
+        {
+          "x": 3157.076965852739,
+          "y": -1375.841429362131
+        },
+        {
+          "x": 3157.076965852739,
+          "y": -1309.841429362131
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 1,
+      "HATCH": 1,
+      "LINE": 4,
+      "TEXT": 1,
+      "VIEWPORT": 1
+    },
+    "DOOR": {
+      "INSERT": 12,
+      "LINE": 53
+    },
+    "FURN": {
+      "CIRCLE": 18
+    },
+    "HATCH": {
+      "TEXT": 2
+    },
+    "TEXT": {
+      "TEXT": 17
+    },
+    "TXT": {
+      "TEXT": 6
+    },
+    "WALL": {
+      "DIMENSION": 2,
+      "LINE": 135,
+      "LWPOLYLINE": 1
+    },
+    "gril": {
+      "VIEWPORT": 1
+    }
+  },
+  "bounds": {
+    "minX": -1699.277050041817,
+    "minY": -2726.395353462937,
+    "maxX": 7326.406691675293,
+    "maxY": 3.999999883606677
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 2889.145310414722,
+    "minY": -2663.682858724262,
+    "maxX": 7326.406691675293,
+    "maxY": -737.2496532652136
+  },
+  "sourceText": [
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "17'0\" X 14'7\"",
+      "x": 3500.199929747526,
+      "y": -1104.617400406582
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "DEPUTY DIRECTOR",
+      "x": 3476.232995247213,
+      "y": -1088.816665058778
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "21'3\" X 24'2\"",
+      "x": 3207.781856751072,
+      "y": -1104.660338474209
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "DIRECTOR",
+      "x": 3211.426338800103,
+      "y": -1089.491632540317
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "23'3\" X 29'6\"",
+      "x": 3741.886419434664,
+      "y": -1104.834858795691
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "CONFERANCE HALL",
+      "x": 3724.220062108343,
+      "y": -1089.034123447887
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "REVISED LAYOUT OF CABINS IN ADMINISTRATIVE OFFICE",
+      "x": 3025.431282575528,
+      "y": -1538.92328397435
+    },
+    {
+      "layer": "0",
+      "type": "TEXT",
+      "text": "N",
+      "x": 3676.566142739911,
+      "y": -1491.507078233825
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "* WALL THK. 22\"",
+      "x": 3027.759449557247,
+      "y": -1574.900654624727
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "TOILET",
+      "x": 3093.39775143181,
+      "y": -1333.323454004293
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "5'0\"X9'6\"",
+      "x": 3120.087305459478,
+      "y": -1345.739262439687
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "TOILET",
+      "x": 3673.379225051819,
+      "y": -1320.392864997564
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "4'0\"X7'0\"",
+      "x": 3663.891282390959,
+      "y": -1338.938683661981
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "PANTRY",
+      "x": 2996.441949023382,
+      "y": -1333.323454004293
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "5'0\"X9'6\"",
+      "x": 3017.076965852739,
+      "y": -1330.291075006876
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "WAITING FOR DIRECTOR",
+      "x": 2970.059243298755,
+      "y": -1064.940586019416
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "WAITING",
+      "x": 3472.789992689862,
+      "y": -1230.845543010014
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "TEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 19,
+    "LINE": 192,
+    "LWPOLYLINE": 1,
+    "TEXT": 17
+  },
+  "rendererFilteredTextEntityCount": 9,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 2,
+    "HATCH": 1,
+    "INSERT": 12,
+    "VIEWPORT": 2
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

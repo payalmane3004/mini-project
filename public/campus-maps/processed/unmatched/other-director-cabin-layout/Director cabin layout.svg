@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4659.124450" height="2148.296275" viewBox="2778.213776 626.318119 4659.124450 2148.296275" role="img" aria-labelledby="title description">
+<title id="title">CAD drawing: Director cabin layout</title>
+<desc id="description">Source-coordinate rendering of lines, polylines, circles, arcs, ellipses, and nearby source text. Dimensions, block inserts, and unsupported entities are excluded.</desc>
+<rect x="2778.213776" y="626.318119" width="4659.124450" height="2148.296275" fill="#fff"/>
+<g transform="scale(1 -1)" fill="none" stroke="#18212b" stroke-width="3.771672" stroke-linecap="round" stroke-linejoin="round">
+<path data-entity="LINE" data-layer="WALL" d="M2970.059243,-1353.841429 L3017.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3926.076966,-1353.841429 L3926.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2970.059243,-995.841429 L3051.795118,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-973.841429 L3051.795118,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3930.076966,-1375.841429 L3930.076966,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1375.841429 L3017.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3762.708254,-1307.806862 L3762.708254,-1295.496908"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1375.841429 L3625.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3772.198601,-1317.752571 L3772.198601,-1287.793928"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1375.841429 L3157.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-1353.841429 L3135.076966,-1276.569271"/>
+<path data-entity="LINE" data-layer="WALL" d="M3006.608284,-1179.574053 L3157.076966,-1179.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1154.173721 L3625.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.076966,-1168.254479 L3647.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1168.254479 L3561.180184,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-1157.841429 L3135.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1179.841429 L3157.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3006.608284,-1157.841429 L3135.076966,-1157.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1239.841429 L3053.076966,-1239.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-995.841429 L3197.808308,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1287.841429 L3163.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1375.841429 L3679.096220,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.076966,-1353.841429 L3679.096220,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1309.841429 L3163.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3075.076966,-1375.841429 L3075.076966,-1239.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3053.076966,-1375.841429 L3053.076966,-1239.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1239.841429 L3157.076966,-1217.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3409.076966,-1309.841429 L3409.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3373.076966,-1309.841429 L3373.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3409.076966,-1309.841429 L3583.038254,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3409.076966,-1287.841429 L3437.396440,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3211.076966,-1309.841429 L3211.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3583.038254,-1309.841429 L3583.038254,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3620.076966,-1309.841429 L3620.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3620.076966,-1309.841429 L3625.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3163.076966,-1309.841429 L3163.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3211.076966,-1309.841429 L3373.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3211.076966,-1287.841429 L3373.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3211.076966,-1309.841429 L3163.076966,-1309.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3211.076966,-1287.841429 L3163.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3211.076966,-1296.660268 L3163.076966,-1296.660268"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3211.076966,-1301.913999 L3163.076966,-1301.913999"/>
+<path data-entity="LINE" data-layer="WALL" d="M3715.150883,-1375.841429 L3715.150883,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3715.150883,-1353.841429 L3837.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3715.150883,-1375.841429 L3837.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3694.329726,-995.841429 L3694.329726,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3742.329726,-995.841429 L3742.329726,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3742.329726,-995.841429 L3694.329726,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3742.329726,-973.841429 L3694.329726,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3742.329726,-982.156022 L3694.329726,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3742.329726,-988.202510 L3694.329726,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.076966,-995.841429 L3694.329726,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3878.824206,-995.841429 L3878.824206,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3830.824206,-995.841429 L3830.824206,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3830.824206,-995.841429 L3878.824206,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3830.824206,-973.841429 L3878.824206,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3830.824206,-982.156022 L3878.824206,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3830.824206,-988.202510 L3878.824206,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3742.329726,-995.841429 L3830.824206,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3742.329726,-973.841429 L3830.824206,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3878.824206,-973.841429 L3930.076966,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3878.824206,-995.841429 L3926.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3885.076966,-1375.841429 L3930.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3885.076966,-1353.841429 L3926.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3837.076966,-1353.841429 L3837.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3885.076966,-1375.841429 L3885.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3885.076966,-1375.841429 L3885.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3401.675667,-991.013390 L3418.965140,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3419.675667,-1008.776548 L3419.675667,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3418.965140,-1008.761095 L3418.965140,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3418.965140,-1008.761095 L3419.675667,-1008.776548"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3401.675667,-991.013390 L3418.965140,-1008.761095"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3418.728298,-991.013390 L3419.675667,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3401.675667,-991.013390 L3384.386193,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3383.675667,-1008.776548 L3383.675667,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3384.386193,-1008.761095 L3384.386193,-991.013390"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3384.386193,-1008.761095 L3383.675667,-1008.776548"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3401.675667,-991.013390 L3384.386193,-1008.761095"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3384.623035,-991.013390 L3383.675667,-991.013390"/>
+<path data-entity="LINE" data-layer="WALL" d="M3419.675667,-973.841429 L3419.675667,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3383.675667,-995.841429 L3383.675667,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3383.675667,-995.841429 L3383.675667,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3419.675667,-995.841429 L3437.396440,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3419.675667,-973.841429 L3457.778233,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3457.778233,-995.841429 L3457.778233,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3493.778233,-995.841429 L3493.778233,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3493.778233,-995.841429 L3457.778233,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3493.778233,-973.841429 L3457.778233,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3493.778233,-982.156022 L3457.778233,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3493.778233,-988.202510 L3457.778233,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3586.974399,-995.841429 L3586.974399,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3550.974399,-995.841429 L3550.974399,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3550.974399,-995.841429 L3586.974399,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3550.974399,-973.841429 L3586.974399,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3550.974399,-982.156022 L3586.974399,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3550.974399,-988.202510 L3586.974399,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3493.778233,-973.841429 L3550.974399,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3493.778233,-995.841429 L3550.974399,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3586.974399,-995.841429 L3625.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3586.974399,-973.841429 L3694.329726,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3197.808308,-995.841429 L3197.808308,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3233.808308,-995.841429 L3233.808308,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3233.808308,-995.841429 L3197.808308,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3233.808308,-973.841429 L3197.808308,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3233.808308,-982.156022 L3197.808308,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3233.808308,-988.202510 L3197.808308,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3327.004474,-995.841429 L3327.004474,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3291.004474,-995.841429 L3291.004474,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3291.004474,-995.841429 L3327.004474,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3291.004474,-973.841429 L3327.004474,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3291.004474,-982.156022 L3327.004474,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3291.004474,-988.202510 L3327.004474,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3233.808308,-995.841429 L3291.004474,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3233.808308,-973.841429 L3291.004474,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3327.004474,-973.841429 L3383.675667,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3327.004474,-995.841429 L3383.675667,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3051.795118,-995.841429 L3051.795118,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3099.795118,-995.841429 L3099.795118,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3099.795118,-995.841429 L3051.795118,-995.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3099.795118,-973.841429 L3051.795118,-973.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3099.795118,-982.156022 L3051.795118,-982.156022"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3099.795118,-988.202510 L3051.795118,-988.202510"/>
+<path data-entity="LINE" data-layer="WALL" d="M3099.795118,-973.841429 L3197.808308,-973.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3099.795118,-995.841429 L3135.076966,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3075.076966,-1239.841429 L3157.076966,-1239.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3111.076966,-1375.841429 L3111.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3075.076966,-1375.841429 L3111.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3075.076966,-1353.841429 L3111.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3075.076966,-1362.461763 L3111.076966,-1362.461763"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3075.076966,-1367.433682 L3111.076966,-1367.433682"/>
+<path data-entity="LINE" data-layer="WALL" d="M3111.076966,-1375.841429 L3157.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3111.076966,-1353.841429 L3135.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3017.076966,-1375.841429 L3017.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3053.076966,-1375.841429 L3017.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3053.076966,-1353.841429 L3017.076966,-1353.841429"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3053.076966,-1362.461763 L3017.076966,-1362.461763"/>
+<path data-entity="LINE" data-layer="DOOR" d="M3053.076966,-1367.433682 L3017.076966,-1367.433682"/>
+<path data-entity="LINE" data-layer="WALL" d="M3053.076966,-1375.841429 L3075.076966,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-973.841429 L3135.076966,-853.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.152063,-973.841429 L3647.076966,-853.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-853.841429 L3647.076966,-853.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3138.076966,-973.841429 L3138.076966,-856.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3138.076966,-856.841429 L3644.078843,-856.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3644.152063,-973.843307 L3644.078843,-856.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3142.015003,-973.841429 L3142.015003,-859.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3142.015003,-859.841429 L3639.771677,-859.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3639.843021,-973.845184 L3639.771677,-859.841429"/>
+<path data-entity="LWPOLYLINE" data-layer="WALL" d="M2889.145310,-737.249653 L2889.145310,-1597.874653 L4002.895310,-1597.874653 L4002.895310,-737.249653 L2889.145310,-737.249653 Z"/>
+<path data-entity="LINE" data-layer="0" d="M3664.449430,-1459.151907 L3689.122423,-1416.417031"/>
+<path data-entity="LINE" data-layer="0" d="M3689.122423,-1444.906948 L3664.449430,-1459.151907"/>
+<circle data-entity="CIRCLE" data-layer="0" cx="3689.122423" cy="-1444.906948" r="14.301262"/>
+<path data-entity="LINE" data-layer="0" d="M3689.122423,-1416.417031 L3713.795415,-1459.151907"/>
+<path data-entity="LINE" data-layer="0" d="M3713.795415,-1459.151907 L3689.122423,-1444.906948"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-1217.841429 L3157.076966,-1217.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1168.254479 L3647.076966,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1287.841429 L3625.076966,-1207.713599"/>
+<path data-entity="LINE" data-layer="WALL" d="M3620.076966,-1287.841429 L3625.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3679.096220,-1375.841429 L3679.096220,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1217.841429 L3157.076966,-1217.841429"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3182.222962" cy="-1268.592099" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3423.660165" cy="-1268.592099" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3465.502751" cy="-1268.592099" r="12.000000"/>
+<path data-entity="LINE" data-layer="WALL" d="M3772.198601,-1287.793928 L3647.076966,-1287.793928"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.076966,-1295.529476 L3762.708254,-1295.496908"/>
+<path data-entity="LINE" data-layer="DOOR" d="M7326.406692,-2663.682859 L7277.406692,-2663.682859"/>
+<path data-entity="LINE" data-layer="WALL" d="M3679.150883,-1362.764790 L3715.150883,-1362.764790"/>
+<path data-entity="LINE" data-layer="WALL" d="M3679.150883,-1367.459136 L3715.150883,-1367.459136"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3154.015003" cy="-961.841426" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3154.015003" cy="-928.368921" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3154.015003" cy="-892.364724" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3615.268727" cy="-961.841426" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3615.268727" cy="-928.368920" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3615.268727" cy="-892.364723" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3282.913688" cy="-879.946355" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3249.441182" cy="-879.946355" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3213.436986" cy="-879.946355" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3403.616006" cy="-881.472767" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3370.143500" cy="-881.472767" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3334.139304" cy="-881.472767" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3542.652831" cy="-879.946355" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3509.180325" cy="-879.946355" r="12.000000"/>
+<circle data-entity="CIRCLE" data-layer="FURN" cx="3473.176129" cy="-879.946355" r="12.000000"/>
+<path data-entity="LINE" data-layer="WALL" d="M3437.396440,-1168.254479 L3437.396440,-995.841424"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1287.841429 L3447.460511,-1207.820332"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1154.173721 L3561.180184,-1154.173721"/>
+<path data-entity="LINE" data-layer="WALL" d="M3762.708254,-1317.752571 L3772.198601,-1317.752571"/>
+<path data-entity="LINE" data-layer="WALL" d="M3625.076966,-1207.713599 L3647.231455,-1207.713599"/>
+<path data-entity="LINE" data-layer="WALL" d="M3597.401685,-1154.173721 L3597.401685,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3561.180184,-1154.173721 L3561.180184,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3597.401685,-1154.173721 L3625.316037,-1154.173721"/>
+<path data-entity="LINE" data-layer="WALL" d="M3597.401685,-1168.254479 L3625.076966,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3135.076966,-1276.569271 L3157.076966,-1276.569271"/>
+<path data-entity="LINE" data-layer="WALL" d="M3157.076966,-1276.569271 L3157.076966,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1287.841429 L3583.038254,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1154.173721 L3447.460511,-995.841424"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-995.841429 L3457.778233,-995.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3679.096220,-1353.841429 L3715.150883,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3679.096220,-1375.841429 L3715.150883,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-973.841429 L2948.059243,-1179.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2970.059243,-995.841429 L2970.059243,-1179.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2970.059243,-1278.613497 L2970.059243,-1353.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2970.059243,-1179.841429 L2948.059243,-1179.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1278.613497 L2948.059243,-1375.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1168.254479 L3437.396440,-1168.254479"/>
+<path data-entity="LINE" data-layer="WALL" d="M3447.460511,-1207.820332 L3437.396440,-1207.820332"/>
+<path data-entity="LINE" data-layer="WALL" d="M3437.396440,-1207.820332 L3437.396440,-1287.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3006.608284,-1179.574053 L3006.608284,-1157.761633"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1278.613497 L2970.059243,-1278.613497"/>
+<path data-entity="LINE" data-layer="WALL" d="M2948.059243,-1217.841429 L2948.059243,-1239.841429"/>
+<path data-entity="LINE" data-layer="WALL" d="M3762.708254,-1307.806862 L3762.708254,-1317.752571"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.231455,-1207.713599 L3647.231455,-1287.793928"/>
+<path data-entity="LINE" data-layer="WALL" d="M3647.231455,-1295.529433 L3647.231455,-1353.841429"/>
+</g>
+<text data-entity="TEXT" data-layer="TEXT" x="3500.199930" y="1104.617400" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3500.199930 1104.617400) rotate(-0.000000) scale(1.00000 1) translate(-3500.199930 -1104.617400)">
+<tspan x="3500.199930" dy="0.000000">17&#x27;0&quot; X 14&#x27;7&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3476.232995" y="1088.816665" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3476.232995 1088.816665) rotate(-0.000000) scale(1.00000 1) translate(-3476.232995 -1088.816665)">
+<tspan x="3476.232995" dy="0.000000">DEPUTY DIRECTOR</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3207.781857" y="1104.660338" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3207.781857 1104.660338) rotate(-0.000000) scale(1.00000 1) translate(-3207.781857 -1104.660338)">
+<tspan x="3207.781857" dy="0.000000">21&#x27;3&quot; X 24&#x27;2&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3211.426339" y="1089.491633" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3211.426339 1089.491633) rotate(-0.000000) scale(1.00000 1) translate(-3211.426339 -1089.491633)">
+<tspan x="3211.426339" dy="0.000000">DIRECTOR</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3741.886419" y="1104.834859" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3741.886419 1104.834859) rotate(-0.000000) scale(1.00000 1) translate(-3741.886419 -1104.834859)">
+<tspan x="3741.886419" dy="0.000000">23&#x27;3&quot; X 29&#x27;6&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3724.220062" y="1089.034123" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3724.220062 1089.034123) rotate(-0.000000) scale(1.00000 1) translate(-3724.220062 -1089.034123)">
+<tspan x="3724.220062" dy="0.000000">CONFERANCE HALL</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TXT" x="3025.431283" y="1538.923284" font-family="Arial,sans-serif" font-size="19.721739" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3025.431283 1538.923284) rotate(-0.000000) scale(1.00000 1) translate(-3025.431283 -1538.923284)">
+<tspan x="3025.431283" dy="0.000000">REVISED LAYOUT OF CABINS IN ADMINISTRATIVE OFFICE</tspan>
+</text>
+<text data-entity="TEXT" data-layer="0" x="3676.566143" y="1491.507078" font-family="Arial,sans-serif" font-size="23.780484" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3676.566143 1491.507078) rotate(-0.000000) scale(1.00000 1) translate(-3676.566143 -1491.507078)">
+<tspan x="3676.566143" dy="0.000000">N</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TXT" x="3027.759450" y="1574.900655" font-family="Arial,sans-serif" font-size="13.805217" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3027.759450 1574.900655) rotate(-0.000000) scale(1.00000 1) translate(-3027.759450 -1574.900655)">
+<tspan x="3027.759450" dy="0.000000">* WALL THK. 22&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3093.397751" y="1333.323454" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3093.397751 1333.323454) rotate(-90.000000) scale(1.00000 1) translate(-3093.397751 -1333.323454)">
+<tspan x="3093.397751" dy="0.000000">TOILET</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3120.087305" y="1345.739262" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3120.087305 1345.739262) rotate(-90.000000) scale(1.00000 1) translate(-3120.087305 -1345.739262)">
+<tspan x="3120.087305" dy="0.000000">5&#x27;0&quot;X9&#x27;6&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3673.379225" y="1320.392865" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3673.379225 1320.392865) rotate(-0.000000) scale(1.00000 1) translate(-3673.379225 -1320.392865)">
+<tspan x="3673.379225" dy="0.000000">TOILET</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3663.891282" y="1338.938684" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3663.891282 1338.938684) rotate(-0.000000) scale(1.00000 1) translate(-3663.891282 -1338.938684)">
+<tspan x="3663.891282" dy="0.000000">4&#x27;0&quot;X7&#x27;0&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="2996.441949" y="1333.323454" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(2996.441949 1333.323454) rotate(-90.000000) scale(1.00000 1) translate(-2996.441949 -1333.323454)">
+<tspan x="2996.441949" dy="0.000000">PANTRY</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3017.076966" y="1330.291075" font-family="Arial,sans-serif" font-size="12.890625" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3017.076966 1330.291075) rotate(-90.000000) scale(1.00000 1) translate(-3017.076966 -1330.291075)">
+<tspan x="3017.076966" dy="0.000000">5&#x27;0&quot;X9&#x27;6&quot;</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="2970.059243" y="1064.940586" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(2970.059243 1064.940586) rotate(-0.000000) scale(1.00000 1) translate(-2970.059243 -1064.940586)">
+<tspan x="2970.059243" dy="0.000000">WAITING FOR DIRECTOR</tspan>
+</text>
+<text data-entity="TEXT" data-layer="TEXT" x="3472.789993" y="1230.845543" font-family="Arial,sans-serif" font-size="10.312500" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="translate(3472.789993 1230.845543) rotate(-0.000000) scale(1.00000 1) translate(-3472.789993 -1230.845543)">
+<tspan x="3472.789993" dy="0.000000">WAITING</tspan>
+</text>
+</svg>

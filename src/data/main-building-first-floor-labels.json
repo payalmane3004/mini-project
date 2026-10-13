@@ -1,0 +1,205 @@
+{
+  "building": "Main Building",
+  "floor": "First Floor",
+  "source": "public/campus-maps/processed/main-building-converted.dxf",
+  "coordinateSystem": "converted DXF model space; local, uncalibrated",
+  "bounds": {
+    "xRange": [
+      -18.3557,
+      214.2158
+    ],
+    "yRange": [
+      115.8781,
+      172.3591
+    ]
+  },
+  "entityCounts": {
+    "total": 1824,
+    "LINE": 1730,
+    "LWPOLYLINE": 64,
+    "MTEXT": 30
+  },
+  "labels": [
+    {
+      "text": "W",
+      "x": 210.8289,
+      "y": 159.9104,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "E",
+      "x": 203.9193,
+      "y": 159.1914,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "N",
+      "x": 207.4648,
+      "y": 151.069,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "UP",
+      "x": 147.3486,
+      "y": 161.8157,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 105.9358,
+      "y": 158.6232,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Computer Dept",
+      "x": 47.8633,
+      "y": 159.4682,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "VP POLY",
+      "x": 36.9917,
+      "y": 161.3514,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electrical Lab",
+      "x": 138.4914,
+      "y": 132.1991,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "B.V. Bhandari",
+      "x": 145.6512,
+      "y": 157.1303,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Chemistry Lab/ CCF",
+      "x": -7.7308,
+      "y": 161.8265,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Metallurgy Lab/ CCF",
+      "x": -12.479,
+      "y": 142.7456,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 121.2773,
+      "y": 158.6395,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 137.5114,
+      "y": 158.1746,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 153.2974,
+      "y": 162.8953,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 164.6803,
+      "y": 163.1832,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "DCS Dept.",
+      "x": 181.7491,
+      "y": 163.1379,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electrical Lab",
+      "x": 137.7408,
+      "y": 139.9609,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "VP POLY",
+      "x": 37.0077,
+      "y": 156.4451,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "IT DEPARTMENT",
+      "x": 39.9353,
+      "y": 132.3039,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Classroom N2",
+      "x": 20.9057,
+      "y": 161.1204,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Classroom N1",
+      "x": 9.937,
+      "y": 161.8106,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Conference Hall",
+      "x": 96.9564,
+      "y": 159.835,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Director",
+      "x": 86.0644,
+      "y": 158.8818,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Deputy",
+      "x": 91.8329,
+      "y": 161.0125,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Director",
+      "x": 91.792,
+      "y": 159.7045,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Kitchen",
+      "x": 76.3397,
+      "y": 156.1202,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Toilet",
+      "x": 80.274,
+      "y": 155.5305,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Kitchen",
+      "x": 99.1519,
+      "y": 155.0875,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Toilet",
+      "x": 96.3742,
+      "y": 154.8757,
+      "sourceEntityType": "MTEXT"
+    },
+    {
+      "text": "Electronics Dept.",
+      "x": 130.8034,
+      "y": 158.9345,
+      "sourceEntityType": "MTEXT"
+    }
+  ],
+  "associationStatus": "source annotations only; no room associations verified"
+}

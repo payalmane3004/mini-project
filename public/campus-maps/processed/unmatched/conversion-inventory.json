@@ -1,0 +1,389 @@
+﻿{
+    "generatedAt":  "2026-10-12T17:36:41.2257452+05:30",
+    "sourceCount":  25,
+    "successfulCount":  25,
+    "partialCount":  0,
+    "failedCount":  0,
+    "associationPolicy":  "No building IDs are assigned by this batch. Source content requires manual association review.",
+    "results":  [
+                    {
+                        "sourceDwg":  "library/New library  GF.dwg",
+                        "associationStatus":  "verified-building-id",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/library-new-library-gf",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/library-new-library-gf/New library  GF.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/library-new-library-gf/New library  GF.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/library-new-library-gf/New library  GF.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "verifiedBuildingId":  "BU-004",
+                        "associationEvidence":  "Source titles identify the New Library Building and name its ground and first floor plans; campus CAD identifies BU-004 as Central Library."
+                    },
+                    {
+                        "sourceDwg":  "other/Canteen.dwg",
+                        "associationStatus":  "verified-building-id",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-canteen",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-canteen/Canteen.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-canteen/Canteen.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-canteen/Canteen.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "verifiedBuildingId":  "BU-013",
+                        "associationEvidence":  "Source CAD labels Canteen, Physics, and Maths, matching the label group assigned to BU-013."
+                    },
+                    {
+                        "sourceDwg":  "other/exam hall with toilet.dwg",
+                        "associationStatus":  "verified-building-id",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-exam-hall-with-toilet",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-exam-hall-with-toilet/exam hall with toilet.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-exam-hall-with-toilet/exam hall with toilet.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-exam-hall-with-toilet/exam hall with toilet.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "verifiedBuildingId":  "BU-039",
+                        "associationEvidence":  "Source CAD labels Examination Cell at W.C.E., Sangli; campus CAD identifies BU-039 as Exam / Cell."
+                    },
+                    {
+                        "sourceDwg":  "other/Ladies Gymkhana.dwg",
+                        "associationStatus":  "verified-building-id",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-ladies-gymkhana",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-ladies-gymkhana/Ladies Gymkhana.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-ladies-gymkhana/Ladies Gymkhana.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-ladies-gymkhana/Ladies Gymkhana.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "verifiedBuildingId":  "BU-044",
+                        "associationEvidence":  "Source title and labels identify Ladies Gymkhana; campus CAD labels BU-044 as Gymkhana, with no competing Gymkhana ID."
+                    },
+                    {
+                        "sourceDwg":  "academic/Civil Department.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/academic-civil-department",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/academic-civil-department/Civil Department.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/academic-civil-department/Civil Department.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/academic-civil-department/Civil Department.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "Civil is a sub-label of BU-003, which already has a verified Mechanical Department drawing; BU-005 is specifically Civil Drg Hall. This source does not disambiguate those footprints."
+                    },
+                    {
+                        "sourceDwg":  "academic/clasrroms at old library.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/academic-clasrroms-at-old-library",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/academic-clasrroms-at-old-library/clasrroms at old library.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/academic-clasrroms-at-old-library/clasrroms at old library.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/academic-clasrroms-at-old-library/clasrroms at old library.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing combines proposed plans for Old Library classrooms, a research center, and a Mechanical Department laboratory; no single campus footprint is established."
+                    },
+                    {
+                        "sourceDwg":  "academic/Computer deptt NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/academic-computer-deptt-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/academic-computer-deptt-nac/Computer deptt NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/academic-computer-deptt-nac/Computer deptt NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/academic-computer-deptt-nac/Computer deptt NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source identifies Computer Science and Engineering and also references Electronics; neither has a matching unique campus building label."
+                    },
+                    {
+                        "sourceDwg":  "academic/Electronics depttdwg.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/academic-electronics-depttdwg",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/academic-electronics-depttdwg/Electronics depttdwg.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/academic-electronics-depttdwg/Electronics depttdwg.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/academic-electronics-depttdwg/Electronics depttdwg.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "Electronics Department is not a campus label; it cannot be conflated with the distinct Electrical Department BU-007."
+                    },
+                    {
+                        "sourceDwg":  "academic/IT NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/academic-it-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/academic-it-nac/IT NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/academic-it-nac/IT NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/academic-it-nac/IT NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source is an IT Department plan and includes a Main Building reference, but no unique campus ID or footprint match is supported."
+                    },
+                    {
+                        "sourceDwg":  "hostels/D5-D8 hostel Hostel.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/hostels-d5-d8-hostel-hostel",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/hostels-d5-d8-hostel-hostel/D5-D8 hostel Hostel.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/hostels-d5-d8-hostel-hostel/D5-D8 hostel Hostel.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/hostels-d5-d8-hostel-hostel/D5-D8 hostel Hostel.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source combines D5/D8 and D6/D7 hostel plans; separating it among four campus IDs would require geometry grouping not established by the source report."
+                    },
+                    {
+                        "sourceDwg":  "library/old library.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/library-old-library",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/library-old-library/old library.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/library-old-library/old library.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/library-old-library/old library.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing identifies Mathematics Department at Old Library; it does not match the Central Library label assigned to BU-004 or another unique campus ID."
+                    },
+                    {
+                        "sourceDwg":  "other/APM NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-apm-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-apm-nac/APM NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-apm-nac/APM NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-apm-nac/APM NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing contains APM, Quadrangle basement, and Sathe Hall content, spanning multiple campus labels without one supported footprint."
+                    },
+                    {
+                        "sourceDwg":  "other/Boys mess.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-boys-mess",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-boys-mess/Boys mess.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-boys-mess/Boys mess.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-boys-mess/Boys mess.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing identifies Boys Mess; the campus label inventory has Old Mess BU-006, which is not a verified match."
+                    },
+                    {
+                        "sourceDwg":  "other/CCF NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-ccf-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-ccf-nac/CCF NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-ccf-nac/CCF NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-ccf-nac/CCF NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source references Main Building and learning halls but no distinct campus building ID; Main Building remains outside this integration pass."
+                    },
+                    {
+                        "sourceDwg":  "other/Central store.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-central-store",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-central-store/Central store.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-central-store/Central store.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-central-store/Central store.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "Source text describes Barve Mess and proposed Diploma CCF layouts; no unique matching campus label is supported."
+                    },
+                    {
+                        "sourceDwg":  "other/college land.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-college-land",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-college-land/college land.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-college-land/college land.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-college-land/college land.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "This is a campus/site drawing with many building labels, not a single building plan suitable for one explorer association."
+                    },
+                    {
+                        "sourceDwg":  "other/Director cabin layout.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-director-cabin-layout",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-director-cabin-layout/Director cabin layout.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-director-cabin-layout/Director cabin layout.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-director-cabin-layout/Director cabin layout.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source describes administrative office cabins, not the separately identified Director Bungalow BU-040."
+                    },
+                    {
+                        "sourceDwg":  "other/Director Second Floor.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-director-second-floor",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-director-second-floor/Director Second Floor.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-director-second-floor/Director Second Floor.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-director-second-floor/Director Second Floor.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing explicitly describes a second floor over Director Office in Main Building; integrating it would modify the protected Main Building explorer."
+                    },
+                    {
+                        "sourceDwg":  "other/Ladies mess.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-ladies-mess",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-ladies-mess/Ladies mess.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-ladies-mess/Ladies mess.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-ladies-mess/Ladies mess.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "Campus CAD has two Ladies Mess IDs, BU-054 and BU-043; the source does not identify which footprint it represents."
+                    },
+                    {
+                        "sourceDwg":  "other/Mini CCF computer laboratory.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-mini-ccf-computer-laboratory",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-mini-ccf-computer-laboratory/Mini CCF computer laboratory.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-mini-ccf-computer-laboratory/Mini CCF computer laboratory.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-mini-ccf-computer-laboratory/Mini CCF computer laboratory.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The drawing combines multiple proposed Computer Department labs and cabin layouts without a unique campus building association."
+                    },
+                    {
+                        "sourceDwg":  "other/Old rector office to ladies hostel.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-old-rector-office-to-ladies-hostel",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-old-rector-office-to-ladies-hostel/Old rector office to ladies hostel.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-old-rector-office-to-ladies-hostel/Old rector office to ladies hostel.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-old-rector-office-to-ladies-hostel/Old rector office to ladies hostel.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source combines Ladies Gymkhana and Old Rector Office renovation layouts; the geometry is not isolated to one ID."
+                    },
+                    {
+                        "sourceDwg":  "other/Physics NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-physics-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-physics-nac/Physics NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-physics-nac/Physics NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-physics-nac/Physics NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "Physics matches a BU-013 label, but BU-013 now has a verified combined Canteen/Physics/Maths source; adding this separate plan would conflict with the single-plan association."
+                    },
+                    {
+                        "sourceDwg":  "other/Quadrangle NAC.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-quadrangle-nac",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-quadrangle-nac/Quadrangle NAC.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-quadrangle-nac/Quadrangle NAC.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-quadrangle-nac/Quadrangle NAC.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source includes Quadrangle/Tilak Hall plus APM and Sathe Hall content; BU-001 already has a verified Tilak Hall plan and the combined geometry is not separable by ID."
+                    },
+                    {
+                        "sourceDwg":  "other/Rector office.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-rector-office",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-rector-office/Rector office.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-rector-office/Rector office.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-rector-office/Rector office.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source describes Rector Office renovations while BU-029 is labeled Old Rector Office and another source also contains that plan; a unique current footprint is not established."
+                    },
+                    {
+                        "sourceDwg":  "other/Sathe hall.dwg",
+                        "associationStatus":  "unmatched-source-drawing",
+                        "outputDirectory":  "public/campus-maps/processed/unmatched/other-sathe-hall",
+                        "status":  "success",
+                        "outputs":  {
+                                        "dxf":  "public/campus-maps/processed/unmatched/other-sathe-hall/Sathe hall.dxf",
+                                        "svg":  "public/campus-maps/processed/unmatched/other-sathe-hall/Sathe hall.svg",
+                                        "inspection":  "public/campus-maps/processed/unmatched/other-sathe-hall/Sathe hall.inspection.json"
+                                    },
+                        "errors":  [
+
+                                   ],
+                        "associationReview":  "The source identifies Sathe Hall and references Tilak Hall, but no unique Sathe Hall campus building ID is present."
+                    }
+                ]
+}

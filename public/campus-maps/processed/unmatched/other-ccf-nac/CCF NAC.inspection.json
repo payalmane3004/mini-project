@@ -1,0 +1,197 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/CCF NAC.dwg",
+  "convertedDxf": "CCF NAC.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 353,
+  "entityCounts": {
+    "CIRCLE": 2,
+    "HATCH": 2,
+    "LEADER": 1,
+    "LINE": 322,
+    "LWPOLYLINE": 8,
+    "MTEXT": 18
+  },
+  "dimensionEntityCount": 0,
+  "dimensions": [],
+  "layers": {
+    "0": {
+      "CIRCLE": 2,
+      "HATCH": 2,
+      "LINE": 22
+    },
+    "TEXT": {
+      "MTEXT": 3
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 1,
+      "LINE": 300,
+      "LWPOLYLINE": 8,
+      "MTEXT": 14
+    }
+  },
+  "bounds": {
+    "minX": -14.96876674205923,
+    "minY": -3.79531240304356,
+    "maxX": 105.9598910733883,
+    "maxY": 167.0062468262658
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": -14.96876674205923,
+    "minY": 121.8544636520304,
+    "maxX": 15.05812672075585,
+    "maxY": 166.975092915398
+  },
+  "sourceText": [
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LMain Building}",
+      "x": 105.9598910733883,
+      "y": -3.79531240304356
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;CCF - 2\\P21.30 X 9.30}",
+      "x": -3.246432127752961,
+      "y": 161.7905718755324
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;CCF - 1\\P10.70 X 17.85}",
+      "x": -10.84021668981719,
+      "y": 141.2428837019409
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fSwis721 BT|b0|i0|c0|p34;Central Computing Facility}",
+      "x": -3.893283179147346,
+      "y": 121.8544636520304
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fSwis721 BT|b0|i0|c0|p34;Scale - 1: 100, Bup Area - 506 Sqm}",
+      "x": 7.11570391377569,
+      "y": 119.5083612711753
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 14.41821612246484,
+      "y": 161.9450956293261
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 13.33073577248284,
+      "y": 164.7647450636873
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 15.05812672075585,
+      "y": 164.9444992110459
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 14.1717473088804,
+      "y": 166.975092915398
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Server Room\\P3.50 X 3.90}",
+      "x": -12.8058053638883,
+      "y": 163.8153198603136
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.0 X 3.0}",
+      "x": -13.29742910897195,
+      "y": 160.2926087779682
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.0 X 3.0}",
+      "x": -13.18597752465163,
+      "y": 157.2545486811794
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Learning Hall\\P7.60 X 4.0}",
+      "x": -12.10638092494579,
+      "y": 149.6517768681527
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P2.50 X 3.10}",
+      "x": -13.26553723597359,
+      "y": 153.659579045238
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 4.075698685730039,
+      "y": 156.4500318273806
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": -5.336674580881628,
+      "y": 152.0759945945519
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P2.50 X 3.10}",
+      "x": -13.269249098387,
+      "y": 128.3091279930451
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Learning Hall\\P7.60 X 3.10}",
+      "x": -11.97228444241383,
+      "y": 131.9574217475904
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 2,
+    "LINE": 322,
+    "LWPOLYLINE": 8,
+    "MTEXT": 16
+  },
+  "rendererFilteredTextEntityCount": 2,
+  "rendererOmittedEntityTypes": {
+    "HATCH": 2,
+    "LEADER": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

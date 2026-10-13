@@ -1,0 +1,11 @@
+.building-drawing-section { padding:0 18px 18px; }
+.building-drawing-section .panel-section-title { margin-bottom:9px; }
+.building-drawing-floors { margin-top:8px; color:#c3cfdd; font-size:10px; }
+.building-drawing-evidence,.building-drawing-note { margin-top:7px; color:#8292a7; font-size:9px; line-height:1.45; }
+.building-drawing-note { color:#64748b; }
+.building-drawing-source { display:inline-block; margin-top:9px; color:#22d3ee; font-size:10px; }
+.building-drawing-source:hover { text-decoration:underline; }
+.building-drawing-source-card { margin: 12px 14px; padding: 12px; border: 1px solid #2d3c4a; border-radius: 8px; background: #121b25; }
+.building-drawing-source-card p { margin: 7px 0; color: #a6b5c5; font-size: 11px; line-height: 1.5; }
+.building-plan-unavailable { margin: 12px 14px; color: #c4a66f; font-size: 11px; line-height: 1.5; }
+.building-source-download { position: relative; z-index: 2; display: inline-block; margin: 12px 14px; color: #80d7e6; font-size: 12px; }

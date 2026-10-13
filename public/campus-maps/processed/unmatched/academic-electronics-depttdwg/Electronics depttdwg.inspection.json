@@ -1,0 +1,853 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "academic/Electronics depttdwg.dwg",
+  "convertedDxf": "Electronics depttdwg.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 1320,
+  "entityCounts": {
+    "CIRCLE": 2,
+    "DIMENSION": 12,
+    "HATCH": 2,
+    "LEADER": 3,
+    "LINE": 1192,
+    "LWPOLYLINE": 39,
+    "MTEXT": 70
+  },
+  "dimensionEntityCount": 12,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 16.16161715189227,
+      "definitionPoints": [
+        {
+          "x": 21.39329158887081,
+          "y": 43.39676091400264
+        },
+        {
+          "x": 15.1784488389996,
+          "y": 43.39676091400264
+        },
+        {
+          "x": 5.231674436978537,
+          "y": 44.76959157256242
+        },
+        {
+          "x": 21.39329158887081,
+          "y": 44.90774162828978
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 9.22455378977196,
+      "definitionPoints": [
+        {
+          "x": 16.64967984986451,
+          "y": 73.66757354774666
+        },
+        {
+          "x": 12.03740295497853,
+          "y": 73.66757354774666
+        },
+        {
+          "x": 7.425126060092552,
+          "y": 73.11337620012452
+        },
+        {
+          "x": 16.64967984986451,
+          "y": 73.1565549242398
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 50.34119966577434,
+      "definitionPoints": [
+        {
+          "x": 67.02346723195188,
+          "y": 68.74979644751727
+        },
+        {
+          "x": 41.85286739906471,
+          "y": 68.74979644751727
+        },
+        {
+          "x": 16.68226756617754,
+          "y": 66.19462753573195
+        },
+        {
+          "x": 67.02346723195188,
+          "y": 66.43026698469843
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 5.953400168872435,
+      "definitionPoints": [
+        {
+          "x": 72.97686740082432,
+          "y": 70.46120272716769
+        },
+        {
+          "x": 70.00016731638812,
+          "y": 70.46120272716769
+        },
+        {
+          "x": 67.02346723195188,
+          "y": 66.49276698469843
+        },
+        {
+          "x": 72.97686740082432,
+          "y": 69.44188247947105
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 10.39316302998651,
+      "definitionPoints": [
+        {
+          "x": 76.99386944897014,
+          "y": 56.03710395471192
+        },
+        {
+          "x": 76.99386944897013,
+          "y": 61.23368546970519
+        },
+        {
+          "x": 67.02346723195188,
+          "y": 66.43026698469843
+        },
+        {
+          "x": 67.0721160370189,
+          "y": 56.03710395471192
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 12.4794556485507,
+      "definitionPoints": [
+        {
+          "x": -14.43846612319521,
+          "y": 95.19973377904361
+        },
+        {
+          "x": -14.43846612319523,
+          "y": 101.439461603319
+        },
+        {
+          "x": -11.49610346663938,
+          "y": 107.6791894275943
+        },
+        {
+          "x": -10.88893326994788,
+          "y": 95.19973377904361
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 41.07737150880502,
+      "definitionPoints": [
+        {
+          "x": 36.39979276850462,
+          "y": 109.815317034025
+        },
+        {
+          "x": 15.86110701410212,
+          "y": 109.815317034025
+        },
+        {
+          "x": -4.677578740300391,
+          "y": 107.0894775255306
+        },
+        {
+          "x": 36.39979276850462,
+          "y": 107.9033827855571
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 44.85572055424697,
+      "definitionPoints": [
+        {
+          "x": 87.20904846781704,
+          "y": 113.1386085528559
+        },
+        {
+          "x": 64.78118819069356,
+          "y": 113.1386085528559
+        },
+        {
+          "x": 42.35332791357007,
+          "y": 110.9150665600326
+        },
+        {
+          "x": 87.20904846781704,
+          "y": 111.1250293210443
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 11.27145722054073,
+      "definitionPoints": [
+        {
+          "x": 92.35681551610836,
+          "y": 99.91607210050356
+        },
+        {
+          "x": 92.35681551610833,
+          "y": 105.5518007107739
+        },
+        {
+          "x": 87.20904846781704,
+          "y": 111.1875293210443
+        },
+        {
+          "x": 87.26151588060219,
+          "y": 99.91607210050356
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 10.39352349532015,
+      "definitionPoints": [
+        {
+          "x": 26.55379805699593,
+          "y": 88.52017985318213
+        },
+        {
+          "x": 31.75055980465601,
+          "y": 88.52017985318213
+        },
+        {
+          "x": 36.94732155231608,
+          "y": 90.79873287346459
+        },
+        {
+          "x": 26.55379805699593,
+          "y": 90.77675128314272
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 4.555192907725711,
+      "definitionPoints": [
+        {
+          "x": 45.0961933295232,
+          "y": 95.57082962756354
+        },
+        {
+          "x": 45.09619332952319,
+          "y": 97.84842608142641
+        },
+        {
+          "x": 42.87129431307082,
+          "y": 100.1260225352893
+        },
+        {
+          "x": 42.89261647372274,
+          "y": 95.57082962756354
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 37.06464170348109,
+      "definitionPoints": [
+        {
+          "x": 26.54868545701791,
+          "y": 90.0968567741458
+        },
+        {
+          "x": 8.016364605277367,
+          "y": 90.0968567741458
+        },
+        {
+          "x": -10.51595624646318,
+          "y": 95.19973377904361
+        },
+        {
+          "x": 26.54868545701791,
+          "y": 91.86898952027079
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 2,
+      "DIMENSION": 12,
+      "HATCH": 2,
+      "LINE": 62
+    },
+    "TEXT": {
+      "MTEXT": 4
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 3,
+      "LINE": 1130,
+      "LWPOLYLINE": 39,
+      "MTEXT": 65
+    }
+  },
+  "bounds": {
+    "minX": -15.08216125970839,
+    "minY": 0.0,
+    "maxX": 96.5304087322833,
+    "maxY": 113.897469733518
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": -15.08216125970839,
+    "minY": 40.02168079183292,
+    "maxX": 96.5304087322833,
+    "maxY": 113.8663158226502
+  },
+  "sourceText": [
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "UP",
+      "x": 69.68328157264523,
+      "y": 64.70518531032293
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "EDA LAB\\P10.75 X 9.15",
+      "x": 29.61648001011611,
+      "y": 61.46343222104154
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Embedded System Lab\\P10.65 X 9.15",
+      "x": 44.45091185191868,
+      "y": 61.38681864657146
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Office Entrance",
+      "x": 8.531921867564208,
+      "y": 50.56531573872098
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD Cabin\\P4.20 6.85}",
+      "x": 15.77240973519081,
+      "y": 50.96822508044766
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 X 5.70}",
+      "x": 19.25945061318332,
+      "y": 63.89332453081652
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 x 4.35}",
+      "x": 23.25151464719572,
+      "y": 63.87304465845153
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 X 3.0}",
+      "x": 19.42355465338794,
+      "y": 58.42643127304995
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "John Deere\\PCenter of \\PExcellence\\P6.91 X 9.15",
+      "x": 53.15352692622,
+      "y": 61.91263772165628
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 x 4.40}",
+      "x": 38.21500282921095,
+      "y": 64.08184313325143
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 x 3.35}",
+      "x": 38.05735293156174,
+      "y": 58.96630486946156
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "PG Lab\\P7.0 X 9.15",
+      "x": 61.49794204749386,
+      "y": 61.3596783268235
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Deptt Store",
+      "x": 63.51809748293076,
+      "y": 52.71023639080416
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;You are here}",
+      "x": 13.69697589662171,
+      "y": 54.71145982409541
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "UP",
+      "x": 39.05966741282342,
+      "y": 106.1782619999258
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Digital Electronics Lab\\P9.20 X 9.15}",
+      "x": -3.814418161994695,
+      "y": 103.8801459217135
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Seminar Halll\\P7.0 X 9.15",
+      "x": 30.37871902802343,
+      "y": 103.1839860518438
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Control & Instrumentation Lab\\P7.0 X 9.15}",
+      "x": 19.63135395937758,
+      "y": 103.1062899249258
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Applied Electronics Lab\\P7.45 X 7.65}",
+      "x": 47.91261204232939,
+      "y": 107.4545942668411
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Basic Electronics Lab\\P10.95X 7.65}",
+      "x": 56.38700733574512,
+      "y": 107.4544700616631
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Communication Engineering Lab\\P9.00 X 10.00}",
+      "x": 76.91721858067388,
+      "y": 105.7097451626213
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;You are here}",
+      "x": 21.93376761226038,
+      "y": 96.60578063813506
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LFirst  Floor}",
+      "x": 33.88514262892687,
+      "y": 84.3866731024923
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LGround Floor}",
+      "x": 35.45958646185233,
+      "y": 40.02168079183292
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;\\LElectronics Department}",
+      "x": 23.83028461826495,
+      "y": 30.73016489664588
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Scale - 1: 100, Bup Area = 2028 Sqm}",
+      "x": 61.99617430293989,
+      "y": 25.98131548114793
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.40 X 4.30",
+      "x": 63.49831215264325,
+      "y": 52.1378272377661
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": -4.155456876693194,
+      "y": 99.94514429863507
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": -4.175242206980698,
+      "y": 99.37273514559702
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Industrial Electronics Lab\\P13.50 X 9.15}",
+      "x": 6.161292673669891,
+      "y": 103.9714877095263
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 15.22389548987398,
+      "y": 99.73500318636073
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 15.20411015958648,
+      "y": 99.16259403332268
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 15.18111099793605,
+      "y": 102.8521166975328
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 15.16132566764854,
+      "y": 102.2797075444948
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 15.28863681977695,
+      "y": 105.8095809303899
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 15.26885148948945,
+      "y": 105.2371717773518
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 26.0723427596838,
+      "y": 100.01100928342
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 26.05255742939629,
+      "y": 99.43860013038194
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 26.02955826774586,
+      "y": 103.1281227945921
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 26.00977293745836,
+      "y": 102.555713641554
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 26.13708408958677,
+      "y": 106.0855870274492
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 26.11729875929927,
+      "y": 105.5131778744111
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Deptt \\PLibrary",
+      "x": 36.86658749006778,
+      "y": 102.3053285326975
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 36.73432095741895,
+      "y": 101.1430628817535
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 43.54674563034659,
+      "y": 104.0680042862921
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 43.52696030005909,
+      "y": 103.4955951332541
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 43.43044546981587,
+      "y": 107.0137771082722
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 43.41066013952836,
+      "y": 106.4413679552341
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 43.63599025288481,
+      "y": 109.7019910266007
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 43.6162049225973,
+      "y": 109.1295818735627
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 65.31840900208753,
+      "y": 104.4346262575563
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 65.29862367180003,
+      "y": 103.8622171045182
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 65.20210884155681,
+      "y": 107.3803990795364
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 65.1823235112693,
+      "y": 106.8079899264983
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 65.40765362462575,
+      "y": 110.0686129978649
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 65.38786829433825,
+      "y": 109.4962038448269
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 84.2782869713274,
+      "y": 102.1986993744145
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 84.2585016410399,
+      "y": 101.6262902213764
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 84.098471658896,
+      "y": 104.7584622327933
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 84.0786863286085,
+      "y": 104.1860530797552
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 84.1276509313971,
+      "y": 107.2985664643238
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 84.1078656011096,
+      "y": 106.7261573112858
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cabin",
+      "x": 84.20565293485201,
+      "y": 109.8493356758418
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "3.00X3.00",
+      "x": 84.1858676045645,
+      "y": 109.2769265228037
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Lab View\\P8.30 X 3.75}",
+      "x": 70.67673404472754,
+      "y": 108.814517502881
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Tutorial Room\\P5.75 X 3.75}",
+      "x": 70.05615478990723,
+      "y": 105.0661377732772
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 95.8904981339923,
+      "y": 108.8363185365783
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 94.8030177840103,
+      "y": 111.6559679709396
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 96.5304087322833,
+      "y": 111.8357221182982
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 95.64402932040785,
+      "y": 113.8663158226502
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 2,
+    "LINE": 1192,
+    "LWPOLYLINE": 39,
+    "MTEXT": 68
+  },
+  "rendererFilteredTextEntityCount": 2,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 12,
+    "HATCH": 2,
+    "LEADER": 3
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

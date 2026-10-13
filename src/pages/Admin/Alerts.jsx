@@ -35,7 +35,8 @@ function Alerts() {
   }
 
   return <div className="alerts-page">
-    <header className="alerts-heading"><div><h1>Alerts Center</h1><p>Campus-wide notifications and system alerts</p></div><button onClick={() => setAlerts((items) => items.map((alert) => ({ ...alert, unread: false })))}><CheckCheck size={16}/> Mark all read</button></header>
+    <header className="alerts-heading"><div><h1>Alerts Center</h1><p>Illustrative notification workflow</p></div><button onClick={() => setAlerts((items) => items.map((alert) => ({ ...alert, unread: false })))}><CheckCheck size={16}/> Mark all read</button></header>
+    <div className="workspace-demo-note">Sample alerts only · no campus sensor or notification service is connected. Read and dismiss actions affect this page session only.</div>
 
     <section className="alerts-summary" aria-label="Alert counts">
       <article><strong className="critical-text">{counts.critical}</strong><span>Critical</span></article>

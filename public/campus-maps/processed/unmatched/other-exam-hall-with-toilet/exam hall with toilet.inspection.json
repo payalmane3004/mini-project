@@ -1,0 +1,447 @@
+{
+  "buildingId": "BU-039",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "other/exam hall with toilet.dwg",
+  "convertedDxf": "exam hall with toilet.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 1496,
+  "entityCounts": {
+    "LINE": 1435,
+    "LWPOLYLINE": 5,
+    "MTEXT": 56
+  },
+  "dimensionEntityCount": 0,
+  "dimensions": [],
+  "layers": {
+    "0": {
+      "LINE": 1435,
+      "LWPOLYLINE": 5,
+      "MTEXT": 56
+    }
+  },
+  "bounds": {
+    "minX": 38.35149803229836,
+    "minY": -151.5000682927352,
+    "maxX": 248.9248815583387,
+    "maxY": 40.09921386768364
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 38.35149803229836,
+    "minY": -151.5000682927352,
+    "maxX": 248.9248815583387,
+    "maxY": 40.09921386768364
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HALL\\P15.47 X 7.75}",
+      "x": 70.491444658322,
+      "y": 0.3160610743446099
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 62.74567669926901,
+      "y": -1.189985794261375
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 65.88376590267487,
+      "y": -1.19382169283579
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P2.92X5.46}",
+      "x": 56.38254324289875,
+      "y": 1.415234991056188
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 55.51787922773718,
+      "y": 9.866518772582637
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 55.55129242231141,
+      "y": 11.58398112256614
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 55.63338096742388,
+      "y": 12.92286696875027
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 61.21884146584532,
+      "y": 9.654216224642113
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 61.25225466041954,
+      "y": 11.37167857462562
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 61.33434320553201,
+      "y": 12.71056442080975
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 58.03667329532291,
+      "y": 11.69256889672432
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 58.07549158233002,
+      "y": 12.39212618192775
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 58.03752271970279,
+      "y": 13.15087459485312
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Passage 2.33 m wide}",
+      "x": 48.36081173132962,
+      "y": 5.302920740390661
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P2.92X5.46}",
+      "x": 102.9510776630196,
+      "y": 1.631653154704345
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Terrace 2.33 m wide}",
+      "x": 94.92934615145043,
+      "y": 5.519338904038818
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HALL\\P15.47 X 7.75}",
+      "x": 114.7118622403253,
+      "y": 0.3160610743445957
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Terrace }",
+      "x": 103.8564044141711,
+      "y": 11.28914692025438
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HALL\\P15.47 X 7.75}",
+      "x": 75.53535455285225,
+      "y": -79.59592936226551
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 67.78958659379927,
+      "y": -81.1019762308715
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 70.92767579720513,
+      "y": -81.10581212944592
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P2.92X5.46}",
+      "x": 61.42645313742901,
+      "y": -78.49675544555393
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 60.56178912226744,
+      "y": -70.04547166402749
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 60.59520231684166,
+      "y": -68.32800931404398
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 60.67729086195413,
+      "y": -66.98912346785986
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 66.26275136037557,
+      "y": -70.25777421196801
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 66.2961645549498,
+      "y": -68.5403118619845
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 66.37825310006227,
+      "y": -67.20142601580038
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 63.08058318985317,
+      "y": -68.2194215398858
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 63.11940147686028,
+      "y": -67.51986425468237
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 63.08143261423305,
+      "y": -66.761115841757
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Passage 2.33 m wide}",
+      "x": 53.40472162585988,
+      "y": -74.60906969621946
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P2.92X5.46}",
+      "x": 107.9949875575498,
+      "y": -78.28033728190579
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Terrace 2.33 m wide}",
+      "x": 99.97325604598069,
+      "y": -74.3926515325713
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HALL\\P15.47 X 7.75}",
+      "x": 119.7557721348555,
+      "y": -79.59592936226554
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Terrace }",
+      "x": 108.9003143087014,
+      "y": -68.62284351635574
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Examination Cell at W.C.E., Sangli}",
+      "x": 104.4510601789477,
+      "y": -43.48429664380696
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Ground Floor}",
+      "x": 60.66255560856507,
+      "y": -104.9290278686262
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;First Floor}",
+      "x": 104.8498007163162,
+      "y": -87.32393381417103
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HALL\\P15.47 X 7.75}",
+      "x": 166.0937710229308,
+      "y": -110.3969138489395
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 158.3480030638778,
+      "y": -111.9029607175455
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P3.11X5.01}",
+      "x": 161.4860922672837,
+      "y": -111.9067966161199
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;ROOM\\P2.92X5.46}",
+      "x": 151.9848696075076,
+      "y": -109.297739932228
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 151.120205592346,
+      "y": -100.8464561507015
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 151.1536187869202,
+      "y": -99.128993800718
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 151.2357073320327,
+      "y": -97.79010795453388
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;BATH ROOM\\P1.29X2.28}",
+      "x": 156.8211678304541,
+      "y": -101.058758698642
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 156.8545810250284,
+      "y": -99.34129634865853
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC\\P1.29X1.31}",
+      "x": 156.9366695701408,
+      "y": -98.0024105024744
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 153.6389996599317,
+      "y": -99.02040602655983
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 153.6778179469388,
+      "y": -98.3208487413564
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Urinal\\P.75x.75}",
+      "x": 153.6398490843116,
+      "y": -97.56210032843103
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Passage 2.33 m wide}",
+      "x": 143.9631380959384,
+      "y": -105.4100541828935
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Ground Floor}",
+      "x": 151.2209720786436,
+      "y": -135.7300123553002
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Examination Cell at W.C.E., Sangli}",
+      "x": 136.8375933083739,
+      "y": -145.5416293353701
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Proposed Chainlink fencing and Gates at Exam Cell}",
+      "x": 186.1737073350742,
+      "y": -110.9592761299087
+    }
+  ],
+  "floorClues": [
+    "{\\fVerdana|b1|i0|c0|p34;Ground Floor}",
+    "{\\fVerdana|b1|i0|c0|p34;First Floor}",
+    "{\\fVerdana|b1|i0|c0|p34;Ground Floor}"
+  ],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 1435,
+    "LWPOLYLINE": 5,
+    "MTEXT": 56
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {},
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

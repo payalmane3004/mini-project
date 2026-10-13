@@ -64,7 +64,7 @@ function CampusFootprints({ selectedId, onSelectBuilding }) {
     onSelectBuilding?.({
       id,
       code: id,
-      name: labels.length ? labels.join(" / ") : "Unnamed CAD footprint",
+      name: labels.length ? labels.join(" / ") : id,
       sourceLabels: labels,
     });
   }

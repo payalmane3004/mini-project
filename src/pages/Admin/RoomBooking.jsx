@@ -16,9 +16,10 @@ const defaultBookings = [
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function RoomBooking() {
-  const [month, setMonth] = useState(7);
-  const [year, setYear] = useState(2026);
-  const [selectedDay, setSelectedDay] = useState(20);
+  const [initialDate] = useState(() => new Date());
+  const [month, setMonth] = useState(initialDate.getMonth());
+  const [year, setYear] = useState(initialDate.getFullYear());
+  const [selectedDay, setSelectedDay] = useState(initialDate.getDate());
   const [buildingFilter, setBuildingFilter] = useState("All Buildings");
   const [timeFilter, setTimeFilter] = useState("");
   const [capacityFilter, setCapacityFilter] = useState("");
@@ -68,6 +69,8 @@ function RoomBooking() {
   return (
     <div className="booking-page">
       <header className="booking-heading"><h1>Room Booking</h1><p>Reserve rooms and manage campus space allocation</p></header>
+
+      <div className="workspace-demo-note">Demonstration booking flow · room availability is sample data and confirmations remain in this page session. No reservation is sent to a booking service.</div>
 
       <section className="booking-filters" aria-label="Find available rooms">
         <label className="booking-building-filter"><span className="sr-only">Building</span><select value={buildingFilter} onChange={(event) => setBuildingFilter(event.target.value)}><option>All Buildings</option><option>CSE</option><option>Admin Block</option></select></label>

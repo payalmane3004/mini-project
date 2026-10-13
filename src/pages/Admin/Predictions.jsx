@@ -44,9 +44,10 @@ function ForecastStat({ value, label, tone }) {
 
 function Predictions() {
   return <div className="predictions-page">
-    <header className="predictions-heading"><span className="predictions-heading-icon"><Brain size={22}/></span><div><h1>Predictive Intelligence</h1><p>AI/ML-powered campus forecasting and anomaly detection</p></div></header>
+    <header className="predictions-heading"><span className="predictions-heading-icon"><Brain size={22}/></span><div><h1>Predictive Intelligence</h1><p>Illustrative forecast interface</p></div></header>
+    <div className="workspace-demo-note">Forecasts and model confidence values are static demonstration content. No prediction model or training data is connected.</div>
 
-    <div className="predictions-engine-banner"><Activity size={17}/><strong>AI Engine Active</strong><span>·</span><p>Models updated 4 minutes ago · Training on 14 days of campus data</p><code>v3.2.1</code></div>
+    <div className="predictions-engine-banner"><Activity size={17}/><strong>No prediction service connected</strong><span>·</span><p>Static example only; no campus forecast is being generated.</p></div>
 
     <section className="forecast-grid">
       <article className="forecast-panel occupancy-forecast-panel"><header className="forecast-panel-heading"><div><h2><TrendingUp size={17}/> Occupancy Forecast</h2><p>Predicted campus occupancy over next 4 hours</p></div></header>

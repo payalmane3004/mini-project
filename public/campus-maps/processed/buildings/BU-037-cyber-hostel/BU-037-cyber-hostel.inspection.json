@@ -1,0 +1,333 @@
+{
+  "buildingId": "BU-037",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "public/campus-maps/hostels/Cyber Hostel.dwg",
+  "convertedDxf": "BU-037-cyber-hostel.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 250,
+  "entityCounts": {
+    "DIMENSION": 5,
+    "LEADER": 1,
+    "LINE": 222,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "dimensionEntityCount": 5,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 13.88,
+      "definitionPoints": [
+        {
+          "x": 7.103672785027612,
+          "y": 13.50666399103608
+        },
+        {
+          "x": 7.10367278502761,
+          "y": 20.44666399103608
+        },
+        {
+          "x": 9.189818136364162,
+          "y": 27.38666399103608
+        },
+        {
+          "x": 9.189818136364169,
+          "y": 13.50666399103608
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 20.48000000000001,
+      "definitionPoints": [
+        {
+          "x": 29.66981813636418,
+          "y": 11.55551881695809
+        },
+        {
+          "x": 19.55711784436348,
+          "y": 11.55551881695809
+        },
+        {
+          "x": 9.189818136364169,
+          "y": 13.50666399103608
+        },
+        {
+          "x": 29.66981813636418,
+          "y": 13.50666399103608
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 10.1325,
+      "definitionPoints": [
+        {
+          "x": 31.82541514695768,
+          "y": 23.57666399103609
+        },
+        {
+          "x": 31.82541514695768,
+          "y": 18.51041399103608
+        },
+        {
+          "x": 29.66981813636418,
+          "y": 13.44416399103608
+        },
+        {
+          "x": 29.66981813636417,
+          "y": 23.57666399103609
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 16.07000000000001,
+      "definitionPoints": [
+        {
+          "x": 13.59981813636416,
+          "y": 28.1271056147762
+        },
+        {
+          "x": 21.63481813636416,
+          "y": 28.1271056147762
+        },
+        {
+          "x": 29.66981813636416,
+          "y": 23.57666399103609
+        },
+        {
+          "x": 13.59981813636416,
+          "y": 23.57666399103609
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 4.409999999999989,
+      "definitionPoints": [
+        {
+          "x": 9.189818136364169,
+          "y": 28.1271056147762
+        },
+        {
+          "x": 11.39481813636416,
+          "y": 28.1271056147762
+        },
+        {
+          "x": 13.59981813636416,
+          "y": 27.38666399103608
+        },
+        {
+          "x": 9.189818136364169,
+          "y": 27.38666399103608
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 5,
+      "LINE": 221,
+      "LWPOLYLINE": 1,
+      "MTEXT": 17
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 1,
+      "LINE": 1,
+      "MTEXT": 3
+    }
+  },
+  "bounds": {
+    "minX": 3.140367112383174,
+    "minY": 8.038929452205267,
+    "maxX": 38.8779177040129,
+    "maxY": 32.02481883427138
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 3.140367112383174,
+    "minY": 8.038929452205267,
+    "maxX": 38.8779177040129,
+    "maxY": 32.02481883427138
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Bath\\P2.1 X 1.2}",
+      "x": 10.94332715535032,
+      "y": 22.30101765732982
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Bath\\P2.1 X 1.2}",
+      "x": 10.99094371523421,
+      "y": 20.95393877713214
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.1 X 1}",
+      "x": 9.624774411342926,
+      "y": 26.80990991145974
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.1 X 1}",
+      "x": 9.670091901140452,
+      "y": 25.24775198706141
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.1 X 1}",
+      "x": 9.704080047592228,
+      "y": 23.69691402263197
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 14.97750844210495,
+      "y": 21.99558230170027
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 18.85480486913988,
+      "y": 21.96069062537951
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 22.58156953966204,
+      "y": 21.9241839871035
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 26.81985082010105,
+      "y": 21.96069062537951
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 10.67053748066733,
+      "y": 15.75456569728641
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 14.90881876110635,
+      "y": 15.79107233556242
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 22.7277171258648,
+      "y": 15.82757897383841
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Room\\P3.35 X 3.95}",
+      "x": 26.96599840630381,
+      "y": 15.86408561211442
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha 2.5 m wide}",
+      "x": 16.15107376769491,
+      "y": 19.04016125510859
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cyber Hostel for NRI}",
+      "x": 11.27180011744026,
+      "y": 10.2280556995446
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 4.055703009243743,
+      "y": 30.50224576935172
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 35.87633543849576,
+      "y": 26.27874285746552
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 36.28740635745126,
+      "y": 27.3710895466214
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 36.83159618238393,
+      "y": 26.97901170014341
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 37.0978741011558,
+      "y": 27.792199707529
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Toilets\\P3.95 X 7.10}",
+      "x": 11.22057584003777,
+      "y": 24.72089797925352
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 222,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 5,
+    "LEADER": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

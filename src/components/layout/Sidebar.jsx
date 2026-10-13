@@ -102,7 +102,7 @@ function Sidebar() {
       <div className="sidebar-footer">
         <div className="online-dot"></div>
 
-        <span>System Online</span>
+        <span>Local demo</span>
 
         <span className="version">v2.4.1</span>
       </div>

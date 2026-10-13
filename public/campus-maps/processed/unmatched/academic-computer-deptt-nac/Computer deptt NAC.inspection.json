@@ -1,0 +1,402 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "academic/Computer deptt NAC.dwg",
+  "convertedDxf": "Computer deptt NAC.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 808,
+  "entityCounts": {
+    "CIRCLE": 2,
+    "DIMENSION": 4,
+    "HATCH": 2,
+    "LEADER": 2,
+    "LINE": 748,
+    "LWPOLYLINE": 17,
+    "MTEXT": 33
+  },
+  "dimensionEntityCount": 4,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 14.91259659746011,
+      "definitionPoints": [
+        {
+          "x": 95.53375481985705,
+          "y": 54.45130115148925
+        },
+        {
+          "x": 89.26516694362977,
+          "y": 54.45130115148925
+        },
+        {
+          "x": 80.62115822239694,
+          "y": 56.31526226444582
+        },
+        {
+          "x": 95.53375481985705,
+          "y": 57.69079440449337
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 49.39580802618804,
+      "definitionPoints": [
+        {
+          "x": 82.8471975618232,
+          "y": 79.62236500137669
+        },
+        {
+          "x": 58.08281412151746,
+          "y": 79.62236500137669
+        },
+        {
+          "x": 33.45138953563515,
+          "y": 77.46590528806841
+        },
+        {
+          "x": 82.8471975618232,
+          "y": 77.69711950350015
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 11.27120309549794,
+      "definitionPoints": [
+        {
+          "x": 87.16236971034414,
+          "y": 85.93142984892991
+        },
+        {
+          "x": 87.16236971034412,
+          "y": 91.56703139667889
+        },
+        {
+          "x": 83.55440999351691,
+          "y": 97.20263294442785
+        },
+        {
+          "x": 83.6068762167817,
+          "y": 85.93142984892991
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 44.91720360309969,
+      "definitionPoints": [
+        {
+          "x": 83.61690999351691,
+          "y": 98.99928160139717
+        },
+        {
+          "x": 61.98592515066525,
+          "y": 98.99928160139717
+        },
+        {
+          "x": 38.69970639041722,
+          "y": 96.99267494360876
+        },
+        {
+          "x": 83.61690999351691,
+          "y": 97.20263294442785
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 2,
+      "DIMENSION": 4,
+      "HATCH": 2,
+      "LINE": 3
+    },
+    "TEXT": {
+      "MTEXT": 3
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 2,
+      "LINE": 745,
+      "LWPOLYLINE": 17,
+      "MTEXT": 29
+    }
+  },
+  "bounds": {
+    "minX": 0.0,
+    "minY": 0.0,
+    "maxX": 210.8288611140667,
+    "maxY": 171.1889654264936
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 32.56823903498655,
+    "minY": 46.17181853984909,
+    "maxX": 210.8288611140667,
+    "maxY": 171.1889654264936
+  },
+  "sourceText": [
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 206.4789397141388,
+      "y": 171.1889654264936
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 210.8288611140667,
+      "y": 159.9103676890486
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 203.9192973209746,
+      "y": 159.1913510996143
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 207.4648149684766,
+      "y": 151.068976282206
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "R&D",
+      "x": 34.55193842833029,
+      "y": 75.41188964588167
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "UP",
+      "x": 44.26008773325628,
+      "y": 62.45758409234438
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LGround Floor}",
+      "x": 63.67762003963873,
+      "y": 59.00935618768034
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Office Entrance",
+      "x": 83.92140565298261,
+      "y": 62.11098643060438
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "R&D",
+      "x": 34.51433587001175,
+      "y": 70.87328346536238
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Electronics Dept.",
+      "x": 94.30486476589559,
+      "y": 64.30876934348673
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Classroom\\P7.0 X 9.15}",
+      "x": 39.04920666147239,
+      "y": 73.51262847424773
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Computer\\PDepartment\\P7.0 X 9.15}",
+      "x": 46.20041093813796,
+      "y": 73.66511440320797
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Lab 2\\P7.0 X 6.10}",
+      "x": 54.03651577564022,
+      "y": 71.68091615527312
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Lab 3\\P7.10 X 6.10}",
+      "x": 61.41521177258681,
+      "y": 72.01004679677847
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Lab 4\\P7.0 X 9.15}",
+      "x": 68.58007917261642,
+      "y": 73.60934148828149
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Toilets\\P7.0 X 9.15}",
+      "x": 75.1430143063755,
+      "y": 73.72571284447584
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC}",
+      "x": 79.89974156998827,
+      "y": 76.79929683505486
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC}",
+      "x": 79.93490270720079,
+      "y": 74.74930632392466
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC}",
+      "x": 79.96981590484123,
+      "y": 72.97079086057283
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;WC}",
+      "x": 80.06517236239281,
+      "y": 69.12602863044197
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Bath}",
+      "x": 76.5880328570447,
+      "y": 69.09934074388788
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Bath}",
+      "x": 78.388835601894,
+      "y": 69.12931387470555
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LComputer Science and Engineering}",
+      "x": 65.50608588481361,
+      "y": 50.26593245766447
+    },
+    {
+      "layer": "TEXT",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;\\LScale - 1: 100, Bup Area = 525 Sqm}",
+      "x": 89.62967401648814,
+      "y": 46.17181853984909
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.50x 3.0}",
+      "x": 52.45981238871027,
+      "y": 76.03017614171031
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.50x 3.0}",
+      "x": 56.11933656249712,
+      "y": 76.14111400749894
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;HOD\\P3.50x 3.0}",
+      "x": 59.80128549315636,
+      "y": 76.11960665066366
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Cabin\\P3.50x 3.0}",
+      "x": 63.56936201950943,
+      "y": 76.20563658045424
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 48.30253850203683,
+      "y": 66.71303075735746
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Lab 5\\P10.50 X 7.65}",
+      "x": 42.18613702821625,
+      "y": 93.3719248657368
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Lab 6\\P10.65 X 7.65}",
+      "x": 53.00138899842108,
+      "y": 93.45654240958972
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Mini CCF\\P18.0 X 10.0}",
+      "x": 71.34671013520455,
+      "y": 93.47228063965976
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;You are here}",
+      "x": 57.31435846597236,
+      "y": 87.66457528871008
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 2,
+    "LINE": 748,
+    "LWPOLYLINE": 17,
+    "MTEXT": 33
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 4,
+    "HATCH": 2,
+    "LEADER": 2
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

@@ -8,7 +8,7 @@ const initialPreferences = {
   maintenanceReminders: false,
   dataRetention: true,
   anonymizeReports: true,
-  websocketFeed: true,
+  websocketFeed: false,
   restApi: false,
 };
 
@@ -34,8 +34,8 @@ const settingGroups = [
     title: "Integrations",
     icon: Wifi,
     items: [
-      { id: "websocketFeed", title: "WebSocket Live Feed", description: "Real-time data streaming from campus IoT sensors" },
-      { id: "restApi", title: "REST API Access", description: "Enable REST API for external integrations" },
+      { id: "websocketFeed", title: "WebSocket Live Feed", description: "Local preference only; no sensor feed is connected" },
+      { id: "restApi", title: "REST API Access", description: "Local preference only; no API service is configured" },
     ],
   },
 ];
@@ -51,17 +51,18 @@ function SettingsPage() {
   }
 
   return <div className="settings-page">
-    <header className="settings-heading"><h1>Settings</h1><p>Platform configuration and preferences</p></header>
+    <header className="settings-heading"><h1>Settings</h1><p>Local demonstration preferences</p></header>
+    <div className="workspace-demo-note">These switches are held in this page session. No notification service, sensor feed, data retention job, or external API is connected.</div>
     <div className="settings-column">
       <section className="settings-system-card">
         <h2>SYSTEM INFORMATION</h2>
         <dl className="settings-system-grid">
           <div><dt>Platform Version</dt><dd>v2.4.1</dd></div>
           <div><dt>Campus</dt><dd>Walchand College of Engineering</dd></div>
-          <div><dt>Last Sync</dt><dd>12 seconds ago</dd></div>
-          <div><dt>Active Sensors</dt><dd>1,221 / 1,248</dd></div>
-          <div><dt>API Status</dt><dd className="settings-connected">Connected</dd></div>
-          <div><dt>Data Mode</dt><dd>Mock (Development)</dd></div>
+          <div><dt>Last Sync</dt><dd>Not connected</dd></div>
+          <div><dt>Active Sensors</dt><dd>Unavailable</dd></div>
+          <div><dt>API Status</dt><dd>Not connected</dd></div>
+          <div><dt>Data Mode</dt><dd>Local demonstration</dd></div>
         </dl>
       </section>
       {settingGroups.map(({ title, icon: Icon, items }) => <section className="settings-group-card" key={title}>

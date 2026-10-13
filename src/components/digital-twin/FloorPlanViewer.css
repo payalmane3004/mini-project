@@ -1,0 +1,24 @@
+.floor-plan-viewer { min-width:0; }
+.floor-plan-controls { min-height:37px; display:flex; align-items:center; gap:5px; margin-bottom:6px; }
+.floor-plan-controls button { min-height:31px; display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:0 7px; color:#b8c5d4; background:#151c25; border:1px solid #303c49; border-radius:5px; font-size:10px; cursor:pointer; }
+.floor-plan-controls button:hover:not(:disabled) { color:#22d3ee; border-color:#22d3ee; background:#12232b; }
+.floor-plan-controls button:disabled { opacity:.45; cursor:wait; }
+.floor-plan-controls button:focus-visible,.floor-plan-stage:focus-visible { outline:2px solid #22d3ee; outline-offset:2px; }
+.floor-plan-controls button svg { flex:none; }
+.floor-plan-zoom-level { min-width:36px; margin:0 auto 0 2px; color:#8ea0b5; font-size:10px; font-variant-numeric:tabular-nums; text-align:center; }
+.floor-plan-stage { position:relative; width:100%; height:clamp(180px,28vh,320px); min-height:180px; overflow:hidden; touch-action:none; user-select:none; background-color:#f8fafc; background-image:linear-gradient(45deg,#e8edf2 25%,transparent 25%),linear-gradient(-45deg,#e8edf2 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8edf2 75%),linear-gradient(-45deg,transparent 75%,#e8edf2 75%); background-position:0 0,0 6px,6px -6px,-6px 0; background-size:12px 12px; border:1px solid #303c49; border-radius:5px; cursor:grab; }
+.floor-plan-stage.is-dragging { cursor:grabbing; }
+.floor-plan-image { position:absolute; top:50%; left:50%; display:block; width:auto; height:auto; max-width:none; max-height:none; transform-origin:center center; pointer-events:none; -webkit-user-drag:none; }
+.floor-plan-artwork { position:absolute; top:50%; left:50%; transform-origin:center center; }
+.floor-plan-artwork .floor-plan-image { position:static; top:auto; left:auto; width:100%; height:100%; transform:none; }
+.floor-plan-annotation-marker { position:absolute; z-index:1; width:20px; height:20px; display:grid; place-items:center; padding:0; transform:translate(-50%,-50%); border:2px solid #fff; border-radius:50%; background:#f39c3d; box-shadow:0 0 0 4px #f39c3d55,0 2px 8px #17202a99; cursor:pointer; }
+.floor-plan-annotation-marker span { width:5px; height:5px; border-radius:50%; background:#fff; }
+.floor-plan-annotation-marker:focus-visible { outline:3px solid #0e7490; outline-offset:3px; }
+.floor-plan-stage.is-loaded .floor-plan-image { transition:transform 130ms ease-out; }
+.floor-plan-stage.is-dragging .floor-plan-image { transition:none; }
+.floor-plan-message,.floor-plan-error { position:absolute; top:50%; left:50%; width:calc(100% - 28px); transform:translate(-50%,-50%); color:#64748b; font-size:11px; text-align:center; }
+.floor-plan-error { display:flex; flex-direction:column; gap:7px; padding:14px; color:#fbbf24; background:#151c25; border:1px solid #3c4146; border-radius:6px; line-height:1.45; }
+.floor-plan-error span { color:#aab7c7; }
+.floor-plan-keyboard-help { margin-top:6px; color:#738399; font-size:9px; line-height:1.4; }
+@media (max-width:420px) { .floor-plan-controls { gap:4px; } .floor-plan-controls button { gap:0; padding:0 6px; } .floor-plan-controls button span { display:none; } .floor-plan-zoom-level { margin-left:auto; margin-right:5px; } }
+@media (prefers-reduced-motion:reduce) { .floor-plan-stage.is-loaded .floor-plan-image { transition:none; } }

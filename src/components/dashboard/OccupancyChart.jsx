@@ -25,12 +25,12 @@ function OccupancyChart() {
       <div className="chart-header">
         <div>
           <h2>Occupancy — Today</h2>
-          <p>Campus-wide occupancy throughout the day</p>
+          <p>Illustrative sample curve · no occupancy feed is connected</p>
         </div>
 
         <div className="chart-value">
-          <strong>64.2%</strong>
-          <span>Current</span>
+          <strong>DEMO</strong>
+          <span>Sample series</span>
         </div>
       </div>
 

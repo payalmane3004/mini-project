@@ -54,6 +54,8 @@ function Maintenance() {
         </div>
       </header>
 
+      <div className="workspace-demo-note">Local demonstration workflow · requests created here remain in page memory and are not sent to a facilities service. QR scanning is a visual placeholder; use “New Request” to enter a request.</div>
+
       <section className="maintenance-stats" aria-label="Maintenance request summary">
         <article className="maintenance-stat"><span className="maintenance-stat-title">TOTAL REQUESTS</span><span className="maintenance-stat-icon cyan"><Wrench size={19}/></span><strong>{counts.total}</strong><small>All time</small></article>
         <article className="maintenance-stat"><span className="maintenance-stat-title">PENDING</span><span className="maintenance-stat-icon amber"><AlertCircle size={19}/></span><strong>{counts.pending}</strong><small>Needs attention</small></article>

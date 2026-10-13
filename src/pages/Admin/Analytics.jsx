@@ -69,6 +69,7 @@ function ScoreRing({ score }) {
 function Analytics() {
   return <div className="analytics-page">
     <header className="analytics-page-heading"><h1>Campus Intelligence</h1><p>Advanced analytics and campus performance insights</p></header>
+    <div className="workspace-demo-note">Demonstration analytics · values below are static examples; no connected telemetry or verified campus dataset is available.</div>
 
     <section className="analytics-metrics" aria-label="Campus performance summary">
       <AnalyticsMetric icon={Award} title="AVG EFFICIENCY" value="83.4" detail="/ 100 score" trend="+2.1" tone="cyan"/>

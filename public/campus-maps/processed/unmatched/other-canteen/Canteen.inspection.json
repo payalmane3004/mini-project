@@ -1,0 +1,501 @@
+{
+  "buildingId": "BU-013",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "other/Canteen.dwg",
+  "convertedDxf": "Canteen.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 475,
+  "entityCounts": {
+    "DIMENSION": 12,
+    "LEADER": 1,
+    "LINE": 440,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "dimensionEntityCount": 12,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 8.059999999999974,
+      "definitionPoints": [
+        {
+          "x": 25.06931334901956,
+          "y": 72.62681229502431
+        },
+        {
+          "x": 26.8948925379961,
+          "y": 69.03401942251193
+        },
+        {
+          "x": 29.77962848166775,
+          "y": 65.97940801434967
+        },
+        {
+          "x": 26.1284701037147,
+          "y": 73.16499375937441
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 9.379999999999967,
+      "definitionPoints": [
+        {
+          "x": 38.83346779895452,
+          "y": 68.86771363473508
+        },
+        {
+          "x": 34.65227708627882,
+          "y": 66.7431562162984
+        },
+        {
+          "x": 29.77962848166776,
+          "y": 65.97940801434967
+        },
+        {
+          "x": 38.14200990701917,
+          "y": 70.22852285122303
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 2.937499999999993,
+      "definitionPoints": [
+        {
+          "x": 37.56072717413578,
+          "y": 66.56808983247605
+        },
+        {
+          "x": 36.89538736425757,
+          "y": 67.87749790480919
+        },
+        {
+          "x": 38.1703222393544,
+          "y": 70.17280335878333
+        },
+        {
+          "x": 39.50100185911084,
+          "y": 67.55398721411703
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 8.922446427041479,
+      "definitionPoints": [
+        {
+          "x": 48.51562319642662,
+          "y": 69.50941693933888
+        },
+        {
+          "x": 44.53838970654471,
+          "y": 67.48849479145244
+        },
+        {
+          "x": 39.50100185911089,
+          "y": 67.55398721411706
+        },
+        {
+          "x": 47.45546883887473,
+          "y": 71.59583150988995
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 16.69952180108137,
+      "definitionPoints": [
+        {
+          "x": 63.65192004942548,
+          "y": 62.35284390319825
+        },
+        {
+          "x": 56.3073155009601,
+          "y": 66.32465597363407
+        },
+        {
+          "x": 49.68898074954066,
+          "y": 71.639473292103
+        },
+        {
+          "x": 64.37818984647141,
+          "y": 63.69584915123137
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 7.842559894020212,
+      "definitionPoints": [
+        {
+          "x": 69.56336569403683,
+          "y": 69.80767663606514
+        },
+        {
+          "x": 67.6980922795509,
+          "y": 66.35844606794774
+        },
+        {
+          "x": 64.37818984647141,
+          "y": 63.69584915123137
+        },
+        {
+          "x": 68.10873667544325,
+          "y": 70.5943102874662
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 3.267440105979787,
+      "definitionPoints": [
+        {
+          "x": 71.11017429117244,
+          "y": 72.68580444342662
+        },
+        {
+          "x": 70.33304676578928,
+          "y": 71.24875398473245
+        },
+        {
+          "x": 66.34949958208176,
+          "y": 71.54566976176652
+        },
+        {
+          "x": 67.90375463284808,
+          "y": 74.41977067915488
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 18.75999999999999,
+      "definitionPoints": [
+        {
+          "x": 41.27872077100002,
+          "y": 84.76190914581153
+        },
+        {
+          "x": 32.91633934564862,
+          "y": 80.51279430893814
+        },
+        {
+          "x": 26.12847010371472,
+          "y": 73.16499375937443
+        },
+        {
+          "x": 42.85323295441754,
+          "y": 81.66322343312122
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.09999999999999,
+      "definitionPoints": [
+        {
+          "x": 51.58033647624899,
+          "y": 107.1034623971626
+        },
+        {
+          "x": 52.78458347790919,
+          "y": 96.1192788062446
+        },
+        {
+          "x": 52.31733067746809,
+          "y": 84.95184093809289
+        },
+        {
+          "x": 49.90883667414771,
+          "y": 106.9202081199289
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 16.69952180108137,
+      "definitionPoints": [
+        {
+          "x": 158.5530021784073,
+          "y": 62.98183798163831
+        },
+        {
+          "x": 151.2083976299419,
+          "y": 66.95365005207412
+        },
+        {
+          "x": 144.5900628785225,
+          "y": 72.26846737054308
+        },
+        {
+          "x": 159.2792719754532,
+          "y": 64.32484322967144
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 18.75999999999999,
+      "definitionPoints": [
+        {
+          "x": 136.1798028999818,
+          "y": 85.3909032242516
+        },
+        {
+          "x": 127.8174214746304,
+          "y": 81.14178838737821
+        },
+        {
+          "x": 121.0295522326965,
+          "y": 73.79398783781448
+        },
+        {
+          "x": 137.7543150833993,
+          "y": 82.29221751156126
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 22.09999999999999,
+      "definitionPoints": [
+        {
+          "x": 146.4814186052308,
+          "y": 107.7324564756026
+        },
+        {
+          "x": 147.685665606891,
+          "y": 96.74827288468464
+        },
+        {
+          "x": 147.2184128064499,
+          "y": 85.58083501653294
+        },
+        {
+          "x": 144.8099188031295,
+          "y": 107.549202198369
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 12,
+      "LINE": 439,
+      "LWPOLYLINE": 1,
+      "MTEXT": 17
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 1,
+      "LINE": 1,
+      "MTEXT": 3
+    }
+  },
+  "bounds": {
+    "minX": 9.393197102169182,
+    "minY": 55.97881326966888,
+    "maxX": 159.2792719754532,
+    "maxY": 115.3975039211988
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 9.393197102169182,
+    "minY": 55.97881326966888,
+    "maxX": 159.2792719754532,
+    "maxY": 115.3975039211988
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Boys\\P15.26 X 7.65}",
+      "x": 59.64323716757138,
+      "y": 75.09565714778594
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Kitchen\\P3 X 4.75}",
+      "x": 52.72748756226879,
+      "y": 80.1188470811507
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3.5 X 5}",
+      "x": 49.75479617792402,
+      "y": 81.96729817009611
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P3 X 6}",
+      "x": 46.01245008365304,
+      "y": 81.95900998717939
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Counter\\P4.5 X 6}",
+      "x": 49.25853277294662,
+      "y": 76.81960905188944
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Maths\\P9.15 X 7.65}",
+      "x": 33.24401124118343,
+      "y": 72.83670035170022
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Girls\\P9.15 X 7.65}",
+      "x": 43.63789249958748,
+      "y": 77.54137079342847
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics Dark Room\\P3.5 X 7.65}",
+      "x": 39.69975755090177,
+      "y": 72.5022799351945
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Physics\\P15.26 X 7.65}",
+      "x": 48.53857974788092,
+      "y": 92.18973673808256
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dean Academic\\P6.15 X 7.65}",
+      "x": 47.02163953885098,
+      "y": 103.795187053454
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha 3 m wide}",
+      "x": 50.99381064445193,
+      "y": 73.19981897697252
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 13.19084764719256,
+      "y": 113.2276010568919
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Canteen}",
+      "x": 36.76000048264925,
+      "y": 60.89807758091374
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 72.63390532122125,
+      "y": 105.1813190317482
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 71.56950789133111,
+      "y": 102.3528751918366
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 70.16042195428048,
+      "y": 103.368093327842
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 69.4709410902548,
+      "y": 101.2624828719187
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Girls\\P9.15 X 7.65}",
+      "x": 138.5389746285693,
+      "y": 78.17036487186851
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha 3 m wide}",
+      "x": 145.8948927734337,
+      "y": 73.82881305541258
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dias}",
+      "x": 143.8310435406571,
+      "y": 76.61928501013907
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;2 Seater = 6 X 2 = 12\\P3Seater = 22X3 = 66}",
+      "x": 153.8062111742774,
+      "y": 79.12742971067446
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 440,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 12,
+    "LEADER": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

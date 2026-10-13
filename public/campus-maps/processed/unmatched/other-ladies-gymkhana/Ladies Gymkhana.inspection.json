@@ -1,0 +1,698 @@
+{
+  "buildingId": "BU-044",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "other/Ladies Gymkhana.dwg",
+  "convertedDxf": "Ladies Gymkhana.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 1848,
+  "entityCounts": {
+    "ARC": 2,
+    "CIRCLE": 20,
+    "HATCH": 11,
+    "INSERT": 156,
+    "LINE": 1563,
+    "LWPOLYLINE": 6,
+    "MTEXT": 90
+  },
+  "dimensionEntityCount": 0,
+  "dimensions": [],
+  "layers": {
+    "0": {
+      "ARC": 2,
+      "CIRCLE": 20,
+      "HATCH": 11,
+      "LINE": 1563,
+      "LWPOLYLINE": 6,
+      "MTEXT": 90
+    },
+    "FURN": {
+      "INSERT": 156
+    }
+  },
+  "bounds": {
+    "minX": -448038.3301280889,
+    "minY": -448198.9105304968,
+    "maxX": 448513.7254966541,
+    "maxY": 448074.8084585593
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": -10.03693418509754,
+    "minY": -176.2037061913538,
+    "maxX": 156.8900771192084,
+    "maxY": 41.84198348813212
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 42.23308484731972,
+      "y": 26.96130172195377
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 47.82587299365477,
+      "y": 26.9589863768575
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 42.14658765949679,
+      "y": 25.52572265873167
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 48.41032584688773,
+      "y": 25.59754379651856
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 42.12527876458218,
+      "y": 24.21664321993396
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 48.00949859455079,
+      "y": 24.1037839703305
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Dumbels",
+      "x": 45.04224015032739,
+      "y": 24.12499473592989
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 2.10 m",
+      "x": 38.98269141553915,
+      "y": 26.68459587512061
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/TV Hall\\P8.30 X 4.30 m",
+      "x": 35.57182533509656,
+      "y": 29.92431053521091
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 43.86097785565532,
+      "y": 29.52789330183095
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 44.80046794260123,
+      "y": 26.02790359981544
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": 25.19391841588157,
+      "y": 26.1625744433473
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": 25.01224624829214,
+      "y": 23.74843117937434
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Coolar\\P1.45 X 2.0 m",
+      "x": 40.0096905968573,
+      "y": 33.35012925282992
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Exisiting Layout of Ladies Gymkhana",
+      "x": 37.10803017797004,
+      "y": 8.861480049547474
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 88.25435596839161,
+      "y": 26.96130172195377
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 93.84714411472666,
+      "y": 26.9589863768575
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 88.16785878056868,
+      "y": 25.52572265873167
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 94.43159696795962,
+      "y": 25.59754379651856
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 88.14654988565407,
+      "y": 24.21664321993396
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 94.03076971562268,
+      "y": 24.1037839703305
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Dumbels",
+      "x": 91.06351127139928,
+      "y": 24.12499473592989
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 4.30 m",
+      "x": 85.00396253661104,
+      "y": 26.68459587512061
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/Common Room\\P8.30 X 4.30 m",
+      "x": 80.79699925446415,
+      "y": 29.72271121682007
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 89.88224897672721,
+      "y": 29.52789330183095
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 90.82173906367312,
+      "y": 26.02790359981544
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Lawn Area\\P12 X 7.0 m",
+      "x": 93.34981808797805,
+      "y": 16.63691848316122
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": 71.21518953695346,
+      "y": 26.1625744433473
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": 71.07237145308898,
+      "y": 24.0500313010381
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance\\P2.60 X 1.80 m",
+      "x": 85.06529362317261,
+      "y": 33.59886644084202
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ladies Gymkhana",
+      "x": 83.12930129904193,
+      "y": 8.861480049547474
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Developed Area\\P10 X 15.0 m",
+      "x": 69.12835600041863,
+      "y": 15.23201525472575
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Area under roof\\P5.80 X 9.15 m",
+      "x": 79.90091600217133,
+      "y": 24.13306506283583
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 4.30 m",
+      "x": 86.04794166696999,
+      "y": 21.2892788431346
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 4.30 m",
+      "x": 131.0252336837245,
+      "y": 26.68459580497029
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/Common Room\\P8.30 X 4.30 m",
+      "x": 127.1213502521925,
+      "y": 29.36152876611887
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 135.9035201238407,
+      "y": 29.52789323168062
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 136.8430102107866,
+      "y": 26.02790352966511
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": 117.2364606840669,
+      "y": 26.16257437319697
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": 117.0547885164775,
+      "y": 23.74843110922401
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance\\P2.60 X 1.80 m",
+      "x": 131.0865647702861,
+      "y": 33.59886637069169
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Layout of Rafters and Purlins at Ladies Gymkhana",
+      "x": 126.8200330516879,
+      "y": 8.615399148221528
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Area under roof\\P5.80 X 9.15 m",
+      "x": 125.9221871492848,
+      "y": 24.1330649926855
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 4.30 m",
+      "x": 132.0692128140835,
+      "y": 21.28927877298428
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 5.30 m",
+      "x": 86.28396160490544,
+      "y": 16.1241654672876
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 13.36988693227106,
+      "y": -156.3238297079793
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 18.96267507860611,
+      "y": -156.3261450530755
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 13.28338974444813,
+      "y": -157.7594087712014
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 19.54712793183907,
+      "y": -157.6875876334145
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 13.26208084953352,
+      "y": -159.0684882099991
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 19.14630067950213,
+      "y": -159.1813474596025
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Dumbels",
+      "x": 16.17904223527873,
+      "y": -159.1601366940031
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 2.10 m",
+      "x": 10.11949350049049,
+      "y": -156.6005355548124
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/TV Hall\\P8.30 X 4.30 m",
+      "x": 6.708627420047904,
+      "y": -153.3608208947221
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 14.99777994060666,
+      "y": -153.7572381281021
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 15.93727002755257,
+      "y": -157.2572278301176
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": -3.669279499167089,
+      "y": -157.1225569865857
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": -3.850951666756515,
+      "y": -159.5367002505587
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Coolar\\P1.45 X 2.0 m",
+      "x": 11.14649268180864,
+      "y": -149.9350021771031
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Exisiting Layout of Ladies Gymkhana",
+      "x": 8.244832262921378,
+      "y": -174.4236513803855
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 59.39115805334295,
+      "y": -156.3238297079793
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ergometer",
+      "x": 64.983946199678,
+      "y": -156.3261450530755
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 59.30466086552002,
+      "y": -157.7594087712014
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Cycle",
+      "x": 65.56839905291096,
+      "y": -157.6875876334145
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 59.28335197060541,
+      "y": -159.0684882099991
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Trademill",
+      "x": 65.16757180057402,
+      "y": -159.1813474596025
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Dumbels",
+      "x": 62.20031335635062,
+      "y": -159.1601366940031
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 4.30 m",
+      "x": 56.14076462156238,
+      "y": -156.6005355548124
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/Common Room\\P8.30 X 4.30 m",
+      "x": 51.9338013394155,
+      "y": -153.5624202131129
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 61.01905106167855,
+      "y": -153.7572381281021
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 61.95854114862446,
+      "y": -157.2572278301176
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": 42.3519916219048,
+      "y": -157.1225569865857
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": 42.20917353804032,
+      "y": -159.2351001288949
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance\\P2.60 X 1.80 m",
+      "x": 56.20209570812395,
+      "y": -149.686264989091
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Ladies Gymkhana",
+      "x": 50.970295554327,
+      "y": -172.8597456962395
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Developed Area\\P10 X 15.0 m",
+      "x": 40.26515808536998,
+      "y": -168.0531161752073
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Area under roof\\P5.80 X 9.15 m",
+      "x": 51.03771808712267,
+      "y": -159.1520663670972
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 4.30 m",
+      "x": 57.18474375192133,
+      "y": -161.9958525867984
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Store cum\\PChange Room\\P2.85 X 4.30 m",
+      "x": 102.1620357686758,
+      "y": -156.6005356249627
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Reading/Common Room\\P8.30 X 4.30 m",
+      "x": 98.2581523371438,
+      "y": -153.9236026638142
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Indoor Games\\P8.30 X 4.30 m",
+      "x": 107.040322208792,
+      "y": -153.7572381982524
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Gymkhana\\P8.30X 4.30 m",
+      "x": 107.9798122957379,
+      "y": -157.2572279002679
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "WC\\P1.60 X 1.50",
+      "x": 88.37326276901827,
+      "y": -157.122557056736
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Urinals  2 Nos\\P1.60 X 1.95 m",
+      "x": 88.19159060142884,
+      "y": -159.536700320709
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Entrance\\P2.60 X 1.80 m",
+      "x": 102.2233668552374,
+      "y": -149.6862650592413
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Layout of Rafters and Purlins at Ladies Gymkhana",
+      "x": 97.95683513663923,
+      "y": -174.6697322817115
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Area under roof\\P5.80 X 9.15 m",
+      "x": 97.05898923423614,
+      "y": -159.1520664372475
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 4.30 m",
+      "x": 103.2060148990348,
+      "y": -161.9958526569487
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Room\\P6.30 X 5.30 m",
+      "x": 57.42076368985678,
+      "y": -167.1609659626454
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "Area = 215 Sqm, Scale - 1:100",
+      "x": 61.05338735552381,
+      "y": -174.5228733376604
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "ARC",
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "ARC": 2,
+    "CIRCLE": 20,
+    "LINE": 1563,
+    "LWPOLYLINE": 6,
+    "MTEXT": 90
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "HATCH": 11,
+    "INSERT": 156
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

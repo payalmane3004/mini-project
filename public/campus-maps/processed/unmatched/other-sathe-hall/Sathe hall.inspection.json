@@ -1,0 +1,125 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/Sathe hall.dwg",
+  "convertedDxf": "Sathe hall.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 62,
+  "entityCounts": {
+    "DIMENSION": 2,
+    "LINE": 56,
+    "LWPOLYLINE": 1,
+    "MTEXT": 3
+  },
+  "dimensionEntityCount": 2,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 9.149999999999999,
+      "definitionPoints": [
+        {
+          "x": 24.72405554990822,
+          "y": 21.14932488889652
+        },
+        {
+          "x": 20.14905554990822,
+          "y": 21.14932488889652
+        },
+        {
+          "x": 15.57405554990822,
+          "y": 22.28518068996548
+        },
+        {
+          "x": 24.72405554990822,
+          "y": 22.28518068996548
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 9.150000000000002,
+      "definitionPoints": [
+        {
+          "x": 23.49382992537241,
+          "y": 22.28518068996548
+        },
+        {
+          "x": 23.49382992537241,
+          "y": 17.71018068996548
+        },
+        {
+          "x": 24.72405554990822,
+          "y": 13.13518068996548
+        },
+        {
+          "x": 24.72405554990822,
+          "y": 22.28518068996548
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 2,
+      "LINE": 56,
+      "LWPOLYLINE": 1,
+      "MTEXT": 3
+    }
+  },
+  "bounds": {
+    "minX": 10.11264167471219,
+    "minY": 1.761993070244202,
+    "maxX": 42.95431461822534,
+    "maxY": 28.45169040432024
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 10.11264167471219,
+    "minY": 1.761993070244202,
+    "maxX": 42.95431461822534,
+    "maxY": 28.45169040432024
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Sathe Hall\\P9.15 X 9.15 m}",
+      "x": 17.86058052633103,
+      "y": 16.48583130306221
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;^ITilak Hall\\P }",
+      "x": 30.55169900637675,
+      "y": 17.4740231715487
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Renovation of Sathe Hall }",
+      "x": 17.40898461460104,
+      "y": 3.59035442963733
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 56,
+    "LWPOLYLINE": 1,
+    "MTEXT": 3
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 2
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

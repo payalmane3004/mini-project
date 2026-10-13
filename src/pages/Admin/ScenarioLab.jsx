@@ -25,7 +25,7 @@ function ScenarioLab() {
       name: form.get("name"),
       description: `${form.get("type")} · ${form.get("duration")} · Ready to simulate`,
       impact: form.get("impact"),
-      detail: `Scenario created for ${form.get("building")} over ${form.get("duration")}. Run a simulation to review the estimated impact before making changes.`,
+    detail: `Scenario draft for ${form.get("building")} over ${form.get("duration")}. No simulation is run by this demonstration interface.`,
       building: form.get("building"),
       duration: form.get("duration"),
     };
@@ -34,7 +34,8 @@ function ScenarioLab() {
   }
 
   return <div className="scenario-page">
-    <header className="scenario-heading"><div><h1><FlaskConical size={22}/> Campus Scenario Lab</h1><p>Simulate campus changes and evaluate their impact before making decisions.</p></div><button className="scenario-new-button" onClick={() => setDialog(true)}><Plus size={17}/> New Scenario</button></header>
+    <header className="scenario-heading"><div><h1><FlaskConical size={22}/> Campus Scenario Lab</h1><p>Review and draft illustrative campus what-if scenarios.</p></div><button className="scenario-new-button" onClick={() => setDialog(true)}><Plus size={17}/> New Scenario</button></header>
+    <div className="workspace-demo-note">Scenario list and impact figures are sample content. No simulation engine is connected; creating a scenario saves a draft only for this page session.</div>
 
     <section className="scenario-metrics" aria-label="Scenario summary">
       <article className="scenario-metric"><span>Scenarios Tested</span><i className="cyan"><FlaskConical size={17}/></i><strong>{12 + Math.max(0, scenarios.length - 3)}</strong><small>All time</small></article>
@@ -49,7 +50,7 @@ function ScenarioLab() {
       </button>)}</div>
     </section>
 
-    <aside className="scenario-simulation-note"><Info size={17}/><div><strong>Simulation Mode</strong><p>Scenarios run in a safe, isolated environment. No real campus systems or schedules are changed.</p></div></aside>
+    <aside className="scenario-simulation-note"><Info size={17}/><div><strong>Simulation unavailable</strong><p>This interface does not calculate impacts or connect to campus schedules.</p></div></aside>
 
     {dialog && <div className="scenario-overlay" onMouseDown={(event) => event.target === event.currentTarget && setDialog(false)}><form className="scenario-dialog" onSubmit={addScenario}>
       <button className="scenario-dialog-close" type="button" aria-label="Close" onClick={() => setDialog(false)}><X size={18}/></button><span className="scenario-dialog-icon"><FlaskConical size={19}/></span><h2>New Scenario</h2><p>Model a possible change and review its campus impact.</p>

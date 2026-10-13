@@ -1,0 +1,23 @@
+.campus-facility-search{margin:18px 0 20px;padding:16px;border:1px solid #263745;border-radius:8px;background:#121c26;color:#dbe5ed}
+.campus-facility-search-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.campus-facility-search-header h2{margin:0;color:#edf5f8;font-size:15px}
+.campus-facility-search-header p{margin:5px 0 0;color:#91a2b5;font-size:10px}
+.campus-facility-search-header>span{color:#79cfe0;font-size:10px;white-space:nowrap}
+.campus-facility-search-controls{display:grid;grid-template-columns:minmax(220px,1.5fr) minmax(170px,1fr) minmax(210px,1fr);gap:8px}
+.campus-facility-query{height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;border:1px solid #31414e;border-radius:5px;background:#0e1720;color:#8ea2b4}
+.campus-facility-query input{width:100%;border:0;outline:0;background:transparent;color:#e2e8f0;font:inherit;font-size:11px}
+.campus-facility-search-controls>label:not(.campus-facility-query){display:grid;gap:3px;color:#879aac;font-size:9px}
+.campus-facility-search-controls select{height:36px;min-width:0;padding:0 8px;border:1px solid #31414e;border-radius:5px;background:#0e1720;color:#d6e0e7;font-size:10px}
+.campus-facility-search-results{max-height:270px;overflow:auto;margin-top:9px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.campus-facility-result{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border:1px solid #263745;border-radius:5px;background:#17232e;color:#dce7ed;text-align:left;cursor:pointer}
+.campus-facility-result:hover,.campus-facility-result:focus-visible{border-color:#28758a;background:#172b36;outline:none}
+.campus-facility-result>span{min-width:0;display:grid;gap:3px}
+.campus-facility-result strong,.campus-facility-result small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.campus-facility-result strong{font-size:10px;font-weight:600}
+.campus-facility-result small{color:#91a2b5;font-size:9px}
+.campus-facility-result svg{flex:none;color:#68cde0}
+.campus-facility-search-empty,.campus-facility-search-warning,.campus-facility-search-footnote{margin:8px 0 0;color:#91a2b5;font-size:9px;line-height:1.5}
+.campus-facility-search-warning{color:#ffd1a3}
+.campus-facility-search-footnote{margin-top:9px}
+@media(max-width:850px){.campus-facility-search-controls{grid-template-columns:1fr 1fr}.campus-facility-query{grid-column:1/-1}}
+@media(max-width:560px){.campus-facility-search{padding:11px}.campus-facility-search-controls{grid-template-columns:1fr}.campus-facility-query{grid-column:auto}.campus-facility-search-results{grid-template-columns:1fr}.campus-facility-search-header{display:block}.campus-facility-search-header>span{display:block;margin-top:7px}}

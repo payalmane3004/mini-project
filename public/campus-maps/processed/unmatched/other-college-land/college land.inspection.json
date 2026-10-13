@@ -1,0 +1,1718 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/college land.dwg",
+  "convertedDxf": "college land.dxf",
+  "dxfUnitsCode": 4,
+  "modelSpaceEntityCount": 2435,
+  "entityCounts": {
+    "ARC": 92,
+    "CIRCLE": 529,
+    "DIMENSION": 9,
+    "HATCH": 1,
+    "IMAGE": 1,
+    "INSERT": 227,
+    "LINE": 935,
+    "LWPOLYLINE": 434,
+    "SPLINE": 8,
+    "TEXT": 199
+  },
+  "dimensionEntityCount": 9,
+  "dimensions": [
+    {
+      "layer": "TXT",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 43.7167256429135,
+      "definitionPoints": [
+        {
+          "x": 1994.879882820946,
+          "y": 596.9277390939417
+        },
+        {
+          "x": 1994.879882820945,
+          "y": 575.0693762724853
+        },
+        {
+          "x": 1985.156998394361,
+          "y": 553.2110134510282
+        },
+        {
+          "x": 1985.15699839436,
+          "y": 596.9277390939417
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 48.58277561253942,
+      "definitionPoints": [
+        {
+          "x": 1924.448963480382,
+          "y": 553.6724775227717
+        },
+        {
+          "x": 1924.448963480382,
+          "y": 577.9638653290418
+        },
+        {
+          "x": 1933.05829974093,
+          "y": 602.2552531353111
+        },
+        {
+          "x": 1938.708201369903,
+          "y": 553.6724775227717
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 58.46231508836524,
+      "definitionPoints": [
+        {
+          "x": 1813.359786576703,
+          "y": 613.404329557754
+        },
+        {
+          "x": 1813.359786576702,
+          "y": 584.1731720135716
+        },
+        {
+          "x": 1817.853706037135,
+          "y": 554.9420144693887
+        },
+        {
+          "x": 1822.649565835231,
+          "y": 613.404329557754
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 103.0098957550811,
+      "definitionPoints": [
+        {
+          "x": 1922.11272450869,
+          "y": 606.9988480008043
+        },
+        {
+          "x": 1870.915458736355,
+          "y": 612.620203113682
+        },
+        {
+          "x": 1818.932048309884,
+          "y": 611.0816375339356
+        },
+        {
+          "x": 1921.326579854554,
+          "y": 599.8389273081802
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    33",
+      "textOverride": null,
+      "measurement": 56.83734856371825,
+      "definitionPoints": [
+        {
+          "x": 1985.543744799456,
+          "y": 600.3717786683809
+        },
+        {
+          "x": 1957.250186407604,
+          "y": 603.0355356890657
+        },
+        {
+          "x": 1928.632381610656,
+          "y": 602.2552531353111
+        },
+        {
+          "x": 1985.21949839436,
+          "y": 596.9277390939417
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 4.0,
+      "definitionPoints": [
+        {
+          "x": 1863.729796709844,
+          "y": -133.7302015741957
+        },
+        {
+          "x": 1863.729796709844,
+          "y": -131.7302015741954
+        },
+        {
+          "x": 1860.404436473839,
+          "y": -129.7302015741957
+        },
+        {
+          "x": 1860.404436473839,
+          "y": -133.7302015741957
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 3.0,
+      "definitionPoints": [
+        {
+          "x": 1868.904436473839,
+          "y": -139.381116827054
+        },
+        {
+          "x": 1867.404436473839,
+          "y": -139.381116827054
+        },
+        {
+          "x": 1865.904436473839,
+          "y": -133.7302015741957
+        },
+        {
+          "x": 1868.904436473839,
+          "y": -133.7302015741957
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 5.5,
+      "definitionPoints": [
+        {
+          "x": 1865.904436473839,
+          "y": -126.4081317399318
+        },
+        {
+          "x": 1862.63249380124,
+          "y": -126.4081317399318
+        },
+        {
+          "x": 1860.404436473839,
+          "y": -129.7302015741957
+        },
+        {
+          "x": 1865.904436473839,
+          "y": -129.7771798010017
+        }
+      ]
+    },
+    {
+      "layer": "TXT",
+      "dimensionType": "    32",
+      "textOverride": "16",
+      "measurement": 15.93749999999999,
+      "definitionPoints": [
+        {
+          "x": 1864.317924244499,
+          "y": -129.7146798010017
+        },
+        {
+          "x": 1864.317924244499,
+          "y": -121.7459298010014
+        },
+        {
+          "x": 1865.904436473839,
+          "y": -113.7771798010017
+        },
+        {
+          "x": 1865.904436473839,
+          "y": -129.7146798010017
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "BOUNDRY": {
+      "ARC": 31,
+      "CIRCLE": 1,
+      "LINE": 252,
+      "LWPOLYLINE": 123
+    },
+    "BUILT UP": {
+      "ARC": 24,
+      "CIRCLE": 24,
+      "LINE": 267,
+      "LWPOLYLINE": 292,
+      "SPLINE": 8
+    },
+    "Defpoints": {
+      "IMAGE": 1
+    },
+    "H1": {
+      "ARC": 1,
+      "CIRCLE": 10,
+      "LINE": 191,
+      "LWPOLYLINE": 1,
+      "TEXT": 6
+    },
+    "LSTREEDC": {
+      "INSERT": 160
+    },
+    "TREE": {
+      "CIRCLE": 5,
+      "HATCH": 1,
+      "INSERT": 67,
+      "LINE": 93,
+      "LWPOLYLINE": 1,
+      "TEXT": 9
+    },
+    "TXT": {
+      "ARC": 36,
+      "CIRCLE": 489,
+      "DIMENSION": 9,
+      "LINE": 129,
+      "TEXT": 184
+    },
+    "ele pole": {
+      "LINE": 3,
+      "LWPOLYLINE": 17
+    }
+  },
+  "bounds": {
+    "minX": -1918.262299664837,
+    "minY": -462.092534233683,
+    "maxX": 2832.635605746592,
+    "maxY": 687.8927526869553
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": -46.90926727431916,
+    "minY": -462.092534233683,
+    "maxX": 2832.635605746592,
+    "maxY": 687.8927526869553
+  },
+  "sourceText": [
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "S A N G L I   M I R A J   H I G H W A Y",
+      "x": 482.9380244935761,
+      "y": 624.0621320572989
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "WALCHAND COLLEGE OF ENGINEERING, SANGLI.",
+      "x": 501.6388241169691,
+      "y": -14.61216969984548
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "M. S. E. B.  R O A D",
+      "x": 69.50115473010877,
+      "y": 300.519482445898
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "40",
+      "x": 509.8510855828533,
+      "y": 586.4244825911561
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "GOVERNMENT COLONY ROAD",
+      "x": 276.17193965334,
+      "y": 9.798284287649285
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "GOVERNMENT COLONY ROAD",
+      "x": 698.772989490712,
+      "y": 78.35531379054278
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "M.S.E.B.",
+      "x": 130.8930823992708,
+      "y": 109.1798496234097
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "DRN BY- Prof. N. N. Kamble",
+      "x": 990.6044282338278,
+      "y": -24.69039442620679
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 183.5386889165302,
+      "y": 248.2615078967422
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 727.8390186209012,
+      "y": 244.1358749824835
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Drainage Well",
+      "x": 552.849647789958,
+      "y": 218.1552200598571
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Main Building",
+      "x": 338.2711855945217,
+      "y": 554.8571868958527
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PG",
+      "x": 299.3463733842484,
+      "y": 530.2748470367941
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 298.6914143421002,
+      "y": 524.2257957996762
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PE",
+      "x": 395.2659090801578,
+      "y": 526.1923489674185
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 394.6109500380097,
+      "y": 520.1432977303007
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Chemistry",
+      "x": 251.8489555347225,
+      "y": 558.8128289624559
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 266.4468923203085,
+      "y": 558.6905336754148
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Metallurgy",
+      "x": 249.6101107551515,
+      "y": 537.0265527494145
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 248.9551517130034,
+      "y": 530.9775015122966
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Electrical Deptt",
+      "x": 374.7323223077469,
+      "y": 492.0919159260525
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Lab",
+      "x": 306.7300319149919,
+      "y": 493.2567585191155
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Workshop",
+      "x": 258.0475259697319,
+      "y": 484.9972895864591
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Deptt",
+      "x": 258.8493288072705,
+      "y": 460.8648927995448
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Civil",
+      "x": 246.3198187565008,
+      "y": 419.3857857729049
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Deptt",
+      "x": 246.2891461840245,
+      "y": 414.3743177315683
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Hyd Lab",
+      "x": 273.4587640987047,
+      "y": 399.4171677436286
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Civil Drg Hall",
+      "x": 257.398829955268,
+      "y": 370.1790851007761
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Quadrangle",
+      "x": 338.3653013701069,
+      "y": 417.0038833344495
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Tilak Hall",
+      "x": 375.5741708778928,
+      "y": 414.9765534076748
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Vartak Hall",
+      "x": 387.8265494464995,
+      "y": 337.7763112517634
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lawn Tennis",
+      "x": 311.1235519411713,
+      "y": 336.7876866511652
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Gun Wall",
+      "x": 288.9999775389665,
+      "y": 331.1106401216555
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Gymkhana",
+      "x": 428.1799863925832,
+      "y": 339.393681514048
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Canteen",
+      "x": 469.7801343457309,
+      "y": 311.9631064212114
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Physics",
+      "x": 491.7676345534323,
+      "y": 320.349410994151
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Maths",
+      "x": 455.5909741298458,
+      "y": 325.6002923032487
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Vision Office",
+      "x": 508.2256033924136,
+      "y": 414.3786498787126
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Exam",
+      "x": 501.6788543864745,
+      "y": 389.8690905710005
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cell",
+      "x": 501.5408488310018,
+      "y": 386.3392044540942
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 521.0693136740801,
+      "y": 391.1547526120273
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ajit Gulabchand",
+      "x": 444.6875930073311,
+      "y": 453.5119190912053
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Central Library",
+      "x": 443.9736653549744,
+      "y": 445.8055773892017
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ganapati",
+      "x": 422.4154190750505,
+      "y": 481.2202147139512
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 422.1103058063495,
+      "y": 505.4263130481049
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 418.6622396368873,
+      "y": 498.0597579425503
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Society",
+      "x": 421.7893734581394,
+      "y": 492.1517208954531
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cyber Hostel",
+      "x": 449.3369428103198,
+      "y": 533.1935059063815
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Watchman",
+      "x": 465.0801435816134,
+      "y": 540.4831899782187
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Director Bunglow",
+      "x": 505.4775342653247,
+      "y": 574.0948798832187
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 508.2737591029084,
+      "y": 537.3226311244749
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Medical",
+      "x": 493.5777106072869,
+      "y": 533.2962850154952
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Old Rector Office",
+      "x": 528.1975293647941,
+      "y": 534.7234623348645
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 505.7217136640392,
+      "y": 513.7011597521526
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 502.9323096225644,
+      "y": 497.4697078390366
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Rector Office",
+      "x": 500.8797185746957,
+      "y": 476.9721025852252
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 531.4184861327421,
+      "y": 476.8405525973651
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D1",
+      "x": 578.4621664781148,
+      "y": 552.7479799794917
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D2",
+      "x": 579.0329270403017,
+      "y": 490.538869977456
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D3",
+      "x": 658.2423023422116,
+      "y": 444.2883345923476
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D4",
+      "x": 602.7726878078583,
+      "y": 444.3079982970851
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D8",
+      "x": 578.0397209794114,
+      "y": 399.7514034840349
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D7",
+      "x": 577.164774449187,
+      "y": 328.2781041217766
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D6",
+      "x": 599.0714810943388,
+      "y": 283.8633227447891
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "D5",
+      "x": 666.229946372111,
+      "y": 283.8704377599627
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Old Mess",
+      "x": 670.9384444307475,
+      "y": 331.1915664035953
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Hot Bath",
+      "x": 702.348880160157,
+      "y": 453.142908708998
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Hot Bath Quarters",
+      "x": 705.2315915922973,
+      "y": 424.2920022472538
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "ME Hostels",
+      "x": 667.7307501369896,
+      "y": 478.8471716631541
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "ME Hostels",
+      "x": 667.1261591709733,
+      "y": 509.7929280739241
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "New Mess",
+      "x": 661.0799003055317,
+      "y": 558.1218185368818
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Rainbow Staff Quaters",
+      "x": 795.5701076927626,
+      "y": 556.5763655081657
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Wadar Well Staff Quarters",
+      "x": 915.9886942560652,
+      "y": 510.8767819350653
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Agricultural Staff Quarters",
+      "x": 686.7016003686635,
+      "y": 119.5840780523415
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ganesh Staff Quarters",
+      "x": 429.7868441915889,
+      "y": 103.5589420901283
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Bara Staff Quarters",
+      "x": 271.661069098951,
+      "y": 82.16322320292102
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 79.85851303879781,
+      "y": 210.5930200606131
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarters",
+      "x": 135.5957502576757,
+      "y": 321.7056850112531
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Community Polytechnic",
+      "x": 199.7874084879204,
+      "y": 300.6503470182245
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 73.72587594360812,
+      "y": 343.4408006232327
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 73.39365184546841,
+      "y": 338.6046334958821
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 72.99558986108195,
+      "y": 410.3536439806323
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 72.66336576294225,
+      "y": 405.5174768532818
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Green",
+      "x": 71.16456227511935,
+      "y": 474.8689857091501
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 70.83233817697965,
+      "y": 470.0328185817996
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 74.44400280772925,
+      "y": 543.7267348055486
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 131.0284327126806,
+      "y": 550.6591985149887
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Bank",
+      "x": 117.2646517731558,
+      "y": 618.4397247199242
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 224.2673882206436,
+      "y": 561.3386018297163
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Smithy Workshop",
+      "x": 208.2934496628309,
+      "y": 534.0568885311066
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Hyd Well",
+      "x": 286.0226310166563,
+      "y": 406.0813075061399
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Wadar Well",
+      "x": 929.1818306379687,
+      "y": 517.3286914701282
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "N",
+      "x": 973.3671691250481,
+      "y": 646.6489860023365
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "SCALE 1 :1000",
+      "x": 958.94657120781,
+      "y": 612.4028878988781
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "College Roads",
+      "x": 792.0276795046366,
+      "y": 27.65839804880989
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "S A N G L I   M I R A J   H I G H W A Y",
+      "x": 1904.664173914112,
+      "y": 624.6963988558193
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "40",
+      "x": 2081.019832651956,
+      "y": 571.016589011094
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Main Building",
+      "x": 1909.439932663625,
+      "y": 539.4492933157906
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PG",
+      "x": 1870.515120453351,
+      "y": 514.866953456732
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1869.860161411203,
+      "y": 508.8179022196141
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PE",
+      "x": 1966.434656149261,
+      "y": 510.7844553873564
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1965.779697107112,
+      "y": 504.7354041502385
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Chemistry",
+      "x": 1823.017702603825,
+      "y": 543.4049353823938
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1837.615639389411,
+      "y": 543.2826400953527
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Metallurgy",
+      "x": 1820.778857824254,
+      "y": 521.6186591693523
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1820.123898782106,
+      "y": 515.5696079322345
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Electrical Deptt",
+      "x": 1945.90106937685,
+      "y": 476.6840223459903
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Lab",
+      "x": 1877.898778984095,
+      "y": 477.8488649390533
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Workshop",
+      "x": 1829.216273038835,
+      "y": 469.589396006397
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Mechanical Deptt",
+      "x": 1830.018075876373,
+      "y": 445.4569992194827
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Civil",
+      "x": 1817.488565825604,
+      "y": 403.9778921928428
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Deptt",
+      "x": 1817.457893253127,
+      "y": 398.9664241515062
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Hyd Lab",
+      "x": 1844.627511167807,
+      "y": 384.0092741635665
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Civil Drg Hall",
+      "x": 1828.567577024371,
+      "y": 354.771191520714
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Quadrangle",
+      "x": 1909.53404843921,
+      "y": 401.5959897543873
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Tilak Hall",
+      "x": 1946.742917946996,
+      "y": 399.5686598276127
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Vartak Hall",
+      "x": 1958.995296515602,
+      "y": 322.3684176717013
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lawn Tennis",
+      "x": 1882.292299010274,
+      "y": 321.3797930711031
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Gun Wall",
+      "x": 1860.168724608069,
+      "y": 315.7027465415933
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Gymkhana",
+      "x": 1999.348733461686,
+      "y": 323.9857879339858
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Canteen",
+      "x": 2040.948881414834,
+      "y": 296.5552128411492
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Physics",
+      "x": 2062.936381622535,
+      "y": 304.9415174140888
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Maths",
+      "x": 2026.759721198949,
+      "y": 310.1923987231866
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Vision Office",
+      "x": 2079.394350461516,
+      "y": 398.9707562986505
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Exam",
+      "x": 2072.847601455577,
+      "y": 374.4611969909383
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cell",
+      "x": 2072.709595900105,
+      "y": 370.931310874032
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 2092.238060743183,
+      "y": 375.7468590319652
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ajit Gulabchand",
+      "x": 2015.856340076434,
+      "y": 438.1040255111432
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Central Library",
+      "x": 2015.142412424077,
+      "y": 430.3976838091396
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ganapati",
+      "x": 1993.584166144153,
+      "y": 465.8123211338891
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 1993.279052875452,
+      "y": 490.0184194680428
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 1989.83098670599,
+      "y": 482.6518643624881
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Society",
+      "x": 1992.958120527242,
+      "y": 476.7438273153909
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cyber Hostel",
+      "x": 2020.505689879423,
+      "y": 517.7856123263193
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Watchman",
+      "x": 2036.248890650716,
+      "y": 525.0752963981565
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Director Bunglow",
+      "x": 2076.646281334428,
+      "y": 558.6869863031566
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2079.442506172011,
+      "y": 521.9147375444128
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Medical",
+      "x": 2064.74645767639,
+      "y": 517.888391435433
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2076.890460733142,
+      "y": 498.2932661720905
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 2074.101056691667,
+      "y": 482.0618142589744
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Rector Office",
+      "x": 2072.048465643799,
+      "y": 461.5642090051631
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarters",
+      "x": 1706.764497326779,
+      "y": 306.2977914311909
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Community Polytechnic",
+      "x": 1770.956155557023,
+      "y": 285.2424534381623
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 1644.562398914571,
+      "y": 323.19673991582
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 1643.832112832045,
+      "y": 390.1095832732196
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarters",
+      "x": 1642.001085246082,
+      "y": 454.6249250017374
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 1702.197179781783,
+      "y": 535.2513049349266
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Bank",
+      "x": 1688.433398842259,
+      "y": 603.0318311398621
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 1795.436135289746,
+      "y": 545.9307082496541
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Smithy Workshop",
+      "x": 1779.462196731934,
+      "y": 518.6489949510444
+    },
+    {
+      "layer": "H1",
+      "type": "TEXT",
+      "text": "Hyd Well",
+      "x": 1858.577664526915,
+      "y": 390.8625356257202
+    },
+    {
+      "layer": "TREE",
+      "type": "TEXT",
+      "text": "S A N G L I   M I R A J   H I G H W A Y",
+      "x": 1862.108476575406,
+      "y": -89.85580853555871
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "40",
+      "x": 2038.46413531325,
+      "y": -143.5356183802841
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Main Building",
+      "x": 1866.884235324919,
+      "y": -175.1029140755875
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PG",
+      "x": 1827.959423114646,
+      "y": -199.6852539346461
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1827.304464072497,
+      "y": -205.7343051717639
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PE",
+      "x": 1923.878958810555,
+      "y": -203.7677520040216
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1923.223999768407,
+      "y": -209.8168032411395
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Chemistry",
+      "x": 1780.46200526512,
+      "y": -171.1472720089843
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1795.059942050706,
+      "y": -171.2695672960253
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Metallurgy",
+      "x": 1778.223160485549,
+      "y": -192.9335482220257
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 1777.568201443401,
+      "y": -198.9825994591436
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 1950.723355536747,
+      "y": -224.5337879233352
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 1947.275289367284,
+      "y": -231.9003430288899
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cyber Hostel",
+      "x": 1977.949992540717,
+      "y": -196.7665950650587
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Watchman",
+      "x": 1993.693193312011,
+      "y": -189.4769109932215
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Director Bunglow",
+      "x": 2034.090583995722,
+      "y": -155.8652210882215
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2036.886808833306,
+      "y": -192.6374698469652
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Medical",
+      "x": 2022.190760337684,
+      "y": -196.663815955945
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2034.334763394436,
+      "y": -216.2589412192875
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 2031.545359352962,
+      "y": -232.4903931324036
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 1659.641482443078,
+      "y": -179.3009024564515
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Bank",
+      "x": 1645.877701503553,
+      "y": -111.5203762515159
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Staff Quarter",
+      "x": 1752.880437951041,
+      "y": -168.6214991417239
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Smithy Workshop",
+      "x": 1736.906499393228,
+      "y": -195.9032124403336
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "PE",
+      "x": 2511.816735711553,
+      "y": 217.7110932667377
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 2511.161776669406,
+      "y": 211.6620420296199
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Electrical Deptt",
+      "x": 2491.283148939143,
+      "y": 183.6106602253717
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Tilak Hall",
+      "x": 2492.124997509289,
+      "y": 106.4952977069941
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Vision Office",
+      "x": 2624.776430023809,
+      "y": 105.8973941780318
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Exam",
+      "x": 2618.22968101787,
+      "y": 81.3878348703197
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cell",
+      "x": 2618.091675462397,
+      "y": 77.85794875341338
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 2637.620140305476,
+      "y": 82.67349691134655
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ajit Gulabchand",
+      "x": 2561.238419638727,
+      "y": 145.0306633905245
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Central Library",
+      "x": 2560.52449198637,
+      "y": 137.324321688521
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ganapati",
+      "x": 2538.966245706446,
+      "y": 172.7389590132705
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 2538.661132437745,
+      "y": 196.9450573474242
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Sump",
+      "x": 2535.213066268283,
+      "y": 189.5785022418695
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Society",
+      "x": 2538.340200089535,
+      "y": 183.6704651947723
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Cyber Hostel",
+      "x": 2565.887769441715,
+      "y": 224.7122502057007
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Watchman",
+      "x": 2581.630970213009,
+      "y": 232.0019342775379
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Director Bunglow",
+      "x": 2622.02836089672,
+      "y": 265.6136241825379
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2624.824585734304,
+      "y": 228.8413754237941
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Medical",
+      "x": 2610.128537238683,
+      "y": 224.8150293148144
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Old Rector Office",
+      "x": 2644.74835599619,
+      "y": 226.2422066341837
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Ladies Mess",
+      "x": 2622.272540295435,
+      "y": 205.2199040514719
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 2619.48313625396,
+      "y": 188.9884521383558
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Rector Office",
+      "x": 2617.430545206091,
+      "y": 168.4908468845445
+    },
+    {
+      "layer": "TXT",
+      "type": "TEXT",
+      "text": "Faculty Quarter",
+      "x": 2647.969312764138,
+      "y": 168.3592968966843
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "ARC",
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "TEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "ARC": 92,
+    "CIRCLE": 529,
+    "LINE": 935,
+    "LWPOLYLINE": 434,
+    "TEXT": 199
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 9,
+    "HATCH": 1,
+    "IMAGE": 1,
+    "INSERT": 227,
+    "SPLINE": 8
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

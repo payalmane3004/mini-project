@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34.483757" height="28.331781" viewBox="9.291600 -29.272732 34.483757 28.331781" role="img" aria-labelledby="title description">
+<title id="title">CAD drawing: Sathe hall</title>
+<desc id="description">Source-coordinate rendering of lines, polylines, circles, arcs, ellipses, and nearby source text. Dimensions, block inserts, and unsupported entities are excluded.</desc>
+<rect x="9.291600" y="-29.272732" width="34.483757" height="28.331781" fill="#fff"/>
+<g transform="scale(1 -1)" fill="none" stroke="#18212b" stroke-width="0.027915" stroke-linecap="round" stroke-linejoin="round">
+<path data-entity="LINE" data-layer="0" d="M15.574056,22.285181 L15.574056,20.497681"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,13.135181 L19.774056,13.135181"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,13.135181 L24.724056,14.922681"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,22.285181 L20.524056,22.285181"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,12.685181 L25.174056,14.922681"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,22.735181 L15.124056,20.497681"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,22.735181 L15.124056,22.735181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,12.685181 L25.174056,12.685181"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,18.460181 L24.724056,18.460181"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,20.497681 L24.724056,20.497681"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,19.497681 L24.724056,19.497681"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,15.922681 L15.574056,15.922681"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,14.922681 L15.574056,14.922681"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,15.922681 L25.174056,15.922681"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,14.922681 L25.174056,14.922681"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,20.497681 L15.124056,20.497681"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,19.497681 L15.124056,19.497681"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,19.497681 L15.124056,18.460181"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,19.497681 L15.574056,18.460181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,14.922681 L15.124056,12.685181"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,14.922681 L15.574056,13.135181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,16.960181 L15.124056,15.922681"/>
+<path data-entity="LINE" data-layer="0" d="M15.574056,16.960181 L15.574056,15.922681"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,15.922681 L25.174056,16.960181"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,15.922681 L24.724056,16.960181"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,18.460181 L25.174056,19.497681"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,18.460181 L24.724056,19.497681"/>
+<path data-entity="LINE" data-layer="0" d="M21.724056,17.410181 L21.724056,18.010181"/>
+<path data-entity="LINE" data-layer="0" d="M21.124056,17.410181 L21.124056,18.010181"/>
+<path data-entity="LINE" data-layer="0" d="M21.124056,18.010181 L21.724056,18.010181"/>
+<path data-entity="LINE" data-layer="0" d="M21.124056,17.410181 L21.724056,17.410181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,18.460181 L15.574056,18.460181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,16.960181 L15.574056,16.960181"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,16.960181 L25.174056,16.960181"/>
+<path data-entity="LINE" data-layer="0" d="M25.174056,20.497681 L25.174056,22.735181"/>
+<path data-entity="LINE" data-layer="0" d="M24.724056,20.497681 L24.724056,22.285181"/>
+<path data-entity="LINE" data-layer="0" d="M19.774056,12.885181 L20.524056,12.885181"/>
+<path data-entity="LINE" data-layer="0" d="M20.524056,22.535181 L19.774056,22.535181"/>
+<path data-entity="LINE" data-layer="0" d="M20.524056,22.285181 L20.524056,22.535181"/>
+<path data-entity="LINE" data-layer="0" d="M19.774056,22.285181 L19.774056,22.535181"/>
+<path data-entity="LINE" data-layer="0" d="M20.524056,12.885181 L20.524056,13.135181"/>
+<path data-entity="LINE" data-layer="0" d="M19.774056,12.885181 L19.774056,13.135181"/>
+<path data-entity="LINE" data-layer="0" d="M19.774056,22.285181 L15.574056,22.285181"/>
+<path data-entity="LINE" data-layer="0" d="M20.524056,13.135181 L24.724056,13.135181"/>
+<path data-entity="LINE" data-layer="0" d="M21.724056,17.410181 L21.124056,18.010181"/>
+<path data-entity="LINE" data-layer="0" d="M21.124056,17.410181 L21.724056,18.010181"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,22.735181 L15.124056,26.322382"/>
+<path data-entity="LINE" data-layer="0" d="M15.124056,12.685181 L15.124056,8.298197"/>
+<path data-entity="LINE" data-layer="0" d="M12.124056,22.735181 L12.124056,26.322382"/>
+<path data-entity="LINE" data-layer="0" d="M12.124056,22.735181 L12.124056,8.298197"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,14.922681 L28.024056,27.148565"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,8.148565 L28.024056,14.922681"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,25.348565 L39.728263,25.348565"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,9.948565 L39.728263,9.948565"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,8.148565 L39.728263,8.148565"/>
+<path data-entity="LINE" data-layer="0" d="M28.024056,27.148565 L39.728263,27.148565"/>
+<path data-entity="LWPOLYLINE" data-layer="0" d="M10.112642,28.451690 L42.954315,28.451690 L42.954315,1.761993 L10.112642,1.761993 L10.112642,28.451690 Z"/>
+</g>
+<text data-entity="MTEXT" data-layer="0" x="17.860581" y="-16.485831" font-family="Arial,sans-serif" font-size="0.500000" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="rotate(-0.000000 17.860581 -16.485831)">
+<tspan x="17.860581" dy="0.000000">{Sathe Hall</tspan>
+<tspan x="17.860581" dy="0.575000">9.15 X 9.15 m}</tspan>
+</text>
+<text data-entity="MTEXT" data-layer="0" x="30.551699" y="-17.474023" font-family="Arial,sans-serif" font-size="0.500000" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="rotate(-0.000000 30.551699 -17.474023)">
+<tspan x="30.551699" dy="0.000000">{^ITilak Hall</tspan>
+<tspan x="30.551699" dy="0.575000"> }</tspan>
+</text>
+<text data-entity="MTEXT" data-layer="0" x="17.408985" y="-3.590354" font-family="Arial,sans-serif" font-size="1.000000" text-anchor="start" dominant-baseline="text-after-edge" fill="#111827" transform="rotate(-0.000000 17.408985 -3.590354)">
+<tspan x="17.408985" dy="0.000000">{Renovation of Sathe Hall }</tspan>
+</text>
+</svg>

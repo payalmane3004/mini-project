@@ -1,0 +1,230 @@
+{
+  "buildingId": "BU-040",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "public/campus-maps/other/Director Bunglow.dwg",
+  "convertedDxf": "BU-040-director-bunglow.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 322,
+  "entityCounts": {
+    "DIMENSION": 1,
+    "LINE": 299,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "dimensionEntityCount": 1,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 18.4,
+      "definitionPoints": [
+        {
+          "x": 55.74530495639291,
+          "y": 28.00578911574556
+        },
+        {
+          "x": 46.54530495639291,
+          "y": 28.00578911574556
+        },
+        {
+          "x": 37.34530495639292,
+          "y": 29.89805542808613
+        },
+        {
+          "x": 55.74530495639291,
+          "y": 33.22805542808614
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 1,
+      "LINE": 299,
+      "LWPOLYLINE": 1,
+      "MTEXT": 21
+    }
+  },
+  "bounds": {
+    "minX": 17.47150089620158,
+    "minY": 16.55102548514935,
+    "maxX": 89.66250320021729,
+    "maxY": 54.2552473439715
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 17.47150089620158,
+    "minY": 16.55102548514935,
+    "maxX": 89.66250320021729,
+    "maxY": 54.2552473439715
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Hall\\P6.50 X 4.55}",
+      "x": 44.66135301685168,
+      "y": 32.64631287752972
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dining Hall\\P4.60 X 4.55}",
+      "x": 38.85387873799881,
+      "y": 32.61765508691266
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha\\P3.65 X 3.10}",
+      "x": 49.70799993985635,
+      "y": 32.5907447863293
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Kitchen\\P3.45 X 3.10}",
+      "x": 40.84976632779815,
+      "y": 37.40366487909219
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Store\\P2.85 X 3.10}",
+      "x": 44.13549621165262,
+      "y": 37.42489633134902
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.X1.1}",
+      "x": 37.80184625796152,
+      "y": 38.24141655272537
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BATH\\P1.2X2.5}",
+      "x": 38.93634062610111,
+      "y": 38.25697104554306
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.X1.1}",
+      "x": 47.65557624284204,
+      "y": 43.59769676831715
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BATH\\P1.2X2.5}",
+      "x": 49.08766500555926,
+      "y": 43.49189936491382
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BED\\P3.10 X 4.0}",
+      "x": 51.26613767664769,
+      "y": 42.59321863482521
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BED\\P3.95 X  4.0}",
+      "x": 51.9683595325658,
+      "y": 36.84141655272536
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Ground Floor Plan}",
+      "x": 40.38994788092695,
+      "y": 26.00952491667173
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Directors Residance}",
+      "x": 51.50652927312294,
+      "y": 20.5036683089143
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Garage\\P6.0 X 5.80}",
+      "x": 26.13622709942818,
+      "y": 33.11814389240893
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Terrace}",
+      "x": 63.66924917686025,
+      "y": 34.30863510718946
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.X1.1}",
+      "x": 69.85149030926607,
+      "y": 43.70247594363921
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BATH\\P1.2X2.5}",
+      "x": 71.3014017378634,
+      "y": 42.90218513170196
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BED\\P3.10 X 4.0}",
+      "x": 73.46205174307173,
+      "y": 42.69799781014729
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;BED\\P3.95 X  4.0}",
+      "x": 74.16427359898984,
+      "y": 36.94619572804743
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;First Floor Plan}",
+      "x": 64.02223062264757,
+      "y": 26.35828517291338
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WALCHAND COLLEGE OF ENGINEERING SANGLI}",
+      "x": 20.93797984801978,
+      "y": 52.30047777007586
+    }
+  ],
+  "floorClues": [
+    "{\\fVerdana|b0|i0|c0|p34;Ground Floor Plan}",
+    "{\\fVerdana|b0|i0|c0|p34;First Floor Plan}"
+  ],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 299,
+    "LWPOLYLINE": 1,
+    "MTEXT": 21
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

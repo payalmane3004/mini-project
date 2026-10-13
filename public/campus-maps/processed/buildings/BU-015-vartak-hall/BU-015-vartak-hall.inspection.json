@@ -1,0 +1,352 @@
+{
+  "buildingId": "BU-015",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "public/campus-maps/other/vartak hall.dwg",
+  "convertedDxf": "BU-015-vartak-hall.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 157,
+  "entityCounts": {
+    "DIMENSION": 10,
+    "LINE": 138,
+    "LWPOLYLINE": 1,
+    "MTEXT": 8
+  },
+  "dimensionEntityCount": 10,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.950000000000001,
+      "definitionPoints": [
+        {
+          "x": 7.166307374366356,
+          "y": 26.54725884687068
+        },
+        {
+          "x": 8.641307374366356,
+          "y": 26.54725884687068
+        },
+        {
+          "x": 10.11630737436636,
+          "y": 27.41478846139075
+        },
+        {
+          "x": 7.166307374366356,
+          "y": 27.41478846139075
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 7.800000000000001,
+      "definitionPoints": [
+        {
+          "x": 18.36630737436636,
+          "y": 26.54725884687068
+        },
+        {
+          "x": 14.46630737436636,
+          "y": 26.54725884687068
+        },
+        {
+          "x": 10.56630737436636,
+          "y": 27.41478846139075
+        },
+        {
+          "x": 18.36630737436636,
+          "y": 27.41478846139075
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.949999999999999,
+      "definitionPoints": [
+        {
+          "x": 21.76630737436636,
+          "y": 26.51163922330907
+        },
+        {
+          "x": 20.29130737436635,
+          "y": 26.51163922330907
+        },
+        {
+          "x": 18.81630737436636,
+          "y": 27.41478846139075
+        },
+        {
+          "x": 21.76630737436636,
+          "y": 27.41478846139075
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 4.45000000000001,
+      "definitionPoints": [
+        {
+          "x": 23.45504778585179,
+          "y": 36.13145855878327
+        },
+        {
+          "x": 23.45504778585179,
+          "y": 33.90645855878327
+        },
+        {
+          "x": 22.21630737436635,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 22.21630737436635,
+          "y": 36.13145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 5.399999999999999,
+      "definitionPoints": [
+        {
+          "x": 17.39411746033615,
+          "y": 37.08145855878327
+        },
+        {
+          "x": 17.39411746033614,
+          "y": 34.38145855878328
+        },
+        {
+          "x": 18.36630737436636,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 18.36630737436636,
+          "y": 37.08145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 8.000000000000004,
+      "definitionPoints": [
+        {
+          "x": 16.59308628375635,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 16.59308628375635,
+          "y": 35.68145855878328
+        },
+        {
+          "x": 18.81630737436635,
+          "y": 39.68145855878327
+        },
+        {
+          "x": 18.81630737436635,
+          "y": 31.68145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 9.800000000000004,
+      "definitionPoints": [
+        {
+          "x": 13.85097371541774,
+          "y": 41.48145855878327
+        },
+        {
+          "x": 13.85097371541773,
+          "y": 36.58145855878327
+        },
+        {
+          "x": 14.46630737436636,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 14.46630737436636,
+          "y": 41.48145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.950000000000003,
+      "definitionPoints": [
+        {
+          "x": 21.76630737436636,
+          "y": 31.38128461902009
+        },
+        {
+          "x": 20.29130737436635,
+          "y": 31.38128461902009
+        },
+        {
+          "x": 18.81630737436635,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 21.76630737436636,
+          "y": 31.68145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 7.800000000000006,
+      "definitionPoints": [
+        {
+          "x": 18.36630737436636,
+          "y": 31.27759599363072
+        },
+        {
+          "x": 14.46630737436636,
+          "y": 31.27759599363072
+        },
+        {
+          "x": 10.56630737436635,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 18.36630737436636,
+          "y": 31.68145855878327
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.95,
+      "definitionPoints": [
+        {
+          "x": 10.11630737436636,
+          "y": 31.24277686425003
+        },
+        {
+          "x": 8.641307374366358,
+          "y": 31.24277686425003
+        },
+        {
+          "x": 7.166307374366357,
+          "y": 31.68145855878327
+        },
+        {
+          "x": 10.11630737436636,
+          "y": 31.68145855878327
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 10,
+      "LINE": 138,
+      "LWPOLYLINE": 1,
+      "MTEXT": 8
+    }
+  },
+  "bounds": {
+    "minX": -9.513009454485669,
+    "minY": -2.339662151745657,
+    "maxX": 41.62654710055354,
+    "maxY": 43.6900104945672
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": -9.513009454485669,
+    "minY": -2.339662151745657,
+    "maxX": 41.62654710055354,
+    "maxY": 43.6900104945672
+  },
+  "sourceText": [
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;        Hall\\P14.60 X 21.30}",
+      "x": 11.80934978967414,
+      "y": 17.1059583923865
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34; Roof Lines}",
+      "x": 33.66448429445856,
+      "y": 19.04497013944225
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Masonry Lines}",
+      "x": 33.75094913897709,
+      "y": 16.47205201870495
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;    \\H0.8x;  Varandah\\P     4.60 m wide}",
+      "x": 1.647507173418148,
+      "y": 17.08400497905046
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Main Entrance}",
+      "x": 12.23861404086637,
+      "y": 4.687783683168497
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Vartak Hall}",
+      "x": 10.39149062459667,
+      "y": 2.692422290648473
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Section}",
+      "x": 11.00787145135084,
+      "y": 30.70824166292515
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b1|i0|c0|p34;Trusses 3 m c/c}",
+      "x": 20.05015402035372,
+      "y": 40.36136410029022
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 138,
+    "LWPOLYLINE": 1,
+    "MTEXT": 8
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 10
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

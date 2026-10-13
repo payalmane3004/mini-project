@@ -1,18 +1,52 @@
 ﻿import {
-  Building2,
   RotateCcw,
   Maximize2,
-  X,
   Activity,
   Layers3,
+  Search,
 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import CampusScene from "../../components/digital-twin/CampusScene";
+import BuildingDetailsPanel from "../../components/digital-twin/BuildingDetailsPanel";
+import CampusFacilitySearch from "../../components/digital-twin/CampusFacilitySearch";
+import footprintData from "../../data/wce-campus-footprints.json";
+import labelData from "../../data/wce-building-labels.json";
+import "./DigitalTwin.css";
 
 function DigitalTwin() {
-  const [selectedBuilding, setSelectedBuilding] =
-    useState(null);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const buildings = useMemo(() => {
+    const labels = new Map(labelData.buildings.map((entry) => [entry.footprintId, entry.labels]));
+    return footprintData.footprints.map((footprint) => ({
+      id: footprint.id,
+      labels: labels.get(footprint.id) ?? [],
+      name: labels.get(footprint.id)?.join(" / ") || footprint.id,
+    }));
+  }, []);
+  const selectedBuilding = useMemo(() => {
+    const building = buildings.find((item) => item.id === searchParams.get("building"));
+    return building ? { ...building, code: building.id, sourceLabels: building.labels, sourceFilename: "college land.dxf" } : null;
+  }, [buildings, searchParams]);
+  const [sceneKey, setSceneKey] = useState(0);
+  const [buildingQuery, setBuildingQuery] = useState(() => selectedBuilding?.name ?? "");
+  const mapRef = useRef(null);
+  const buildingMatches = useMemo(() => {
+    const term = buildingQuery.trim().toLocaleLowerCase();
+    return term ? buildings.filter((building) => `${building.id} ${building.name}`.toLocaleLowerCase().includes(term)).slice(0, 8) : [];
+  }, [buildings, buildingQuery]);
+  const updateSelection = (building) => {
+    setBuildingQuery(building?.name ?? "");
+    const next = new URLSearchParams(searchParams);
+    if (building?.id) next.set("building", building.id);
+    else next.delete("building");
+    setSearchParams(next, { replace: true });
+  };
+  const selectBuilding = (building) => {
+    updateSelection({ ...building, code: building.id, sourceLabels: building.labels, sourceFilename: "college land.dxf" });
+  };
 
   return (
     <div className="digital-twin-page">
@@ -22,17 +56,17 @@ function DigitalTwin() {
         <div>
           <h1>Digital Twin</h1>
           <p>
-            Interactive real-time model of the campus
+            Select a footprint to inspect CAD source labels and linked floor plans.
           </p>
         </div>
 
         <div className="page-actions">
-          <button>
+          <button onClick={() => { updateSelection(null); setSceneKey((key) => key + 1); }}>
             <RotateCcw size={15} />
             Reset View
           </button>
 
-          <button>
+          <button onClick={() => mapRef.current?.requestFullscreen?.()}>
             <Maximize2 size={15} />
             Fullscreen
           </button>
@@ -43,7 +77,7 @@ function DigitalTwin() {
       <div className="twin-layout">
 
         {/* Campus View */}
-        <div className="twin-view-card">
+        <div className="twin-view-card" ref={mapRef}>
 
           <div className="twin-toolbar">
             <div className="twin-title">
@@ -52,16 +86,28 @@ function DigitalTwin() {
             </div>
 
             <div className="live-indicator">
-              <span className="live-dot"></span>
-              LIVE
+              <span className="demo-dot"></span>
+              CAD SOURCE
             </div>
+          </div>
+
+          <div className="campus-building-finder">
+            <label htmlFor="campus-building-query"><Search size={15} /><span className="sr-only">Find a campus building</span></label>
+            <input id="campus-building-query" value={buildingQuery} onChange={(event) => setBuildingQuery(event.target.value)} placeholder="Find a building by name, CAD label, or ID" autoComplete="off" />
+            {buildingQuery && <button type="button" onClick={() => updateSelection(null)} aria-label="Clear building search">Clear</button>}
+            {buildingMatches.length > 0 && selectedBuilding?.name !== buildingQuery && <div className="campus-building-matches" role="listbox" aria-label="Matching campus buildings">
+              {buildingMatches.map((building) => <button type="button" role="option" aria-selected={selectedBuilding?.id === building.id} key={building.id} onClick={() => selectBuilding(building)}>
+                <strong>{building.name}</strong><small>{building.id} · source CAD footprint</small>
+              </button>)}
+            </div>}
           </div>
 
           <div className="twin-map">
 
             <CampusScene
+              key={sceneKey}
               selectedId={selectedBuilding?.id}
-              onSelectBuilding={setSelectedBuilding}
+              onSelectBuilding={(building) => updateSelection(building ? { ...building, sourceFilename: "college land.dxf" } : null)}
             />
 
             <div className="map-status">
@@ -72,160 +118,17 @@ function DigitalTwin() {
           </div>
         </div>
 
-        {/* Building Details */}
-        <div className="building-panel">
-
-          {!selectedBuilding ? (
-            <div className="empty-building-panel">
-
-              <Building2 size={34} />
-
-              <h3>
-                Select a building
-              </h3>
-
-              <p>
-                Click any building footprint on the
-                digital twin to inspect its source
-                information.
-              </p>
-
-            </div>
-          ) : (
-            <>
-
-              {/* Header */}
-              <div className="building-panel-header">
-
-                <div>
-
-                  <div className="building-panel-code">
-                    {selectedBuilding.code}
-                  </div>
-
-                  <h2>
-                    {selectedBuilding.name}
-                  </h2>
-
-                  <span className="status-pill normal">
-                    <span></span>
-                    CAD Geometry
-                  </span>
-
-                </div>
-
-                <button
-                  className="close-panel"
-                  onClick={() =>
-                    setSelectedBuilding(null)
-                  }
-                >
-                  <X size={17} />
-                </button>
-
-              </div>
-
-              {/* Source Information */}
-              <div className="panel-section">
-
-                <div className="panel-section-title">
-                  Source Information
-                </div>
-
-                <div className="info-row">
-                  <span>CAD Footprint</span>
-                  <strong>
-                    {selectedBuilding.id}
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>Source</span>
-                  <strong>
-                    college land.dxf
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>Source Label</span>
-                  <strong>
-                    {selectedBuilding.sourceLabels?.length
-                      ? selectedBuilding.sourceLabels.join(
-                          " / "
-                        )
-                      : "Not labelled in CAD"}
-                  </strong>
-                </div>
-
-              </div>
-
-              {/* Live data */}
-              <div className="panel-section">
-
-                <div className="panel-section-title">
-                  Live Campus Data
-                </div>
-
-                <div className="info-row">
-                  <span>Occupancy</span>
-                  <strong>
-                    Not connected
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>Energy</span>
-                  <strong>
-                    Not connected
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>Temperature</span>
-                  <strong>
-                    Not connected
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>Rooms</span>
-                  <strong>
-                    Not connected
-                  </strong>
-                </div>
-
-              </div>
-
-              {/* Model status */}
-              <div className="panel-section">
-
-                <div className="panel-section-title">
-                  Model Status
-                </div>
-
-                <div className="info-row">
-                  <span>Geometry</span>
-
-                  <strong className="online-text">
-                    Exact CAD footprint · illustrative height
-                  </strong>
-                </div>
-
-                <div className="info-row">
-                  <span>3D Height</span>
-
-                  <strong>
-                    Temporary visualization only; not surveyed
-                  </strong>
-                </div>
-
-              </div>
-
-            </>
-          )}
-
-        </div>
+        <BuildingDetailsPanel
+          building={selectedBuilding ? {
+            ...selectedBuilding,
+            heading: selectedBuilding.name,
+            sourceFilename: "college land.dxf",
+          } : null}
+          onClose={() => updateSelection(null)}
+          onExploreBuilding={() => navigate(`/building-explorer/${encodeURIComponent(selectedBuilding.id)}`, { state: { returnTo: `/digital-twin?building=${encodeURIComponent(selectedBuilding.id)}` } })}
+        />
       </div>
+      <CampusFacilitySearch />
     </div>
   );
 }

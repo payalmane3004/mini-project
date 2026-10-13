@@ -1,0 +1,1011 @@
+{
+  "buildingId": "BU-003",
+  "associationStatus": "verified-building-id",
+  "sourceDwg": "public/campus-maps/other/Mechanical Department.dwg",
+  "convertedDxf": "BU-003-mechanical-department.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 1701,
+  "entityCounts": {
+    "DIMENSION": 14,
+    "LEADER": 2,
+    "LINE": 1571,
+    "LWPOLYLINE": 27,
+    "MTEXT": 87
+  },
+  "dimensionEntityCount": 14,
+  "dimensions": [
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 24.95,
+      "definitionPoints": [
+        {
+          "x": 30.07862134412494,
+          "y": 15.24657603481578
+        },
+        {
+          "x": 30.07862134412494,
+          "y": 27.72157603481578
+        },
+        {
+          "x": 31.33634132180499,
+          "y": 40.19657603481578
+        },
+        {
+          "x": 31.33634132180499,
+          "y": 15.24657603481578
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 15.76,
+      "definitionPoints": [
+        {
+          "x": 47.09634132180499,
+          "y": 13.03331184652177
+        },
+        {
+          "x": 39.21634132180499,
+          "y": 13.03331184652177
+        },
+        {
+          "x": 31.33634132180499,
+          "y": 15.24657603481578
+        },
+        {
+          "x": 47.09634132180499,
+          "y": 15.24657603481578
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 3.12315813769537,
+      "definitionPoints": [
+        {
+          "x": 50.21949945950036,
+          "y": 13.017091397728
+        },
+        {
+          "x": 48.65792039065268,
+          "y": 13.017091397728
+        },
+        {
+          "x": 47.09634132180499,
+          "y": 14.10520496205837
+        },
+        {
+          "x": 50.21949945950036,
+          "y": 14.10520496205837
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 78.4868418623046,
+      "definitionPoints": [
+        {
+          "x": 128.706341321805,
+          "y": 13.04074009933845
+        },
+        {
+          "x": 89.46292039065266,
+          "y": 13.04074009933845
+        },
+        {
+          "x": 50.21949945950036,
+          "y": 14.10520496205837
+        },
+        {
+          "x": 128.706341321805,
+          "y": 15.24657603481576
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 35.98999999999996,
+      "definitionPoints": [
+        {
+          "x": 73.00634132180497,
+          "y": 44.57821959819978
+        },
+        {
+          "x": 55.01134132180498,
+          "y": 44.57821959819978
+        },
+        {
+          "x": 37.01634132180501,
+          "y": 42.31957603481577
+        },
+        {
+          "x": 73.00634132180497,
+          "y": 42.19657603481578
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 25.60999999999999,
+      "definitionPoints": [
+        {
+          "x": 75.2812233241392,
+          "y": 69.30657603481576
+        },
+        {
+          "x": 75.28122332413919,
+          "y": 56.50157603481578
+        },
+        {
+          "x": 78.55634132180501,
+          "y": 43.69657603481578
+        },
+        {
+          "x": 78.55634132180512,
+          "y": 69.30657603481576
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "   160",
+      "textOverride": null,
+      "measurement": 76.62000000000009,
+      "definitionPoints": [
+        {
+          "x": 132.5241981837813,
+          "y": 15.24657603481577
+        },
+        {
+          "x": 132.5241981837812,
+          "y": 53.40657603481583
+        },
+        {
+          "x": 128.4763413218051,
+          "y": 91.86657603481585
+        },
+        {
+          "x": 128.706341321805,
+          "y": 15.24657603481576
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 2.958819140115907,
+      "definitionPoints": [
+        {
+          "x": 206.5997133780391,
+          "y": 14.48519776476934
+        },
+        {
+          "x": 208.0791229480971,
+          "y": 14.48519776476934
+        },
+        {
+          "x": 209.558532518155,
+          "y": 16.01797177262261
+        },
+        {
+          "x": 206.5997133780391,
+          "y": 16.00412199318947
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 10.39316302998498,
+      "definitionPoints": [
+        {
+          "x": 206.5989219620714,
+          "y": 14.48519776476934
+        },
+        {
+          "x": 201.402340447079,
+          "y": 14.48519776476934
+        },
+        {
+          "x": 196.2057589320865,
+          "y": 16.12454856756217
+        },
+        {
+          "x": 206.5989219620714,
+          "y": 16.17319737262974
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 13.35198217010083,
+      "definitionPoints": [
+        {
+          "x": 209.5577411021873,
+          "y": 13.54030062523833
+        },
+        {
+          "x": 202.8817500171369,
+          "y": 13.54030062523833
+        },
+        {
+          "x": 196.2057589320865,
+          "y": 16.12454856756217
+        },
+        {
+          "x": 209.5577411021873,
+          "y": 16.18704715206296
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 54.260183187256,
+      "definitionPoints": [
+        {
+          "x": 128.706341321805,
+          "y": 14.1212088699898
+        },
+        {
+          "x": 101.5762497281769,
+          "y": 14.1212088699898
+        },
+        {
+          "x": 74.44615813454895,
+          "y": 15.47657603481577
+        },
+        {
+          "x": 128.706341321805,
+          "y": 15.24657603481576
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 9.989999999999938,
+      "definitionPoints": [
+        {
+          "x": 130.8032032306238,
+          "y": 15.24657603481576
+        },
+        {
+          "x": 130.8032032306238,
+          "y": 20.24157603481575
+        },
+        {
+          "x": 128.476341321805,
+          "y": 25.2365760348157
+        },
+        {
+          "x": 128.706341321805,
+          "y": 15.24657603481576
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 8.109999999999996,
+      "definitionPoints": [
+        {
+          "x": 28.79371636731207,
+          "y": 15.24657603481578
+        },
+        {
+          "x": 28.79371636731207,
+          "y": 19.30157603481578
+        },
+        {
+          "x": 31.56634132180499,
+          "y": 23.35657603481577
+        },
+        {
+          "x": 31.33634132180499,
+          "y": 15.24657603481578
+        }
+      ]
+    },
+    {
+      "layer": "0",
+      "dimensionType": "    32",
+      "textOverride": null,
+      "measurement": 47.22000000000003,
+      "definitionPoints": [
+        {
+          "x": 31.33634132180499,
+          "y": 11.19249521894073
+        },
+        {
+          "x": 54.94634132180501,
+          "y": 11.19249521894073
+        },
+        {
+          "x": 78.55634132180502,
+          "y": 15.47657603481578
+        },
+        {
+          "x": 31.33634132180499,
+          "y": 15.24657603481578
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "DIMENSION": 14,
+      "LINE": 1037,
+      "MTEXT": 52
+    },
+    "WALL": {
+      "MTEXT": 1
+    },
+    "window": {
+      "LEADER": 2,
+      "LINE": 534,
+      "LWPOLYLINE": 27,
+      "MTEXT": 34
+    }
+  },
+  "bounds": {
+    "minX": 28.79371636731207,
+    "minY": -8.157526630087204,
+    "maxX": 247.3515901059018,
+    "maxY": 98.29464555864888
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 30.92851647594023,
+    "minY": -8.157526630087204,
+    "maxX": 247.3515901059018,
+    "maxY": 98.29464555864888
+  },
+  "sourceText": [
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Electrical Generator Room\\P7.65 X 7.65}",
+      "x": 32.17516320809901,
+      "y": 20.1125329587046
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Varandha 2.75 m wide}",
+      "x": 53.53617844990933,
+      "y": 41.80773941388014
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 9.40}",
+      "x": 121.3204016655661,
+      "y": 68.55204136534786
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Advanced Mfg Lab\\P7.40 X13.80}",
+      "x": 95.86732648888034,
+      "y": 61.30392032275995
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P2.85 X 4.50}",
+      "x": 80.06179527800475,
+      "y": 68.25184506101456
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P5.70 X 4.50}",
+      "x": 80.31837501967175,
+      "y": 64.02154883529576
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.40}",
+      "x": 79.70157163259677,
+      "y": 52.35888944488403
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD Cabin\\P5.50 X 3.30}",
+      "x": 80.20019176585629,
+      "y": 39.41207511573157
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Mech Office\\P6.0 X 2.50}",
+      "x": 73.06168372323378,
+      "y": 38.79912083103682
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.40}",
+      "x": 79.51579184556982,
+      "y": 58.75475600797651
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.40}",
+      "x": 79.57097077070807,
+      "y": 55.39198475463471
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.40}",
+      "x": 79.49479973059289,
+      "y": 49.20078960672978
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.40}",
+      "x": 79.632926785194,
+      "y": 45.87775149940751
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Old Boiler\\P18.25 X 14.50}",
+      "x": 86.45835841356961,
+      "y": 32.5655359864424
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Thermodynamics Lab\\P15.0 X 11.0}",
+      "x": 83.18036480561489,
+      "y": 21.30972465271049
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Learning Lab\\P15 X 9.50}",
+      "x": 118.659995236206,
+      "y": 20.26041927368809
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Department Library\\P6.10 X 11.60}",
+      "x": 97.55519407164434,
+      "y": 30.85442829605554
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin \\P6.10 X 3.75}",
+      "x": 98.35870438986433,
+      "y": 35.97283711028388
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;ME Classroom\\P6.30 X 3.75}",
+      "x": 104.4006214139904,
+      "y": 35.70031328415794
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;MQC Lab\\P6.30 X  11.60}",
+      "x": 104.3172824506613,
+      "y": 29.68654849632878
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;PCM Lab\\P15.20 X 3.75}",
+      "x": 120.2021177551233,
+      "y": 35.65537888132283
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Ladies Toilet\\P7.50 X 1.70}",
+      "x": 123.0754245972095,
+      "y": 39.81158829890983
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Gents Toilet\\P7.50 X 1.70}",
+      "x": 123.0843650114987,
+      "y": 38.22164035928425
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;First Year Lab\\P15.20 X 8.0}",
+      "x": 118.5653150183802,
+      "y": 31.83883652913119
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;CAD CAM 1 Lab\\P15.20 X 3.45}",
+      "x": 120.3446764490786,
+      "y": 27.31850076542591
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Fluied Mechanics Lab\\P17.0 X 9.50}",
+      "x": 101.4057605263152,
+      "y": 21.32357985002648
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;IC Engine Lab\\P7.65 X 21.30}",
+      "x": 55.57141817416959,
+      "y": 19.83034398431982
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Scada Room\\P7.65 X 7.65}",
+      "x": 41.3062109076271,
+      "y": 20.09511619000104
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;GM Store \\P3.5 X 4.0}",
+      "x": 36.04670752203617,
+      "y": 25.44921157835012
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Mechanical Department}",
+      "x": 89.33597635488707,
+      "y": 1.336925909732429
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "UP",
+      "x": 206.8156022293762,
+      "y": 46.05552248881785
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Mechatronics Lab\\P9.20 X 10.10",
+      "x": 198.4854404554798,
+      "y": 26.36405576586882
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Cad Cam 2 Lab\\P7.65 X 10.60",
+      "x": 182.0715282548577,
+      "y": 60.46732359805301
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Metallurgy Lab\\P7.65 X 10.90",
+      "x": 147.6250505150287,
+      "y": 43.72819053320452
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "PG Heat Power Classroom\\P9.20 X 6.10",
+      "x": 198.5535323638994,
+      "y": 42.56328146926764
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Foundry\\P17.0 x 22.04}",
+      "x": 224.7488348401556,
+      "y": 36.91519110870257
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Welding Shop\\P17.0 X 6.50}",
+      "x": 224.971796375048,
+      "y": 21.46487158650444
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;WC\\P1.1X1.2}",
+      "x": 221.896467343862,
+      "y": 49.55144825432069
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Urinal\\P1.1X1.2}",
+      "x": 223.2320696157525,
+      "y": 49.54073172416251
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Scale 1:100, Bup Area = 5647 Sqm}",
+      "x": 168.0536644636042,
+      "y": -8.157526630087204
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;PG Production \\PLecture Hall\\P6.35 X 14.10}",
+      "x": 123.4102908655935,
+      "y": 75.76751189497202
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.67}",
+      "x": 119.5362392391342,
+      "y": 89.71910873469443
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 3.50}",
+      "x": 119.686065569202,
+      "y": 71.62805321760794
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 3.70}",
+      "x": 119.6383026730418,
+      "y": 84.38086889338547
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;S}",
+      "x": 227.9652930304063,
+      "y": 84.62743056116238
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 230.7849424647675,
+      "y": 85.71491091114436
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 230.9646966121261,
+      "y": 83.98751996287135
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;N}",
+      "x": 232.9952903164782,
+      "y": 84.87389937474683
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;PG Design Class\\P7.65 X 7.60 m}",
+      "x": 72.42771701395225,
+      "y": 19.91587094425057
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Automobile Lab\\P10 x 10.65}",
+      "x": 87.66842017012686,
+      "y": 61.36908922308041
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Theory of Machine Lab\\P6.7 X 12.0}",
+      "x": 84.9334064133277,
+      "y": 49.74151759655317
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.70 X 4.0}",
+      "x": 91.65687561682893,
+      "y": 53.85552528366685
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Dynamics and Vibration Lab\\P11.64 x 10.95}",
+      "x": 95.63334792993055,
+      "y": 44.84816236096478
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;M/C Lab\\P15.50 X 25.10}",
+      "x": 120.0995031117328,
+      "y": 55.27326835584518
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Turning Job Lab\\P10.70 X 25.10}",
+      "x": 108.163538509145,
+      "y": 55.19308189244839
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Pneumatics and Hydraulics Lab\\P11.20 X 12.80}",
+      "x": 63.10910111831083,
+      "y": 34.4303761524331
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Refrigeration and air Conditioning\\P18.40 X 7.90}",
+      "x": 41.489746964142,
+      "y": 29.31037818558769
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Wind Tunnel Lab\\P15.80 X 3.10}",
+      "x": 43.05004758953339,
+      "y": 38.61864204591592
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;3D PLM Lab\\P7.65 x 10.05}",
+      "x": 32.79739785285904,
+      "y": 34.20376905010443
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;General Mainteace\\P3.5 X 4.0}",
+      "x": 31.87166420566734,
+      "y": 25.39286799298731
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Tutorial Room\\P4 X 7.20}",
+      "x": 151.3636897920881,
+      "y": 35.88501693450006
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P2.5 X 3.0}",
+      "x": 147.0986360558238,
+      "y": 37.23741262469183
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P2.5 X 3.0}",
+      "x": 147.1227931380383,
+      "y": 33.95708580703148
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.1 X 3.10}",
+      "x": 147.8703768235757,
+      "y": 29.98255072161145
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.1 X 3.10}",
+      "x": 151.8272282947164,
+      "y": 29.93217250383601
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.1 X 3.10}",
+      "x": 146.9555623341083,
+      "y": 26.30713470476952
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.50}",
+      "x": 176.0966843912322,
+      "y": 62.57677685696079
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.50}",
+      "x": 176.0639548880756,
+      "y": 57.88327852521114
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Tin Smithy\\P10X 11.20}",
+      "x": 240.2431013730236,
+      "y": 23.28263807128979
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Carpentry Shop\\P17.0 X 7.90}",
+      "x": 224.3586111050425,
+      "y": 27.99201977875264
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Fitting Shop\\P10.0 X 11.60}",
+      "x": 239.8629145042285,
+      "y": 34.66886647122674
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "Measurement Lab\\P9.20 X 8.10",
+      "x": 198.3154150585114,
+      "y": 34.20707999800076
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.5}",
+      "x": 193.1528188639206,
+      "y": 39.86321467362949
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.5}",
+      "x": 193.2410805099391,
+      "y": 36.4585001455748
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.5}",
+      "x": 197.0666090796515,
+      "y": 18.876322934198
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.5}",
+      "x": 200.1313991384538,
+      "y": 18.94623560892181
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.0 X 3.5}",
+      "x": 203.4184643907395,
+      "y": 19.02902851587486
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.25 X 2.36}",
+      "x": 125.1690398815825,
+      "y": 85.94569181713433
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.25 X 2.75}",
+      "x": 125.2754750600014,
+      "y": 88.277626475109
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.25 X 2.60}",
+      "x": 125.2387165189992,
+      "y": 90.70077118653427
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 3.60}",
+      "x": 119.7098111752078,
+      "y": 74.1897231977128
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Staff Cabin\\P3.0 X 4.0}",
+      "x": 119.7274703623537,
+      "y": 77.04878070678029
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Heat Transfer Lab\\P15.70 X 8.80}",
+      "x": 64.72716271601723,
+      "y": 27.86195541099613
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;HOD PW Cabin\\P3.50 X 2.50}",
+      "x": 67.50321906654062,
+      "y": 39.33753227439138
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Adv Thermo\\P3.50 X 2.50}",
+      "x": 58.85349032562765,
+      "y": 39.36027498064647
+    },
+    {
+      "layer": "0",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;Cabin\\P3.50 X 2.50}",
+      "x": 63.14743482702397,
+      "y": 39.36318510192359
+    },
+    {
+      "layer": "window",
+      "type": "MTEXT",
+      "text": "{\\fVerdana|b0|i0|c0|p34;PG Heat Power Tutorial Room\\P15.80 X 4.0}",
+      "x": 43.00408226844058,
+      "y": 35.14405206597593
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "LINE": 1571,
+    "LWPOLYLINE": 27,
+    "MTEXT": 87
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 14,
+    "LEADER": 2
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}

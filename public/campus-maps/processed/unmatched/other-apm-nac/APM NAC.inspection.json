@@ -1,0 +1,550 @@
+{
+  "buildingId": null,
+  "associationStatus": "unmatched-source-drawing",
+  "sourceDwg": "other/APM NAC.dwg",
+  "convertedDxf": "APM NAC.dxf",
+  "dxfUnitsCode": 1,
+  "modelSpaceEntityCount": 665,
+  "entityCounts": {
+    "CIRCLE": 1,
+    "DIMENSION": 5,
+    "HATCH": 1,
+    "LINE": 605,
+    "LWPOLYLINE": 2,
+    "MTEXT": 2,
+    "OLE2FRAME": 1,
+    "TEXT": 48
+  },
+  "dimensionEntityCount": 5,
+  "dimensions": [
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": "7.85",
+      "measurement": 8.665218330152015,
+      "definitionPoints": [
+        {
+          "x": 391.5511424872967,
+          "y": 146.9106017464118
+        },
+        {
+          "x": 391.5511424872967,
+          "y": 151.2432109114879
+        },
+        {
+          "x": 392.7587126935947,
+          "y": 155.5758200765638
+        },
+        {
+          "x": 392.7578309979106,
+          "y": 146.9106017464118
+        }
+      ]
+    },
+    {
+      "layer": "WALL",
+      "dimensionType": "   160",
+      "textOverride": "11.45",
+      "measurement": 12.54189487266171,
+      "definitionPoints": [
+        {
+          "x": 392.7588441936678,
+          "y": 154.2577769044725
+        },
+        {
+          "x": 386.4878310073004,
+          "y": 154.2577769044725
+        },
+        {
+          "x": 380.216949321006,
+          "y": 155.5770962150531
+        },
+        {
+          "x": 392.7588441936678,
+          "y": 154.6636922265357
+        }
+      ]
+    },
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": "18.45",
+      "measurement": 20.29485345746025,
+      "definitionPoints": [
+        {
+          "x": 359.3520157102457,
+          "y": 154.1235602606819
+        },
+        {
+          "x": 369.4994424389758,
+          "y": 154.1235602606819
+        },
+        {
+          "x": 379.6468691677059,
+          "y": 155.5771542213473
+        },
+        {
+          "x": 359.3520157102457,
+          "y": 155.5792192454511
+        }
+      ]
+    },
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": "15.40",
+      "measurement": 16.96558536219035,
+      "definitionPoints": [
+        {
+          "x": 357.2988265401983,
+          "y": 146.9140821241126
+        },
+        {
+          "x": 357.2988265401983,
+          "y": 155.3968748052078
+        },
+        {
+          "x": 358.5547480672815,
+          "y": 163.8796674863029
+        },
+        {
+          "x": 358.5530217999409,
+          "y": 146.9140821241126
+        }
+      ]
+    },
+    {
+      "layer": "WALL",
+      "dimensionType": "    32",
+      "textOverride": "10.00",
+      "measurement": 11.04815337094334,
+      "definitionPoints": [
+        {
+          "x": 358.5547480672815,
+          "y": 162.5568852000505
+        },
+        {
+          "x": 353.0306713818098,
+          "y": 162.5568852000505
+        },
+        {
+          "x": 347.5065946963382,
+          "y": 163.8807916483009
+        },
+        {
+          "x": 358.5547480672815,
+          "y": 163.8796674863029
+        }
+      ]
+    }
+  ],
+  "layers": {
+    "0": {
+      "CIRCLE": 1,
+      "HATCH": 1,
+      "LINE": 325,
+      "LWPOLYLINE": 1,
+      "OLE2FRAME": 1
+    },
+    "TEXT": {
+      "TEXT": 46
+    },
+    "WALL": {
+      "DIMENSION": 5,
+      "LINE": 278,
+      "LWPOLYLINE": 1,
+      "MTEXT": 2,
+      "TEXT": 2
+    },
+    "ele-thk": {
+      "LINE": 2
+    }
+  },
+  "bounds": {
+    "minX": 0.0,
+    "minY": 0.0,
+    "maxX": 407.5194693096356,
+    "maxY": 165.8029380838476
+  },
+  "boundsBasis": "Bounds of coordinates found on model-space entities, including text and insert points; they can exceed the drawn geometry when a block reference has a remote insertion point.",
+  "renderBounds": {
+    "minX": 92.58373749025193,
+    "minY": 46.33343630440483,
+    "maxX": 407.5194693096356,
+    "maxY": 165.8029380838476
+  },
+  "sourceText": [
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Applied Mechanics Department",
+      "x": 92.58373749025193,
+      "y": 51.83728834228761
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "APM DEPT/ LAB",
+      "x": 145.5942117325289,
+      "y": 68.97820778266582
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "APM",
+      "x": 102.5264996666745,
+      "y": 69.94373981199402
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "C-21",
+      "x": 166.2364958566398,
+      "y": 70.27928803590912
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 172.7946128372863,
+      "y": 70.97755688810481
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 172.87801736464,
+      "y": 66.7554353553579
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 169.2344918617348,
+      "y": 77.009622262612
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 172.8851169869332,
+      "y": 77.009622262612
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 105.9082580968348,
+      "y": 70.04549398815703
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 129.7566034099187,
+      "y": 69.34356165093764
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "QUADRANGLE BASEMENT",
+      "x": 340.3880802019872,
+      "y": 134.0561888418964
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "8.0 X 7.60",
+      "x": 103.2304881172883,
+      "y": 68.39273485507074
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "HOD",
+      "x": 151.3279821374392,
+      "y": 62.79817084144467
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "4.0 X 3.2",
+      "x": 150.7376121351346,
+      "y": 61.97581785049761
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "APM",
+      "x": 135.6403611034295,
+      "y": 68.9435020447715
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 155.192454937754,
+      "y": 69.40192289730096
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "2.6 X 7.60",
+      "x": 154.8176231825062,
+      "y": 68.92587478743212
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "8.50 X 7.60",
+      "x": 134.0639782889007,
+      "y": 67.69298523312783
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "12.00 X 7.60",
+      "x": 145.9092980997978,
+      "y": 67.84156870923378
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "APM",
+      "x": 158.8237213213002,
+      "y": 68.97546466472312
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Lab",
+      "x": 160.5146005363803,
+      "y": 69.02634175280463
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "5.45 X 7.60",
+      "x": 159.1757155466071,
+      "y": 68.19996218626147
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "9.15 X 7.60",
+      "x": 164.9666923558124,
+      "y": 68.48410572873807
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 4.25",
+      "x": 172.0428710739295,
+      "y": 65.85148066071332
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 3.15",
+      "x": 172.1596797906553,
+      "y": 69.98944715199138
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 3.15",
+      "x": 168.4125595268258,
+      "y": 76.24576259443103
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 3.15",
+      "x": 172.2444889541069,
+      "y": 76.29277024058487
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 120.8156269583863,
+      "y": 67.0944211572696
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 120.8000266268504,
+      "y": 71.12452627076333
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 4.25",
+      "x": 120.3090306918673,
+      "y": 70.2516406176358
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 4.25",
+      "x": 120.4756307928,
+      "y": 66.31299445959301
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.50 X 4.25",
+      "x": 129.4302602209868,
+      "y": 68.069484268425
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Verandah 3 m wide",
+      "x": 136.2758703391851,
+      "y": 74.2942160746454
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "You are",
+      "x": 124.1018530349351,
+      "y": 70.22875498235886
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "here",
+      "x": 124.19129176835,
+      "y": 69.50234324282424
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Bup Area 757 Sqm",
+      "x": 161.2405253574405,
+      "y": 46.33343630440483
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Stage",
+      "x": 161.6719044031136,
+      "y": 88.96316909665148
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 172.6504878675149,
+      "y": 93.16892983807762
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.75 X 4.00",
+      "x": 172.0098598346886,
+      "y": 91.98375138502368
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Staff",
+      "x": 172.6689053137387,
+      "y": 87.63688912658111
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.75 X 4.00",
+      "x": 172.10272866608,
+      "y": 86.30613922841346
+    },
+    {
+      "layer": "WALL",
+      "type": "TEXT",
+      "text": "Toilet",
+      "x": 173.834079798942,
+      "y": 89.90479367742051
+    },
+    {
+      "layer": "WALL",
+      "type": "TEXT",
+      "text": "2.10 X 1.50",
+      "x": 173.6005406196238,
+      "y": 89.41340151436671
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;W}",
+      "x": 180.462061917253,
+      "y": 104.0651560589393
+    },
+    {
+      "layer": "WALL",
+      "type": "MTEXT",
+      "text": "{\\fTimes New Roman|b0|i0|c0|p18;E}",
+      "x": 178.0785947400462,
+      "y": 102.1246003370253
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Room",
+      "x": 117.5765209501869,
+      "y": 91.92066534572547
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "APM Lab",
+      "x": 122.2471637925803,
+      "y": 90.54745024932562
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "7.60 X 5.85",
+      "x": 122.5248094874306,
+      "y": 89.40985635281002
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "3.80 X 2.50",
+      "x": 117.3848501342607,
+      "y": 91.20659235334146
+    },
+    {
+      "layer": "TEXT",
+      "type": "TEXT",
+      "text": "Sathe Hall",
+      "x": 121.50776248237,
+      "y": 95.14001831814666
+    }
+  ],
+  "floorClues": [],
+  "rendererSupportedEntities": [
+    "CIRCLE",
+    "LINE",
+    "LWPOLYLINE",
+    "MTEXT",
+    "TEXT"
+  ],
+  "rendererRenderedEntityCounts": {
+    "CIRCLE": 1,
+    "LINE": 605,
+    "LWPOLYLINE": 2,
+    "MTEXT": 2,
+    "TEXT": 48
+  },
+  "rendererFilteredTextEntityCount": 0,
+  "rendererOmittedEntityTypes": {
+    "DIMENSION": 5,
+    "HATCH": 1,
+    "OLE2FRAME": 1
+  },
+  "floorOrganization": "Requires manual inspection of source text and plan groups; no floors are inferred by this report."
+}
