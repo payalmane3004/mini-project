@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ClipboardList,
   Plus,
@@ -39,6 +39,18 @@ function StudentMaintenance() {
     description: "",
     priority: "Medium",
   });
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get("newRequest") === "1") {
+    setFormData((previous) => ({
+      ...previous,
+      location: params.get("location") || "",
+    }));
+
+    setShowForm(true);
+  }
+  }, []);
 
   const handleChange = (event) => {
     setFormData({

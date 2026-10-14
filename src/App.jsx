@@ -25,6 +25,7 @@ const StudentRooms = lazy(() => import("./pages/Student/StudentRooms"));
 const MainBuildingInteriorPrototype = lazy(() => import("./pages/Admin/MainBuildingInteriorPrototype"));
 const BuildingExplorer = lazy(() => import("./pages/Admin/BuildingExplorer"));
 const Rooms = lazy(() => import("./pages/Admin/Rooms"));
+const StudentQRComplaint = lazy(() => import("./pages/Student/StudentQRComplaint"));
 const StudentDashboard = lazy(() => import("./pages/Student/StudentDashboard"));
 const StudentMaintenance = lazy(() => import("./pages/Student/StudentMaintenance"));
 const StudentBooking = lazy(() => import("./pages/Student/StudentBooking"));
@@ -173,6 +174,7 @@ function App() {
         <Route path="/student-emergency" element={<RequireRole role="student"><StudentLayout><StudentEmergency /></StudentLayout></RequireRole>} />
         <Route path="/student-profile" element={<RequireRole role="student"><StudentLayout><StudentProfile /></StudentLayout></RequireRole>} />
         <Route path="/student-map" element={<RequireRole role="student"><StudentLayout><StudentMap /></StudentLayout></RequireRole>} />
+        <Route path="/student-qr-complaint" element={<RequireRole role="student"><StudentLayout><StudentQRComplaint /></StudentLayout></RequireRole>} />
 
         {/* Unknown route */}
         <Route path="*" element={<Navigate to="/login" replace />} />

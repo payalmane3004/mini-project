@@ -10,6 +10,7 @@ import {
   UserCircle,
   LogOut,
   Box,
+  QrCode,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
@@ -58,6 +59,11 @@ function StudentSidebar() {
       name: "Maintenance",
       path: "/student-maintenance",
       icon: Wrench,
+    },
+    {
+      name: "QR Complaint",
+      path: "/student-qr-complaint",
+      icon: QrCode,
     },
     {
       name: "Events & Notices",
