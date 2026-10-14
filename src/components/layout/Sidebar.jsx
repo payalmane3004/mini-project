@@ -14,8 +14,10 @@ import {
   Bell,
   Wifi,
   Settings,
+  LogOut,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/useAuth";
 
 const menuGroups = [
   {
@@ -61,6 +63,14 @@ const menuGroups = [
 ];
 
 function Sidebar() {
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleLogout = () => {
+    signOut();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <aside className="sidebar">
       {/* Logo */}
@@ -105,6 +115,10 @@ function Sidebar() {
         <span>Local demo</span>
 
         <span className="version">v2.4.1</span>
+
+        <button className="sidebar-logout" type="button" onClick={handleLogout} aria-label="Logout">
+          <LogOut size={16} />
+        </button>
       </div>
     </aside>
   );

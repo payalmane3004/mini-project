@@ -9,11 +9,19 @@ import {
   Siren,
   UserCircle,
   LogOut,
+  Box,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/useAuth";
 
 function StudentSidebar() {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleLogout = () => {
+    signOut();
+    navigate("/login", { replace: true });
+  };
 
   const menuItems = [
     {
@@ -25,6 +33,11 @@ function StudentSidebar() {
       name: "Campus Map",
       path: "/student-map",
       icon: Map,
+    },
+    {
+      name: "Digital Twin",
+      path: "/student-digital-twin",
+      icon: Box,
     },
     {
       name: "Buildings",
@@ -105,7 +118,7 @@ function StudentSidebar() {
 
         <button
           className="student-logout"
-          onClick={() => navigate("/login")}
+          onClick={handleLogout}
         >
           <LogOut size={19} />
           <span>Logout</span>

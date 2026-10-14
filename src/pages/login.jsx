@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LockKeyhole, User, GraduationCap } from "lucide-react";
+import { useAuth } from "../auth/useAuth";
 
 function Login() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,12 +15,14 @@ function Login() {
 
     // Temporary login credentials
     if (email === "admin@college.com" && password === "admin123") {
-      navigate("/Admin");
+      signIn("admin");
+      navigate("/", { replace: true });
       return;
     }
 
     if (email === "student@college.com" && password === "student123") {
-      navigate("/student-dashboard");
+      signIn("student");
+      navigate("/student-dashboard", { replace: true });
       return;
     }
 

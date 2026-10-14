@@ -7,6 +7,7 @@ import {
   Clock3,
   ChevronRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const upcomingBookings = [
   {
@@ -122,10 +123,10 @@ function StudentDashboard() {
             ))}
           </div>
 
-          <button className="student-link-button">
+          <Link className="student-link-button" to="/student-booking">
             View all bookings
             <ChevronRight size={17} />
-          </button>
+          </Link>
         </section>
 
         <section className="student-panel">
@@ -139,25 +140,30 @@ function StudentDashboard() {
           </div>
 
           <div className="student-quick-actions">
-            <button>
+            <Link to="/student-map">
               <Map size={20} />
               <span>Campus Map</span>
-            </button>
+            </Link>
 
-            <button>
+            <Link to="/student-digital-twin">
+              <Building2 size={20} />
+              <span>Digital Twin</span>
+            </Link>
+
+            <Link to="/student-rooms">
               <Building2 size={20} />
               <span>Find a Room</span>
-            </button>
+            </Link>
 
-            <button>
+            <Link to="/student-booking">
               <CalendarDays size={20} />
               <span>Book a Room</span>
-            </button>
+            </Link>
 
-            <button>
+            <Link to="/student-maintenance">
               <ClipboardList size={20} />
               <span>Report Issue</span>
-            </button>
+            </Link>
           </div>
         </section>
       </div>

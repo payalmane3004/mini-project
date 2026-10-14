@@ -7,6 +7,7 @@ function StudentTopbar() {
   const pageTitles = {
     "/student-dashboard": "Dashboard",
     "/student-map": "Campus Map",
+    "/student-digital-twin": "Digital Twin",
     "/student-buildings": "Buildings",
     "/student-rooms": "Floors & Rooms",
     "/student-booking": "Room Booking",

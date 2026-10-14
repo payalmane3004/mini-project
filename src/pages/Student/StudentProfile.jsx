@@ -13,8 +13,12 @@ import {
   Edit3,
   Save,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/useAuth";
 
 function StudentProfile() {
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [editing, setEditing] = useState(false);
 
   const [profile, setProfile] = useState({
@@ -256,7 +260,8 @@ function StudentProfile() {
           <button
             className="profile-logout-btn"
             onClick={() => {
-              window.location.href = "/login";
+              signOut();
+              navigate("/login", { replace: true });
             }}
           >
             <LogOut size={17} />

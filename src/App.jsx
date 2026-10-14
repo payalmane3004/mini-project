@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import AppLayout from "./components/layout/AppLayout";
 import StudentLayout from "./components/layout/StudentLayout";
+import { AuthProvider } from "./auth/AuthContext";
+import RequireRole from "./auth/RequireRole";
 
 const Login = lazy(() => import("./pages/login"));
 const Dashboard = lazy(() => import("./pages/Admin/Dashboard"));
@@ -30,10 +32,12 @@ const StudentEvents = lazy(() => import("./pages/Student/StudentEvents"));
 const StudentEmergency = lazy(() => import("./pages/Student/StudentEmergency"));
 const StudentProfile = lazy(() => import("./pages/Student/StudentProfile"));
 const StudentMap = lazy(() => import("./pages/Student/StudentMap"));
+const StudentDigitalTwin = lazy(() => import("./pages/Student/StudentDigitalTwin"));
 
 function App() {
   return (
     <BrowserRouter>
+      <AuthProvider>
       <Suspense fallback={<main className="route-loading" role="status">Loading page…</main>}>
       <Routes>
         {/* Login: no sidebar or topbar */}
@@ -43,168 +47,138 @@ function App() {
         <Route
           path="/"
           element={
-            <AppLayout>
-              <Dashboard />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Dashboard /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/digital-twin"
           element={
-            <AppLayout>
-              <DigitalTwin />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><DigitalTwin /></AppLayout></RequireRole>
           }
         />
 
         {/* Standalone interior study; intentionally absent from the sidebar. */}
         <Route
           path="/building-explorer/:buildingId"
-          element={<AppLayout><BuildingExplorer /></AppLayout>}
+          element={<RequireRole role="admin"><AppLayout><BuildingExplorer /></AppLayout></RequireRole>}
         />
 
         <Route
           path="/main-building-interior"
           element={
-            <AppLayout>
-              <MainBuildingInteriorPrototype />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><MainBuildingInteriorPrototype /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/buildings"
           element={
-            <AppLayout>
-              <Buildings />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Buildings /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/rooms"
           element={
-            <AppLayout>
-              <Rooms />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Rooms /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/occupancy"
           element={
-            <AppLayout>
-              <Occupancy />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Occupancy /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/energy"
           element={
-            <AppLayout>
-              <Energy />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Energy /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/maintenance"
           element={
-            <AppLayout>
-              <Maintenance />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Maintenance /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/booking"
           element={
-            <AppLayout>
-              <RoomBooking />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><RoomBooking /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/emergency"
           element={
-            <AppLayout>
-              <WorkspacePage page="emergency" />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><WorkspacePage page="emergency" /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/analytics"
           element={
-            <AppLayout>
-              <Analytics />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Analytics /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/scenario-lab"
           element={
-            <AppLayout>
-              <ScenarioLab />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><ScenarioLab /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/predictions"
           element={
-            <AppLayout>
-              <Predictions />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Predictions /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/alerts"
           element={
-            <AppLayout>
-              <Alerts />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><Alerts /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/users"
           element={
-            <AppLayout>
-              <WorkspacePage page="users" />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><WorkspacePage page="users" /></AppLayout></RequireRole>
           }
         />
 
         <Route
           path="/settings"
           element={
-            <AppLayout>
-              <SettingsPage />
-            </AppLayout>
+            <RequireRole role="admin"><AppLayout><SettingsPage /></AppLayout></RequireRole>
           }
         />
 
         {/* Student routes */}
-        <Route path="/student-dashboard" element={<StudentLayout><StudentDashboard /></StudentLayout>} />
-        <Route path="/student-buildings" element={<StudentLayout><StudentBuildings /></StudentLayout>} />
-        <Route path="/student-rooms" element={<StudentLayout><StudentRooms /></StudentLayout>} />
-        <Route path="/student-booking" element={<StudentLayout><StudentBooking /></StudentLayout>} />
-        <Route path="/student-maintenance" element={<StudentLayout><StudentMaintenance /></StudentLayout>} />
-        <Route path="/student-events" element={<StudentLayout><StudentEvents /></StudentLayout>} />
-        <Route path="/student-emergency" element={<StudentLayout><StudentEmergency /></StudentLayout>} />
-        <Route path="/student-profile" element={<StudentLayout><StudentProfile /></StudentLayout>} />
-        <Route path="/student-map" element={<StudentLayout><StudentMap /></StudentLayout>} />
+        <Route path="/student-dashboard" element={<RequireRole role="student"><StudentLayout><StudentDashboard /></StudentLayout></RequireRole>} />
+        <Route path="/student-digital-twin" element={<RequireRole role="student"><StudentLayout><StudentDigitalTwin /></StudentLayout></RequireRole>} />
+        <Route path="/student-buildings" element={<RequireRole role="student"><StudentLayout><StudentBuildings /></StudentLayout></RequireRole>} />
+        <Route path="/student-rooms" element={<RequireRole role="student"><StudentLayout><StudentRooms /></StudentLayout></RequireRole>} />
+        <Route path="/student-booking" element={<RequireRole role="student"><StudentLayout><StudentBooking /></StudentLayout></RequireRole>} />
+        <Route path="/student-maintenance" element={<RequireRole role="student"><StudentLayout><StudentMaintenance /></StudentLayout></RequireRole>} />
+        <Route path="/student-events" element={<RequireRole role="student"><StudentLayout><StudentEvents /></StudentLayout></RequireRole>} />
+        <Route path="/student-emergency" element={<RequireRole role="student"><StudentLayout><StudentEmergency /></StudentLayout></RequireRole>} />
+        <Route path="/student-profile" element={<RequireRole role="student"><StudentLayout><StudentProfile /></StudentLayout></RequireRole>} />
+        <Route path="/student-map" element={<RequireRole role="student"><StudentLayout><StudentMap /></StudentLayout></RequireRole>} />
 
         {/* Unknown route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       </Suspense>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

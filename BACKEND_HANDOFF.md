@@ -10,7 +10,7 @@ This is a React single-page application built with Vite. It currently provides:
 - Occupancy, energy, maintenance, analytics, predictions, alerts, bookings, scenarios, emergency, users, and settings screens. Most operational information and interactions are explicitly local demonstration content. Maintenance requests and other page changes are held in component memory; they are not submitted to a service.
 - Student pages under `/student-*` for dashboard, buildings, rooms, booking, maintenance, events, emergency, profile, and map. `/login` is a standalone frontend page; the route setup does not establish real authentication.
 
-Unknown routes redirect to `/login`. Admin pages use `AppLayout`; student pages use `StudentLayout`.
+Unknown routes redirect to `/login`. Admin pages use `AppLayout`; student pages use `StudentLayout`. Frontend demo role gates protect Admin and Student route groups, including direct URLs. The demo role is held in `sessionStorage` and cleared by logout.
 
 ## Frontend stack
 
@@ -30,7 +30,7 @@ From `package.json`: React 19 and React DOM, React Router 7, Vite 8 with the Rea
 
 Campus map geometry, labels, site lines, drawing previews, and inspection reports are static local source-derived files. The 3D building extrusion height and some architectural traces/zones are illustrative; the UI identifies uncertainty in source-plan and floor views. CAD annotations do not establish verified room boundaries, room IDs, floor assignments, or facility/equipment associations unless specifically stated as verified in the source data.
 
-Dashboard summary cards, Campus Status, occupancy/energy chart values, alerts, forecasts, analytics and other workspace sample rows are illustrative or hard-coded. Occupancy and energy are not live measurements. Maintenance interactions are in-memory only. Booking/scenario/settings interactions are not connected to external services. Unavailable data panels intentionally communicate missing verified records. No backend API, database schema, persistence layer, or authentication provider is currently configured or implied by these interfaces.
+Dashboard summary cards, Campus Status, occupancy/energy chart values, alerts, forecasts, analytics and other workspace sample rows are illustrative or hard-coded. Occupancy and energy are not live measurements. Maintenance interactions are in-memory only. Booking/scenario/settings interactions are not connected to external services. Unavailable data panels intentionally communicate missing verified records. No backend API, database schema, persistence layer, or real authentication provider is configured or implied by these interfaces. Current role authentication is temporary client-side demo behavior using hard-coded credentials and session storage; it is not secure. Real security requires backend-enforced authentication and authorization.
 
 ## Suggested API integration points
 
@@ -53,7 +53,7 @@ Prefer a shared API client/data layer and loading/error/empty states over adding
 - Review drawing associations and the inspection/architecture notes in `docs/cad-inspection/`. The selected plans are evidence-linked, but several associations and floor groupings are explicitly limited or unverified.
 - Confirm what counts as a room versus a CAD text label, and which facility entries are operational records rather than extracted annotations.
 - Identify authoritative occupancy, energy, alerts, and maintenance sources, their units, update frequency, retention, and permitted aggregation. Current sample values must not be treated as seeded production data.
-- Define authentication and authorization independently. The login page and route wrappers are frontend structure only; there is no configured identity provider or access control in the route definitions.
+- Replace demo credentials and client-side role gates with a real identity provider/session. Backend endpoints must enforce authentication and authorization independently; browser storage and frontend route guards are not security boundaries.
 - Decide API deployment/base URL, CORS, data ownership, and whether public floor-plan/CAD assets remain static. No endpoint names or database tables are assumed here.
 
 ## Handoff/build notes
