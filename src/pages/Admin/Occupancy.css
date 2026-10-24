@@ -1,0 +1,61 @@
+.occupancy-page-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.occupancy-refresh { display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:0 12px; border:1px solid #344253; border-radius:6px; background:#111923; color:#b8c5d2; font-size:12px; cursor:pointer; }
+.occupancy-refresh:hover:not(:disabled) { border-color:#22d3ee; color:#22d3ee; }
+.occupancy-refresh:disabled { opacity:.6; cursor:wait; }
+.occupancy-refresh-spinning { animation:occupancy-spin 1s linear infinite; }
+.occupancy-data-note,.occupancy-source-disclaimer { color:#91a1b6; font-size:12px; line-height:1.55; }
+.occupancy-data-note { margin:-17px 0 20px; padding:10px 12px; border:1px solid #263746; border-radius:6px; background:#111923; }
+.occupancy-source-disclaimer { margin-top:12px; }
+.occupancy-api-error { display:flex; align-items:center; gap:9px; margin-bottom:16px; padding:11px 12px; border:1px solid rgba(248,113,113,.35); border-radius:6px; background:rgba(127,29,29,.14); color:#fca5a5; font-size:12px; }
+.occupancy-api-error button { margin-left:auto; padding:6px 9px; border:1px solid #713c42; border-radius:4px; background:#29191d; color:#fecaca; cursor:pointer; }
+.occupancy-loading { margin:0 0 14px; color:#91a1b6; font-size:12px; }
+.occupancy-metrics[aria-busy="true"] .occupancy-metric-value { opacity:.55; }
+.occupancy-metric-value.timestamp { font-size:16px; line-height:1.35; overflow-wrap:anywhere; }
+.occupancy-readings-panel { margin-top:0; }
+.occupancy-table-scroll { width:100%; overflow-x:auto; }
+.occupancy-table { width:100%; border-collapse:collapse; text-align:left; }
+.occupancy-table th,.occupancy-table td { padding:13px 15px; border-bottom:1px solid #26313d; color:#cbd5e1; font-size:12px; vertical-align:top; }
+.occupancy-table th { color:#91a1b6; font-size:10px; font-weight:650; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+.occupancy-table td strong,.occupancy-table td small { display:block; }
+.occupancy-table td strong { color:#e5eaf0; font-weight:600; }
+.occupancy-table td small { margin-top:4px; color:#8192a6; font-size:10px; line-height:1.4; }
+.occupancy-table tr:last-child td { border-bottom:0; }
+.occupancy-source-tag { display:inline-flex; padding:4px 7px; border:1px solid #354555; border-radius:4px; background:#111923; color:#aebdcd; font-size:10px; line-height:1.4; }
+.occupancy-empty { min-height:210px; padding:24px; }
+.occupancy-table-state { min-height:150px; display:grid; place-items:center; padding:20px; color:#91a1b6; font-size:12px; text-align:center; }
+.occupancy-page { min-width:0; }
+.occupancy-page-heading { margin-bottom:18px; }
+.occupancy-page-heading > div { min-width:0; }
+.occupancy-page-heading h1 { line-height:1.25; }
+.occupancy-data-note { margin:0 0 16px; padding:10px 13px; border-radius:8px; font-size:12px; }
+.occupancy-metrics { gap:13px; margin-bottom:16px; }
+.occupancy-metric { min-width:0; min-height:145px; padding:18px; border-radius:9px; }
+.occupancy-metric-label { color:#a8b6c5; font-size:12px; line-height:1.4; letter-spacing:.045em; }
+.occupancy-metric-value { font-variant-numeric:tabular-nums; }
+.occupancy-metric-note { color:#9aaabd; font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
+.occupancy-readings-panel { border-radius:9px; }
+.occupancy-panel-heading { min-height:64px; padding:14px 18px; }
+.occupancy-panel-heading h2 { font-size:16px; }
+.occupancy-panel-heading p { font-size:12px; line-height:1.45; }
+.occupancy-table th,.occupancy-table td { padding:11px 13px; }
+.occupancy-empty { min-height:0; padding:18px; gap:6px; }
+.occupancy-empty > svg { color:#72cfdd; }
+.occupancy-empty strong { color:#dce7ed; font-size:13px; }
+.occupancy-empty p { max-width:560px; color:#9eacbb; font-size:12px; line-height:1.5; }
+.occupancy-table-state { min-height:82px; padding:14px; }
+.occupancy-source-disclaimer { margin-top:0; font-size:11px; line-height:1.5; }
+@keyframes occupancy-spin { to { transform:rotate(360deg); } }
+@media(max-width:700px) {
+  .occupancy-page-heading { align-items:flex-start; }
+  .occupancy-refresh { flex:none; }
+  .occupancy-table { min-width:850px; }
+  .occupancy-data-note { margin-top:0; }
+  .occupancy-metrics { gap:9px; }
+  .occupancy-metric { min-height:132px; padding:13px; }
+  .occupancy-metric-label { font-size:10px; }
+  .occupancy-metric-icon { top:12px; right:12px; width:32px; height:32px; }
+  .occupancy-metric-value { margin-top:29px; font-size:24px; }
+  .occupancy-metric-note { font-size:11px; }
+  .occupancy-api-error { align-items:flex-start; flex-wrap:wrap; }
+}
+@media(prefers-reduced-motion:reduce) { .occupancy-refresh-spinning { animation:none; } }

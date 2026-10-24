@@ -1,0 +1,86 @@
+.energy-page-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.energy-refresh,.energy-filters button { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:36px; padding:0 12px; border:1px solid #344253; border-radius:6px; background:#111923; color:#b8c5d2; font-size:12px; cursor:pointer; }
+.energy-refresh:hover:not(:disabled),.energy-filters button:hover:not(:disabled) { border-color:#22d3ee; color:#22d3ee; }
+.energy-refresh:disabled,.energy-filters button:disabled { opacity:.6; cursor:wait; }
+.energy-data-note { display:flex; align-items:flex-start; gap:9px; padding:11px 13px; border:1px solid #344453; border-radius:7px; background:#111923; color:#b8c5d2; font-size:12px; line-height:1.5; }
+.energy-data-note svg { flex:none; margin-top:1px; color:#22d3ee; }
+.energy-filters { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; padding:12px; border:1px solid #293441; border-radius:8px; background:#121923; }
+.energy-filters label { display:grid; grid-template-columns:auto 1fr; align-items:center; gap:5px 7px; color:#91a1b6; font-size:10px; }
+.energy-filters label svg { color:#72869b; }
+.energy-filters input,.energy-filters select { grid-column:1/-1; min-height:34px; min-width:150px; padding:0 9px; border:1px solid #344253; border-radius:5px; background:#0c141c; color:#dce5ee; color-scheme:dark; font:inherit; font-size:11px; }
+.energy-filters select { min-width:185px; }
+.energy-filters input:focus-visible,.energy-filters select:focus-visible,.energy-filters button:focus-visible,.energy-refresh:focus-visible { outline:2px solid #22d3ee; outline-offset:2px; }
+.energy-period-label { margin:0 3px 8px auto; color:#91a1b6; font-size:11px; }
+.energy-api-error { display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid rgba(248,113,113,.35); border-radius:6px; background:rgba(127,29,29,.14); color:#fca5a5; font-size:12px; }
+.energy-api-error button { margin-left:auto; padding:6px 9px; border:1px solid #713c42; border-radius:4px; background:#29191d; color:#fecaca; cursor:pointer; }
+.energy-loading { color:#91a1b6; font-size:12px; }
+.energy-metrics[aria-busy="true"] .energy-metric-value { opacity:.55; }
+.energy-metric-detail { overflow-wrap:anywhere; }
+.energy-chart-wrap { min-width:0; }
+.energy-consumption-chart.energy-chart-wrap { height:310px; padding:12px 18px 12px 8px; }
+.energy-building-chart.energy-chart-wrap { height:355px; padding:12px 16px 12px 8px; }
+.energy-empty { min-height:100%; padding:28px; }
+.energy-chart-tooltip { display:grid; gap:5px; padding:10px 12px; border:1px solid #344253; border-radius:6px; background:#101923; color:#cbd5e1; font-size:11px; box-shadow:0 5px 18px rgba(0,0,0,.3); }
+.energy-chart-tooltip strong { color:#e5eaf0; }
+.energy-chart-tooltip small { color:#91a1b6; }
+.energy-comparison-panel { margin-bottom:0; }
+.energy-semantics-note { padding:11px 13px; border-left:2px solid #d7a84c; background:#211c13; color:#d9c69d; font-size:11px; line-height:1.55; }
+.energy-records-panel { margin-top:0; }
+.energy-table-scroll { width:100%; overflow:auto; }
+.energy-table { width:100%; min-width:720px; border-collapse:collapse; text-align:left; }
+.energy-table th,.energy-table td { padding:12px 15px; border-bottom:1px solid #26313d; color:#cbd5e1; font-size:11px; vertical-align:top; }
+.energy-table th { color:#91a1b6; font-size:9px; font-weight:650; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+.energy-table td strong,.energy-table td small { display:block; }
+.energy-table td strong { color:#e5eaf0; font-size:12px; font-weight:600; }
+.energy-table td small { margin-top:3px; color:#8192a6; font-size:10px; }
+.energy-table tr:last-child td { border-bottom:0; }
+.energy-source-tag { display:inline-flex; padding:4px 7px; border:1px solid #354555; border-radius:4px; background:#111923; color:#aebdcd; font-size:10px; line-height:1.4; }
+.energy-source-tag.simulated { border-color:#705528; background:#241d12; color:#edbd66; }
+.energy-table-state { min-height:140px; display:grid; place-items:center; padding:20px; color:#91a1b6; font-size:12px; }
+.energy-page { min-width:0; }
+.energy-page-heading { margin-bottom:18px; }
+.energy-page-heading > div { min-width:0; }
+.energy-filters { align-items:flex-end; gap:10px 12px; padding:13px; }
+.energy-filters label { min-width:145px; gap:6px 8px; font-size:11px; }
+.energy-filters label:nth-child(3) { min-width:190px; }
+.energy-filters input,.energy-filters select { width:100%; min-width:0; min-height:37px; font-size:12px; }
+.energy-filters button { min-height:37px; white-space:nowrap; }
+.energy-period-label { max-width:100%; margin:0 2px 8px auto; text-align:right; overflow-wrap:anywhere; }
+.energy-metrics { gap:13px; }
+.energy-metric { min-width:0; min-height:145px; padding:18px; border-radius:9px; }
+.energy-metric-title { color:#a8b6c5; font-size:12px; line-height:1.4; letter-spacing:.045em; }
+.energy-metric-value { font-variant-numeric:tabular-nums; }
+.energy-metric-detail { color:#9aaabd; font-size:12px; line-height:1.4; }
+.energy-panel { border-radius:9px; }
+.energy-consumption-heading { min-height:70px; padding:14px 18px; }
+.energy-panel-heading h2 { font-size:16px; }
+.energy-panel-heading p { font-size:12px; line-height:1.45; }
+.energy-consumption-chart.is-empty { height:156px; padding:8px; }
+.energy-building-chart.is-empty { height:156px; padding:8px; }
+.energy-empty { min-height:0; padding:15px; gap:5px; }
+.energy-empty > svg { color:#72cfdd; }
+.energy-empty strong { color:#dce7ed; font-size:13px; }
+.energy-empty p { max-width:520px; color:#9eacbb; font-size:12px; line-height:1.5; }
+.energy-semantics-note { border-radius:0 6px 6px 0; line-height:1.55; }
+.energy-source-tag.simulated { font-weight:600; }
+.energy-table-state { min-height:82px; }
+@media(max-width:700px) {
+  .energy-page-heading { align-items:flex-start; }
+  .energy-refresh { flex:none; }
+  .energy-filters { align-items:stretch; }
+  .energy-filters label { flex:1 1 130px; }
+  .energy-filters label input,.energy-filters label select { width:100%; min-width:0; }
+  .energy-filters button { flex:1 1 100%; }
+  .energy-period-label { flex:1 1 100%; margin:2px 0 0; }
+  .energy-filters label { min-width:0; }
+  .energy-filters label:nth-child(3) { min-width:0; }
+  .energy-period-label { text-align:left; }
+  .energy-metrics { gap:9px; }
+  .energy-metric { min-height:132px; padding:13px; }
+  .energy-metric-title { font-size:10px; }
+  .energy-metric-icon { top:12px; right:12px; width:32px; height:32px; }
+  .energy-metric-value { margin-top:29px; font-size:22px; }
+  .energy-metric-detail { font-size:11px; }
+  .energy-consumption-chart.energy-chart-wrap { height:265px; padding:10px 5px; }
+  .energy-building-chart.energy-chart-wrap { height:310px; padding:10px 4px; }
+}

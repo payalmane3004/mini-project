@@ -1,0 +1,31 @@
+.student-map-unavailable {
+  max-width: 850px;
+  margin: 1.5rem auto;
+}
+
+.student-map-unavailable > svg {
+  margin-bottom: 0.75rem;
+  color: #94a3b8;
+}
+
+.student-map-unavailable h2 {
+  margin-bottom: 0.5rem;
+}
+
+.student-map-unavailable p {
+  max-width: 680px;
+  color: #aab7c5;
+  line-height: 1.6;
+}
+
+.student-map-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.student-map-links .student-explore-button {
+  width: auto;
+  min-height: 42px;
+}

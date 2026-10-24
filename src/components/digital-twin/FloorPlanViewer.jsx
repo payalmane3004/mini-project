@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Expand, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 import "./FloorPlanViewer.css";
 
-const MIN_SCALE = 0.2;
+// Keep fit-to-view usable for wide CAD sheets whose intrinsic image dimensions
+// can be much larger than the visible drawing area.
+const MIN_SCALE = 0.02;
 const MAX_SCALE = 12;
 const ZOOM_FACTOR = 1.2;
 

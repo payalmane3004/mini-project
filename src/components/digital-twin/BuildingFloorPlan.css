@@ -9,3 +9,7 @@
 .building-drawing-source-card p { margin: 7px 0; color: #a6b5c5; font-size: 11px; line-height: 1.5; }
 .building-plan-unavailable { margin: 12px 14px; color: #c4a66f; font-size: 11px; line-height: 1.5; }
 .building-source-download { position: relative; z-index: 2; display: inline-block; margin: 12px 14px; color: #80d7e6; font-size: 12px; }
+.building-drawing-source-card p,.building-drawing-evidence,.building-drawing-note { overflow-wrap:anywhere; }
+.building-drawing-section .floor-plan-controls { flex-wrap:wrap; }
+.building-drawing-section .floor-plan-controls button { min-height:34px; font-size:11px; }
+.building-drawing-section .floor-plan-zoom-level { font-size:11px; }

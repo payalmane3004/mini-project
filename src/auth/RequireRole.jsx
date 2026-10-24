@@ -7,8 +7,12 @@ const HOME_BY_ROLE = {
 };
 
 export default function RequireRole({ role, children }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const location = useLocation();
+
+  if (loading) {
+    return <main className="route-loading" role="status">Verifying your session…</main>;
+  }
 
   if (!user) {
     return <Navigate to="/login" replace state={{ from: location }} />;

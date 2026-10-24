@@ -1,13 +1,18 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Activity, Layers3, Maximize2, RotateCcw } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import CampusScene from "../../components/digital-twin/CampusScene";
 import BuildingDetailsPanel from "../../components/digital-twin/BuildingDetailsPanel";
 import footprintData from "../../data/wce-campus-footprints.json";
 import labelData from "../../data/wce-building-labels.json";
+import { fetchBuildings, fetchBuildingRooms } from "../../api/buildings";
+import { findUniqueBuildingMatch } from "../../api/buildingMatching";
 
 function StudentDigitalTwin() {
   const [selectedId, setSelectedId] = useState(null);
+  const [databaseLookup, setDatabaseLookup] = useState({ key: null, status: "idle", building: null, roomCount: null, error: "" });
+  const [databaseRetryKey, setDatabaseRetryKey] = useState(0);
   const mapRef = useRef(null);
   const buildings = useMemo(() => {
     const labels = new Map(labelData.buildings.map((entry) => [entry.footprintId, entry.labels]));
@@ -24,6 +29,22 @@ function StudentDigitalTwin() {
     });
   }, []);
   const selectedBuilding = buildings.find((building) => building.id === selectedId) ?? null;
+  const currentDatabaseLookup = databaseLookup.key === selectedId
+    ? databaseLookup
+    : { status: selectedId ? "loading" : "idle", building: null, roomCount: null, error: "" };
+
+  useEffect(() => {
+    if (!selectedId) return undefined;
+    let active = true;
+    fetchBuildings().then(async (rows) => {
+      const match = findUniqueBuildingMatch(selectedId, rows);
+      if (!active) return;
+      if (match.status !== "matched") { setDatabaseLookup({ key: selectedId, status: match.status, building: null, roomCount: null, error: "" }); return; }
+      const rooms = await fetchBuildingRooms(match.building.building_code);
+      if (active) setDatabaseLookup({ key: selectedId, status: "ready", building: match.building, roomCount: rooms.length, error: "" });
+    }).catch((reason) => { if (active) setDatabaseLookup({ key: selectedId, status: "error", building: null, roomCount: null, error: reason.message }); });
+    return () => { active = false; };
+  }, [selectedId, databaseRetryKey]);
 
   return (
     <div className="student-digital-twin-page">
@@ -71,6 +92,13 @@ function StudentDigitalTwin() {
           onClose={() => setSelectedId(null)}
         />
       </div>
+      {selectedBuilding && <section className="student-panel student-twin-database-link"><div className="student-panel-header"><div><h2>Database room records</h2><p>CAD annotations are matched only by an exact building code.</p></div></div>
+        {currentDatabaseLookup.status === "loading" && <p role="status">Checking the campus directory…</p>}
+        {currentDatabaseLookup.status === "error" && <div role="alert"><p>{currentDatabaseLookup.error}</p><button type="button" onClick={() => setDatabaseRetryKey((key) => key + 1)}>Retry directory lookup</button></div>}
+        {currentDatabaseLookup.status === "ambiguous" && <p>Multiple database building codes match CAD footprint {selectedBuilding.id}; no record was selected. The displayed labels remain CAD annotations.</p>}
+        {currentDatabaseLookup.status === "missing" && <p>No database building-code match for CAD footprint {selectedBuilding.id}. The displayed labels remain CAD annotations.</p>}
+        {currentDatabaseLookup.status === "ready" && currentDatabaseLookup.building && <><p>{currentDatabaseLookup.building.name} ({currentDatabaseLookup.building.building_code}): {currentDatabaseLookup.roomCount} verified database room records.</p><Link className="student-link-button" to={`/student-rooms?building=${encodeURIComponent(currentDatabaseLookup.building.building_code)}`}>Browse verified rooms</Link></>}
+      </section>}
     </div>
   );
 }

@@ -93,7 +93,7 @@ function DigitalTwin() {
 
           <div className="campus-building-finder">
             <label htmlFor="campus-building-query"><Search size={15} /><span className="sr-only">Find a campus building</span></label>
-            <input id="campus-building-query" value={buildingQuery} onChange={(event) => setBuildingQuery(event.target.value)} placeholder="Find a building by name, CAD label, or ID" autoComplete="off" />
+            <input id="campus-building-query" value={buildingQuery} onChange={(event) => setBuildingQuery(event.target.value)} placeholder="Find a building by name, CAD label, or ID" autoComplete="off" aria-label="Find a campus building by name, CAD label, or ID" />
             {buildingQuery && <button type="button" onClick={() => updateSelection(null)} aria-label="Clear building search">Clear</button>}
             {buildingMatches.length > 0 && selectedBuilding?.name !== buildingQuery && <div className="campus-building-matches" role="listbox" aria-label="Matching campus buildings">
               {buildingMatches.map((building) => <button type="button" role="option" aria-selected={selectedBuilding?.id === building.id} key={building.id} onClick={() => selectBuilding(building)}>

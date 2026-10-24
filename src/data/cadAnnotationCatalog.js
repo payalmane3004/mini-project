@@ -4,6 +4,26 @@ function insideBounds(point, bounds) {
     && point.y >= bounds.minY && point.y <= bounds.maxY;
 }
 
+// CAD MTEXT stores presentation commands inline; clean only the value shown in UI.
+export function cleanCadDisplayText(value) {
+  if (typeof value !== "string") return "";
+
+  return value
+    .replace(/\\[fF][^;]*;/g, "")
+    .replace(/\\[HhWwTtQqCcAa][^;]*;/g, "")
+    .replace(/\\p[^;]*;/g, "")
+    .replace(/\\S([^;]*);/g, "$1")
+    .replace(/\\P/g, " ")
+    .replace(/\\[LlOoKk]/g, "")
+    .replace(/%%d/gi, "°")
+    .replace(/%%p/gi, "±")
+    .replace(/%%c/gi, "⌀")
+    .replace(/\\~/g, " ")
+    .replace(/[{}]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function findSupportedFloorView(drawing, point) {
   const matches = (drawing.floorViews ?? []).filter((floor) => insideBounds(point, floor.bounds));
   return matches.length === 1 ? matches[0] : null;

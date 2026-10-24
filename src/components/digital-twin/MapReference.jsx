@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -6,8 +7,11 @@ function MapReference() {
     THREE.TextureLoader,
     "/maps/wce-campus-map.png"
   );
-
-  texture.colorSpace = THREE.SRGBColorSpace;
+  const colorManagedTexture = useMemo(() => {
+    const clone = texture.clone();
+    clone.colorSpace = THREE.SRGBColorSpace;
+    return clone;
+  }, [texture]);
 
   return (
     <mesh
@@ -17,7 +21,7 @@ function MapReference() {
       <planeGeometry args={[30, 40]} />
 
       <meshBasicMaterial
-        map={texture}
+        map={colorManagedTexture}
         side={THREE.DoubleSide}
       />
     </mesh>

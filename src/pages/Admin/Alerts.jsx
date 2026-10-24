@@ -1,60 +1,52 @@
-import { useMemo, useState } from "react";
-import { Bell, CheckCheck, CircleAlert, Info, TriangleAlert, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AlertTriangle, Bell, RefreshCw, XCircle } from "lucide-react";
+import { deactivateEmergencyAlert, fetchAdminAlerts, publishEmergencyAlert } from "../../api/admin";
 import "./Alerts.css";
 
-const initialAlerts = [
-  { id: 1, title: "Fire Sensor Triggered", description: "Mechanical Building — Floor 2", time: "2m ago", severity: "Critical", unread: true },
-  { id: 2, title: "Hostel A Overcrowding", description: "Floor 3 exceeds maximum capacity by 12%", time: "8m ago", severity: "Critical", unread: true },
-  { id: 3, title: "Energy Anomaly", description: "Mechanical Block usage 23% above normal", time: "14m ago", severity: "Warning", unread: true },
-  { id: 4, title: "Temperature Spike", description: "Workshop temperature at 28.4°C — threshold exceeded", time: "22m ago", severity: "Warning", unread: false },
-  { id: 5, title: "Sensor Offline", description: "SEN-T-003 — Hostel A Floor 3 unreachable", time: "34m ago", severity: "Warning", unread: false },
-  { id: 6, title: "Room CSE-301 Booking Confirmed", description: "Reserved 2:00 PM – 4:00 PM by Dr. Sharma", time: "1h ago", severity: "Info", unread: false },
-  { id: 7, title: "Maintenance Resolved", description: "Door lock in CSE-302 repaired", time: "2h ago", severity: "Info", unread: false },
-];
-const filters = ["All", "Critical", "Warning", "Info", "Unread"];
-
-function SeverityIcon({ severity }) {
-  if (severity === "Critical") return <CircleAlert size={18}/>;
-  if (severity === "Warning") return <TriangleAlert size={18}/>;
-  return <Info size={18}/>;
-}
-
 function Alerts() {
-  const [alerts, setAlerts] = useState(initialAlerts);
-  const [filter, setFilter] = useState("All");
-  const counts = useMemo(() => ({
-    critical: alerts.filter((alert) => alert.severity === "Critical").length,
-    warning: alerts.filter((alert) => alert.severity === "Warning").length,
-    info: alerts.filter((alert) => alert.severity === "Info").length,
-    unread: alerts.filter((alert) => alert.unread).length,
-  }), [alerts]);
-  const visibleAlerts = useMemo(() => alerts.filter((alert) => filter === "All" || (filter === "Unread" ? alert.unread : alert.severity === filter)), [alerts, filter]);
+  const [alerts, setAlerts] = useState([]);
+  const [status, setStatus] = useState("loading");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
-  function markRead(id) {
-    setAlerts((items) => items.map((alert) => alert.id === id ? { ...alert, unread: false } : alert));
+  useEffect(() => {
+    let active = true;
+    fetchAdminAlerts().then((rows) => { if (active) { setAlerts(rows); setStatus("ready"); setError(""); } })
+      .catch((reason) => { if (active) { setStatus("error"); setError(reason.message); } });
+    return () => { active = false; };
+  }, [retryKey]);
+
+  async function submit(event) {
+    event.preventDefault();
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    const expires = form.get("expires_at");
+    setBusy(true); setError(""); setMessage("");
+    try {
+      const alert = await publishEmergencyAlert({ title: form.get("title").trim(), message: form.get("message").trim(), severity: form.get("severity"), expires_at: expires ? new Date(expires).toISOString() : null });
+      setAlerts((items) => [alert, ...items]); formElement.reset(); setMessage("Alert published to students.");
+    } catch (reason) { setError(reason.message); }
+    finally { setBusy(false); }
+  }
+
+  async function deactivate(id) {
+    setBusy(true); setError(""); setMessage("");
+    try { const updated = await deactivateEmergencyAlert(id); setAlerts((items) => items.map((item) => item.id === id ? updated : item)); setMessage("Alert deactivated."); }
+    catch (reason) { setError(reason.message); }
+    finally { setBusy(false); }
   }
 
   return <div className="alerts-page">
-    <header className="alerts-heading"><div><h1>Alerts Center</h1><p>Illustrative notification workflow</p></div><button onClick={() => setAlerts((items) => items.map((alert) => ({ ...alert, unread: false })))}><CheckCheck size={16}/> Mark all read</button></header>
-    <div className="workspace-demo-note">Sample alerts only · no campus sensor or notification service is connected. Read and dismiss actions affect this page session only.</div>
-
-    <section className="alerts-summary" aria-label="Alert counts">
-      <article><strong className="critical-text">{counts.critical}</strong><span>Critical</span></article>
-      <article><strong className="warning-text">{counts.warning}</strong><span>Warning</span></article>
-      <article><strong className="info-text">{counts.info}</strong><span>Information</span></article>
-      <article><strong className="unread-text">{counts.unread}</strong><span>Unread</span></article>
-    </section>
-
-    <div className="alerts-controls"><div className="alerts-filters" role="tablist" aria-label="Filter alerts">{filters.map((item) => <button role="tab" aria-selected={filter === item} className={filter === item ? "active" : ""} key={item} onClick={() => setFilter(item)}>{item}</button>)}</div><span>{visibleAlerts.length} alerts</span></div>
-
-    <section className="alerts-list" aria-label="Notifications">
-      {visibleAlerts.map((alert) => <article className={`alert-item ${alert.severity.toLowerCase()} ${alert.unread ? "unread" : "read"}`} key={alert.id}>
-        <span className="alert-item-icon"><SeverityIcon severity={alert.severity}/></span>
-        <div className="alert-item-content"><div className="alert-item-title"><strong>{alert.title}</strong>{alert.unread && <i className="alert-unread-dot"/>}<span className={`alert-severity ${alert.severity.toLowerCase()}`}>{alert.severity}</span></div><p>{alert.description}</p><small>{alert.time}</small></div>
-        <div className="alert-item-actions">{alert.unread && <button className="alert-mark-read" onClick={() => markRead(alert.id)}>Mark read</button>}<button className="alert-dismiss" aria-label={`Dismiss ${alert.title}`} onClick={() => setAlerts((items) => items.filter((item) => item.id !== alert.id))}><X size={16}/></button></div>
-      </article>)}
-      {visibleAlerts.length === 0 && <div className="alerts-empty"><Bell size={24}/><strong>No alerts here</strong><span>Try a different filter.</span></div>}
-    </section>
+    <header className="alerts-heading"><div><h1>Emergency Alerts</h1><p>Publish and manage database-backed campus alerts.</p></div></header>
+    <div className="workspace-demo-note">Publishing makes the alert visible to students immediately. Verify the message and severity before publishing. Alerts can be deactivated; expired alerts stop appearing in the student view.</div>
+    <form className="admin-alert-form" onSubmit={submit}><h2>Publish an alert</h2><label>Title<input name="title" maxLength={200} required /></label><label>Message<textarea name="message" required rows="3" /></label><div><label>Severity<select name="severity" defaultValue="MEDIUM"><option value="LOW">Low</option><option value="MEDIUM">Medium</option><option value="HIGH">High</option><option value="CRITICAL">Critical</option></select></label><label>Expiry (optional)<input name="expires_at" type="datetime-local" /></label></div><button type="submit" disabled={busy}>Publish alert</button></form>
+    {(error || message) && <p role={error ? "alert" : "status"}>{error || message}</p>}
+    {status === "loading" && <p role="status">Loading alerts…</p>}
+    {status === "error" && <div role="alert"><span>{error}</span><button type="button" onClick={() => setRetryKey((key) => key + 1)}><RefreshCw size={15} /> Retry</button></div>}
+    {status === "ready" && alerts.length === 0 && <div className="alerts-empty"><Bell size={24}/><strong>No alerts</strong><span>No alerts have been created.</span></div>}
+    {status === "ready" && <section className="alerts-list" aria-label="Stored alerts">{alerts.map((alert) => <article className={`alert-item ${alert.severity.toLowerCase()}`} key={alert.id}><span className="alert-item-icon"><AlertTriangle size={18}/></span><div className="alert-item-content"><div className="alert-item-title"><strong>{alert.title}</strong><span className={`alert-severity ${alert.severity.toLowerCase()}`}>{alert.severity}</span><span>{alert.active ? "Enabled" : "Disabled"}</span></div><p>{alert.message}</p><small>Created {alert.created_at ? new Date(alert.created_at).toLocaleString() : "time unavailable"}{alert.expires_at ? ` · expires ${new Date(alert.expires_at).toLocaleString()}` : " · no expiry"}</small></div>{alert.active && <button type="button" className="alert-dismiss" disabled={busy} onClick={() => deactivate(alert.id)} aria-label={`Deactivate ${alert.title}`}><XCircle size={17}/></button>}</article>)}</section>}
   </div>;
 }
 

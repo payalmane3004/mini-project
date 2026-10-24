@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import AppLayout from "./components/layout/AppLayout";
 import StudentLayout from "./components/layout/StudentLayout";
+import { DemoModeProvider } from "./components/layout/DemoModeContext.jsx";
 import { AuthProvider } from "./auth/AuthContext";
 import RequireRole from "./auth/RequireRole";
 
@@ -19,6 +20,7 @@ const Analytics = lazy(() => import("./pages/Admin/Analytics"));
 const ScenarioLab = lazy(() => import("./pages/Admin/ScenarioLab"));
 const Predictions = lazy(() => import("./pages/Admin/Predictions"));
 const Alerts = lazy(() => import("./pages/Admin/Alerts"));
+const Notices = lazy(() => import("./pages/Admin/Notices"));
 const SettingsPage = lazy(() => import("./pages/Admin/SettingsPage"));
 const StudentBuildings = lazy(() => import("./pages/Student/StudentBuildings"));
 const StudentRooms = lazy(() => import("./pages/Student/StudentRooms"));
@@ -39,6 +41,7 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+      <DemoModeProvider>
       <Suspense fallback={<main className="route-loading" role="status">Loading page…</main>}>
       <Routes>
         {/* Login: no sidebar or topbar */}
@@ -117,7 +120,7 @@ function App() {
         <Route
           path="/emergency"
           element={
-            <RequireRole role="admin"><AppLayout><WorkspacePage page="emergency" /></AppLayout></RequireRole>
+            <RequireRole role="admin"><AppLayout><Alerts /></AppLayout></RequireRole>
           }
         />
 
@@ -147,6 +150,11 @@ function App() {
           element={
             <RequireRole role="admin"><AppLayout><Alerts /></AppLayout></RequireRole>
           }
+        />
+
+        <Route
+          path="/notices"
+          element={<RequireRole role="admin"><AppLayout><Notices /></AppLayout></RequireRole>}
         />
 
         <Route
@@ -180,6 +188,7 @@ function App() {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       </Suspense>
+      </DemoModeProvider>
       </AuthProvider>
     </BrowserRouter>
   );

@@ -73,3 +73,9 @@
   .alert-mark-read { padding:0 6px; font-size:10px; }
   .alert-dismiss { width:20px; }
 }
+.admin-alert-form { display: grid; gap: 12px; max-width: 760px; padding: 20px; margin: 18px 0; border: 1px solid var(--border-color, #334155); border-radius: 12px; }
+.admin-alert-form > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.admin-alert-form label { display: grid; gap: 6px; }
+.admin-alert-form input, .admin-alert-form textarea, .admin-alert-form select { width: 100%; padding: 10px; color: inherit; background: var(--input-bg, #111827); border: 1px solid var(--border-color, #334155); border-radius: 8px; }
+.admin-alert-form button { justify-self: start; padding: 10px 16px; border: 0; border-radius: 8px; cursor: pointer; }
+@media (max-width: 640px) { .admin-alert-form > div { grid-template-columns: 1fr; } }

@@ -1,295 +1,50 @@
-import { useState } from "react";
-import {
-  Building2,
-  Search,
-  Layers3,
-  DoorOpen,
-  MapPin,
-  Wifi,
-  Monitor,
-  FlaskConical,
-  Library,
-  ChevronRight,
-} from "lucide-react";
-
-const buildings = [
-  {
-    id: 1,
-    name: "CSE Building",
-    code: "CSE",
-    type: "Academic",
-    description:
-      "Computer Science and Engineering academic building with classrooms, laboratories and project spaces.",
-    floors: 4,
-    rooms: 68,
-    location: "Academic Campus",
-    facilities: ["Computer Labs", "Classrooms", "Wi-Fi", "Project Rooms"],
-    icon: Monitor,
-  },
-  {
-    id: 2,
-    name: "Mechanical Block",
-    code: "ME",
-    type: "Academic",
-    description:
-      "Mechanical Engineering block containing classrooms, laboratories and workshop facilities.",
-    floors: 3,
-    rooms: 74,
-    location: "Academic Campus",
-    facilities: ["Labs", "Workshop", "Classrooms", "Wi-Fi"],
-    icon: Building2,
-  },
-  {
-    id: 3,
-    name: "Central Library",
-    code: "LIB",
-    type: "Academic",
-    description:
-      "Central library with reading areas, digital resources and student study spaces.",
-    floors: 3,
-    rooms: 42,
-    location: "Central Campus",
-    facilities: ["Reading Hall", "Digital Library", "Wi-Fi", "Study Rooms"],
-    icon: Library,
-  },
-  {
-    id: 4,
-    name: "Electrical Engineering",
-    code: "EE",
-    type: "Academic",
-    description:
-      "Electrical Engineering building with specialized laboratories and classrooms.",
-    floors: 3,
-    rooms: 56,
-    location: "Academic Campus",
-    facilities: ["Electrical Labs", "Classrooms", "Project Rooms", "Wi-Fi"],
-    icon: FlaskConical,
-  },
-  {
-    id: 5,
-    name: "Admin Block",
-    code: "ADM",
-    type: "Administration",
-    description:
-      "Administrative building containing college offices and student service facilities.",
-    floors: 2,
-    rooms: 31,
-    location: "Main Campus",
-    facilities: ["Student Services", "Accounts", "Office", "Help Desk"],
-    icon: Building2,
-  },
-  {
-    id: 6,
-    name: "Workshop",
-    code: "WS",
-    type: "Laboratory",
-    description:
-      "Practical workshop facility used for engineering activities and hands-on learning.",
-    floors: 2,
-    rooms: 28,
-    location: "Workshop Area",
-    facilities: ["Workshop", "Machines", "Labs", "Safety Equipment"],
-    icon: FlaskConical,
-  },
-];
+import { useEffect, useMemo, useState } from "react";
+import { Building2, RefreshCw, Search } from "lucide-react";
+import { Link } from "react-router-dom";
+import { fetchBuildings, fetchRooms } from "../../api/buildings";
 
 function StudentBuildings() {
+  const [buildings, setBuildings] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
+  const [status, setStatus] = useState("loading");
+  const [error, setError] = useState("");
+  const [retryKey, setRetryKey] = useState(0);
 
-  const filteredBuildings = buildings.filter((building) => {
-    const matchesSearch =
-      building.name.toLowerCase().includes(search.toLowerCase()) ||
-      building.code.toLowerCase().includes(search.toLowerCase());
+  useEffect(() => {
+    let active = true;
+    Promise.all([fetchBuildings(), fetchRooms()]).then(([buildingRows, roomRows]) => {
+      if (!active) return;
+      setBuildings(buildingRows); setRooms(roomRows); setStatus("ready"); setError("");
+    }).catch((reason) => { if (active) { setStatus("error"); setError(reason.message); } });
+    return () => { active = false; };
+  }, [retryKey]);
 
-    const matchesType =
-      selectedType === "All" || building.type === selectedType;
+  const roomCounts = useMemo(() => rooms.reduce((counts, room) => {
+    counts.set(room.building_id, (counts.get(room.building_id) || 0) + 1);
+    return counts;
+  }, new Map()), [rooms]);
+  const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return buildings.filter((building) => !query || `${building.name} ${building.building_code} ${building.description || ""}`.toLowerCase().includes(query));
+  }, [buildings, search]);
 
-    return matchesSearch && matchesType;
-  });
-
-  return (
-    <div className="student-buildings-page">
-
-      {/* HEADER */}
-
-      <div className="student-page-header">
-        <div>
-          <p className="page-label">CAMPUS DIRECTORY</p>
-
-          <h1>Buildings</h1>
-
-          <p>
-            Explore campus buildings, facilities, floors and rooms.
-          </p>
-        </div>
-      </div>
-
-      {/* SEARCH + FILTER */}
-
-      <div className="student-building-toolbar">
-
-        <div className="student-building-search">
-          <Search size={18} />
-
-          <input
-            type="text"
-            placeholder="Search buildings..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </div>
-
-        <div className="student-building-filters">
-
-          {["All", "Academic", "Administration", "Laboratory"].map(
-            (type) => (
-              <button
-                key={type}
-                className={
-                  selectedType === type
-                    ? "active"
-                    : ""
-                }
-                onClick={() => setSelectedType(type)}
-              >
-                {type}
-              </button>
-            )
-          )}
-
-        </div>
-      </div>
-
-      {/* BUILDING COUNT */}
-
-      <div className="student-building-result">
-        <span>
-          Showing <strong>{filteredBuildings.length}</strong> buildings
-        </span>
-      </div>
-
-      {/* BUILDING GRID */}
-
-      {filteredBuildings.length > 0 ? (
-        <div className="student-building-grid">
-
-          {filteredBuildings.map((building) => {
-            const Icon = building.icon;
-
-            return (
-              <div
-                className="student-building-card"
-                key={building.id}
-              >
-
-                <div className="student-building-card-top">
-
-                  <div className="student-building-icon">
-                    <Icon size={24} />
-                  </div>
-
-                  <span className="student-building-code">
-                    {building.code}
-                  </span>
-
-                </div>
-
-                <h2>{building.name}</h2>
-
-                <span className="student-building-type">
-                  {building.type}
-                </span>
-
-                <p className="student-building-description">
-                  {building.description}
-                </p>
-
-                {/* LOCATION */}
-
-                <div className="student-building-location">
-                  <MapPin size={15} />
-                  <span>{building.location}</span>
-                </div>
-
-                {/* STATS */}
-
-                <div className="student-building-stats">
-
-                  <div>
-                    <Layers3 size={17} />
-
-                    <span>
-                      <strong>{building.floors}</strong>
-                      Floors
-                    </span>
-                  </div>
-
-                  <div>
-                    <DoorOpen size={17} />
-
-                    <span>
-                      <strong>{building.rooms}</strong>
-                      Rooms
-                    </span>
-                  </div>
-
-                </div>
-
-                {/* FACILITIES */}
-
-                <div className="student-facilities">
-
-                  {building.facilities.slice(0, 3).map(
-                    (facility) => (
-                      <span key={facility}>
-                        {facility}
-                      </span>
-                    )
-                  )}
-
-                  {building.facilities.length > 3 && (
-                    <span>
-                      +{building.facilities.length - 3}
-                    </span>
-                  )}
-
-                </div>
-
-                {/* BUTTON */}
-
-                <button
-                  className="student-explore-button"
-                  onClick={() =>
-                    console.log(
-                      "Explore building:",
-                      building.name
-                    )
-                  }
-                >
-                  Explore Building
-                  <ChevronRight size={17} />
-                </button>
-
-              </div>
-            );
-          })}
-
-        </div>
-      ) : (
-        <div className="student-building-empty">
-          <Building2 size={40} />
-
-          <h2>No buildings found</h2>
-
-          <p>
-            Try changing your search or selecting another category.
-          </p>
-        </div>
-      )}
-
-    </div>
-  );
+  return <div className="student-buildings-page">
+    <div className="student-page-header"><div><h1>Campus Buildings</h1><p>Browse building records in the campus directory.</p></div></div>
+    <label className="student-building-search"><Search size={17} /><span className="sr-only">Search buildings</span><input placeholder="Search buildings" value={search} onChange={(event) => setSearch(event.target.value)} /></label>
+    {status === "loading" && <p role="status">Loading campus directory…</p>}
+    {status === "error" && <div className="student-dashboard-error" role="alert"><span>{error}</span><button type="button" onClick={() => setRetryKey((key) => key + 1)}><RefreshCw size={15} /> Retry</button></div>}
+    {status === "ready" && buildings.length === 0 && <div className="student-building-empty"><Building2 size={36} /><h2>No building records</h2><p>The campus directory has no building records.</p></div>}
+    {status === "ready" && buildings.length > 0 && filtered.length === 0 && <div className="student-building-empty"><h2>No matching buildings</h2><p>Try changing your search.</p></div>}
+    {status === "ready" && filtered.length > 0 && <div className="student-building-grid">{filtered.map((building) => <article className="student-building-card" key={building.building_code}>
+      <div className="student-building-card-top"><div className="student-building-icon"><Building2 size={22} /></div><span className="student-building-code">{building.building_code}</span></div>
+      <h2>{building.name}</h2>
+      {building.description && <p className="student-building-description">{building.description}</p>}
+      <div className="student-building-stats"><span><strong>{roomCounts.get(building.id) || 0}</strong> verified room records</span></div>
+      <Link className="student-explore-button" to={`/student-rooms?building=${encodeURIComponent(building.building_code)}`}>Explore database rooms</Link>
+    </article>)}</div>}
+    <p className="student-dashboard-data-note">Room totals include only database room records. CAD annotations and floor labels are separate map references and are not counted as verified rooms.</p>
+  </div>;
 }
 
 export default StudentBuildings;

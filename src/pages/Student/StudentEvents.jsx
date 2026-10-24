@@ -1,326 +1,49 @@
-import { useMemo, useState } from "react";
-import {
-  Bell,
-  CalendarDays,
-  Clock,
-  MapPin,
-  Search,
-  Megaphone,
-  GraduationCap,
-  Wrench,
-  Users,
-  ChevronRight,
-  X,
-} from "lucide-react";
-
-const notices = [
-  {
-    id: 1,
-    title: "Mid-Semester Examination Schedule Released",
-    category: "Academic",
-    date: "2026-10-04",
-    time: "10:00 AM",
-    location: "Academic Section",
-    description:
-      "The mid-semester examination timetable has been released. Students are requested to check their respective department schedules and examination rooms.",
-    important: true,
-  },
-  {
-    id: 2,
-    title: "Annual Technical Festival Registration Open",
-    category: "Events",
-    date: "2026-10-08",
-    time: "9:30 AM",
-    location: "Main Auditorium",
-    description:
-      "Registration for the annual technical festival is now open. Students can register for workshops, competitions and technical events.",
-    important: false,
-  },
-  {
-    id: 3,
-    title: "Library Timing Extended During Examination Week",
-    category: "General",
-    date: "2026-10-06",
-    time: "8:00 AM",
-    location: "Central Library",
-    description:
-      "The Central Library will remain open until 10:00 PM during the examination preparation period.",
-    important: false,
-  },
-  {
-    id: 4,
-    title: "Campus Wi-Fi Maintenance Scheduled",
-    category: "Maintenance",
-    date: "2026-10-09",
-    time: "11:00 PM",
-    location: "Entire Campus",
-    description:
-      "Scheduled maintenance of the campus network infrastructure will take place. Internet services may be temporarily unavailable.",
-    important: false,
-  },
-  {
-    id: 5,
-    title: "Student Council Meeting",
-    category: "Events",
-    date: "2026-10-11",
-    time: "4:00 PM",
-    location: "Student Activity Center",
-    description:
-      "The Student Council will conduct its monthly meeting. Student representatives are requested to attend.",
-    important: false,
-  },
-  {
-    id: 6,
-    title: "Scholarship Application Deadline Extended",
-    category: "Academic",
-    date: "2026-10-12",
-    time: "5:00 PM",
-    location: "Student Section",
-    description:
-      "The deadline for submitting scholarship applications has been extended. Students should submit all required documents before the revised deadline.",
-    important: true,
-  },
-];
-
-const categoryIcons = {
-  Academic: GraduationCap,
-  Events: Users,
-  Maintenance: Wrench,
-  General: Bell,
-};
+import { useEffect, useMemo, useState } from "react";
+import { Bell, CalendarDays, RefreshCw, Search } from "lucide-react";
+import { fetchPublishedNotices } from "../../api/student";
 
 function StudentEvents() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [notices, setNotices] = useState([]);
+  const [status, setStatus] = useState("loading");
+  const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [selectedNotice, setSelectedNotice] = useState(null);
+  const [retryKey, setRetryKey] = useState(0);
 
-  const categories = ["All", "Academic", "Events", "Maintenance", "General"];
+  useEffect(() => {
+    let active = true;
+    fetchPublishedNotices().then((items) => {
+      if (!active) return;
+      setNotices(Array.isArray(items) ? items : []);
+      setStatus("ready");
+      setError("");
+    }).catch((reason) => {
+      if (!active) return;
+      setStatus("error");
+      setError(reason.message);
+    });
+    return () => { active = false; };
+  }, [retryKey]);
 
   const filteredNotices = useMemo(() => {
-    return notices.filter((notice) => {
-      const matchesCategory =
-        activeCategory === "All" ||
-        notice.category === activeCategory;
+    const query = search.trim().toLowerCase();
+    return notices.filter((notice) => !query || `${notice.title} ${notice.content}`.toLowerCase().includes(query));
+  }, [notices, search]);
 
-      const searchText = search.toLowerCase();
-
-      const matchesSearch =
-        notice.title.toLowerCase().includes(searchText) ||
-        notice.description.toLowerCase().includes(searchText) ||
-        notice.category.toLowerCase().includes(searchText);
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, search]);
-
-  return (
-    <div className="student-events-page">
-      <div className="student-page-header">
-        <div>
-          <h1>Events & Notices</h1>
-          <p>
-            Stay updated with important campus announcements and events.
-          </p>
-        </div>
-      </div>
-
-      {/* Search */}
-      <div className="events-toolbar">
-        <div className="events-search">
-          <Search size={17} />
-
-          <input
-            type="text"
-            placeholder="Search notices and events..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </div>
-
-        <div className="events-filters">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={activeCategory === category ? "active" : ""}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Important notice */}
-      {notices
-        .filter((notice) => notice.important)
-        .slice(0, 1)
-        .map((notice) => {
-          const Icon = categoryIcons[notice.category] || Bell;
-
-          return (
-            <div className="featured-notice" key={notice.id}>
-              <div className="featured-notice-icon">
-                <Icon size={22} />
-              </div>
-
-              <div className="featured-notice-content">
-                <span>Important Notice</span>
-                <h2>{notice.title}</h2>
-                <p>{notice.description}</p>
-
-                <div className="featured-notice-meta">
-                  <span>
-                    <CalendarDays size={14} />
-                    {notice.date}
-                  </span>
-
-                  <span>
-                    <MapPin size={14} />
-                    {notice.location}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                className="featured-notice-button"
-                onClick={() => setSelectedNotice(notice)}
-              >
-                Read More
-                <ChevronRight size={16} />
-              </button>
-            </div>
-          );
-        })}
-
-      {/* Notice list */}
-      <section className="events-list-section">
-        <div className="events-list-header">
-          <div>
-            <h2>Latest Updates</h2>
-            <p>{filteredNotices.length} notices found</p>
-          </div>
-        </div>
-
-        <div className="student-events-grid">
-          {filteredNotices.map((notice) => {
-            const Icon = categoryIcons[notice.category] || Bell;
-
-            return (
-              <article className="student-event-card" key={notice.id}>
-                <div className="event-card-top">
-                  <div className="event-icon">
-                    <Icon size={19} />
-                  </div>
-
-                  <span
-                    className={`event-category ${notice.category.toLowerCase()}`}
-                  >
-                    {notice.category}
-                  </span>
-                </div>
-
-                <h3>{notice.title}</h3>
-
-                <p className="event-description">
-                  {notice.description}
-                </p>
-
-                <div className="event-meta">
-                  <span>
-                    <CalendarDays size={14} />
-                    {notice.date}
-                  </span>
-
-                  <span>
-                    <Clock size={14} />
-                    {notice.time}
-                  </span>
-
-                  <span>
-                    <MapPin size={14} />
-                    {notice.location}
-                  </span>
-                </div>
-
-                <button
-                  className="event-read-button"
-                  onClick={() => setSelectedNotice(notice)}
-                >
-                  View Details
-                  <ChevronRight size={15} />
-                </button>
-              </article>
-            );
-          })}
-        </div>
-
-        {filteredNotices.length === 0 && (
-          <div className="events-empty-state">
-            <Bell size={30} />
-            <h3>No notices found</h3>
-            <p>
-              Try changing the search text or selecting another category.
-            </p>
-          </div>
-        )}
-      </section>
-
-      {/* Details modal */}
-      {selectedNotice && (
-        <div
-          className="notice-modal-overlay"
-          onClick={() => setSelectedNotice(null)}
-        >
-          <div
-            className="notice-modal"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="notice-modal-header">
-              <div className="notice-modal-title">
-                <span>{selectedNotice.category}</span>
-                <h2>{selectedNotice.title}</h2>
-              </div>
-
-              <button
-                className="notice-modal-close"
-                onClick={() => setSelectedNotice(null)}
-              >
-                <X size={19} />
-              </button>
-            </div>
-
-            <div className="notice-modal-meta">
-              <span>
-                <CalendarDays size={15} />
-                {selectedNotice.date}
-              </span>
-
-              <span>
-                <Clock size={15} />
-                {selectedNotice.time}
-              </span>
-
-              <span>
-                <MapPin size={15} />
-                {selectedNotice.location}
-              </span>
-            </div>
-
-            <div className="notice-modal-body">
-              <p>{selectedNotice.description}</p>
-            </div>
-
-            <button
-              className="notice-modal-done"
-              onClick={() => setSelectedNotice(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <div className="student-events-page">
+    <div className="student-page-header"><div><h1>Events &amp; Notices</h1><p>Published campus notices from the college notice feed.</p></div></div>
+    <label className="events-search"><Search size={17} /><span className="sr-only">Search notices</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search published notices" /></label>
+    {status === "loading" && <p role="status">Loading published notices…</p>}
+    {status === "error" && <div className="student-dashboard-error" role="alert"><span>{error}</span><button type="button" onClick={() => setRetryKey((key) => key + 1)}><RefreshCw size={15} /> Retry</button></div>}
+    {status === "ready" && filteredNotices.length === 0 && <div className="events-empty-state"><Bell size={30} /><h2>{notices.length ? "No matching notices" : "No published notices"}</h2><p>{notices.length ? "Try a different search." : "There are no current published notices in the database."}</p></div>}
+    {status === "ready" && filteredNotices.length > 0 && <section className="student-live-notices" aria-label="Published notices">
+      {filteredNotices.map((notice) => <article className="student-live-notice" key={notice.id}>
+        <div><Bell size={18} /><span>Published notice</span></div>
+        <h2>{notice.title}</h2><p>{notice.content}</p>
+        <small><CalendarDays size={14} /> Notice created {notice.created_at ? new Date(notice.created_at).toLocaleString() : "date unavailable"}</small>
+      </article>)}
+    </section>}
+    <p className="student-dashboard-data-note">The existing database has notices but no separate event schedule model. Event listings will appear after an event source is implemented.</p>
+  </div>;
 }
 
 export default StudentEvents;

@@ -91,9 +91,9 @@ export default function BuildingExplorer() {
           <h1>{name}</h1>
           <p>{mainBuildingDrawing ? "Opening the reviewed Main Building floor explorer." : drawing ? "Opening the converted source drawing. Floor grouping and room associations are shown only where verified." : sourceDrawing ? `Original ${sourceDrawing.originalFilename} is associated by CAD label but is not converted for in-app viewing. The exterior below is the campus footprint only.` : "No confidently associated building-specific plan is available. The exterior below is the campus footprint only."}</p>
         </div>
-        <div className="building-explorer-tabs" role="tablist" aria-label="Building view">
-          <button role="tab" aria-selected={view === "exterior"} className={view === "exterior" ? "active" : ""} onClick={() => setView("exterior")}><Box size={15} /> Exterior</button>
-          <button role="tab" aria-selected={view === "interior"} className={view === "interior" ? "active" : ""} onClick={() => setView("interior")} disabled={!drawing} title={drawing ? "Open source-linked building plan" : "No supported interior drawing is linked to this campus footprint."}><DoorOpen size={15} />{mainBuildingDrawing ? "Interior · 2 floors" : drawing ? "Source plan & labels" : "Interior · unavailable"}</button>
+        <div className="building-explorer-tabs" role="group" aria-label="Building view">
+          <button type="button" aria-pressed={view === "exterior"} className={view === "exterior" ? "active" : ""} onClick={() => setView("exterior")}><Box size={15} aria-hidden="true" /> Exterior</button>
+          <button type="button" aria-pressed={view === "interior"} className={view === "interior" ? "active" : ""} onClick={() => setView("interior")} disabled={!drawing} title={drawing ? "Open source-linked building plan" : "No supported interior drawing is linked to this campus footprint."}><DoorOpen size={15} aria-hidden="true" />{mainBuildingDrawing ? "Interior · 2 floors" : drawing ? "Source plan & labels" : "Interior · unavailable"}</button>
         </div>
       </header>
 

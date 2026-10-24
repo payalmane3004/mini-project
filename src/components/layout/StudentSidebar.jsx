@@ -103,6 +103,7 @@ function StudentSidebar() {
               className={({ isActive }) =>
                 `student-nav-item ${isActive ? "active" : ""}`
               }
+              aria-label={item.name}
             >
               <Icon size={19} />
               <span>{item.name}</span>
@@ -117,6 +118,7 @@ function StudentSidebar() {
           className={({ isActive }) =>
             `student-nav-item ${isActive ? "active" : ""}`
           }
+          aria-label="Profile"
         >
           <UserCircle size={19} />
           <span>Profile</span>
@@ -125,6 +127,7 @@ function StudentSidebar() {
         <button
           className="student-logout"
           onClick={handleLogout}
+          aria-label="Logout"
         >
           <LogOut size={19} />
           <span>Logout</span>

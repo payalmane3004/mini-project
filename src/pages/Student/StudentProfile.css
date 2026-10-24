@@ -1,0 +1,11 @@
+.student-profile-unavailable {
+  color: #8494a9;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.profile-input-wrapper > span {
+  overflow-wrap: anywhere;
+  color: #cbd5e1;
+  font-size: 13px;
+}

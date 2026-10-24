@@ -239,12 +239,13 @@ function LayerToggle({ active, onClick, children, disabled = false }) {
   return <button className={`interior-layer-toggle${active ? " active" : ""}`} onClick={onClick} disabled={disabled}><Icon size={15} />{children}<span>{disabled ? "N/A" : active ? "On" : "Off"}</span></button>;
 }
 
-export default function MainBuildingInteriorPrototype({ embedded = false }) {
+export default function MainBuildingInteriorPrototype({ embedded = false, floor: controlledFloor, onFloorChange }) {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const returnTo = location.state?.returnTo ?? "/digital-twin?building=BU-002";
   const linkedFacility = facilityDirectory.annotations.find((annotation) => annotation.id === searchParams.get("facility")) ?? null;
-  const [activeFloor, setActiveFloor] = useState(() => linkedFacility?.floor ?? "Ground Floor");
+  const [localFloor, setLocalFloor] = useState(() => linkedFacility?.floor ?? "Ground Floor");
+  const activeFloor = floorSources[controlledFloor] ? controlledFloor : localFloor;
   const [selectedAnnotation, setSelectedAnnotation] = useState(() => linkedFacility);
   const [facilityQuery, setFacilityQuery] = useState("");
   const [facilityFloorFilter, setFacilityFloorFilter] = useState("All Floors");
@@ -252,7 +253,9 @@ export default function MainBuildingInteriorPrototype({ embedded = false }) {
   const [showTrace, setShowTrace] = useState(false);
   const [showReviewedWalls, setShowReviewedWalls] = useState(true);
   const [showCues, setShowCues] = useState(true);
-  const [showSourceLabels, setShowSourceLabels] = useState(true);
+  // Keep the overview readable; CAD labels remain available on demand and
+  // selecting a facility still marks its original source insertion point.
+  const [showSourceLabels, setShowSourceLabels] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [compareMode, setCompareMode] = useState(true);
   const [cameraView, setCameraView] = useState("top");
@@ -266,8 +269,12 @@ export default function MainBuildingInteriorPrototype({ embedded = false }) {
     setCameraView("top");
     setResetKey((value) => value + 1);
   };
+  const changeFloor = (floor) => {
+    setLocalFloor(floor);
+    onFloorChange?.(floor);
+  };
   const selectFacility = (annotation) => {
-    setActiveFloor(annotation.floor);
+    changeFloor(annotation.floor);
     setCameraView("top");
     setSelectedAnnotation(annotation);
     setResetKey((value) => value + 1);
@@ -300,7 +307,7 @@ export default function MainBuildingInteriorPrototype({ embedded = false }) {
         <section className="interior-canvas-card">
           <div className="interior-canvas-toolbar">
             <div className="interior-floor-select" role="group" aria-label="Choose source floor">
-              {Object.keys(floorSources).map((floor) => <button key={floor} className={activeFloor === floor ? "active" : ""} onClick={() => { setActiveFloor(floor); setSelectedAnnotation(null); setResetKey((value) => value + 1); }}>{floor}</button>)}
+              {Object.keys(floorSources).map((floor) => <button key={floor} className={activeFloor === floor ? "active" : ""} onClick={() => { changeFloor(floor); setSelectedAnnotation(null); setResetKey((value) => value + 1); }}>{floor}</button>)}
             </div>
             <div className="interior-compare-actions">
               <button onClick={() => setCompareMode((value) => !value)}>{compareMode ? "3D only" : "Compare 2D / 3D"}</button>

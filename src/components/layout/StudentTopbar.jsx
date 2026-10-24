@@ -1,8 +1,11 @@
 import { Bell, Search, UserCircle } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../auth/useAuth";
+import { DemoModeIndicator } from "./DemoModeContext.jsx";
 
 function StudentTopbar() {
   const location = useLocation();
+  const { user } = useAuth();
 
   const pageTitles = {
     "/student-dashboard": "Dashboard",
@@ -27,25 +30,21 @@ function StudentTopbar() {
       </div>
 
       <div className="student-topbar-right">
-        <div className="student-search">
-          <Search size={17} />
+        <DemoModeIndicator />
+        <Link className="student-search" to="/student-buildings" aria-label="Browse campus buildings">
+          <Search size={17} aria-hidden="true" />
+          <span>Browse campus</span>
+        </Link>
 
-          <input
-            type="text"
-            placeholder="Search campus..."
-          />
-        </div>
-
-        <button className="student-notification-button">
-          <Bell size={19} />
-          <span className="notification-dot"></span>
-        </button>
+        <Link className="student-notification-button" to="/student-emergency" aria-label="View emergency information">
+          <Bell size={19} aria-hidden="true" />
+        </Link>
 
         <div className="student-user">
           <UserCircle size={30} />
 
           <div>
-            <strong>Student</strong>
+            <strong>{user?.full_name || "Student"}</strong>
             <span>Student Portal</span>
           </div>
         </div>

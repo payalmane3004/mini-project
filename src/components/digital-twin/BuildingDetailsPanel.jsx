@@ -31,7 +31,7 @@ function BuildingDetailsPanel({ building, onClose, onExploreBuilding }) {
               </span>
             </div>
 
-            <button className="close-panel" onClick={onClose}>
+            <button className="close-panel" onClick={onClose} aria-label="Close selected building details">
               <X size={17} />
             </button>
           </div>

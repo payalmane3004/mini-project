@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowUpRight, Search } from "lucide-react";
 import facilityDirectory from "../../data/main-building-facilities.json";
 import { processedBuildingPlans } from "../../data/buildingDrawings";
-import { normalizeCadAnnotation } from "../../data/cadAnnotationCatalog";
+import { cleanCadDisplayText, normalizeCadAnnotation } from "../../data/cadAnnotationCatalog";
 import "./CampusFacilitySearch.css";
 
 const mainFacilities = facilityDirectory.annotations.map((annotation) => ({
@@ -57,7 +57,8 @@ export default function CampusFacilitySearch() {
   const matching = useMemo(() => {
     const term = query.trim().toLocaleLowerCase();
     return facilities.filter((item) => {
-      const matchesQuery = !term || `${item.text} ${item.buildingName} ${item.buildingId}`.toLocaleLowerCase().includes(term);
+      const displayText = cleanCadDisplayText(item.text);
+      const matchesQuery = !term || `${displayText} ${item.buildingName} ${item.buildingId}`.toLocaleLowerCase().includes(term);
       const matchesBuilding = buildingFilter === "all" || item.buildingId === buildingFilter;
       const matchesFloor = floorFilter === "all" || item.floor === floorFilter;
       return matchesQuery && matchesBuilding && matchesFloor;
@@ -80,7 +81,7 @@ export default function CampusFacilitySearch() {
     {failedReports > 0 && <p className="campus-facility-search-warning" role="status">Some converted drawing reports could not be loaded; available results remain searchable.</p>}
     <div className="campus-facility-search-results" aria-live="polite">
       {matching.map((item) => <button type="button" key={item.key} className="campus-facility-result" onClick={() => navigate(item.route, { state: { returnTo: location.pathname === "/digital-twin" ? `/digital-twin?building=${encodeURIComponent(item.buildingId)}` : location.pathname } })}>
-        <span><strong>{item.text}</strong><small>{item.buildingName} · {item.buildingId}{item.floor ? ` · ${item.floor}` : " · floor not assigned"}</small><small>{item.verification} · {item.source}{Number.isFinite(item.x) && Number.isFinite(item.y) ? ` · CAD insertion X ${item.x.toFixed(2)}, Y ${item.y.toFixed(2)}` : ""}</small></span><ArrowUpRight size={16}/>
+        <span><strong>{cleanCadDisplayText(item.text)}</strong><small>{item.buildingName} · {item.buildingId}{item.floor ? ` · ${item.floor}` : " · floor not assigned"}</small><small>{item.verification} · {item.source}{Number.isFinite(item.x) && Number.isFinite(item.y) ? ` · CAD insertion X ${item.x.toFixed(2)}, Y ${item.y.toFixed(2)}` : ""}</small></span><ArrowUpRight size={16}/>
       </button>)}
       {!loading && matching.length === 0 && <p className="campus-facility-search-empty">No source annotations match these filters.</p>}
       {loading && <p className="campus-facility-search-empty">Loading inspection reports for converted building drawings…</p>}

@@ -1,120 +1,244 @@
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  PolarAngleAxis,
-  PolarGrid,
-  Radar,
-  RadarChart,
-  ReferenceLine,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+  Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
-import { Award, BarChart3, Cpu, TrendingUp } from "lucide-react";
+import {
+  Activity, AlertTriangle, Building2, CalendarDays, ClipboardCheck, DoorOpen,
+  Gauge, RefreshCw, Users, Zap,
+} from "lucide-react";
+import { fetchAnalyticsSummary } from "../../api/analytics";
+import { fetchAdminAlerts, fetchAdminBookings } from "../../api/admin";
+import {
+  aggregateHourlyOccupancy, isCurrentAlert, isValidAnalyticsDateRange, recentCampusRecords,
+  summarizeBookings, toAnalyticsDateBounds, validateAdminAlertList, validateAdminBookingList,
+} from "../../api/analyticsDashboardData";
 import "./Analytics.css";
 
-const occupancyTrend = [
-  ["06:00", 10], ["07:00", 23], ["08:00", 40], ["09:00", 63],
-  ["10:00", 73], ["11:00", 78], ["12:00", 79], ["13:00", 54],
-  ["14:00", 70], ["15:00", 70], ["16:00", 70], ["17:00", 62],
-  ["18:00", 42], ["19:00", 30], ["20:00", 33], ["21:00", 14],
-].map(([time, occupancy]) => ({ time, occupancy }));
+const numberFormat = new Intl.NumberFormat();
+const bookingStatusLabels = { PENDING: "Pending", APPROVED: "Approved", REJECTED: "Rejected", CANCELLED: "Cancelled" };
 
-const weeklyEnergy = [
-  { day: "Mon", usage: 1050 }, { day: "Tue", usage: 1120 }, { day: "Wed", usage: 1050 },
-  { day: "Thu", usage: 1000 }, { day: "Fri", usage: 970 }, { day: "Sat", usage: 820 }, { day: "Sun", usage: 1035 },
-];
-
-const utilization = [
-  { name: "Classrooms", spaces: 186, value: 72, color: "#f59e0b" },
-  { name: "Labs", spaces: 94, value: 81, color: "#ef4444" },
-  { name: "Seminar Halls", spaces: 28, value: 54, color: "#22cbe3" },
-  { name: "Libraries", spaces: 12, value: 68, color: "#f59e0b" },
-  { name: "Workshops", spaces: 18, value: 47, color: "#22cbe3" },
-  { name: "Offices", spaces: 148, value: 39, color: "#22cbe3" },
-];
-
-const performance = [
-  { metric: "Occupancy", value: 72 }, { metric: "Energy", value: 81 },
-  { metric: "Maintenance", value: 86 }, { metric: "Bookings", value: 67 },
-  { metric: "Safety", value: 89 }, { metric: "Comfort", value: 76 },
-];
-
-const efficiencyScores = [
-  { building: "CSE Building", score: 96 }, { building: "Mechanical Block", score: 88 },
-  { building: "Library", score: 94 }, { building: "Admin Block", score: 95 },
-  { building: "Hostel A", score: 54 }, { building: "Hostel B", score: 93 },
-  { building: "Civil Block", score: 95 }, { building: "Central Workshop", score: 86 },
-];
-
-function AnalyticsMetric({ icon: Icon, title, value, detail, tone, trend }) {
-  return <article className="analytics-metric"><span className={`analytics-metric-icon ${tone}`}><Icon size={19} strokeWidth={1.9}/></span><span className="analytics-metric-title">{title}</span><strong>{value}</strong><small>{detail}{trend && <span className="analytics-metric-trend"><TrendingUp size={13}/> {trend}</span>}</small></article>;
+function displaySource(source) {
+  if (!source) return "Source unavailable";
+  const normalized = source.toUpperCase();
+  if (normalized.includes("SIMULAT")) return "Simulated";
+  if (normalized.includes("RECORDED_VIDEO")) return "Recorded video";
+  return source;
 }
 
-function ScoreRing({ score }) {
-  const radius = 34;
-  const circumference = 2 * Math.PI * radius;
-  const needsAttention = score < 70;
-  return <svg className={`efficiency-ring ${needsAttention ? "needs-attention" : ""}`} viewBox="0 0 82 82" role="img" aria-label={`${score} efficiency score`}>
-    <circle className="efficiency-ring-track" cx="41" cy="41" r={radius}/>
-    <circle className="efficiency-ring-value" cx="41" cy="41" r={radius} strokeDasharray={circumference} strokeDashoffset={circumference * (1 - score / 100)}/>
-    <text x="41" y="46" textAnchor="middle">{score}</text>
-  </svg>;
+function formatTimestamp(timestamp) {
+  if (!timestamp) return "Time unavailable";
+  const date = new Date(timestamp);
+  return Number.isNaN(date.getTime()) ? "Time unavailable" : date.toLocaleString();
 }
 
-function Analytics() {
+function AnalyticsMetric({ icon: Icon, title, value, detail, tone }) {
+  return <article className="analytics-metric">
+    <span className={`analytics-metric-icon ${tone}`} aria-hidden="true"><Icon size={19} strokeWidth={1.9}/></span>
+    <span className="analytics-metric-title">{title}</span>
+    <strong>{value}</strong>
+    <small>{detail}</small>
+  </article>;
+}
+
+function AnalyticsPanel({ title, description, children, className = "" }) {
+  return <article className={`analytics-panel ${className}`}>
+    <header className="analytics-panel-heading"><div><h2>{title}</h2><p>{description}</p></div></header>
+    {children}
+  </article>;
+}
+
+function EmptyChart({ children }) {
+  return <div className="analytics-empty-state" role="status">{children}</div>;
+}
+
+function SourceMetric({ icon, title, detail, value, unavailable, tone }) {
+  return <AnalyticsMetric icon={icon} title={title} value={unavailable ? "Unavailable" : numberFormat.format(value)} detail={unavailable ? "Could not load this API resource" : detail} tone={tone}/>;
+}
+
+export default function Analytics() {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [summary, setSummary] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [retryKey, setRetryKey] = useState(0);
+  const [bookingState, setBookingState] = useState({ data: null, error: "", loading: true });
+  const [alertState, setAlertState] = useState({ data: null, error: "", loading: true });
+  const rangeValid = isValidAnalyticsDateRange(startDate, endDate);
+
+  useEffect(() => {
+    let active = true;
+    Promise.resolve().then(() => fetchAdminBookings()).then(validateAdminBookingList)
+      .then((data) => { if (active) setBookingState({ data, error: "", loading: false }); })
+      .catch(() => { if (active) setBookingState({ data: null, error: "Could not load booking records.", loading: false }); });
+    Promise.resolve().then(() => fetchAdminAlerts()).then(validateAdminAlertList)
+      .then((data) => { if (active) setAlertState({ data, error: "", loading: false }); })
+      .catch(() => { if (active) setAlertState({ data: null, error: "Could not load alert records.", loading: false }); });
+    return () => { active = false; };
+  }, [retryKey]);
+
+  useEffect(() => {
+    if (!rangeValid) return undefined;
+    const controller = new AbortController();
+    const bounds = toAnalyticsDateBounds(startDate, endDate);
+    fetchAnalyticsSummary({ ...bounds, signal: controller.signal }).then((result) => {
+      setSummary(result);
+      setError("");
+      setLoading(false);
+    }).catch((loadError) => {
+      if (loadError.name !== "AbortError") {
+        setSummary(null);
+        setError("Could not load stored analytics. Please retry.");
+        setLoading(false);
+      }
+    });
+    return () => controller.abort();
+  }, [startDate, endDate, retryKey, rangeValid]);
+
+  const occupancyChartData = useMemo(() => aggregateHourlyOccupancy(summary?.occupancy_readings || []).map((bucket) => ({
+    ...bucket,
+    time: new Date(bucket.timestamp).toLocaleString([], { month: "short", day: "numeric", hour: "numeric" }),
+    sources: bucket.sources.map(displaySource).join(", ") || "Source unavailable",
+  })), [summary]);
+  const energyChartData = (summary?.energy_readings || []).map((reading) => ({
+    time: reading.recorded_at ? new Date(reading.recorded_at).toLocaleString([], { month: "short", day: "numeric", hour: "numeric" }) : "Time unavailable",
+    energy: Number(reading.energy_kwh),
+    building: reading.building_name,
+    source: displaySource(reading.source),
+    recordedAt: reading.recorded_at,
+  }));
+  const latestOccupancy = summary?.occupancy_readings?.at(-1);
+  const latestEnergy = summary?.energy_readings?.at(-1);
+  const bookingCounts = bookingState.data ? summarizeBookings(bookingState.data) : null;
+  const bookingChartData = bookingCounts ? Object.entries(bookingCounts).map(([status, count]) => ({ status: bookingStatusLabels[status], count })) : [];
+  const activeAlerts = alertState.data?.filter((alert) => isCurrentAlert(alert)).length ?? null;
+  const recentRecords = useMemo(() => recentCampusRecords(bookingState.data || [], alertState.data || []), [bookingState.data, alertState.data]);
+  const energyBuildingChartData = (summary?.energy_by_building || []).map((item) => ({
+    ...item,
+    building_label: `${item.building_code} · ${displaySource(item.source)}`,
+  }));
+
+  function chooseRange(days) {
+    const end = new Date();
+    const start = new Date(end);
+    start.setUTCDate(start.getUTCDate() - (days - 1));
+    setLoading(true);
+    setError("");
+    setStartDate(start.toISOString().slice(0, 10));
+    setEndDate(end.toISOString().slice(0, 10));
+  }
+
+  function refreshData() {
+    setLoading(true);
+    setError("");
+    setBookingState((current) => ({ ...current, loading: true }));
+    setAlertState((current) => ({ ...current, loading: true }));
+    setRetryKey((key) => key + 1);
+  }
+
+  function updateDate(setter, value) {
+    setLoading(true);
+    setError("");
+    setter(value);
+  }
+
+  const visibleError = rangeValid ? error : "The end date must be the same as or later than the start date.";
+
+  function metricDetail(value, message, normal) {
+    return value === 0 ? message : normal;
+  }
+
   return <div className="analytics-page">
-    <header className="analytics-page-heading"><h1>Campus Intelligence</h1><p>Advanced analytics and campus performance insights</p></header>
-    <div className="workspace-demo-note">Demonstration analytics · values below are static examples; no connected telemetry or verified campus dataset is available.</div>
+    <header className="analytics-page-heading">
+      <div><span className="analytics-eyebrow"><Activity size={14}/> CAMPUS INTELLIGENCE</span><h1>Campus Intelligence</h1><p>Operational summaries derived from available CampusSphere records.</p></div>
+      <div className="analytics-heading-actions"><span className="analytics-source-status"><span aria-hidden="true"/> Stored database records · no live telemetry</span><button type="button" onClick={refreshData} disabled={loading || bookingState.loading || alertState.loading} aria-label="Refresh analytics and current booking and alert records"><RefreshCw size={15}/> Refresh</button></div>
+    </header>
 
-    <section className="analytics-metrics" aria-label="Campus performance summary">
-      <AnalyticsMetric icon={Award} title="AVG EFFICIENCY" value="83.4" detail="/ 100 score" trend="+2.1" tone="cyan"/>
-      <AnalyticsMetric icon={BarChart3} title="UTILIZATION RATE" value="72%" detail="All resources" tone="blue"/>
-      <AnalyticsMetric icon={TrendingUp} title="ENERGY EFFICIENCY" value="A+" detail="Grade this month" tone="green"/>
-      <AnalyticsMetric icon={Cpu} title="SENSORS ACTIVE" value="1,221" detail="of 1,248 total" tone="amber"/>
+    <section className="analytics-filter-bar" aria-label="Analytics date filters">
+      <div className="analytics-date-fields">
+        <label htmlFor="analytics-start-date">From <input id="analytics-start-date" type="date" value={startDate} max={endDate || undefined} onChange={(event) => updateDate(setStartDate, event.target.value)}/></label>
+        <label htmlFor="analytics-end-date">To <input id="analytics-end-date" type="date" value={endDate} min={startDate || undefined} onChange={(event) => updateDate(setEndDate, event.target.value)}/></label>
+      </div>
+      <div className="analytics-filter-actions" role="group" aria-label="Quick date ranges">
+        <button type="button" onClick={() => chooseRange(7)}><CalendarDays size={14}/> 7 days</button>
+        <button type="button" onClick={() => chooseRange(30)}><CalendarDays size={14}/> 30 days</button>
+        <button type="button" onClick={() => { setLoading(true); setError(""); setStartDate(""); setEndDate(""); }} disabled={!startDate && !endDate}>Clear</button>
+      </div>
+      <p className="analytics-filter-scope">Date range filters occupancy readings, energy readings, and maintenance requests by creation date. Building/room totals, bookings, and active alerts show current records and are not date-filtered.</p>
     </section>
 
-    <section className="analytics-chart-grid">
-      <article className="analytics-panel analytics-trend-panel"><header className="analytics-panel-heading"><div><h2>Occupancy Analytics</h2><p>24-hour campus occupancy pattern</p></div></header>
-        <div className="analytics-occupancy-chart"><ResponsiveContainer width="100%" height="100%"><AreaChart data={occupancyTrend} margin={{ top: 8, right: 10, left: 4, bottom: 0 }}>
-          <defs><linearGradient id="analyticsOccupancyFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#20d2e9" stopOpacity={0.18}/><stop offset="100%" stopColor="#20d2e9" stopOpacity={0}/></linearGradient></defs>
-          <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical/>
-          <XAxis dataKey="time" axisLine={false} tickLine={false} interval={2} tick={{ fill:"#95a5b9",fontSize:12 }}/>
-          <YAxis domain={[0,80]} ticks={[0,20,40,60,80]} axisLine={false} tickLine={false} width={47} tick={{ fill:"#95a5b9",fontSize:12 }} tickFormatter={(value)=>`${value}%`}/>
-          <Tooltip cursor={{ stroke:"#94a3b8",strokeWidth:1 }} contentStyle={{ background:"#1b2430",border:"1px solid #2c3948",borderRadius:7,color:"#e2e8f0",fontSize:13 }} formatter={(value)=>[`${value}%`,"Occupancy"]}/>
-          <ReferenceLine x="15:00" stroke="#94a3b8" strokeWidth={1}/>
-          <Area type="monotone" dataKey="occupancy" stroke="#18d2eb" strokeWidth={2.5} fill="url(#analyticsOccupancyFill)" dot={false} activeDot={{r:5,fill:"#18d2eb",stroke:"#f8fafc",strokeWidth:2}}/>
-        </AreaChart></ResponsiveContainer><div className="analytics-hover-label"><span>15:00</span><strong>occupancy : 70</strong></div></div>
-      </article>
+    {visibleError && <div className="analytics-error" role="alert"><span>{visibleError}</span>{!rangeValid ? <button type="button" onClick={() => { setLoading(true); setStartDate(""); setEndDate(""); }}>Clear range</button> : <button type="button" onClick={refreshData}><RefreshCw size={15}/> Retry</button>}</div>}
+    {loading && rangeValid && <div className="analytics-state" role="status">{summary ? "Updating filtered analytics…" : "Loading stored analytics records…"}</div>}
 
-      <article className="analytics-panel analytics-energy-panel"><header className="analytics-panel-heading"><div><h2>Energy Analytics</h2><p>Weekly energy consumption trend</p></div></header>
-        <div className="analytics-energy-chart"><ResponsiveContainer width="100%" height="100%"><BarChart data={weeklyEnergy} margin={{top:8,right:10,left:8,bottom:0}}>
-          <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical={false}/>
-          <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fill:"#95a5b9",fontSize:12}}/>
-          <YAxis domain={[0,1200]} ticks={[0,300,600,900,1200]} axisLine={false} tickLine={false} width={48} tick={{fill:"#95a5b9",fontSize:12}}/>
-          <Tooltip cursor={{fill:"rgba(148,163,184,.06)"}} contentStyle={{background:"#1b2430",border:"1px solid #2c3948",borderRadius:7,color:"#e2e8f0",fontSize:12}} formatter={(value)=>[`${value} kWh`,"Consumption"]}/>
-          <Bar dataKey="usage" fill="#cc890c" radius={[4,4,0,0]} barSize={70}/>
-        </BarChart></ResponsiveContainer></div>
-      </article>
-    </section>
+    {rangeValid && summary && !loading && <>
+      <section className="analytics-metrics" aria-label="Campus operations summary">
+        <AnalyticsMetric icon={Building2} title="DATABASE BUILDINGS" value={numberFormat.format(summary.buildings_total)} detail={metricDetail(summary.buildings_total, "No database building records available", "Verified building records")} tone="cyan"/>
+        <AnalyticsMetric icon={DoorOpen} title="VERIFIED ROOMS" value={numberFormat.format(summary.verified_rooms_total)} detail={metricDetail(summary.verified_rooms_total, "No verified room records available", "CAD annotations excluded")} tone="blue"/>
+        <SourceMetric icon={ClipboardCheck} title="PENDING BOOKINGS" value={bookingCounts?.PENDING ?? 0} unavailable={!bookingCounts} detail="Current database booking status" tone="amber"/>
+        <SourceMetric icon={ClipboardCheck} title="APPROVED BOOKINGS" value={bookingCounts?.APPROVED ?? 0} unavailable={!bookingCounts} detail="Current database booking status" tone="green"/>
+        <SourceMetric icon={AlertTriangle} title="ACTIVE ALERTS" value={activeAlerts ?? 0} unavailable={activeAlerts === null} detail="Active records from the admin alerts API" tone="amber"/>
+        <AnalyticsMetric icon={Gauge} title="OCCUPANCY READINGS" value={numberFormat.format(summary.occupancy_readings_total)} detail={metricDetail(summary.occupancy_readings_total, "No readings available for this period", "Stored readings in selected period")} tone="cyan"/>
+        <AnalyticsMetric icon={Zap} title="ENERGY READINGS" value={numberFormat.format(summary.energy_readings_total)} detail={metricDetail(summary.energy_readings_total, "No readings available for this period", "Individual stored kWh readings · source retained")} tone="blue"/>
+        <AnalyticsMetric icon={ClipboardCheck} title="OPEN MAINTENANCE" value={numberFormat.format(summary.maintenance_open_total)} detail={metricDetail(summary.maintenance_open_total, "No open requests in selected period", "Stored requests created in selected period")} tone="amber"/>
+      </section>
+      <p className="analytics-secondary-summary">Resolved maintenance requests in selected period: <strong>{numberFormat.format(summary.maintenance_resolved_total)}</strong>. Values come from the existing read-only analytics summary.</p>
 
-    <section className="analytics-resource-grid">
-      <article className="analytics-panel analytics-utilization-panel"><header className="analytics-panel-heading"><h2>Resource Utilization</h2></header><div className="utilization-list">
-        {utilization.map((item)=><div className="utilization-item" key={item.name}><div className="utilization-meta"><div><strong>{item.name}</strong><span>{item.spaces} spaces</span></div><b style={{color:item.color}}>{item.value}%</b></div><div className="utilization-track"><span style={{width:`${item.value}%`,backgroundColor:item.color}}/></div></div>)}
-      </div></article>
-      <article className="analytics-panel analytics-performance-panel"><header className="analytics-panel-heading"><h2>Campus Performance</h2></header><div className="analytics-radar-chart"><ResponsiveContainer width="100%" height="100%"><RadarChart data={performance} outerRadius="66%">
-        <PolarGrid stroke="#293543"/><PolarAngleAxis dataKey="metric" tick={{fill:"#95a5b9",fontSize:12}}/><Radar dataKey="value" stroke="#20d2e9" strokeWidth={2} fill="#20d2e9" fillOpacity={0.16}/>
-      </RadarChart></ResponsiveContainer></div></article>
-    </section>
+      <section className="analytics-chart-grid" aria-label="Stored campus readings">
+        <AnalyticsPanel title="Occupancy Readings by Hour" description={latestOccupancy ? `Average occupied count per stored room reading · latest ${formatTimestamp(latestOccupancy.recorded_at)} · ${displaySource(latestOccupancy.source)}` : "Hourly average of timestamped room readings; this is not live occupancy."} className="analytics-trend-panel">
+          {occupancyChartData.length ? <><div className="analytics-occupancy-chart" role="img" aria-label={`Hourly average occupancy chart with ${occupancyChartData.length} time intervals`}><ResponsiveContainer width="100%" height="100%"><AreaChart data={occupancyChartData} margin={{ top: 8, right: 10, left: 4, bottom: 0 }}>
+            <defs><linearGradient id="analyticsOccupancyFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#20d2e9" stopOpacity={0.18}/><stop offset="100%" stopColor="#20d2e9" stopOpacity={0}/></linearGradient></defs>
+            <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical={false}/>
+            <XAxis dataKey="time" axisLine={false} tickLine={false} interval="preserveStartEnd" tick={{ fill: "#aab8c8", fontSize: 11 }}/>
+            <YAxis domain={[0, "auto"]} axisLine={false} tickLine={false} width={48} tick={{ fill: "#aab8c8", fontSize: 12 }}/>
+            <Tooltip contentStyle={{ background: "#1b2430", border: "1px solid #2c3948", borderRadius: 7, color: "#e2e8f0" }} formatter={(value, _name, item) => [`${Number(value).toFixed(1)} occupied count/reading · ${item.payload.readingCount} readings · ${item.payload.sources}`, "Hourly average"]}/>
+            <Area type="monotone" dataKey="averageOccupied" stroke="#18d2eb" strokeWidth={2.5} fill="url(#analyticsOccupancyFill)" dot={false} activeDot={{ r: 5 }}/>
+          </AreaChart></ResponsiveContainer></div><p className="analytics-chart-caption">Each point averages the stored occupied_count values from readings recorded in that UTC hour.</p></> : <EmptyChart>No timestamped occupancy readings are stored for this period.</EmptyChart>}
+        </AnalyticsPanel>
 
-    <section className="analytics-panel analytics-scores-panel"><header className="analytics-panel-heading"><div><h2>Building Efficiency Scores</h2><p>Composite score based on occupancy, energy, maintenance, and safety</p></div></header><div className="efficiency-score-grid">
-      {efficiencyScores.map(({building,score})=><article className="efficiency-score-card" key={building}><span>{building}</span><ScoreRing score={score}/><strong className={score < 70 ? "attention" : "excellent"}>{score < 70 ? "Needs Attention" : "Excellent"}</strong></article>)}
-    </div></section>
+        <AnalyticsPanel title="Individual Energy Readings" description={latestEnergy ? `Stored kWh readings · latest ${formatTimestamp(latestEnergy.recorded_at)} · ${displaySource(latestEnergy.source)}` : "Each bar is one stored meter reading; units remain kWh."} className="analytics-energy-panel">
+          {energyChartData.length ? <div className="analytics-energy-chart" role="img" aria-label={`Individual stored energy readings chart with ${energyChartData.length} readings`}><ResponsiveContainer width="100%" height="100%"><BarChart data={energyChartData} margin={{ top: 8, right: 10, left: 8, bottom: 0 }}>
+            <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical={false}/>
+            <XAxis dataKey="time" axisLine={false} tickLine={false} interval="preserveStartEnd" tick={{ fill: "#aab8c8", fontSize: 11 }}/>
+            <YAxis domain={[0, "auto"]} axisLine={false} tickLine={false} width={48} tick={{ fill: "#aab8c8", fontSize: 12 }}/>
+            <Tooltip contentStyle={{ background: "#1b2430", border: "1px solid #2c3948", borderRadius: 7, color: "#e2e8f0" }} formatter={(value, _name, item) => [`${value} kWh · ${item.payload.building} · ${item.payload.source} · ${formatTimestamp(item.payload.recordedAt)}`, "Reading"]}/>
+            <Bar dataKey="energy" fill="#20c8de" radius={[4, 4, 0, 0]} maxBarSize={58}/>
+          </BarChart></ResponsiveContainer></div> : <EmptyChart>No energy readings are stored for this period. No live meter feed is connected.</EmptyChart>}
+        </AnalyticsPanel>
+
+        <AnalyticsPanel title="Booking Status" description="Current booking records grouped by their stored status." className="analytics-booking-panel">
+          {bookingState.loading ? <EmptyChart>Loading booking records…</EmptyChart> : bookingCounts ? bookingChartData.some(({ count }) => count > 0) ? <><div className="analytics-status-chart" role="img" aria-label="Booking counts by pending, approved, rejected, and cancelled status"><ResponsiveContainer width="100%" height="100%"><BarChart data={bookingChartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical={false}/><XAxis dataKey="status" axisLine={false} tickLine={false} tick={{ fill: "#aab8c8", fontSize: 11 }}/><YAxis allowDecimals={false} domain={[0, "auto"]} axisLine={false} tickLine={false} width={35} tick={{ fill: "#aab8c8", fontSize: 11 }}/><Tooltip contentStyle={{ background: "#1b2430", border: "1px solid #2c3948", borderRadius: 7, color: "#e2e8f0" }}/><Bar dataKey="count" name="Bookings" fill="#20c8de" radius={[4, 4, 0, 0]} maxBarSize={45}/>
+          </BarChart></ResponsiveContainer></div><p className="analytics-chart-caption">{bookingChartData.map(({ status, count }) => `${status}: ${numberFormat.format(count)}`).join(" · ")}</p></> : <EmptyChart>No booking records are available.</EmptyChart> : <EmptyChart>Booking summary unavailable: {bookingState.error}</EmptyChart>}
+        </AnalyticsPanel>
+
+        {energyBuildingChartData.length > 0 && <AnalyticsPanel title="Average Energy per Reading" description="Average stored kWh by building and source. This is not a period consumption total." className="analytics-comparison-panel">
+          <div className="analytics-energy-chart" role="img" aria-label="Average stored kWh per reading by building and source"><ResponsiveContainer width="100%" height="100%"><BarChart data={energyBuildingChartData} margin={{ top: 8, right: 15, left: 8, bottom: 0 }}>
+            <CartesianGrid stroke="#2a3542" strokeDasharray="3 4" vertical={false}/><XAxis dataKey="building_label" axisLine={false} tickLine={false} interval="preserveStartEnd" tick={{ fill: "#aab8c8", fontSize: 11 }}/><YAxis domain={[0, "auto"]} axisLine={false} tickLine={false} width={48} tick={{ fill: "#aab8c8", fontSize: 12 }}/><Tooltip contentStyle={{ background: "#1b2430", border: "1px solid #2c3948", borderRadius: 7, color: "#e2e8f0" }} formatter={(value, _name, item) => [`${Number(value).toFixed(3)} kWh · ${item.payload.reading_count} readings · ${displaySource(item.payload.source)}`, item.payload.building_name]}/><Bar dataKey="average_kwh_per_reading" fill="#cc890c" radius={[4, 4, 0, 0]} maxBarSize={54}/>
+          </BarChart></ResponsiveContainer></div>
+        </AnalyticsPanel>}
+      </section>
+
+      <section className="analytics-lower-grid">
+        <AnalyticsPanel title="Recent booking and alert records" description="Separate API resources sorted by their stored creation timestamps; not a unified campus event log." className="analytics-activity-panel">
+          {bookingState.loading || alertState.loading ? <p className="analytics-lower-state" role="status">Loading current booking and alert records…</p> : recentRecords.length ? <ul className="analytics-activity-list">{recentRecords.map((record, index) => <li key={`${record.type}-${index}`}><div><span>{record.type === "alert" ? "Emergency alert" : "Room booking"}</span><strong title={record.title}>{record.title}</strong></div><div className="analytics-activity-meta"><span>{record.label}</span><time dateTime={record.timestamp}>{formatTimestamp(record.timestamp)}</time><Link to={record.href}>Open</Link></div></li>)}</ul> : <EmptyChart>{bookingState.error || alertState.error ? "Recent records could not be loaded from one or more APIs." : "No timestamped booking or alert records are available."}</EmptyChart>}
+          {(bookingState.error || alertState.error) && <p className="analytics-source-error" role="status">{[bookingState.error && "Booking summary unavailable", alertState.error && "Alert summary unavailable"].filter(Boolean).join(" · ")}</p>}
+        </AnalyticsPanel>
+        <AnalyticsPanel title="Room utilization" description="Available only when the backend has capacity and latest stored occupancy for every verified room." className="analytics-utilization-result">
+          {summary.room_utilization_percent === null ? <EmptyChart>Unavailable for the current room data. A missing reading is not treated as zero occupancy.</EmptyChart> : <div className="analytics-utilization-value">{summary.room_utilization_percent}%</div>}
+        </AnalyticsPanel>
+      </section>
+
+      <section className="analytics-operations" aria-labelledby="analytics-operations-title">
+        <div className="analytics-operations-heading"><div><h2 id="analytics-operations-title">Campus operations</h2><p>Open existing data views and management pages.</p></div></div>
+        <nav aria-label="Campus operations links">
+          <Link to="/digital-twin"><Building2 size={16}/> Digital Twin</Link><Link to="/buildings"><DoorOpen size={16}/> Buildings &amp; Rooms</Link><Link to="/booking"><ClipboardCheck size={16}/> Room Bookings</Link><Link to="/occupancy"><Gauge size={16}/> Occupancy</Link><Link to="/energy"><Zap size={16}/> Energy</Link><Link to="/notices"><Activity size={16}/> Notices</Link><Link to="/emergency"><AlertTriangle size={16}/> Emergency Alerts</Link><Link to="/scenario-lab"><Users size={16}/> Scenario Lab</Link>
+        </nav>
+      </section>
+
+      <p className="analytics-data-note">Analytics are read from authenticated database endpoints. Simulated source labels are preserved as simulated; occupancy and energy are stored readings, not live telemetry or forecasts. Maintenance totals are aggregate records from the existing analytics endpoint; no maintenance workflow is provided here.</p>
+      {summary.occupancy_truncated || summary.energy_truncated ? <p className="analytics-limit-note">The readings chart is limited to the first 2,000 rows per metric. Narrow the date range to inspect a smaller period.</p> : null}
+    </>}
+
   </div>;
 }
-
-export default Analytics;

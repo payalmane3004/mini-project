@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-18.3557 -172.3591 232.5716 56.4810" role="img" aria-labelledby="title desc">
-<title id="title">Main Building Ground Floor CAD underlay</title>
-<desc id="desc">Unclassified source CAD entities selected from the lower Ground Floor coordinate band using the inferred Phase 1 split. The underlay is not wall-classified or georeferenced.</desc>
+<title id="title">Main Building First Floor CAD underlay</title>
+<desc id="desc">Unclassified source CAD entities selected from the upper First Floor coordinate band using the inferred Phase 1 split. The underlay is not wall-classified or georeferenced.</desc>
 <g transform="scale(1 -1)" fill="none" stroke="#435266" stroke-width="0.10" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
 <path d="M210.5308,158.9242 L205.4615,158.3132"/>
 <path d="M46.3169,118.1391 L46.3177,117.9700"/>

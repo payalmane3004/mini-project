@@ -12,6 +12,7 @@ import {
   FlaskConical,
   Brain,
   Bell,
+  MessageSquareText,
   Wifi,
   Settings,
   LogOut,
@@ -51,6 +52,7 @@ const menuGroups = [
       { name: "Scenario Lab", icon: FlaskConical, path: "/scenario-lab" },
       { name: "Predictions", icon: Brain, path: "/predictions" },
       { name: "Alerts", icon: Bell, path: "/alerts" },
+      { name: "Notices", icon: MessageSquareText, path: "/notices" },
     ],
   },
   {
@@ -97,6 +99,7 @@ function Sidebar() {
                   to={item.path}
                   end={item.path === "/"}
                   className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  aria-label={item.name}
                   key={item.name}
                 >
                   <Icon size={18} strokeWidth={1.8} />

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import FloorPlanViewer from "./FloorPlanViewer";
 import { findSupportedFloorView } from "../../data/cadAnnotationCatalog";
 import "./SourceBuildingPlan.css";
+import { validateInspectionReport } from "../../data/inspectionReport";
 
 export default function SourceBuildingPlan({ drawing, buildingId }) {
   const [report, setReport] = useState(null);
@@ -15,7 +16,7 @@ export default function SourceBuildingPlan({ drawing, buildingId }) {
     fetch(drawing.inspectionUrl).then((response) => {
       if (!response.ok) throw new Error("Inspection report unavailable");
       return response.json();
-    }).then((data) => { if (!cancelled) setReport(data); }).catch(() => { if (!cancelled) setError(true); });
+    }).then(validateInspectionReport).then((data) => { if (!cancelled) setReport(data); }).catch(() => { if (!cancelled) setError(true); });
     return () => { cancelled = true; };
   }, [drawing.inspectionUrl]);
 

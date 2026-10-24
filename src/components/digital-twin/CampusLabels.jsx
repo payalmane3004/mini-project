@@ -29,7 +29,7 @@ function CampusLabels() {
           anchorX="left"
           anchorY="bottom"
           color="#F1F5F9"
-          outlineWidth={0.004}
+          outlineWidth={0.008}
           outlineColor="#0B1724"
           raycast={() => null}
           userData={{ cadLayer: label.layer, cadType: label.type }}

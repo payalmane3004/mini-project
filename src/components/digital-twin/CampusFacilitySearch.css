@@ -21,3 +21,28 @@
 .campus-facility-search-footnote{margin-top:9px}
 @media(max-width:850px){.campus-facility-search-controls{grid-template-columns:1fr 1fr}.campus-facility-query{grid-column:1/-1}}
 @media(max-width:560px){.campus-facility-search{padding:11px}.campus-facility-search-controls{grid-template-columns:1fr}.campus-facility-query{grid-column:auto}.campus-facility-search-results{grid-template-columns:1fr}.campus-facility-search-header{display:block}.campus-facility-search-header>span{display:block;margin-top:7px}}
+.campus-facility-search { min-width:0; padding:17px; border-radius:9px; }
+.campus-facility-search-header { align-items:center; margin-bottom:14px; }
+.campus-facility-search-header h2 { font-size:16px; line-height:1.35; }
+.campus-facility-search-header p { max-width:720px; color:#a3b1bf; font-size:12px; line-height:1.45; }
+.campus-facility-search-header>span { flex:none; font-size:11px; }
+.campus-facility-search-controls { gap:10px; }
+.campus-facility-query input { font-size:12px; }
+.campus-facility-search-controls>label:not(.campus-facility-query) { gap:5px; color:#a0adba; font-size:11px; }
+.campus-facility-search-controls select { font-size:11px; }
+.campus-facility-search-results { gap:7px; max-height:300px; }
+.campus-facility-result { min-height:58px; padding:9px 10px; }
+.campus-facility-result strong { color:#e2ebf1; font-size:12px; }
+.campus-facility-result small { font-size:10px; line-height:1.4; }
+.campus-facility-result small:last-child { color:#9eacba; }
+.campus-facility-search-empty,.campus-facility-search-warning,.campus-facility-search-footnote { font-size:11px; line-height:1.55; }
+.campus-facility-search-warning { padding:8px 10px; border-left:2px solid #b88e4a; background:#1d1a14; }
+.campus-facility-search-footnote { margin-top:12px; }
+.campus-facility-result:focus-visible { outline:2px solid #71d8e4; outline-offset:2px; }
+@media(max-width:560px) {
+  .campus-facility-search { padding:13px; }
+  .campus-facility-search-header { display:flex; align-items:flex-start; flex-direction:column; }
+  .campus-facility-search-header>span { display:block; margin:0; }
+  .campus-facility-search-results { max-height:320px; }
+  .campus-facility-result { min-height:58px; }
+}
