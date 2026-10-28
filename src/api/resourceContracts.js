@@ -8,9 +8,11 @@ export function validateOccupancyResponse(result) {
     && (reading.capacity === null || Number.isInteger(reading.capacity))
     && optionalText(reading.room_name) && optionalText(reading.building_code)
     && optionalText(reading.building_name) && optionalText(reading.source)
+    && (reading.is_demo === undefined || typeof reading.is_demo === "boolean")
     && optionalText(reading.recorded_at)
   ));
-  if (!Number.isInteger(result?.room_count) || result.room_count < 0 || !validReadings) {
+  if (!Number.isInteger(result?.room_count) || result.room_count < 0 || !validReadings
+    || (result.demo_preview !== undefined && typeof result.demo_preview !== "boolean")) {
     throw new Error("The occupancy API returned an unexpected response.");
   }
   return result;

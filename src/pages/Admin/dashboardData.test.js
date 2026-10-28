@@ -19,6 +19,9 @@ test("dashboard counts only pending booking requests", () => {
     { status: "CANCELLED" }, { status: "PENDING" },
   ]), 2);
   assert.equal(countPendingBookings([]), 0);
+  const demo = [{ status: "PENDING", is_demo: true }];
+  assert.equal(countPendingBookings(demo), 0);
+  assert.equal(countPendingBookings(demo, true), 1);
 });
 
 test("dashboard counts enabled, unexpired alert records only", () => {
@@ -29,4 +32,7 @@ test("dashboard counts enabled, unexpired alert records only", () => {
     { active: false, expires_at: null },
     { active: true, expires_at: "2025-06-10T11:59:00Z" },
   ], now), 2);
+  const demoAlerts = [{ active: true, expires_at: null, title: "DEMO alert: fictional test" }];
+  assert.equal(countCurrentAlerts(demoAlerts, now), 0);
+  assert.equal(countCurrentAlerts(demoAlerts, now, true), 1);
 });

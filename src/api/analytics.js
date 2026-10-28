@@ -1,10 +1,11 @@
 import { apiFetch } from "./client";
 import { normalizeAnalyticsRequestError, validateAnalyticsSummary } from "./analyticsContracts";
 
-export async function fetchAnalyticsSummary({ start, end, signal } = {}) {
+export async function fetchAnalyticsSummary({ start, end, includeDemo = false, signal } = {}) {
   const query = new URLSearchParams();
   if (start) query.set("start", start);
   if (end) query.set("end", end);
+  if (includeDemo) query.set("include_demo", "true");
   const suffix = query.size ? `?${query}` : "";
 
   let response;

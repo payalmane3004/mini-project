@@ -22,7 +22,7 @@ function StudentEmergency() {
       {status === "loading" && <p role="status">Loading alerts…</p>}
       {status === "error" && <div className="student-dashboard-error" role="alert"><span>{error}</span><button type="button" onClick={() => setRetryKey((key) => key + 1)}><RefreshCw size={15} /> Retry</button></div>}
       {status === "ready" && alerts.length === 0 && <p>No current published emergency alerts.</p>}
-      {status === "ready" && alerts.map((alert) => <article className="student-live-notice" key={alert.id}><div><AlertTriangle size={18} /><span>{alert.severity} alert</span></div><h3>{alert.title}</h3><p>{alert.message}</p><small>{alert.created_at ? new Date(alert.created_at).toLocaleString() : "Publication time unavailable"}</small></article>)}
+      {status === "ready" && alerts.map((alert) => <article className="student-live-notice" key={alert.id}><div><AlertTriangle size={18} /><span>{alert.is_demo ? "DEMO ONLY · fictional" : `${alert.severity} alert`}</span></div><h3>{alert.title}</h3><p>{alert.message}</p><small>{alert.created_at ? new Date(alert.created_at).toLocaleString() : "Publication time unavailable"}</small></article>)}
     </section>
     <section className="student-panel"><div className="student-panel-header"><div><h2>Incident reporting</h2><p>A student reporting endpoint is not configured.</p></div></div><p>Submitting reports here would not contact emergency services or campus authorities. For immediate danger, use your institution's verified emergency contact process.</p></section>
   </div>;

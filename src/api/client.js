@@ -1,9 +1,35 @@
-import { SESSION_KEY, SESSION_EXPIRED_EVENT } from "../auth/authState";
+import { SESSION_KEY, SESSION_EXPIRED_EVENT } from "../auth/authState.js";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const CONFIGURED_API_BASE_URL = import.meta.env?.VITE_API_BASE_URL;
+
+export function resolveApiBaseUrl({ configuredUrl }) {
+  if (configuredUrl) return configuredUrl.replace(/\/$/, "");
+  // The normal uvicorn command binds to port 8000. All local Vite ports use
+  // that same backend unless an explicit API base URL is configured.
+  return "http://127.0.0.1:8000";
+}
 
 export function getApiBaseUrl() {
-  return API_BASE_URL.replace(/\/$/, "");
+  return resolveApiBaseUrl({
+    configuredUrl: CONFIGURED_API_BASE_URL,
+    frontendPort: typeof window !== "undefined" ? window.location?.port : undefined,
+    development: import.meta.env?.DEV === true,
+  });
+}
+
+export function apiErrorMessage(body, fallback) {
+  if (typeof body?.detail === "string") return body.detail;
+  if (Array.isArray(body?.detail)) {
+    const issues = body.detail.map((issue) => {
+      const path = Array.isArray(issue?.loc)
+        ? issue.loc.filter((part) => part !== "body").join(".")
+        : "";
+      const message = typeof issue?.msg === "string" ? issue.msg : "Invalid value";
+      return path ? `${path}: ${message}` : message;
+    }).filter(Boolean);
+    if (issues.length) return issues.join(" ");
+  }
+  return fallback;
 }
 
 function storedAccessToken() {

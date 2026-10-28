@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { LockKeyhole, User, GraduationCap } from "lucide-react";
 import { useAuth } from "../auth/useAuth";
 import { loginWithPassword } from "../api/auth";
+import { readLoginCredentials } from "../auth/loginForm.js";
+import { Link } from "react-router-dom";
 
 const HOME_BY_ROLE = { admin: "/", student: "/student-dashboard" };
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn } = useAuth();
+  const { signIn, sessionError } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,11 @@ function Login() {
     setError("");
     setSubmitting(true);
     try {
-      const authResponse = await loginWithPassword(email, password);
+      // Read the submitted controls themselves. Password managers and browser
+      // autofill can update input values without synchronizing React state.
+      const formData = new FormData(e.currentTarget);
+      const credentials = readLoginCredentials(formData);
+      const authResponse = await loginWithPassword(credentials.email, credentials.password);
       signIn(authResponse);
       const destination = location.state?.from?.pathname || HOME_BY_ROLE[authResponse.user.role];
       navigate(destination, { replace: true });
@@ -46,6 +52,10 @@ function Login() {
           Digital Twin Campus Management System
         </p>
 
+        {new URLSearchParams(location.search).get("reset") === "success" && (
+          <p className="recovery-message" role="status">Password updated. Sign in with your new password.</p>
+        )}
+
         <form onSubmit={handleLogin}>
 
           <div className="login-field">
@@ -56,6 +66,7 @@ function Login() {
 
               <input
                 id="login-email"
+                name="email"
                 type="email"
                 autoComplete="username"
                 placeholder="Enter your email"
@@ -74,6 +85,7 @@ function Login() {
 
               <input
                 id="login-password"
+                name="password"
                 type="password"
                 autoComplete="current-password"
                 placeholder="Enter your password"
@@ -84,6 +96,7 @@ function Login() {
             </div>
           </div>
 
+          {sessionError && <p className="login-error" role="status">{sessionError}</p>}
           {error && <p className="login-error" role="alert">{error}</p>}
 
           <button className="login-button" type="submit" disabled={submitting}>
@@ -91,6 +104,8 @@ function Login() {
           </button>
 
         </form>
+
+        <div className="login-recovery-link"><Link to="/forgot-password">Forgot password?</Link></div>
 
         <p className="login-account-note">Sign in with an account provisioned by your CampusSphere administrator.</p>
 

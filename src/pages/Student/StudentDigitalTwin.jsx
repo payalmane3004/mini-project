@@ -8,10 +8,11 @@ import footprintData from "../../data/wce-campus-footprints.json";
 import labelData from "../../data/wce-building-labels.json";
 import { fetchBuildings, fetchBuildingRooms } from "../../api/buildings";
 import { findUniqueBuildingMatch } from "../../api/buildingMatching";
+import { isDemoRoom } from "../../api/demoData.js";
 
 function StudentDigitalTwin() {
   const [selectedId, setSelectedId] = useState(null);
-  const [databaseLookup, setDatabaseLookup] = useState({ key: null, status: "idle", building: null, roomCount: null, error: "" });
+  const [databaseLookup, setDatabaseLookup] = useState({ key: null, status: "idle", building: null, roomCount: null, demoRoomCount: 0, error: "" });
   const [databaseRetryKey, setDatabaseRetryKey] = useState(0);
   const mapRef = useRef(null);
   const buildings = useMemo(() => {
@@ -31,7 +32,7 @@ function StudentDigitalTwin() {
   const selectedBuilding = buildings.find((building) => building.id === selectedId) ?? null;
   const currentDatabaseLookup = databaseLookup.key === selectedId
     ? databaseLookup
-    : { status: selectedId ? "loading" : "idle", building: null, roomCount: null, error: "" };
+    : { status: selectedId ? "loading" : "idle", building: null, roomCount: null, demoRoomCount: 0, error: "" };
 
   useEffect(() => {
     if (!selectedId) return undefined;
@@ -39,10 +40,10 @@ function StudentDigitalTwin() {
     fetchBuildings().then(async (rows) => {
       const match = findUniqueBuildingMatch(selectedId, rows);
       if (!active) return;
-      if (match.status !== "matched") { setDatabaseLookup({ key: selectedId, status: match.status, building: null, roomCount: null, error: "" }); return; }
+      if (match.status !== "matched") { setDatabaseLookup({ key: selectedId, status: match.status, building: null, roomCount: null, demoRoomCount: 0, error: "" }); return; }
       const rooms = await fetchBuildingRooms(match.building.building_code);
-      if (active) setDatabaseLookup({ key: selectedId, status: "ready", building: match.building, roomCount: rooms.length, error: "" });
-    }).catch((reason) => { if (active) setDatabaseLookup({ key: selectedId, status: "error", building: null, roomCount: null, error: reason.message }); });
+      if (active) setDatabaseLookup({ key: selectedId, status: "ready", building: match.building, roomCount: rooms.filter((room) => !isDemoRoom(room)).length, demoRoomCount: rooms.filter(isDemoRoom).length, error: "" });
+    }).catch((reason) => { if (active) setDatabaseLookup({ key: selectedId, status: "error", building: null, roomCount: null, demoRoomCount: 0, error: reason.message }); });
     return () => { active = false; };
   }, [selectedId, databaseRetryKey]);
 
@@ -97,7 +98,7 @@ function StudentDigitalTwin() {
         {currentDatabaseLookup.status === "error" && <div role="alert"><p>{currentDatabaseLookup.error}</p><button type="button" onClick={() => setDatabaseRetryKey((key) => key + 1)}>Retry directory lookup</button></div>}
         {currentDatabaseLookup.status === "ambiguous" && <p>Multiple database building codes match CAD footprint {selectedBuilding.id}; no record was selected. The displayed labels remain CAD annotations.</p>}
         {currentDatabaseLookup.status === "missing" && <p>No database building-code match for CAD footprint {selectedBuilding.id}. The displayed labels remain CAD annotations.</p>}
-        {currentDatabaseLookup.status === "ready" && currentDatabaseLookup.building && <><p>{currentDatabaseLookup.building.name} ({currentDatabaseLookup.building.building_code}): {currentDatabaseLookup.roomCount} verified database room records.</p><Link className="student-link-button" to={`/student-rooms?building=${encodeURIComponent(currentDatabaseLookup.building.building_code)}`}>Browse verified rooms</Link></>}
+        {currentDatabaseLookup.status === "ready" && currentDatabaseLookup.building && <><p>{currentDatabaseLookup.building.name} ({currentDatabaseLookup.building.building_code}): {currentDatabaseLookup.roomCount} non-demo room records.{currentDatabaseLookup.demoRoomCount > 0 && ` ${currentDatabaseLookup.demoRoomCount} demo-only rooms are excluded from operational inventory.`}</p><Link className="student-link-button" to={`/student-rooms?building=${encodeURIComponent(currentDatabaseLookup.building.building_code)}`}>Browse room records</Link></>}
       </section>}
     </div>
   );

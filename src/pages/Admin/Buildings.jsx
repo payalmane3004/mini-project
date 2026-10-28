@@ -140,6 +140,7 @@ export default function Buildings() {
           return <article className={`directory-card source-${entry.source}${record ? " has-record" : ""}`} key={`${entry.source}-${entry.id}`}>
             <div className="directory-card-heading"><span className={`directory-icon ${entry.source}`}><Building2 size={18}/></span><span className="directory-code">{entry.source === "database-only" ? "DATABASE CODE" : "CAD FOOTPRINT"} · {entry.id}</span></div>
             <h3 title={title}>{title}</h3>
+            {entry.is_demo && <p className="directory-demo-tag">DEMO DATA · fictional building, not verified inventory</p>}
             {entry.source === "cad" && record && record.name !== entry.name && <p className="directory-card-meta">Source label: {entry.name}</p>}
             {entry.source === "database-only" && <p className="directory-card-meta">No matching footprint ID was found in the loaded campus source directory.</p>}
             {entry.source === "cad" && !record && <p className="directory-card-meta">This source annotation is not a verified database building record.</p>}
@@ -158,14 +159,14 @@ export default function Buildings() {
     </section>
 
     {selected && <aside className="directory-details" id="directory-details-panel" aria-labelledby="directory-details-title">
-      <div className="directory-details-heading"><div><span>{selectedRecord ? "DATABASE BUILDING RECORD" : "CAD SOURCE ANNOTATION"}</span><h2 id="directory-details-title">{selectedRecord?.name || selected.name}</h2></div><button type="button" aria-label="Close building details" onClick={() => setSelectedKey("")}><X size={18}/></button></div>
+      <div className="directory-details-heading"><div><span>{selectedRecord ? "DATABASE BUILDING RECORD" : "CAD SOURCE ANNOTATION"}</span><h2 id="directory-details-title">{selectedRecord?.name || selected.name}</h2>{selected.is_demo && <p className="directory-demo-tag">DEMO DATA · fictional building, not verified inventory</p>}</div><button type="button" aria-label="Close building details" onClick={() => setSelectedKey("")}><X size={18}/></button></div>
       {selectedRecord ? <>
         <dl className="directory-details-fields"><div><dt>Building code</dt><dd>{selectedRecord.building_code}</dd></div><div><dt>Description</dt><dd>{selectedRecord.description || "No description is stored."}</dd></div><div><dt>CAD association</dt><dd>{selected.source === "cad" ? getDirectoryMatchLabel(selected) : "No matching CAD footprint was found."}</dd></div></dl>
         <section className="directory-verified-rooms" aria-label="Verified room summary">
           <h3>Verified room records</h3>
           {selectedRoomState?.loading && <p role="status">Loading associated rooms…</p>}
           {selectedRoomState?.error && <p role="alert">{selectedRoomState.error}</p>}
-          {roomSummary && <p>{roomSummary.roomCount} room record{roomSummary.roomCount === 1 ? "" : "s"}{roomSummary.floorNumbers.length ? ` across ${roomSummary.floorNumbers.length} floor${roomSummary.floorNumbers.length === 1 ? "" : "s"}` : "; no floor values are available"}.</p>}
+          {roomSummary && <p>{roomSummary.roomCount} non-demo room record{roomSummary.roomCount === 1 ? "" : "s"}{roomSummary.floorNumbers.length ? ` across ${roomSummary.floorNumbers.length} floor${roomSummary.floorNumbers.length === 1 ? "" : "s"}` : "; no floor values are available"}.{roomSummary.demoRoomCount > 0 && ` ${roomSummary.demoRoomCount} demo room${roomSummary.demoRoomCount === 1 ? "" : "s"} excluded from operational inventory.`}</p>}
           {!selectedRoomState && <p>Room records are not available until a database building is selected.</p>}
         </section>
         <div className="directory-detail-actions"><button type="button" className="directory-action primary" onClick={() => navigate(`/rooms?building=${encodeURIComponent(selectedRecord.building_code)}`)}>Open Floors &amp; Rooms</button>{hasSourcePlan(selected.id, allBuildingPlans, originalBuildingDrawings) && <button type="button" className="directory-action" onClick={() => openSourcePlan(selected.id)}>Explore source plan</button>}</div>

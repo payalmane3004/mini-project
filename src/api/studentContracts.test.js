@@ -15,8 +15,9 @@ test("student workflow contracts accept booking rows with backend fields", () =>
 });
 
 test("student workflow contracts validate published notice fields and optional dates", () => {
-  const notices = [{ id: 1, title: "Notice", content: "Details", published: true, created_at: null, expires_at: null }];
+  const notices = [{ id: 1, title: "Notice", content: "Details", published: true, created_at: null, expires_at: null, is_demo: false }];
   assert.equal(validateNoticeList(notices), notices);
+  assert.throws(() => validateNoticeList([{ ...notices[0], is_demo: "yes" }]), /unexpected response/);
   assert.throws(() => validateNoticeList([{ id: 1, title: "Incomplete" }]), /unexpected response/);
 });
 

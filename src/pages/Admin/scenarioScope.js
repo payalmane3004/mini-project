@@ -1,3 +1,5 @@
+import { isDemoRoom } from "../../api/demoData.js";
+
 export const CLOSURE_DURATIONS = [
   { days: 1, label: "1 day" },
   { days: 3, label: "3 days" },
@@ -8,7 +10,7 @@ const ACTIVE_BOOKING_STATUSES = new Set(["PENDING", "APPROVED"]);
 
 export function hasScenarioSourceData({ buildings, rooms, bookings } = {}) {
   return Array.isArray(buildings) && buildings.length > 0
-    && Array.isArray(rooms) && rooms.length > 0
+    && Array.isArray(rooms) && rooms.some((room) => !isDemoRoom(room))
     && Array.isArray(bookings);
 }
 
@@ -32,7 +34,7 @@ export function calculateBuildingClosureScope(buildingId, buildings, rooms, book
   const matches = buildings.filter((building) => building?.id === buildingId);
   if (matches.length !== 1) return null;
 
-  const scopedRooms = rooms.filter((room) => room?.building_id === buildingId);
+  const scopedRooms = rooms.filter((room) => room?.building_id === buildingId && !isDemoRoom(room));
   const roomIds = new Set(scopedRooms.map((room) => room.id));
   const relevantActiveBookings = bookings.filter((booking) => (
     roomIds.has(booking?.room_id)

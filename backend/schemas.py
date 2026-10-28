@@ -10,6 +10,7 @@ class BuildingResponse(BaseModel):
     building_code: str
     name: str
     description: Optional[str] = None
+    is_demo: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -22,6 +23,7 @@ class RoomResponse(BaseModel):
     floor_number: int
     capacity: Optional[int] = None
     room_type: str
+    is_demo: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -51,6 +53,7 @@ class NoticeResponse(BaseModel):
     published: bool
     created_at: Optional[datetime] = None
     expires_at: Optional[datetime] = None
+    is_demo: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -129,6 +132,8 @@ class BookingResponse(BaseModel):
     user_id: int
     room_id: int
     room_code: str
+    room_name: Optional[str] = None
+    is_demo: bool = False
     building_code: Optional[str] = None
     purpose: str
     start_time: datetime
@@ -136,6 +141,37 @@ class BookingResponse(BaseModel):
     status: str
     source: str = "DATABASE"
     created_at: Optional[datetime] = None
+
+
+class MaintenanceRequestCreateRequest(BaseModel):
+    room_id: int = Field(gt=0, strict=True)
+    title: str = Field(min_length=1, max_length=150, strict=True)
+    description: str = Field(min_length=1, max_length=5000, strict=True)
+    priority: str = Field(default="MEDIUM", pattern="^(LOW|MEDIUM|HIGH|CRITICAL)$")
+
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+
+class MaintenanceRequestStatusUpdateRequest(BaseModel):
+    status: str = Field(pattern="^(OPEN|IN_PROGRESS|RESOLVED)$")
+
+
+class MaintenanceRequestResponse(BaseModel):
+    id: int
+    room_id: int
+    room_code: str
+    is_demo: bool = False
+    room_name: Optional[str] = None
+    building_code: Optional[str] = None
+    building_name: Optional[str] = None
+    reported_by: Optional[int] = None
+    reporter_name: Optional[str] = None
+    title: str
+    description: Optional[str] = None
+    priority: str
+    status: str
+    created_at: Optional[datetime] = None
+    resolved_at: Optional[datetime] = None
 
 
 class EmergencyAlertCreateRequest(BaseModel):
@@ -165,12 +201,14 @@ class EmergencyAlertResponse(BaseModel):
     active: bool
     created_at: Optional[datetime] = None
     expires_at: Optional[datetime] = None
+    is_demo: bool = False
 
 
 class OccupancyReadingResponse(BaseModel):
     id: int
     room_id: int
     room_code: str
+    is_demo: bool = False
     room_name: Optional[str] = None
     building_code: Optional[str] = None
     building_name: Optional[str] = None
@@ -183,6 +221,7 @@ class OccupancyReadingResponse(BaseModel):
 
 class OccupancyDashboardResponse(BaseModel):
     room_count: int = Field(ge=0)
+    demo_preview: bool = False
     readings: list[OccupancyReadingResponse]
 
 
@@ -216,6 +255,7 @@ class AnalyticsOccupancyPoint(BaseModel):
     building_name: Optional[str] = None
     occupied_count: int = Field(ge=0)
     source: Optional[str] = None
+    is_demo: bool = False
     recorded_at: Optional[datetime] = None
 
 
@@ -225,6 +265,7 @@ class AnalyticsEnergyPoint(BaseModel):
     building_name: str
     energy_kwh: Decimal = Field(ge=0)
     source: Optional[str] = None
+    is_demo: bool = False
     recorded_at: Optional[datetime] = None
 
 
@@ -238,12 +279,19 @@ class AnalyticsBuildingEnergyComparison(BaseModel):
 
 class AnalyticsSummaryResponse(BaseModel):
     period: AnalyticsPeriod
+    demo_preview: bool = False
     buildings_total: int = Field(ge=0)
     verified_rooms_total: int = Field(ge=0)
+    demo_buildings_total: int = Field(default=0, ge=0)
+    demo_rooms_total: int = Field(default=0, ge=0)
     occupancy_readings_total: int = Field(ge=0)
+    demo_occupancy_readings_total: int = Field(default=0, ge=0)
     energy_readings_total: int = Field(ge=0)
+    demo_energy_readings_total: int = Field(default=0, ge=0)
     maintenance_open_total: int = Field(ge=0)
     maintenance_resolved_total: int = Field(ge=0)
+    demo_maintenance_open_total: int = Field(default=0, ge=0)
+    demo_maintenance_resolved_total: int = Field(default=0, ge=0)
     room_utilization_percent: Optional[float] = Field(default=None, ge=0)
     occupancy_truncated: bool
     energy_truncated: bool
@@ -255,6 +303,36 @@ class AnalyticsSummaryResponse(BaseModel):
 class LoginRequest(BaseModel):
     email: str = Field(min_length=3, max_length=255)
     password: str = Field(min_length=1, max_length=1024)
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: str = Field(min_length=3, max_length=255)
+
+
+class DemoResetLinkResponse(BaseModel):
+    message: str
+    reset_url: Optional[str] = None
+
+
+class PasswordResetRequest(BaseModel):
+    token: str = Field(min_length=32, max_length=128)
+    new_password: str = Field(min_length=1, max_length=1024)
+    confirm_password: str = Field(min_length=1, max_length=1024)
+
+    @model_validator(mode="after")
+    def validate_password(self):
+        password = self.new_password
+        if password != self.confirm_password:
+            raise ValueError("Passwords do not match.")
+        categories = sum((
+            any("a" <= char <= "z" for char in password),
+            any("A" <= char <= "Z" for char in password),
+            any("0" <= char <= "9" for char in password),
+            any(not (char.isascii() and char.isalnum()) for char in password),
+        ))
+        if len(password) < 12 or categories < 3:
+            raise ValueError("Use at least 12 characters and include at least three of: lowercase, uppercase, number, symbol.")
+        return self
 
 
 class AuthUserResponse(BaseModel):

@@ -5,6 +5,7 @@ import {
   SESSION_EXPIRED_EVENT,
   SESSION_KEY,
   VALID_ROLES,
+  isInvalidSessionError,
 } from "./authState";
 import { fetchAuthenticatedUser } from "../api/auth";
 
@@ -22,12 +23,14 @@ function readSession() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [sessionError, setSessionError] = useState("");
   const [loading, setLoading] = useState(() => Boolean(readSession()?.access_token));
 
   const signOut = useCallback(() => {
     window.sessionStorage.removeItem(SESSION_KEY);
     window.sessionStorage.removeItem(LEGACY_SESSION_KEY);
     setUser(null);
+    setSessionError("");
     setLoading(false);
   }, []);
 
@@ -44,11 +47,15 @@ export function AuthProvider({ children }) {
         user: verifiedUser,
       }));
       setUser(verifiedUser);
-    }).catch(() => {
+    }).catch((error) => {
       if (!active) return;
-      // A cached role is not proof that the server still accepts this token.
-      // Fail closed when session verification cannot complete.
-      signOut();
+      // Never grant access from cached role data. Keep the token only when
+      // verification failed transiently so a later login/reload can retry.
+      if (isInvalidSessionError(error)) {
+        signOut();
+      } else {
+        setSessionError("Could not verify your saved session because the CampusSphere API is unavailable. Sign in again when the service is reachable.");
+      }
     }).finally(() => {
       if (active) setLoading(false);
     });
@@ -64,15 +71,17 @@ export function AuthProvider({ children }) {
   const value = useMemo(() => ({
     user,
     loading,
+    sessionError,
     signIn(authResponse) {
       const session = { access_token: authResponse.access_token, user: authResponse.user };
       window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
       window.sessionStorage.removeItem(LEGACY_SESSION_KEY);
       setUser(authResponse.user);
+      setSessionError("");
       setLoading(false);
     },
     signOut,
-  }), [user, loading, signOut]);
+  }), [user, loading, sessionError, signOut]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

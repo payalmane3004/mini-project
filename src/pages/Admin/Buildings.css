@@ -40,6 +40,7 @@
 .directory-icon { width:34px; height:34px; flex:none; display:grid; place-items:center; border-radius:8px; color:#e2c88e; background:#292418; }
 .directory-icon.database-only { color:#a7e1e9; background:#132b34; }
 .directory-code { min-width:0; color:#91a1b6; font-size:10px; font-weight:700; letter-spacing:.04em; overflow-wrap:anywhere; }
+.directory-demo-tag { width:100%; margin:4px 0 0; color:#ffd78a; font-size:10px; font-weight:700; letter-spacing:.03em; }
 .directory-card h3 { width:100%; margin:12px 0 5px; color:#e7eef4; font-size:16px; line-height:1.4; font-weight:650; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow-wrap:anywhere; }
 .directory-card-meta,.directory-card-description { width:100%; margin:0 0 8px; color:#95a5b7; font-size:11px; line-height:1.5; overflow-wrap:anywhere; }
 .directory-card-description { color:#b4c0cc; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }

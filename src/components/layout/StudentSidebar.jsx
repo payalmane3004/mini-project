@@ -11,6 +11,8 @@ import {
   LogOut,
   Box,
   QrCode,
+  Users,
+  Zap,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
@@ -50,6 +52,8 @@ function StudentSidebar() {
       path: "/student-rooms",
       icon: DoorOpen,
     },
+    { name: "Occupancy", path: "/student-occupancy", icon: Users },
+    { name: "Energy", path: "/student-energy", icon: Zap },
     {
       name: "Room Booking",
       path: "/student-booking",
@@ -61,7 +65,7 @@ function StudentSidebar() {
       icon: Wrench,
     },
     {
-      name: "QR Complaint",
+      name: "Scan Room QR",
       path: "/student-qr-complaint",
       icon: QrCode,
     },

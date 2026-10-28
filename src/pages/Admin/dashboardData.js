@@ -1,4 +1,4 @@
-import { isCurrentAlert } from "../../api/analyticsDashboardData.js";
+import { isCurrentAlert, isDemoAlert, isDemoBooking } from "../../api/analyticsDashboardData.js";
 
 export function getDashboardMetricValue(value, available = true) {
   return {
@@ -7,10 +7,12 @@ export function getDashboardMetricValue(value, available = true) {
   };
 }
 
-export function countPendingBookings(bookings) {
-  return bookings.filter((booking) => booking.status.toUpperCase() === "PENDING").length;
+export function countPendingBookings(bookings, includeDemo = false) {
+  return bookings.filter((booking) => booking.status.toUpperCase() === "PENDING"
+    && (includeDemo || !isDemoBooking(booking))).length;
 }
 
-export function countCurrentAlerts(alerts, now = Date.now()) {
-  return alerts.filter((alert) => isCurrentAlert(alert, now)).length;
+export function countCurrentAlerts(alerts, now = Date.now(), includeDemo = false) {
+  return alerts.filter((alert) => isCurrentAlert(alert, now)
+    && (includeDemo || !isDemoAlert(alert))).length;
 }

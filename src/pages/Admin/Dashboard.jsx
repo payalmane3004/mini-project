@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Bar, BarChart, CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis,
+  Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis,
 } from "recharts";
 import {
   Activity, AlertTriangle, ArrowRight, Bell, Building2, CalendarDays, ClipboardCheck,
@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { fetchAnalyticsSummary } from "../../api/analytics";
 import { fetchAdminAlerts, fetchAdminBookings } from "../../api/admin";
-import { useDemoMode } from "../../components/layout/useDemoMode";
+import { isSimulatedSource } from "../../api/demoData.js";
 import {
   aggregateHourlyOccupancy, recentCampusRecords,
   validateAdminAlertList, validateAdminBookingList,
@@ -87,31 +87,40 @@ function EnergyScatterChart({ data }) {
       <XAxis type="number" dataKey="timestamp" domain={["dataMin", "dataMax"]} tickFormatter={(value) => formatTime(value, { month: "short", day: "numeric" })} tick={{ fill: "#91a3b6", fontSize: 10 }} axisLine={false} tickLine={false}/>
       <YAxis tick={{ fill: "#91a3b6", fontSize: 10 }} axisLine={false} tickLine={false}/>
       <Tooltip contentStyle={{ background: "#17212b", border: "1px solid #344552", borderRadius: 7, color: "#e4edf4" }} formatter={(value) => [`${value} kWh`, "Individual reading"]} labelFormatter={(timestamp, items) => `${formatTime(timestamp)}${items[0]?.payload?.building ? ` · ${items[0].payload.building}` : ""}${items[0]?.payload?.source ? ` · ${items[0].payload.source}` : ""}`}/>
-      <Scatter dataKey="energy" fill="#54b6c7" shape="circle"/>
+      <Scatter dataKey="energy" fill="#54b6c7" shape="circle">{data.map((reading, index) => <Cell key={`${reading.timestamp}-${index}`} fill={reading.is_demo ? "#d39b43" : "#54b6c7"}/>)}</Scatter>
     </ScatterChart>
   </ResponsiveContainer>;
 }
 
 export default function Dashboard() {
-  const demoMode = useDemoMode();
+  const [includeDemoPreview, setIncludeDemoPreview] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [summaryState, setSummaryState] = useState({ data: null, error: "", loading: true });
   const [bookingState, setBookingState] = useState({ data: null, error: "", loading: true });
   const [alertState, setAlertState] = useState({ data: null, error: "", loading: true });
   const [retryKey, setRetryKey] = useState(0);
+  const [currentTime, setCurrentTime] = useState(null);
+
+  useEffect(() => {
+    const updateCurrentTime = () => setCurrentTime(Date.now());
+    updateCurrentTime();
+    const timer = window.setInterval(updateCurrentTime, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
     fetchAnalyticsSummary({ start: startDate ? `${startDate}T00:00:00.000Z` : undefined,
       end: endDate ? new Date(new Date(`${endDate}T00:00:00.000Z`).getTime() + 86400000).toISOString() : undefined,
+      includeDemo: includeDemoPreview,
       signal: controller.signal })
       .then((data) => setSummaryState({ data, error: "", loading: false }))
       .catch((error) => {
         if (error.name !== "AbortError") setSummaryState({ data: null, error: "Could not load stored analytics records.", loading: false });
       });
     return () => controller.abort();
-  }, [startDate, endDate, retryKey]);
+  }, [startDate, endDate, includeDemoPreview, retryKey]);
 
   useEffect(() => {
     let active = true;
@@ -124,17 +133,45 @@ export default function Dashboard() {
     return () => { active = false; };
   }, [retryKey]);
 
-  const activeAlerts = alertState.data ? countCurrentAlerts(alertState.data) : undefined;
-  const pendingBookings = bookingState.data ? countPendingBookings(bookingState.data) : undefined;
+  const activeAlerts = alertState.data && currentTime !== null
+    ? countCurrentAlerts(alertState.data, currentTime, includeDemoPreview)
+    : undefined;
+  const pendingBookings = bookingState.data ? countPendingBookings(bookingState.data, includeDemoPreview) : undefined;
   const summaryAvailable = Boolean(summaryState.data) && !summaryState.loading;
   const metrics = useMemo(() => {
     const summary = summaryState.data;
     return metricDefinitions.map((metric) => {
-      if (metric.key === "active_alerts") return [metric, getDashboardMetricValue(activeAlerts, !alertState.loading && !alertState.error)];
-      if (metric.key === "pending_bookings") return [metric, getDashboardMetricValue(pendingBookings, !bookingState.loading && !bookingState.error)];
-      return [metric, getDashboardMetricValue(summary?.[metric.key], summaryAvailable)];
+      if (metric.key === "active_alerts") return [
+        includeDemoPreview ? { ...metric, label: "Active alerts · preview" } : metric,
+        getDashboardMetricValue(activeAlerts, !alertState.loading && !alertState.error),
+      ];
+      if (metric.key === "pending_bookings") return [
+        includeDemoPreview ? { ...metric, label: "Pending bookings · preview" } : metric,
+        getDashboardMetricValue(pendingBookings, !bookingState.loading && !bookingState.error),
+      ];
+      const demoMetricKeys = {
+        buildings_total: "demo_buildings_total",
+        verified_rooms_total: "demo_rooms_total",
+        occupancy_readings_total: "demo_occupancy_readings_total",
+        energy_readings_total: "demo_energy_readings_total",
+        maintenance_open_total: "demo_maintenance_open_total",
+      };
+      const demoMetricLabels = {
+        buildings_total: "Demo buildings",
+        verified_rooms_total: "Demo rooms",
+        occupancy_readings_total: "Simulated occupancy readings",
+        energy_readings_total: "Simulated energy readings",
+        maintenance_open_total: "Demo open maintenance",
+      };
+      const useDemoMetric = includeDemoPreview && demoMetricKeys[metric.key];
+      const displayedMetric = useDemoMetric
+        ? { ...metric, label: demoMetricLabels[metric.key], detail: "Fictional sample records" }
+        : metric;
+      return [displayedMetric, getDashboardMetricValue(
+        summary?.[useDemoMetric ? demoMetricKeys[metric.key] : metric.key], summaryAvailable,
+      )];
     });
-  }, [activeAlerts, alertState.error, alertState.loading, bookingState.error, bookingState.loading, pendingBookings, summaryAvailable, summaryState.data]);
+  }, [activeAlerts, alertState.error, alertState.loading, bookingState.error, bookingState.loading, includeDemoPreview, pendingBookings, summaryAvailable, summaryState.data]);
 
   const occupancyChartData = useMemo(() => aggregateHourlyOccupancy(summaryState.data?.occupancy_readings || []).slice(-24).map((bucket) => ({
     ...bucket,
@@ -145,8 +182,12 @@ export default function Dashboard() {
     energy: Number(reading.energy_kwh),
     building: reading.building_name,
     source: displaySource(reading.source),
+    is_demo: reading.is_demo === true || isSimulatedSource(reading.source),
   })), [summaryState.data]);
-  const recentActivity = useMemo(() => recentCampusRecords(bookingState.data || [], alertState.data || [], 5), [bookingState.data, alertState.data]);
+  const recentActivity = useMemo(
+    () => recentCampusRecords(bookingState.data || [], alertState.data || [], 5, includeDemoPreview),
+    [bookingState.data, alertState.data, includeDemoPreview],
+  );
 
   function chooseRange(days) {
     setSummaryState((state) => ({ ...state, loading: true, error: "" }));
@@ -175,9 +216,13 @@ export default function Dashboard() {
       <div className="dashboard-heading-actions"><span className="dashboard-data-badge"><span aria-hidden="true"/> Stored records · no live telemetry</span><Link to="/buildings" className="dashboard-primary-link"><Building2 size={15}/> Building directory</Link></div>
     </header>
 
-    {demoMode && <aside className="dashboard-demo-notice" aria-label="Fictional local demo data notice">
-      <strong>DEMO DATA</strong><span>All fixture records are fictional. Occupancy and energy are simulated historical readings, not live sensor data. This mode uses the separate local demo database; the normal team database is unchanged.</span>
-    </aside>}
+    <aside className="dashboard-demo-notice" aria-label="Sample data preview controls">
+      <strong>SAMPLE DATA</strong><span>{includeDemoPreview ? "Sample preview is enabled. Clearly marked fictional bookings, occupancy, energy, and maintenance are included in preview metrics; readings are simulated, not live sensor data." : "Operational metrics exclude clearly marked sample records. Turn on the preview to include sample data in the displayed counts."}</span>
+      <button type="button" aria-pressed={includeDemoPreview} onClick={() => {
+        setSummaryState((state) => ({ ...state, loading: true, error: "" }));
+        setIncludeDemoPreview((value) => !value);
+      }}>{includeDemoPreview ? "Hide sample preview" : "Show sample preview"}</button>
+    </aside>
 
     <div className="dashboard-toolbar">
       <p>Buildings and rooms show current database totals. Reading and maintenance metrics follow the selected date range; bookings and alerts show current records.</p>
@@ -197,9 +242,9 @@ export default function Dashboard() {
     <div className="dashboard-main-grid">
       <Panel title="Operations requiring review" description="Bookings and alerts are current; the maintenance count follows the selected date range." action={<Link to="/analytics">Campus intelligence <ArrowRight size={14}/></Link>} className="dashboard-actions-panel">
         <div className="dashboard-action-list">
-          <ActionItem icon={CalendarDays} label="Pending room bookings" value={getDashboardMetricValue(pendingBookings, Boolean(bookingState.data))} loading={bookingState.loading} error={bookingState.error} href="/booking" empty="No bookings awaiting review"/>
-          <ActionItem icon={AlertTriangle} label="Active emergency alerts" value={getDashboardMetricValue(activeAlerts, Boolean(alertState.data))} loading={alertState.loading} error={alertState.error} href="/emergency" empty="No active alerts"/>
-          <ActionItem icon={Wrench} label="Open maintenance requests" value={getDashboardMetricValue(summary?.maintenance_open_total, summaryAvailable)} loading={summaryState.loading} error={summaryState.error} href="/maintenance" empty="No open requests in this range"/>
+          <ActionItem icon={CalendarDays} label={includeDemoPreview ? "Pending room bookings · preview" : "Pending room bookings"} value={getDashboardMetricValue(pendingBookings, Boolean(bookingState.data))} loading={bookingState.loading} error={bookingState.error} href="/booking" empty="No bookings awaiting review"/>
+          <ActionItem icon={AlertTriangle} label={includeDemoPreview ? "Active emergency alerts · preview" : "Active emergency alerts"} value={getDashboardMetricValue(activeAlerts, Boolean(alertState.data))} loading={alertState.loading} error={alertState.error} href="/emergency" empty="No active alerts"/>
+          <ActionItem icon={Wrench} label={includeDemoPreview ? "Open maintenance requests · preview" : "Open maintenance requests"} value={getDashboardMetricValue(summary?.[includeDemoPreview ? "demo_maintenance_open_total" : "maintenance_open_total"], summaryAvailable)} loading={summaryState.loading} error={summaryState.error} href="/maintenance" empty="No open requests in this range"/>
         </div>
       </Panel>
 

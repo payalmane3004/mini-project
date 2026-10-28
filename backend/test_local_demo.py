@@ -118,49 +118,58 @@ class LocalDemoSafetyTests(unittest.TestCase):
             finally:
                 engine.dispose()
 
-    def test_password_validation_precedes_all_database_writes_for_fresh_file(self):
-        original_engine = database.engine
-        original_environment = {
-            name: os.environ.get(name)
-            for name in ("DATABASE_URL", "PYTHON_DOTENV_DISABLED")
-        }
+    def test_generator_defaults_to_preview_without_creating_or_mutating_database(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "campussphere_demo.sqlite3"
+            with patch.object(demo, "DEMO_DATABASE_PATH", path), contextlib.redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(demo.main([]), 0)
+            self.assertFalse(path.exists())
+            self.assertIn("Target database:", output.getvalue())
+            self.assertIn("Records proposed: occupancy=0, energy=0", output.getvalue())
+
+    def test_preview_reports_integrity_and_proposal_without_writing_fixture(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "campussphere_demo.sqlite3"
             engine = create_engine(URL.create("sqlite", database=str(path)))
-            events = []
-            real_create_schema = demo.create_demo_schema
-
-            def capture_password(label, hash_password):
-                events.append("password")
-                return "offline-hash"
-
-            def capture_schema(target_engine, metadata):
-                events.append("schema-write")
-                return real_create_schema(target_engine, metadata)
-
+            event.listen(engine, "connect", enable_foreign_keys)
             try:
-                database.engine = engine
                 with patch.object(demo, "DEMO_DATABASE_PATH", path), patch.object(
                     demo_mode, "DEMO_DATABASE_PATH", path
-                ), patch.object(demo, "_check_password", side_effect=capture_password), patch.object(
-                    demo, "create_demo_schema", side_effect=capture_schema
-                ), contextlib.redirect_stdout(io.StringIO()):
-                    self.assertEqual(demo.main([]), 0)
-                self.assertEqual(events, ["password", "password", "schema-write"])
-                with Session(engine) as session:
-                    self.assertEqual(demo._counts(session, models), demo.EXPECTED_RECORD_COUNTS)
-                    self.assertEqual(
-                        session.execute(select(demo_marker.c.value)).scalar_one(),
-                        demo_mode.DEMO_MARKER_VALUE,
-                    )
+                ):
+                    demo.create_demo_schema(engine, models.Base.metadata)
+                    with Session(engine) as session, session.begin():
+                        demo.populate_demo_data(
+                            session, models, admin_hash="offline-admin-password-hash",
+                            student_hash="offline-student-password-hash",
+                            as_of=datetime(2026, 10, 24, 7, tzinfo=timezone.utc),
+                        )
+                    with contextlib.redirect_stdout(io.StringIO()) as output:
+                        result = demo._preview_read_only()
+                    self.assertEqual(result["proposed"], (784, 56))
+                    self.assertIn("Existing buildings: 10", output.getvalue())
+                    self.assertIn("Existing rooms: 40", output.getvalue())
+                    self.assertIn("Foreign-key integrity: valid (0 violations)", output.getvalue())
+                    self.assertIn("Source labels: SIMULATED_DEMO", output.getvalue())
+                    with Session(engine) as session:
+                        self.assertEqual(session.query(models.RoomOccupancy).count(), 336)
+                        self.assertEqual(session.query(models.EnergyReading).count(), 224)
+            finally:
+                engine.dispose()
+
+    def test_apply_requires_existing_marked_fixture_and_does_not_bootstrap_fake_records(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "campussphere_demo.sqlite3"
+            original_engine = database.engine
+            engine = create_engine(URL.create("sqlite", database=str(path)))
+            try:
+                database.engine = engine
+                with patch.object(demo, "DEMO_DATABASE_PATH", path), patch.object(demo_mode, "DEMO_DATABASE_PATH", path):
+                    with self.assertRaisesRegex(DemoDatabaseError, "existing verified local demo fixture"):
+                        demo.main(["--apply"])
+                self.assertFalse(path.exists())
             finally:
                 database.engine = original_engine
                 engine.dispose()
-                for name, value in original_environment.items():
-                    if value is None:
-                        os.environ.pop(name, None)
-                    else:
-                        os.environ[name] = value
 
     def test_demo_indicator_never_connects_to_a_nonlocal_database(self):
         engine = Mock()
@@ -223,6 +232,87 @@ class LocalDemoFixtureTests(unittest.TestCase):
                 demo_mode.DEMO_MARKER_VALUE,
             )
 
+    def test_existing_fixture_normalization_is_idempotent_and_preserves_demo_workflows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "campussphere_demo.sqlite3"
+            engine = create_engine(URL.create("sqlite", database=str(path)))
+            event.listen(engine, "connect", enable_foreign_keys)
+            try:
+                with patch.object(demo, "DEMO_DATABASE_PATH", path), patch.object(
+                    demo_mode, "DEMO_DATABASE_PATH", path
+                ):
+                    demo.create_demo_schema(engine, models.Base.metadata)
+                    with Session(engine) as session, session.begin():
+                        demo.populate_demo_data(
+                            session, models,
+                            admin_hash=self.admin_hash,
+                            student_hash=self.student_hash,
+                            as_of=self.as_of,
+                        )
+                    with Session(engine) as session, session.begin():
+                        session.query(models.RoomOccupancy).update({"source": "RECORDED_VIDEO"})
+                        session.query(models.EnergyReading).update({"reading_source": "SIMULATED"})
+                        session.query(models.Notice).update({"published": True})
+                        session.query(models.MaintenanceRequest).update({"status": "OPEN", "priority": "LOW"})
+                        student = session.query(models.User).filter_by(role="STUDENT").one()
+                        room = session.query(models.Room).first()
+                        session.add(models.RoomBooking(
+                            room_id=room.id,
+                            user_id=student.id,
+                            purpose="DEMO | local workflow test",
+                            start_time=self.as_of + timedelta(days=20),
+                            end_time=self.as_of + timedelta(days=20, hours=1),
+                            status="PENDING",
+                        ))
+                        session.add(models.MaintenanceRequest(
+                            room_id=room.id,
+                            reported_by=student.id,
+                            title="DEMO | local maintenance workflow",
+                            description="Fictional local workflow test",
+                            priority="MEDIUM",
+                            status="OPEN",
+                        ))
+                        session.add(models.PasswordResetToken(
+                            user_id=student.id,
+                            token_hash="a" * 64,
+                            expires_at=self.as_of + timedelta(minutes=15),
+                        ))
+
+                    self.assertTrue(demo.inspect_existing_demo_file(engine, models))
+                    changes = demo.normalize_existing_demo_fixture(engine, models)
+                    self.assertEqual(changes["occupancy_sources"], 336)
+                    self.assertEqual(changes["energy_sources"], 224)
+                    self.assertEqual(changes["notice_drafts"], 4)
+                    self.assertGreater(changes["maintenance_statuses"], 0)
+                    self.assertEqual(demo.normalize_existing_demo_fixture(engine, models), {
+                        "occupancy_sources": 0,
+                        "energy_sources": 0,
+                        "notice_drafts": 0,
+                        "maintenance_statuses": 0,
+                    })
+                    with Session(engine) as session:
+                        self.assertEqual(session.query(models.RoomBooking).count(), 13)
+                        self.assertEqual(session.query(models.MaintenanceRequest).count(), 7)
+                        self.assertEqual(session.query(models.PasswordResetToken).count(), 1)
+                        self.assertEqual(
+                            session.query(models.MaintenanceRequest).filter_by(
+                                title="DEMO | local maintenance workflow"
+                            ).one().status,
+                            "OPEN",
+                        )
+            finally:
+                engine.dispose()
+
+    def test_local_demo_notices_remain_unpublished_and_floor_labels_are_classified(self):
+        self._populate()
+        with Session(self.engine) as session:
+            notices = session.query(models.Notice).all()
+            floor_labels = session.query(models.BuildingFloorLabel).all()
+            self.assertTrue(notices)
+            self.assertTrue(all(notice.is_demo and not notice.published for notice in notices))
+            self.assertTrue(floor_labels)
+            self.assertTrue(all(label.is_demo for label in floor_labels))
+
     def test_foreign_keys_unique_codes_statuses_intervals_and_reading_ranges(self):
         self._populate()
         with Session(self.engine) as session:
@@ -231,6 +321,8 @@ class LocalDemoFixtureTests(unittest.TestCase):
             bookings = session.query(models.RoomBooking).all()
             occupancy = session.query(models.RoomOccupancy).all()
             energy = session.query(models.EnergyReading).all()
+            self.assertEqual({row.source for row in occupancy}, {"SIMULATED_DEMO"})
+            self.assertEqual({row.reading_source for row in energy}, {"SIMULATED_DEMO"})
             self.assertEqual(len({row.building_code for row in buildings}), 10)
             self.assertEqual(len({row.room_code for row in rooms}), 40)
             self.assertTrue(all(room.building_id in {row.id for row in buildings} for room in rooms))
@@ -241,6 +333,8 @@ class LocalDemoFixtureTests(unittest.TestCase):
             self.assertEqual(len({row.room_id for row in bookings}), len(bookings))
             rooms_by_id = {room.id: room for room in rooms}
             self.assertTrue(all(0 <= row.occupied_count <= rooms_by_id[row.room_id].capacity for row in occupancy))
+            self.assertGreaterEqual(sum(row.occupied_count == 0 for row in occupancy), 3)
+            self.assertGreaterEqual(sum(row.occupied_count == rooms_by_id[row.room_id].capacity for row in occupancy), 3)
             self.assertTrue(all(row.energy_kwh >= 0 for row in energy))
             users = session.query(models.User).all()
             self.assertEqual({user.role for user in users}, {"ADMIN", "STUDENT"})
@@ -273,19 +367,128 @@ class LocalDemoFixtureTests(unittest.TestCase):
         self._populate()
         with Session(self.engine) as session:
             summary = main.get_analytics_summary(start=None, end=None, limit=2000, db=session)
-            self.assertEqual(summary["buildings_total"], 10)
-            self.assertEqual(summary["verified_rooms_total"], 40)
-            self.assertEqual(summary["occupancy_readings_total"], 336)
-            self.assertEqual(summary["energy_readings_total"], 224)
-            self.assertEqual(summary["maintenance_open_total"], 6)
+            self.assertEqual(summary["buildings_total"], 0)
+            self.assertEqual(summary["verified_rooms_total"], 0)
+            self.assertEqual(summary["occupancy_readings_total"], 0)
+            self.assertEqual(summary["energy_readings_total"], 0)
+            self.assertEqual(summary["maintenance_open_total"], 0)
             filtered = main.get_analytics_summary(
                 start=self.as_of - timedelta(days=1),
                 end=self.as_of + timedelta(hours=1),
                 limit=2000,
                 db=session,
             )
-            self.assertEqual(filtered["occupancy_readings_total"], 48)
-            self.assertEqual(filtered["energy_readings_total"], 32)
+            self.assertEqual(filtered["occupancy_readings_total"], 0)
+            self.assertEqual(filtered["energy_readings_total"], 0)
+
+    def test_explicit_demo_preview_exposes_simulated_readings_without_changing_operational_counts(self):
+        self._populate()
+        with Session(self.engine) as session:
+            operational_occupancy = main.get_latest_room_occupancy(
+                room_id=None, building_code=None, include_demo=False, db=session
+            )
+            preview_occupancy = main.get_latest_room_occupancy(
+                room_id=None, building_code=None, include_demo=True, db=session
+            )
+            operational_energy = main.get_energy_readings(
+                start=None, end=None, building_code=None, limit=1000, include_demo=False, db=session
+            )
+            preview_energy = main.get_energy_readings(
+                start=None, end=None, building_code=None, limit=1000, include_demo=True, db=session
+            )
+            self.assertEqual(operational_occupancy["readings"], [])
+            self.assertFalse(operational_occupancy["demo_preview"])
+            self.assertEqual(preview_occupancy["room_count"], 40)
+            self.assertTrue(preview_occupancy["demo_preview"])
+            self.assertEqual(len(preview_occupancy["readings"]), 12)
+            self.assertTrue(all(reading["is_demo"] for reading in preview_occupancy["readings"]))
+            self.assertEqual({reading["source"] for reading in preview_occupancy["readings"]}, {"SIMULATED_DEMO"})
+            self.assertEqual(operational_energy["readings"], [])
+            self.assertEqual(len(preview_energy["readings"]), 224)
+            self.assertEqual({row["reading_source"] for row in preview_energy["readings"]}, {"SIMULATED_DEMO"})
+
+            operational = main.get_analytics_summary(
+                start=None, end=None, limit=2000, include_demo=False, db=session
+            )
+            preview = main.get_analytics_summary(
+                start=None, end=None, limit=2000, include_demo=True, db=session
+            )
+            self.assertEqual(operational["occupancy_readings_total"], 0)
+            self.assertEqual(operational["energy_readings_total"], 0)
+            self.assertEqual(preview["occupancy_readings_total"], 0)
+            self.assertEqual(preview["energy_readings_total"], 0)
+            self.assertEqual(preview["demo_buildings_total"], 10)
+            self.assertEqual(preview["demo_rooms_total"], 40)
+            self.assertEqual(preview["demo_occupancy_readings_total"], 336)
+            self.assertEqual(preview["demo_energy_readings_total"], 224)
+            self.assertEqual(preview["maintenance_open_total"], 0)
+            self.assertGreater(preview["demo_maintenance_open_total"], 0)
+            self.assertGreater(preview["demo_maintenance_resolved_total"], 0)
+            self.assertEqual(len(preview["occupancy_readings"]), 336)
+            self.assertTrue(all(reading["is_demo"] for reading in preview["occupancy_readings"]))
+            self.assertEqual({reading["source"] for reading in preview["energy_readings"]}, {"SIMULATED_DEMO"})
+            self.assertTrue(all(reading["is_demo"] for reading in preview["energy_readings"]))
+
+    def test_occupancy_preview_keeps_latest_simulated_row_when_operational_row_is_newer(self):
+        self._populate()
+        with Session(self.engine) as session, session.begin():
+            simulated = session.query(models.RoomOccupancy).order_by(
+                models.RoomOccupancy.recorded_at.desc(), models.RoomOccupancy.id.desc()
+            ).first()
+            simulated_room_id = simulated.room_id
+            session.add(models.RoomOccupancy(
+                room_id=simulated_room_id,
+                occupied_count=1,
+                source="RECORDED_VIDEO",
+                recorded_at=simulated.recorded_at + timedelta(hours=1),
+            ))
+
+        with Session(self.engine) as session:
+            preview = main.get_latest_room_occupancy(
+                room_id=None, building_code=None, include_demo=True, db=session
+            )
+            self.assertEqual(len(preview["readings"]), 12)
+            self.assertEqual({row["source"] for row in preview["readings"]}, {"SIMULATED_DEMO"})
+            self.assertEqual(
+                sum(row["room_id"] == simulated_room_id for row in preview["readings"]), 1
+            )
+            operational = main.get_latest_room_occupancy(
+                room_id=None, building_code=None, include_demo=False, db=session
+            )
+            self.assertEqual(operational["readings"], [])
+
+    def test_student_preview_endpoints_return_simulated_rows_only(self):
+        self._populate()
+        with Session(self.engine) as session, session.begin():
+            room = session.query(models.Room).first()
+            building = session.query(models.Building).first()
+            session.add(models.RoomOccupancy(room_id=room.id, occupied_count=2, source="RECORDED_VIDEO"))
+            session.add(models.EnergyReading(building_id=building.id, energy_kwh=1, reading_source="METER"))
+        with Session(self.engine) as session:
+            occupancy = main.get_student_simulated_occupancy_history(building_code=None, limit=5000, db=session)
+            energy = main.get_student_simulated_energy_readings(start=None, end=None, building_code=None, limit=2000, db=session)
+            self.assertEqual(len(occupancy["readings"]), 336)
+            self.assertEqual({row["source"] for row in occupancy["readings"]}, {"SIMULATED_DEMO"})
+            self.assertEqual(len(energy["readings"]), 224)
+            self.assertEqual({row["reading_source"] for row in energy["readings"]}, {"SIMULATED_DEMO"})
+
+    def test_reading_generation_is_deterministic_idempotent_and_only_adds_missing_facilities(self):
+        self._populate()
+        with Session(self.engine) as session, session.begin():
+            first = demo.populate_simulated_readings(session, models, now=self.as_of)
+        with Session(self.engine) as session, session.begin():
+            second = demo.populate_simulated_readings(session, models, now=self.as_of + timedelta(days=2))
+        self.assertEqual(first, {"occupancy": 784, "energy": 56})
+        self.assertEqual(second, {"occupancy": 0, "energy": 0})
+        with Session(self.engine) as session:
+            self.assertEqual(session.query(models.RoomOccupancy).count(), 1120)
+            self.assertEqual(session.query(models.EnergyReading).count(), 280)
+            rooms = {room.id: room for room in session.query(models.Room).all()}
+            readings = session.query(models.RoomOccupancy).all()
+            self.assertTrue(all(row.source == "SIMULATED_DEMO" for row in readings))
+            self.assertTrue(all(0 <= row.occupied_count <= (rooms[row.room_id].capacity or 0) for row in readings))
+            self.assertGreaterEqual(sum(row.occupied_count == 0 for row in readings), 3)
+            self.assertGreaterEqual(sum(row.occupied_count == rooms[row.room_id].capacity for row in readings), 3)
 
     def test_unmarked_existing_records_are_not_overwritten(self):
         with Session(self.engine) as session:

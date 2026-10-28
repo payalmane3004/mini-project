@@ -9,6 +9,42 @@ class DemoSetupError(ValueError):
     """A safe, user-facing refusal that contains no connection credentials."""
 
 
+def validate_seed_database_url(raw_url, expected_host, expected_database):
+    """Validate a seeder-only PostgreSQL URL and normalize it to psycopg 3.
+
+    The normal application URL is deliberately not an input to this function.
+    A generic postgresql URL is accepted only for this seed-only connection
+    and explicitly routed through the already-installed psycopg 3 driver.
+    """
+    if raw_url is None or (isinstance(raw_url, str) and not raw_url.strip()):
+        raise DemoSetupError("CAMPUSSPHERE_DEMO_DATABASE_URL is not set.")
+    try:
+        url = make_url(raw_url)
+    except Exception as error:
+        raise DemoSetupError("CAMPUSSPHERE_DEMO_DATABASE_URL could not be parsed; its value was suppressed.") from error
+
+    if url.drivername not in {"postgresql", "postgresql+psycopg"}:
+        raise DemoSetupError("The seed-only URL must use PostgreSQL with the psycopg 3 driver.")
+    if find_spec("psycopg") is None:
+        raise DemoSetupError("The psycopg 3 driver is not installed in this Python environment.")
+    url = url.set(drivername="postgresql+psycopg")
+
+    sslmode = str(url.query.get("sslmode", "")).casefold()
+    if sslmode not in {"require", "verify-ca", "verify-full"}:
+        raise DemoSetupError("The seed-only URL must require TLS with an accepted sslmode.")
+    actual_host = (url.host or "").rstrip(".").casefold()
+    required_host = (expected_host or "").strip().rstrip(".").casefold()
+    if not required_host or not actual_host or actual_host != required_host:
+        raise DemoSetupError("The seed-only URL host does not match --expected-host.")
+    if "pooler" in actual_host:
+        raise DemoSetupError("The seed-only URL must use the direct, unpooled Neon hostname.")
+    if not actual_host.endswith(".neon.tech"):
+        raise DemoSetupError("The seed-only URL host must be a Neon hostname.")
+    if not expected_database or url.database != expected_database:
+        raise DemoSetupError("The seed-only URL database does not match --expected-database.")
+    return url
+
+
 def validate_target_url(raw_url, expected_host, expected_database):
     """Validate target identity and driver without creating an engine or connecting."""
     if raw_url is None or (isinstance(raw_url, str) and not raw_url.strip()):

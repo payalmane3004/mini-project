@@ -1,21 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle, Bell, Box, Building2, CalendarDays, Clock3, DoorOpen,
-  Map as MapIcon, RefreshCw, Search, Zap,
+  Map as MapIcon, RefreshCw, Search, Wrench, Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { fetchBuildings, fetchRooms } from "../../api/buildings";
 import { fetchMyBookings, fetchPublishedEmergencyAlerts, fetchPublishedNotices } from "../../api/student";
+import { isDemoRoom } from "../../api/demoData.js";
 import { dashboardListState, dashboardLoadingState } from "./dashboardData";
 import "./StudentDashboard.css";
 
 const quickLinks = [
   { label: "Buildings", description: "Browse the campus directory", to: "/student-buildings", icon: Building2 },
-  { label: "Rooms", description: "Explore verified room records", to: "/student-rooms", icon: DoorOpen },
+  { label: "Rooms", description: "Explore non-demo room records", to: "/student-rooms", icon: DoorOpen },
+  { label: "Occupancy", description: "Review simulated room history", to: "/student-occupancy", icon: DoorOpen },
+  { label: "Energy", description: "Review simulated building usage", to: "/student-energy", icon: Zap },
   { label: "Digital Twin", description: "Explore CAD building footprints", to: "/student-digital-twin", icon: Box },
   { label: "Campus map", description: "Open the illustrative map", to: "/student-map", icon: MapIcon },
   { label: "Room booking", description: "View or request bookings", to: "/student-booking", icon: CalendarDays },
+  { label: "Report an Issue", description: "Submit and track a maintenance request", to: "/student-maintenance?new=1", icon: Wrench },
   { label: "Events & notices", description: "Read published notices", to: "/student-events", icon: Bell },
   { label: "Emergency", description: "View published safety alerts", to: "/student-emergency", icon: AlertTriangle },
 ];
@@ -60,6 +64,8 @@ function StudentDashboard() {
 
   const buildings = data.buildings.data;
   const rooms = data.rooms.data;
+  const nonDemoRooms = useMemo(() => rooms.filter((room) => !isDemoRoom(room)), [rooms]);
+  const demoRoomCount = data.rooms.status === "ready" ? rooms.length - nonDemoRooms.length : 0;
   const buildingById = useMemo(() => new Map(buildings.map((building) => [building.id, building])), [buildings]);
   const matches = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
@@ -72,7 +78,7 @@ function StudentDashboard() {
     }).map((room) => {
       const building = buildingById.get(room.building_id);
       const params = building?.building_code ? `?building=${encodeURIComponent(building.building_code)}` : "";
-      return { kind: "Room", key: `room-${room.id}`, title: room.room_name || room.name || room.room_code, detail: `${room.room_code}${building ? ` · ${building.name}` : " · Building information unavailable"} · Floor ${room.floor_number}`, to: `/student-rooms${params}` };
+      return { kind: isDemoRoom(room) ? "Demo room" : "Room", key: `room-${room.id}`, title: room.room_name || room.name || room.room_code, detail: `${room.room_code}${building ? ` · ${building.name}` : " · Building information unavailable"} · Floor ${room.floor_number}${isDemoRoom(room) ? " · Demo only, not verified or bookable" : ""}`, to: `/student-rooms${params}` };
     });
     return [...buildingMatches, ...roomMatches].slice(0, 8);
   }, [buildings, buildingById, query, rooms]);
@@ -91,10 +97,11 @@ function StudentDashboard() {
 
     <section className="student-stats" aria-label="Your campus snapshot">
       <InventoryStat icon={Building2} label="Buildings" state={data.buildings} emptyText="No building records found" />
-      <InventoryStat icon={DoorOpen} label="Verified rooms" state={data.rooms} emptyText="No verified room records yet" />
+      <InventoryStat icon={DoorOpen} label="Non-demo rooms" state={{ ...data.rooms, data: nonDemoRooms }} emptyText="No non-demo room records yet" />
       <InventoryStat icon={CalendarDays} label="My upcoming bookings" state={data.bookings.status === "ready" ? { ...data.bookings, data: activeBookings } : data.bookings} emptyText="No upcoming bookings" />
       <InventoryStat icon={Bell} label="Published notices" state={data.notices} emptyText="No current published notices" />
     </section>
+    {demoRoomCount > 0 && <p className="student-dashboard-data-note">{demoRoomCount} demo-only room record{demoRoomCount === 1 ? "" : "s"} excluded from operational inventory and booking.</p>}
 
     {errors.length > 0 && <div className="student-dashboard-error" role="alert">
       <div><strong>Some dashboard information could not be loaded.</strong><span>{errors.map((item) => item.error).join(" ")}</span></div>
@@ -103,9 +110,9 @@ function StudentDashboard() {
 
     <section className="student-panel student-dashboard-finder">
       <div className="student-panel-header"><div><h2>Find a building or room</h2><p>Search the current database directory.</p></div><Search size={20} aria-hidden="true" /></div>
-      <label className="student-finder-input"><span className="sr-only">Search buildings and verified rooms</span><Search size={17} aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try a building name, code, or room code" /></label>
+      <label className="student-finder-input"><span className="sr-only">Search buildings and room records</span><Search size={17} aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try a building name, code, or room code" /></label>
       {!readyForSearch && <p className="student-dashboard-muted" role="status">Directory search becomes available when building and room records load.</p>}
-      {readyForSearch && query.trim() && matches.length === 0 && <p className="student-dashboard-muted">No matching building or verified room records.</p>}
+      {readyForSearch && query.trim() && matches.length === 0 && <p className="student-dashboard-muted">No matching building or room records.</p>}
       {readyForSearch && matches.length > 0 && <ul className="student-finder-results">{matches.map((match) => <li key={match.key}><Link to={match.to}><span className="student-finder-kind">{match.kind}</span><span><strong>{match.title || "Name unavailable"}</strong><small>{match.detail}</small></span><span aria-hidden="true">›</span></Link></li>)}</ul>}
       {readyForSearch && !query.trim() && <p className="student-dashboard-muted">Search results use database records. CAD annotations are not room inventory.</p>}
     </section>
@@ -136,12 +143,12 @@ function StudentDashboard() {
         {data.alerts.status === "loading" && <p role="status">Loading published alerts…</p>}
         {data.alerts.status === "error" && <p className="student-dashboard-muted">Published alerts are unavailable right now.</p>}
         {data.alerts.status === "ready" && data.alerts.data.length === 0 && <p className="student-dashboard-muted">No active published alerts.</p>}
-        {data.alerts.status === "ready" && data.alerts.data.slice(0, 2).map((alert) => <article className="student-dashboard-list-item" key={alert.id}><div><strong>{alert.title}</strong><small>{alert.severity} · active published alert</small></div></article>)}
+        {data.alerts.status === "ready" && data.alerts.data.slice(0, 2).map((alert) => <article className="student-dashboard-list-item" key={alert.id}><div><strong>{alert.title}</strong><small>{alert.is_demo ? "DEMO ONLY · fictional alert" : `${alert.severity} · active published alert`}</small></div></article>)}
         <Link className="student-link-button" to="/student-emergency">View safety information</Link>
       </section>
       <section className="student-panel student-dashboard-data-limits"><div className="student-panel-header"><div><h2>Live campus data</h2><p>Availability and usage indicators</p></div><Zap size={20} aria-hidden="true" /></div>
         <p><strong>Room availability</strong><span>Unavailable: there is no reliable live availability feed.</span></p>
-        <p><strong>Occupancy and energy</strong><span>Unavailable to student accounts. Existing data endpoints require admin access.</span></p>
+        <p><strong>Occupancy and energy</strong><span>Historical simulated readings are available in the student monitoring pages; no live sensor feed is connected.</span></p>
         <p><strong>Events</strong><span>No separate event schedule source is configured; published notices are shown above.</span></p>
       </section>
     </div>

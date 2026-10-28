@@ -8,55 +8,56 @@ From the repository root in PowerShell:
 
 ```powershell
 & .\backend\venv\Scripts\python.exe .\backend\generate_demo_data.py --preview
-& .\backend\venv\Scripts\python.exe .\backend\generate_demo_data.py
 ```
 
-Preview lists planned table counts without opening a database. Before any schema or data writes, the script asks you to choose and confirm a local-only admin password and student password using hidden input. Use passwords that are not used anywhere else. The script stores only the existing application password hashes and does not print the passwords. A second run detects the fixture marker and reports current counts without prompting, inserting, or replacing records.
+Preview is the default and inspects the exact local SQLite database in read-only mode. It reports the fixture marker, occupancy and energy counts, source labels, stored and proposed timestamp ranges, and additions by type. The current fixture has readings for 12 of its 40 rooms and 8 of its 10 buildings; the proposed fill adds 784 occupancy readings and 56 energy readings for the uncovered facilities, reaching 1,120 and 280 total readings. The schedule covers the same 28 six-hour timestamps already stored. All additions use `SIMULATED_DEMO`. The CLI does not create users, rooms, bookings, notices, requests, alerts, or other records. Only `--apply` writes, and only to an existing complete marked local fixture after you review the preview. Missing, unmarked, or structurally incomplete fixtures are refused.
 
-If an interrupted first attempt left exactly the ten application tables plus the empty fixture marker table, with zero rows, no extra tables, views, or triggers, the generator can safely resume that reserved local file after rechecking those conditions. Other unmarked schemas, any existing rows, extra tables, views, or triggers are refused. The normal application database is never used as a fallback.
-
-## Start the demo backend and frontend
-
-Start the backend from the repository root:
+After reviewing those exact counts and timestamps, apply only with:
 
 ```powershell
-& .\backend\venv\Scripts\python.exe .\backend\run_demo_backend.py
+& .\backend\venv\Scripts\python.exe .\backend\generate_demo_data.py --apply
 ```
 
-The launcher disables dotenv loading, targets only the exact demo file, confirms its marker, enables SQLite foreign-key checks, and binds to `127.0.0.1:8000` by default. To use another local port, set the demo-only `CAMPUSSPHERE_DEMO_PORT` variable in that PowerShell terminal before launching. For example, to use port `8001`:
+The readings generator does not initialize or repair a fixture. An absent, unmarked, or incomplete local database is refused; it never creates schema or facilities as a side effect. The normal application database is never used as a fallback.
+
+## Start local development
+
+From the repository root, start the backend with the standard command:
 
 ```powershell
-$env:CAMPUSSPHERE_DEMO_PORT = "8001"
-& .\backend\venv\Scripts\python.exe .\backend\run_demo_backend.py
+cd backend
+.\venv\Scripts\Activate.ps1
+python -m uvicorn main:app --reload
 ```
 
-The launcher accepts only integer TCP ports from `1` through `65535`; an invalid value stops startup. This variable affects only the demo launcher and does not change the normal backend configuration. The launcher creates a fresh in-process JWT signing key on each start; existing browser sessions must log in again after a restart. It refuses to start if the isolated fixture is absent or incomplete.
-
-In a second PowerShell terminal:
+In another terminal from the repository root, start the frontend:
 
 ```powershell
-npm.cmd run dev -- --host 127.0.0.1
+npm run dev
 ```
 
-When the demo backend uses port `8001`, configure the frontend in its own PowerShell terminal so its API requests go to that backend:
+Open `http://localhost:5173`. Default development mode ignores `backend/.env`, selects only this fixture, and checks its marker before startup. The frontend uses backend port `8000`; an explicit `VITE_API_BASE_URL` remains available for deliberate alternate local configurations. Development creates a process-only JWT key automatically; restarting the backend requires signing in again.
 
-```powershell
-$env:VITE_API_BASE_URL = "http://127.0.0.1:8001"
-npm.cmd run dev -- --host 127.0.0.1
-```
+Production/shared database configuration remains available with `CAMPUSSPHERE_ENV=production`; in that mode the backend uses the process `DATABASE_URL` or the existing `backend/.env` value. Never set production mode for the local demo.
 
-This frontend variable is process-local and does not alter the normal backend or database configuration.
+Use these verified credentials only with the isolated local SQLite demo:
 
-Open the local Vite URL (normally `http://127.0.0.1:5173`). Use one of these local-only demo accounts and the password you chose at generation:
+- Admin email: `admin@campussphere-demo.example.invalid`
+  Password: `CampusSphere-Local-Demo-Admin-2026!`
+- Student email: `student@campussphere-demo.example.invalid`
+  Password: `CampusSphere-Local-Demo-Student-2026!`
 
-- Admin: `admin@campussphere-demo.example.invalid`
-- Student: `student@campussphere-demo.example.invalid`
+Both logins were verified against this SQLite file using the existing password hashing and authentication path. Do not reuse these credentials anywhere else. There is no facilities/staff role in the current role model.
+
+### Demo-only password reset
+
+On the login page, choose **Forgot password?**, enter one of the documented demo account emails, then select **Request reset link**. Because this local demo does not send email, the page displays a reset link only for those two documented accounts. Links expire after 15 minutes, and issuing a new link invalidates earlier links. Password reset endpoints require development mode, the exact marked `campussphere_demo.sqlite3` fixture, and a loopback request; they return unavailable in production or for any other database. New passwords must have at least 12 characters and include at least three of lowercase, uppercase, number, and symbol. After resetting, sign in normally with the new password.
 
 The `DEMO DATA` indicator appears in admin and student top bars only when the backend confirms the approved SQLite file and marker. The admin dashboard also explains that fixture values are fictional and historical, that no live sensor feed is connected, and that the normal team database is separate and unchanged.
 
 ## Fixture contents
 
-All names and records are explicitly labeled fictional. Demo building codes use the `DEMO-` prefix and intentionally do not claim a match to CAD footprints. The Digital Twin continues to use its existing CAD geometry and exact-code matching; no demo coordinates or mappings are created.
+All names and records are explicitly labeled fictional. Demo building codes use the `DEMO-` prefix and intentionally do not claim a match to CAD footprints. Demo buildings are excluded from the operational building total. The Digital Twin continues to use its existing CAD geometry and exact-code matching; no demo coordinates or mappings are created.
 
 | Application table | Records |
 | --- | ---: |
@@ -71,9 +72,13 @@ All names and records are explicitly labeled fictional. Demo building codes use 
 | `maintenance_requests` | 6 |
 | `building_floor_labels` | 30 |
 
-Occupancy samples are nonnegative and do not exceed their room capacities. Occupancy uses the existing `RECORDED_VIDEO` source convention; energy uses `SIMULATED` and remains individual kWh readings. Bookings use the supported `PENDING`, `APPROVED`, `REJECTED`, and `CANCELLED` values, have valid time ranges, and use separate rooms to avoid active overlaps. The fixtures include two active unexpired alerts; expired and inactive alerts are excluded by the dashboard's active count.
+Occupancy samples are nonnegative and do not exceed their room capacities. Both occupancy and energy use the `SIMULATED_DEMO` source. Simulated readings are excluded from operational analytics and default Occupancy/Energy responses. Admin Dashboard, Analytics, Occupancy, and Energy provide explicit, clearly labelled preview options; the API identifies demo rows and keeps demo totals separate from operational counts.
 
-The maintenance rows are clearly labeled fixtures for the analytics open-request count only. The existing maintenance/QR UI is not made persistent, and the existing app has no maintenance request API. Predictions remain unavailable and no forecast is generated.
+Bookings use supported statuses (`PENDING`, `APPROVED`, `REJECTED`, `CANCELLED`), valid time ranges, and non-overlapping rooms. The local demo UI can submit a booking or maintenance request against a labelled DEMO room only when the backend verifies the exact approved SQLite path and fixture marker. The backend rejects these room IDs in every other database mode, prefixes newly created local-demo workflow content as fictional, and exposes `is_demo` classification in API responses. Operational dashboard counts exclude demo bookings, maintenance, rooms, and readings by default. Local workflow records are preserved by subsequent idempotent generator runs if their room and content are explicitly marked demo.
+
+The fixture has four unpublished fictional notices. The student notice endpoint also filters any legacy published title beginning with `DEMO`. The fixture emergency alerts have explicit fictional DEMO titles/messages, appear only in the active local demo, and are excluded from student feeds outside it. There are no separate events or facility/equipment inventory models, and no facilities/staff authorization role; the demo therefore does not invent records for those unsupported modules. Predictions remain unavailable and no forecast is generated.
+
+Student accounts have authenticated, read-only `/student/occupancy/history` and `/student/energy/readings` endpoints. They expose only records whose stored source is marked simulated. Admin operational endpoints remain admin-only and exclude simulated records by default. Student pages are available at `/student-occupancy` and `/student-energy`.
 
 ## Reset only the disposable demo database
 
@@ -83,11 +88,11 @@ Stop the demo backend first, then remove only its exact database file:
 Remove-Item -LiteralPath .\backend\campussphere_demo.sqlite3
 ```
 
-Run the generator again to create a fresh fixture and choose new local-only passwords. Do not use `Remove-Item` on a directory, wildcard, or any other database file. This reset does not affect `.env`, Neon, or another project database.
+The occupancy and energy reading generator does not recreate a removed fixture. Do not remove the local database as part of reading generation. The command operates only on an existing exact marked file and never touches `.env` or any other database.
 
 ## Safe offline checks
 
-The generator has a `--preview` mode. Backend regression tests use mocks and temporary in-memory SQLite engines; they do not run the demo generator, connect to Neon, or create the persistent demo file. The persistent database is created only when you explicitly run the generator above.
+The generator defaults to preview; `--apply` must be explicit. Backend regression tests use mocks and temporary in-memory SQLite engines; they do not connect to an external database. A read-only count/marker/integrity inspection can be run with Python's `sqlite3` module using `mode=ro`; never use a database client configured from `.env` for this inspection.
 
 ## Manual browser review
 

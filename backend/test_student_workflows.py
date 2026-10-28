@@ -3,6 +3,7 @@
 import unittest
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from fastapi import HTTPException
 from pydantic import ValidationError
@@ -124,6 +125,8 @@ class StudentBookingWorkflowTests(unittest.TestCase):
             BookingCreateRequest(room_id=7, purpose="Test", start_time=start.replace(tzinfo=None), end_time=start + timedelta(hours=1))
         with self.assertRaises(ValidationError):
             BookingCreateRequest(room_id=7, purpose="Test", start_time=start + timedelta(hours=1), end_time=start)
+        with self.assertRaises(ValidationError):
+            BookingCreateRequest(room_id=7, purpose="Test", start_time=datetime.now(timezone.utc) - timedelta(hours=1), end_time=datetime.now(timezone.utc) + timedelta(hours=1))
 
     def test_booking_review_accepts_only_database_compatible_review_statuses(self):
         self.assertEqual(BookingStatusUpdateRequest(status="APPROVED").status, "APPROVED")
@@ -156,6 +159,25 @@ class StudentBookingWorkflowTests(unittest.TestCase):
             main.create_booking(valid_payload(), self.student, db)
         self.assertEqual(raised.exception.status_code, 404)
         self.assertEqual(db.commits, 0)
+
+    def test_rejects_demo_room_booking(self):
+        db = FakeSession()
+        db.room = SimpleNamespace(id=7, room_code="DEMO-B-101", building_id=3)
+        with self.assertRaises(HTTPException) as raised:
+            main.create_booking(valid_payload(), self.student, db)
+        self.assertEqual(raised.exception.status_code, 409)
+        self.assertEqual(db.commits, 0)
+        self.assertEqual(db.added, [])
+
+    def test_local_demo_booking_is_allowed_and_visibly_marked(self):
+        db = FakeSession()
+        db.room = SimpleNamespace(id=7, room_code="DEMO-B-101", building_id=3)
+        with patch.object(main, "_local_demo_is_active", return_value=True):
+            result = main.create_booking(valid_payload(), self.student, db)
+        self.assertEqual(result["room_code"], "DEMO-B-101")
+        self.assertTrue(result["is_demo"])
+        self.assertTrue(result["purpose"].startswith("DEMO"))
+        self.assertEqual(db.commits, 1)
 
     def test_rejects_overlapping_booking(self):
         db = FakeSession(conflict=True)
@@ -249,6 +271,88 @@ class StudentBookingWorkflowTests(unittest.TestCase):
             EmergencyAlertCreateRequest(title="Alert", message="Message", expires_at=datetime.now(timezone.utc) - timedelta(minutes=1))
         with self.assertRaises(ValidationError):
             EmergencyAlertCreateRequest(title="Alert", message="Message", severity="SEVERE")
+
+
+class SQLiteBookingPersistenceTests(unittest.TestCase):
+    def setUp(self):
+        self.engine = create_engine("sqlite:///:memory:")
+        models.Base.metadata.create_all(self.engine)
+        self.db = Session(self.engine, expire_on_commit=False)
+        self.db.add(models.Building(id=21, building_code="BLD-A", name="Academic Block"))
+        self.db.add(models.Room(
+            id=31, building_id=21, room_code="A-101", room_name="Lecture Room 101",
+            floor_number=1, capacity=30, room_type="CLASSROOM",
+        ))
+        self.db.add(models.Room(
+            id=32, building_id=21, room_code="DEMO-MECH-1122", room_name="Demo Room 1122",
+            floor_number=2, capacity=30, room_type="DEMO",
+        ))
+        self.db.commit()
+
+    def tearDown(self):
+        self.db.close()
+        self.engine.dispose()
+
+    def test_student_booking_persists_with_sqlite_generated_id(self):
+        start = datetime.now(timezone.utc) + timedelta(days=1)
+        payload = BookingCreateRequest(
+            room_id=31,
+            purpose="Study group",
+            start_time=start,
+            end_time=start + timedelta(hours=1),
+        )
+
+        created = main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
+
+        self.assertIsInstance(created["id"], int)
+        self.assertEqual(created["room_id"], 31)
+        self.assertEqual(created["building_code"], "BLD-A")
+        self.assertEqual(created["status"], "PENDING")
+        persisted = self.db.query(models.RoomBooking).filter_by(id=created["id"]).one()
+        self.assertEqual(persisted.user_id, 12)
+        self.assertEqual(persisted.purpose, "Study group")
+
+    def test_demo_room_is_rejected_outside_the_approved_local_demo(self):
+        start = datetime.now(timezone.utc) + timedelta(days=1)
+        payload = BookingCreateRequest(
+            room_id=32, purpose="Study group", start_time=start,
+            end_time=start + timedelta(hours=1),
+        )
+        with patch.object(main, "_local_demo_is_active", return_value=False):
+            with self.assertRaises(HTTPException) as raised:
+                main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
+        self.assertEqual(raised.exception.status_code, 409)
+        self.assertIn("approved isolated local demo", raised.exception.detail)
+        self.assertEqual(self.db.query(models.RoomBooking).count(), 0)
+
+    def test_demo_room_booking_is_labelled_when_local_demo_is_confirmed(self):
+        start = datetime.now(timezone.utc) + timedelta(days=1)
+        payload = BookingCreateRequest(
+            room_id=32, purpose="Study group", start_time=start,
+            end_time=start + timedelta(hours=1),
+        )
+        with patch.object(main, "_local_demo_is_active", return_value=True):
+            created = main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
+        self.assertTrue(created["is_demo"])
+        self.assertTrue(created["purpose"].startswith("DEMO |"))
+        self.assertEqual(self.db.query(models.RoomBooking).count(), 1)
+
+    def test_conflicting_booking_is_rejected_in_isolated_sqlite(self):
+        start = datetime.now(timezone.utc) + timedelta(days=1)
+        self.db.add(models.RoomBooking(
+            room_id=31, user_id=99, purpose="Existing request", start_time=start,
+            end_time=start + timedelta(hours=1), status="PENDING",
+        ))
+        self.db.commit()
+        payload = BookingCreateRequest(
+            room_id=31, purpose="Overlapping request",
+            start_time=start + timedelta(minutes=30), end_time=start + timedelta(hours=2),
+        )
+        with self.assertRaises(HTTPException) as raised:
+            main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
+        self.assertEqual(raised.exception.status_code, 409)
+        self.assertIn("already booked", raised.exception.detail)
+        self.assertEqual(self.db.query(models.RoomBooking).count(), 1)
 
 
 class NoticeManagementTests(unittest.TestCase):

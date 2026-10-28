@@ -8,6 +8,8 @@ import { AuthProvider } from "./auth/AuthContext";
 import RequireRole from "./auth/RequireRole";
 
 const Login = lazy(() => import("./pages/login"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const Dashboard = lazy(() => import("./pages/Admin/Dashboard"));
 const DigitalTwin = lazy(() => import("./pages/Admin/DigitalTwin"));
 const Buildings = lazy(() => import("./pages/Admin/Buildings"));
@@ -36,6 +38,8 @@ const StudentEmergency = lazy(() => import("./pages/Student/StudentEmergency"));
 const StudentProfile = lazy(() => import("./pages/Student/StudentProfile"));
 const StudentMap = lazy(() => import("./pages/Student/StudentMap"));
 const StudentDigitalTwin = lazy(() => import("./pages/Student/StudentDigitalTwin"));
+const StudentOccupancy = lazy(() => import("./pages/Student/StudentOccupancy"));
+const StudentEnergy = lazy(() => import("./pages/Student/StudentEnergy"));
 
 function App() {
   return (
@@ -46,6 +50,8 @@ function App() {
       <Routes>
         {/* Login: no sidebar or topbar */}
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Admin routes */}
         <Route
@@ -174,6 +180,8 @@ function App() {
         {/* Student routes */}
         <Route path="/student-dashboard" element={<RequireRole role="student"><StudentLayout><StudentDashboard /></StudentLayout></RequireRole>} />
         <Route path="/student-digital-twin" element={<RequireRole role="student"><StudentLayout><StudentDigitalTwin /></StudentLayout></RequireRole>} />
+        <Route path="/student-occupancy" element={<RequireRole role="student"><StudentLayout><StudentOccupancy /></StudentLayout></RequireRole>} />
+        <Route path="/student-energy" element={<RequireRole role="student"><StudentLayout><StudentEnergy /></StudentLayout></RequireRole>} />
         <Route path="/student-buildings" element={<RequireRole role="student"><StudentLayout><StudentBuildings /></StudentLayout></RequireRole>} />
         <Route path="/student-rooms" element={<RequireRole role="student"><StudentLayout><StudentRooms /></StudentLayout></RequireRole>} />
         <Route path="/student-booking" element={<RequireRole role="student"><StudentLayout><StudentBooking /></StudentLayout></RequireRole>} />

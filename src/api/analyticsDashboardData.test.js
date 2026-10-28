@@ -14,6 +14,9 @@ import {
 test("booking counts group the four supported database statuses", () => {
   const bookings = ["PENDING", "APPROVED", "APPROVED", "REJECTED", "CANCELLED"].map((status, id) => ({ id, status }));
   assert.deepEqual(summarizeBookings(bookings), { PENDING: 1, APPROVED: 2, REJECTED: 1, CANCELLED: 1 });
+  const withDemo = [...bookings, { status: "PENDING", room_code: "DEMO-B-101" }];
+  assert.deepEqual(summarizeBookings(withDemo), { PENDING: 1, APPROVED: 2, REJECTED: 1, CANCELLED: 1 });
+  assert.deepEqual(summarizeBookings(withDemo, true), { PENDING: 2, APPROVED: 2, REJECTED: 1, CANCELLED: 1 });
 });
 
 test("booking and alert API contracts reject malformed rows", () => {

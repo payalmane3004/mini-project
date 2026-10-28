@@ -1,18 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
 import {
   Activity, AlertTriangle, Building2, CalendarDays, ClipboardCheck, DoorOpen,
-  Gauge, RefreshCw, Users, Zap,
+  Gauge, RefreshCw, Users, Wrench, Zap,
 } from "lucide-react";
 import { fetchAnalyticsSummary } from "../../api/analytics";
 import { fetchAdminAlerts, fetchAdminBookings } from "../../api/admin";
 import {
   aggregateHourlyOccupancy, isCurrentAlert, isValidAnalyticsDateRange, recentCampusRecords,
   summarizeBookings, toAnalyticsDateBounds, validateAdminAlertList, validateAdminBookingList,
+  isDemoAlert,
 } from "../../api/analyticsDashboardData";
+import { isSimulatedSource } from "../../api/demoData.js";
+import { useDemoMode } from "../../components/layout/useDemoMode";
 import "./Analytics.css";
 
 const numberFormat = new Intl.NumberFormat();
@@ -57,6 +60,8 @@ function SourceMetric({ icon, title, detail, value, unavailable, tone }) {
 }
 
 export default function Analytics() {
+  const demoMode = useDemoMode();
+  const [includeDemoPreview, setIncludeDemoPreview] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [summary, setSummary] = useState(null);
@@ -82,7 +87,7 @@ export default function Analytics() {
     if (!rangeValid) return undefined;
     const controller = new AbortController();
     const bounds = toAnalyticsDateBounds(startDate, endDate);
-    fetchAnalyticsSummary({ ...bounds, signal: controller.signal }).then((result) => {
+    fetchAnalyticsSummary({ ...bounds, includeDemo: includeDemoPreview, signal: controller.signal }).then((result) => {
       setSummary(result);
       setError("");
       setLoading(false);
@@ -94,7 +99,7 @@ export default function Analytics() {
       }
     });
     return () => controller.abort();
-  }, [startDate, endDate, retryKey, rangeValid]);
+  }, [startDate, endDate, includeDemoPreview, retryKey, rangeValid]);
 
   const occupancyChartData = useMemo(() => aggregateHourlyOccupancy(summary?.occupancy_readings || []).map((bucket) => ({
     ...bucket,
@@ -106,14 +111,19 @@ export default function Analytics() {
     energy: Number(reading.energy_kwh),
     building: reading.building_name,
     source: displaySource(reading.source),
+    is_demo: reading.is_demo === true || isSimulatedSource(reading.source),
     recordedAt: reading.recorded_at,
   }));
   const latestOccupancy = summary?.occupancy_readings?.at(-1);
   const latestEnergy = summary?.energy_readings?.at(-1);
-  const bookingCounts = bookingState.data ? summarizeBookings(bookingState.data) : null;
+  const bookingCounts = bookingState.data ? summarizeBookings(bookingState.data, demoMode && includeDemoPreview) : null;
   const bookingChartData = bookingCounts ? Object.entries(bookingCounts).map(([status, count]) => ({ status: bookingStatusLabels[status], count })) : [];
-  const activeAlerts = alertState.data?.filter((alert) => isCurrentAlert(alert)).length ?? null;
-  const recentRecords = useMemo(() => recentCampusRecords(bookingState.data || [], alertState.data || []), [bookingState.data, alertState.data]);
+  const activeAlerts = alertState.data?.filter((alert) => isCurrentAlert(alert)
+    && (demoMode && includeDemoPreview || !isDemoAlert(alert))).length ?? null;
+  const recentRecords = useMemo(
+    () => recentCampusRecords(bookingState.data || [], alertState.data || [], 6, demoMode && includeDemoPreview),
+    [bookingState.data, alertState.data, demoMode, includeDemoPreview],
+  );
   const energyBuildingChartData = (summary?.energy_by_building || []).map((item) => ({
     ...item,
     building_label: `${item.building_code} · ${displaySource(item.source)}`,
@@ -152,9 +162,10 @@ export default function Analytics() {
   return <div className="analytics-page">
     <header className="analytics-page-heading">
       <div><span className="analytics-eyebrow"><Activity size={14}/> CAMPUS INTELLIGENCE</span><h1>Campus Intelligence</h1><p>Operational summaries derived from available CampusSphere records.</p></div>
-      <div className="analytics-heading-actions"><span className="analytics-source-status"><span aria-hidden="true"/> Stored database records · no live telemetry</span><button type="button" onClick={refreshData} disabled={loading || bookingState.loading || alertState.loading} aria-label="Refresh analytics and current booking and alert records"><RefreshCw size={15}/> Refresh</button></div>
+      <div className="analytics-heading-actions"><span className="analytics-source-status"><span aria-hidden="true"/> Stored database records · no live telemetry</span>{demoMode && <button type="button" aria-pressed={includeDemoPreview} onClick={() => { setLoading(true); setError(""); setIncludeDemoPreview((value) => !value); }}>{includeDemoPreview ? "Hide demo preview" : "Show demo preview"}</button>}<button type="button" onClick={refreshData} disabled={loading || bookingState.loading || alertState.loading} aria-label="Refresh analytics and current booking and alert records"><RefreshCw size={15}/> Refresh</button></div>
     </header>
 
+    {demoMode && <p className="analytics-demo-note">{includeDemoPreview ? "DEMO PREVIEW: chart data includes fictional demo rooms, simulated occupancy/energy readings, demo bookings, alerts, and maintenance. Operational totals remain separate below." : "Demo records are excluded from operational counts. Occupancy and energy demo readings are simulated, historical, and not live."}</p>}
     <section className="analytics-filter-bar" aria-label="Analytics date filters">
       <div className="analytics-date-fields">
         <label htmlFor="analytics-start-date">From <input id="analytics-start-date" type="date" value={startDate} max={endDate || undefined} onChange={(event) => updateDate(setStartDate, event.target.value)}/></label>
@@ -182,6 +193,13 @@ export default function Analytics() {
         <AnalyticsMetric icon={Zap} title="ENERGY READINGS" value={numberFormat.format(summary.energy_readings_total)} detail={metricDetail(summary.energy_readings_total, "No readings available for this period", "Individual stored kWh readings · source retained")} tone="blue"/>
         <AnalyticsMetric icon={ClipboardCheck} title="OPEN MAINTENANCE" value={numberFormat.format(summary.maintenance_open_total)} detail={metricDetail(summary.maintenance_open_total, "No open requests in selected period", "Stored requests created in selected period")} tone="amber"/>
       </section>
+      {demoMode && includeDemoPreview && <section className="analytics-metrics" aria-label="Fictional demo preview counts">
+        <AnalyticsMetric icon={Building2} title="DEMO BUILDINGS" value={numberFormat.format(summary.demo_buildings_total)} detail="Fictional local preview buildings" tone="cyan"/>
+        <AnalyticsMetric icon={DoorOpen} title="DEMO ROOMS" value={numberFormat.format(summary.demo_rooms_total)} detail="Not verified or operational inventory" tone="blue"/>
+        <AnalyticsMetric icon={Users} title="SIMULATED OCCUPANCY" value={numberFormat.format(summary.demo_occupancy_readings_total)} detail="Historical fictional readings" tone="cyan"/>
+        <AnalyticsMetric icon={Zap} title="SIMULATED ENERGY" value={numberFormat.format(summary.demo_energy_readings_total)} detail="Individual fictional kWh readings" tone="blue"/>
+        <AnalyticsMetric icon={Wrench} title="DEMO OPEN MAINTENANCE" value={numberFormat.format(summary.demo_maintenance_open_total)} detail="Fictional local workflow records" tone="amber"/>
+      </section>}
       <p className="analytics-secondary-summary">Resolved maintenance requests in selected period: <strong>{numberFormat.format(summary.maintenance_resolved_total)}</strong>. Values come from the existing read-only analytics summary.</p>
 
       <section className="analytics-chart-grid" aria-label="Stored campus readings">
@@ -202,7 +220,7 @@ export default function Analytics() {
             <XAxis dataKey="time" axisLine={false} tickLine={false} interval="preserveStartEnd" tick={{ fill: "#aab8c8", fontSize: 11 }}/>
             <YAxis domain={[0, "auto"]} axisLine={false} tickLine={false} width={48} tick={{ fill: "#aab8c8", fontSize: 12 }}/>
             <Tooltip contentStyle={{ background: "#1b2430", border: "1px solid #2c3948", borderRadius: 7, color: "#e2e8f0" }} formatter={(value, _name, item) => [`${value} kWh · ${item.payload.building} · ${item.payload.source} · ${formatTimestamp(item.payload.recordedAt)}`, "Reading"]}/>
-            <Bar dataKey="energy" fill="#20c8de" radius={[4, 4, 0, 0]} maxBarSize={58}/>
+            <Bar dataKey="energy" radius={[4, 4, 0, 0]} maxBarSize={58}>{energyChartData.map((reading, index) => <Cell key={`${reading.building}-${reading.recordedAt}-${index}`} fill={reading.is_demo ? "#d39b43" : "#20c8de"}/>)}</Bar>
           </BarChart></ResponsiveContainer></div> : <EmptyChart>No energy readings are stored for this period. No live meter feed is connected.</EmptyChart>}
         </AnalyticsPanel>
 

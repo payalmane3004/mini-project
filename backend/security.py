@@ -11,7 +11,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
-from database import get_db
+from database import DATABASE_ENVIRONMENT, get_db
 import models
 
 
@@ -20,6 +20,7 @@ TOKEN_LIFETIME_SECONDS = 30 * 60
 PASSWORD_HASH_ITERATIONS = 600_000
 SUPPORTED_ROLES = {"admin", "student"}
 bearer_scheme = HTTPBearer(auto_error=False)
+_DEVELOPMENT_SECRET_KEY: bytes | None = None
 
 
 class InvalidToken(ValueError):
@@ -27,8 +28,13 @@ class InvalidToken(ValueError):
 
 
 def _secret_key() -> bytes:
+    global _DEVELOPMENT_SECRET_KEY
     configured_key = os.getenv("JWT_SECRET_KEY", "")
     if len(configured_key) < 32:
+        if DATABASE_ENVIRONMENT == "development":
+            if _DEVELOPMENT_SECRET_KEY is None:
+                _DEVELOPMENT_SECRET_KEY = secrets.token_bytes(48)
+            return _DEVELOPMENT_SECRET_KEY
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Authentication is not configured on the server",

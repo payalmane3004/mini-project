@@ -1,11 +1,19 @@
 import { findUniqueBuildingMatch } from "../../api/buildingMatching.js";
+import { isDemoRoom } from "../../api/demoData.js";
 
 export function buildDirectoryEntries(directory, databaseBuildings) {
-  const cadEntries = directory.map((cad) => ({
-    ...cad,
-    match: findUniqueBuildingMatch(cad.id, databaseBuildings),
-    source: "cad",
-  }));
+  const cadEntries = directory.map((cad) => {
+    const match = findUniqueBuildingMatch(cad.id, databaseBuildings);
+    const matchedBuilding = match.building;
+    return {
+      ...cad,
+      match,
+      source: "cad",
+      is_demo: Boolean(matchedBuilding && (
+        matchedBuilding.is_demo === true || matchedBuilding.building_code.toUpperCase().startsWith("DEMO-")
+      )),
+    };
+  });
   const matchedRecordIds = new Set(cadEntries
     .filter(({ match }) => match.status === "matched")
     .map(({ match }) => match.building.id));
@@ -14,6 +22,7 @@ export function buildDirectoryEntries(directory, databaseBuildings) {
     .map((record) => ({
       id: record.building_code,
       name: record.name,
+      is_demo: record.is_demo === true || record.building_code.toUpperCase().startsWith("DEMO-"),
       match: { status: "matched", building: record },
       source: "database-only",
     }));
@@ -34,8 +43,10 @@ export function filterDirectoryEntries(entries, query, filter) {
 }
 
 export function summarizeVerifiedRooms(rooms) {
-  const floors = [...new Set(rooms.map(({ floor_number }) => floor_number))].sort((a, b) => a - b);
-  return { roomCount: rooms.length, floorNumbers: floors };
+  const verifiedRooms = rooms.filter((room) => !isDemoRoom(room));
+  const demoRooms = rooms.filter(isDemoRoom);
+  const floors = [...new Set(verifiedRooms.map(({ floor_number }) => floor_number))].sort((a, b) => a - b);
+  return { roomCount: verifiedRooms.length, demoRoomCount: demoRooms.length, floorNumbers: floors };
 }
 
 export function hasSourcePlan(buildingId, plans, drawings) {
@@ -48,4 +59,3 @@ export function getDirectoryMatchLabel(entry) {
   if (entry.match.status === "matched") return "CAD footprint matched to database";
   return "CAD source annotation · no database match";
 }
-

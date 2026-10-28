@@ -32,8 +32,13 @@ test("directory search and source filters compose", () => {
 });
 
 test("room summary counts only fetched verified records and source plans require a target", () => {
-  const summary = summarizeVerifiedRooms([{ floor_number: 2 }, { floor_number: 0 }, { floor_number: 2 }]);
-  assert.deepEqual(summary, { roomCount: 3, floorNumbers: [0, 2] });
+  const summary = summarizeVerifiedRooms([
+    { floor_number: 2, room_code: "R-2" },
+    { floor_number: 0, room_code: "R-0" },
+    { floor_number: 2, room_code: "R-3" },
+    { floor_number: 4, room_code: "DEMO-B-4" },
+  ]);
+  assert.deepEqual(summary, { roomCount: 3, demoRoomCount: 1, floorNumbers: [0, 2] });
   assert.equal(hasSourcePlan("BLD-A", { "BLD-A": {} }, {}), true);
   assert.equal(hasSourcePlan("BLD-X", {}, {}), false);
 });

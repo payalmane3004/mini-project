@@ -1,11 +1,11 @@
-import { apiFetch } from "./client";
-import { validateBookingList, validateEmergencyAlertList, validateNoticeList } from "./studentContracts";
+import { apiErrorMessage, apiFetch } from "./client.js";
+import { validateBookingList, validateEmergencyAlertList, validateNoticeList } from "./studentContracts.js";
 
 async function request(path, options, fallback) {
   const response = await apiFetch(path, options);
   if (!response.ok) {
     const body = await response.json().catch(() => null);
-    throw new Error(typeof body?.detail === "string" ? body.detail : `${fallback} (HTTP ${response.status}).`);
+    throw new Error(apiErrorMessage(body, `${fallback} (HTTP ${response.status}).`));
   }
   if (response.status === 204) return null;
   return response.json();
@@ -24,7 +24,7 @@ export function createMyBooking(booking) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(booking),
-  }, "Could not create booking");
+  }, "Could not create booking").then((created) => validateBookingList([created])[0]);
 }
 
 export function cancelMyBooking(bookingId) {

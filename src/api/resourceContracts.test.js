@@ -12,6 +12,8 @@ test("occupancy readings require a verified room ID and nonnegative integer coun
   assert.equal(validateOccupancyResponse({ room_count: 1, readings: [valid] }).readings[0], valid);
   assert.throws(() => validateOccupancyResponse({ room_count: 1, readings: [{ ...valid, occupied_count: -1 }] }), /unexpected response/);
   assert.throws(() => validateOccupancyResponse({ room_count: 1, readings: [{ ...valid, room_id: null }] }), /unexpected response/);
+  assert.throws(() => validateOccupancyResponse({ room_count: 1, demo_preview: "yes", readings: [valid] }), /unexpected response/);
+  assert.equal(validateOccupancyResponse({ room_count: 1, demo_preview: true, readings: [{ ...valid, is_demo: true }] }).readings[0].is_demo, true);
 });
 
 test("invalid timestamps remain identifiable for UI handling instead of changing readings", () => {

@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
 import { Building2, CalendarDays, Clock3, Radio, RefreshCw, TriangleAlert, Zap } from "lucide-react";
 import { fetchEnergyReadings } from "../../api/energy";
+import { filterEnergyReadings, isSimulatedSource } from "../../api/demoData.js";
 import "./Energy.css";
 
 const SOURCE_COLORS = ["#39c9df", "#63d69b", "#f2b75f", "#a78bfa", "#fb7185", "#60a5fa"];
 
 function sourceLabel(source) {
   if (!source?.trim()) return "Source not specified";
-  return source.trim().toUpperCase() === "SIMULATED" ? "Simulated" : `Stored source: ${source.trim()}`;
+  return isSimulatedSource(source) ? "Simulated demo data" : `Stored source: ${source.trim()}`;
 }
 
 function formatTimestamp(value) {
@@ -52,25 +53,23 @@ export default function Energy() {
   const [dateTo, setDateTo] = useState("");
   const [appliedRange, setAppliedRange] = useState({ start: undefined, end: undefined });
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [includeDemo, setIncludeDemo] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
   const [validationError, setValidationError] = useState("");
   const [state, setState] = useState({ loading: true, error: "", readings: [], truncated: false });
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchEnergyReadings({ ...appliedRange, signal: controller.signal })
+    fetchEnergyReadings({ ...appliedRange, includeDemo, signal: controller.signal })
       .then((result) => setState({ loading: false, error: "", readings: result.readings, truncated: result.truncated }))
       .catch((error) => {
         if (error.name !== "AbortError") setState((current) => ({ ...current, loading: false, error: error.message }));
       });
     return () => controller.abort();
-  }, [appliedRange, reloadKey]);
+  }, [appliedRange, includeDemo, reloadKey]);
 
   const { loading, error, readings, truncated } = state;
-  const visibleReadings = useMemo(() => readings.filter((reading) => {
-    const isSimulated = reading.reading_source?.trim().toUpperCase() === "SIMULATED";
-    return sourceFilter === "all" || (sourceFilter === "simulated" ? isSimulated : !isSimulated);
-  }), [readings, sourceFilter]);
+  const visibleReadings = useMemo(() => filterEnergyReadings(readings, sourceFilter), [readings, sourceFilter]);
   const chartReadings = useMemo(() => visibleReadings.flatMap((reading) => {
     const value = Number(reading.energy_kwh);
     const timestampMs = reading.recorded_at ? new Date(reading.recorded_at).getTime() : Number.NaN;
@@ -123,12 +122,13 @@ export default function Energy() {
       <button className="energy-refresh" type="button" onClick={refresh} disabled={loading}><RefreshCw size={15}/>Refresh</button>
     </header>
 
-    <div className="energy-data-note"><Zap size={16}/><span>Readings are loaded from PostgreSQL. No live meter feed is connected. The stored source is shown as metadata; SIMULATED readings stay labeled and can be filtered separately.</span></div>
+    <div className="energy-data-note"><Zap size={16}/><span>Operational readings are loaded from the configured database. No live meter feed is connected. Demo/simulated readings are excluded by default; enable them explicitly to preview, and they remain labeled.</span></div>
 
     <form className="energy-filters" onSubmit={applyDateRange}>
       <label><CalendarDays size={15}/>From<input type="date" value={dateFrom} max={dateTo || undefined} onChange={(event) => setDateFrom(event.target.value)}/></label>
       <label><CalendarDays size={15}/>Through<input type="date" value={dateTo} min={dateFrom || undefined} onChange={(event) => setDateTo(event.target.value)}/></label>
       <label>Source<select value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)}><option value="all">All stored sources</option><option value="recorded">Exclude SIMULATED</option><option value="simulated">SIMULATED only</option></select></label>
+      <label className="energy-include-demo"><input type="checkbox" checked={includeDemo} onChange={(event) => { setState((current) => ({ ...current, loading: true, error: "" })); setIncludeDemo(event.target.checked); }}/> Include demo readings</label>
       <button type="submit" disabled={loading}>Apply period</button>
       <span className="energy-period-label">{periodLabel}</span>
     </form>
@@ -157,7 +157,7 @@ export default function Energy() {
                 <XAxis type="number" dataKey="timestampMs" domain={["dataMin", "dataMax"]} tickFormatter={(value) => new Date(value).toLocaleDateString()} name="Recorded at" stroke="#8292a6" tick={{ fontSize: 10 }}/>
                 <YAxis type="number" dataKey="energy_kwh" name="Energy" unit=" kWh" stroke="#8292a6" tick={{ fontSize: 10 }} width={74}/>
                 <Tooltip content={<ReadingTooltip/>}/><Legend/>
-                {sourceSeries.map(([source, points], index) => <Scatter key={source} name={source} data={points} fill={SOURCE_COLORS[index % SOURCE_COLORS.length]}/>) }
+                {sourceSeries.map(([source, points], index) => <Scatter key={source} name={source} data={points} fill={isSimulatedSource(points[0]?.reading_source) ? "#f2b75f" : SOURCE_COLORS[index % SOURCE_COLORS.length]}/>) }
               </ScatterChart></ResponsiveContainer>}
       </div>
     </section>
@@ -174,7 +174,7 @@ export default function Energy() {
                 <YAxis type="category" dataKey="building_code" width={82} stroke="#8292a6" tick={{ fontSize: 10 }}/>
                 <Tooltip content={<ReadingTooltip/>}/>
                 <Bar dataKey="energy_kwh" name="Latest stored reading" radius={[0, 4, 4, 0]}>
-                  {buildingLatest.map((reading) => <Cell key={`${reading.building_code}-${reading.id}`} fill={reading.reading_source?.toUpperCase() === "SIMULATED" ? "#f2b75f" : "#39c9df"}/>)}
+                  {buildingLatest.map((reading) => <Cell key={`${reading.building_code}-${reading.id}`} fill={isSimulatedSource(reading.reading_source) ? "#f2b75f" : "#39c9df"}/>)}
                 </Bar>
               </BarChart></ResponsiveContainer>}
       </div>
@@ -186,9 +186,9 @@ export default function Energy() {
       <header className="energy-panel-heading"><div><h2>Stored readings</h2><p>Chronological records returned by the API, with provenance labels intact</p></div></header>
       {loading ? <p className="energy-table-state" role="status">Loading readings…</p>
         : error ? <p className="energy-table-state">Records are unavailable until the API responds.</p>
-          : visibleReadings.length === 0 ? <EmptyChart title={readings.length ? "No readings match this source filter" : "No stored energy readings"} description={readings.length ? "Choose another source option to view the returned records." : "There are no energy readings in PostgreSQL for the selected period."}/>
+          : visibleReadings.length === 0 ? <EmptyChart title={readings.length ? "No readings match this source filter" : "No stored energy readings"} description={readings.length ? "Choose another source option to view the returned records." : "There are no energy readings in the configured database for the selected period."}/>
             : <div className="energy-table-scroll"><table className="energy-table"><thead><tr><th>Recorded at</th><th>Building</th><th>Energy reading</th><th>Source</th></tr></thead><tbody>
-              {visibleReadings.map((reading) => <tr key={reading.id}><td>{formatTimestamp(reading.recorded_at)}</td><td><strong>{reading.building_name}</strong><small>{reading.building_code}</small></td><td>{Number(reading.energy_kwh).toFixed(3)} kWh</td><td><span className={`energy-source-tag${reading.reading_source?.toUpperCase() === "SIMULATED" ? " simulated" : ""}`}>{sourceLabel(reading.reading_source)}</span></td></tr>)}
+              {visibleReadings.map((reading) => <tr key={reading.id}><td>{formatTimestamp(reading.recorded_at)}</td><td><strong>{reading.building_name}</strong><small>{reading.building_code}</small></td><td>{Number(reading.energy_kwh).toFixed(3)} kWh</td><td><span className={`energy-source-tag${reading.reading_source?.toUpperCase().includes("SIMULAT") ? " simulated" : ""}`}>{sourceLabel(reading.reading_source)}</span></td></tr>)}
             </tbody></table></div>}
     </section>
   </div>;

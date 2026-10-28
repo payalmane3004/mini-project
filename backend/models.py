@@ -6,11 +6,13 @@ from sqlalchemy import (
 )
 from database import Base
 
+ID_TYPE = BigInteger().with_variant(Integer, "sqlite")
+
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     full_name = Column(String(100), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     password_hash = Column(Text, nullable=False)
@@ -18,13 +20,28 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
+class PasswordResetToken(Base):
+    __tablename__ = "password_reset_tokens"
+
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
+    user_id = Column(ID_TYPE, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    token_hash = Column(String(64), nullable=False, unique=True)
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    used_at = Column(DateTime(timezone=True))
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
 class Building(Base):
     __tablename__ = "buildings"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     building_code = Column(String(30), unique=True, nullable=False)
     name = Column(String(100), nullable=False)
     description = Column(Text)
+
+    @property
+    def is_demo(self):
+        return isinstance(self.building_code, str) and self.building_code.upper().startswith("DEMO-")
 
 
 class Room(Base):
@@ -33,7 +50,7 @@ class Room(Base):
         CheckConstraint("capacity >= 0", name="rooms_capacity_check"),
     )
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     building_id = Column(BigInteger, ForeignKey("buildings.id"))
     room_code = Column(String(30), unique=True, nullable=False)
     room_name = Column(String(100))
@@ -42,6 +59,10 @@ class Room(Base):
     room_type = Column(String(30), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+    @property
+    def is_demo(self):
+        return isinstance(self.room_code, str) and self.room_code.upper().startswith("DEMO-")
+
 
 class RoomOccupancy(Base):
     __tablename__ = "room_occupancy"
@@ -49,7 +70,7 @@ class RoomOccupancy(Base):
         CheckConstraint("occupied_count >= 0", name="room_occupancy_occupied_count_check"),
     )
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     room_id = Column(BigInteger, ForeignKey("rooms.id"), nullable=False)
     occupied_count = Column(Integer, nullable=False, default=0)
     source = Column(String(30), default="RECORDED_VIDEO")
@@ -59,7 +80,7 @@ class RoomOccupancy(Base):
 class RoomBooking(Base):
     __tablename__ = "room_bookings"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     room_id = Column(BigInteger, ForeignKey("rooms.id"), nullable=False)
     user_id = Column(BigInteger, ForeignKey("users.id"), nullable=False)
     purpose = Column(String(255), nullable=False)
@@ -72,7 +93,7 @@ class RoomBooking(Base):
 class MaintenanceRequest(Base):
     __tablename__ = "maintenance_requests"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     room_id = Column(BigInteger, ForeignKey("rooms.id"), nullable=False)
     reported_by = Column(BigInteger, ForeignKey("users.id"))
     title = Column(String(150), nullable=False)
@@ -87,13 +108,17 @@ class MaintenanceRequest(Base):
 class Notice(Base):
     __tablename__ = "notices"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     title = Column(String(200), nullable=False)
     content = Column(Text, nullable=False)
     created_by = Column(BigInteger, ForeignKey("users.id"))
     published = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     expires_at = Column(DateTime(timezone=True))
+
+    @property
+    def is_demo(self):
+        return isinstance(self.title, str) and self.title.upper().startswith("DEMO ")
 
 
 class EnergyReading(Base):
@@ -102,7 +127,7 @@ class EnergyReading(Base):
         CheckConstraint("energy_kwh >= 0", name="energy_readings_energy_kwh_check"),
     )
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     building_id = Column(BigInteger, ForeignKey("buildings.id"), nullable=False)
     energy_kwh = Column(Numeric(12, 3), nullable=False)
     reading_source = Column(String(30), default="SIMULATED")
@@ -112,7 +137,7 @@ class EnergyReading(Base):
 class EmergencyAlert(Base):
     __tablename__ = "emergency_alerts"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     title = Column(String(200), nullable=False)
     message = Column(Text, nullable=False)
     severity = Column(String(20), nullable=False, default="MEDIUM")
@@ -121,12 +146,15 @@ class EmergencyAlert(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     expires_at = Column(DateTime(timezone=True))
 
+    @property
+    def is_demo(self):
+        return isinstance(self.title, str) and self.title.upper().startswith("DEMO ")
 
 
 class BuildingFloorLabel(Base):
     __tablename__ = "building_floor_labels"
 
-    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    id = Column(ID_TYPE, primary_key=True, autoincrement=True)
     building_id = Column(
         BigInteger,
         ForeignKey("buildings.id"),
@@ -139,3 +167,6 @@ class BuildingFloorLabel(Base):
         server_default=func.now()
     )
 
+    @property
+    def is_demo(self):
+        return isinstance(self.label, str) and self.label.upper().startswith("DEMO ")

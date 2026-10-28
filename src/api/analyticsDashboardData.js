@@ -8,6 +8,8 @@ export function validateAdminBookingList(bookings) {
     || typeof booking.room_code !== "string" || typeof booking.status !== "string"
     || !BOOKING_STATUSES.includes(booking.status.toUpperCase())
     || typeof booking.purpose !== "string"
+    || (booking.is_demo !== undefined && typeof booking.is_demo !== "boolean")
+    || (booking.is_demo !== undefined && typeof booking.is_demo !== "boolean")
     || typeof booking.start_time !== "string" || typeof booking.end_time !== "string"
     || !isOptionalTimestamp(booking.created_at)
   ))) throw new Error("The bookings API returned an unexpected response.");
@@ -20,12 +22,13 @@ export function validateAdminAlertList(alerts) {
     !alert || !Number.isInteger(alert.id) || typeof alert.title !== "string"
     || typeof alert.active !== "boolean" || !severities.includes(String(alert.severity).toUpperCase())
     || !isOptionalTimestamp(alert.created_at) || !isOptionalTimestamp(alert.expires_at)
+    || (alert.is_demo !== undefined && typeof alert.is_demo !== "boolean")
   ))) throw new Error("The alerts API returned an unexpected response.");
   return alerts;
 }
 
-export function summarizeBookings(bookings) {
-  return bookings.reduce((counts, booking) => {
+export function summarizeBookings(bookings, includeDemo = false) {
+  return bookings.filter((booking) => includeDemo || !isDemoBooking(booking)).reduce((counts, booking) => {
     const status = booking.status.toUpperCase();
     counts[status] += 1;
     return counts;
@@ -75,13 +78,24 @@ export function toAnalyticsDateBounds(start, end) {
   };
 }
 
-export function recentCampusRecords(bookings, alerts, limit = 6) {
+export function isDemoBooking(booking) {
+  return booking?.is_demo === true
+    || (typeof booking?.room_code === "string" && booking.room_code.toUpperCase().startsWith("DEMO-"));
+}
+
+export function isDemoAlert(alert) {
+  return alert?.is_demo === true
+    || (typeof alert?.title === "string" && alert.title.toUpperCase().startsWith("DEMO "));
+}
+
+export function recentCampusRecords(bookings, alerts, limit = 6, includeDemo = false) {
   return [
     ...bookings.map((booking) => ({
       type: "booking",
       title: `${booking.room_code} · ${booking.purpose}`,
       label: booking.status.toUpperCase(),
       timestamp: booking.created_at,
+      is_demo: isDemoBooking(booking),
       href: "/booking",
     })),
     ...alerts.map((alert) => ({
@@ -89,9 +103,11 @@ export function recentCampusRecords(bookings, alerts, limit = 6) {
       title: alert.title,
       label: `${alert.severity.toUpperCase()} · ${isCurrentAlert(alert) ? "Active" : alert.active ? "Expired" : "Inactive"}`,
       timestamp: alert.created_at,
+      is_demo: isDemoAlert(alert),
       href: "/emergency",
     })),
-  ].filter((record) => record.timestamp && !Number.isNaN(new Date(record.timestamp).getTime()))
+  ].filter((record) => (includeDemo || !record.is_demo)
+    && record.timestamp && !Number.isNaN(new Date(record.timestamp).getTime()))
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
     .slice(0, limit);
 }

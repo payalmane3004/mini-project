@@ -4,10 +4,10 @@
 
 This is a React single-page application built with Vite. It currently provides:
 
-- An administrator dashboard with six summary cards, Campus Status, charts, and alerts. The six cards and status figures are hard-coded demonstration values. The Dashboard no longer contains the separate Campus Digital Twin preview card.
+- An administrator dashboard with summary cards, Campus Status, charts, and alerts. Operational counts come from stored data and exclude demo inventory/readings by default; an explicit local preview exposes separate fictional values. The Dashboard no longer contains the separate Campus Digital Twin preview card.
 - A CAD-based Digital Twin at `/digital-twin`: interactive campus footprints, CAD labels, building selection, source-linked details, building explorer navigation, and facility search.
 - A building directory at `/buildings`, source-aware floors/rooms at `/rooms`, and `/building-explorer/:buildingId` for campus footprint and available building plan exploration. `/main-building-interior` is a separate Main Building study.
-- Occupancy, energy, maintenance, analytics, predictions, alerts, bookings, scenarios, emergency, users, and settings screens. Most operational information and interactions are explicitly local demonstration content. Maintenance requests and other page changes are held in component memory; they are not submitted to a service.
+- Occupancy, energy, maintenance, analytics, predictions, alerts, bookings, scenarios, emergency, users, and settings screens. Database-backed workflows use authenticated API routes where implemented; scenario and settings interactions remain local, and predictions are unavailable.
 - Student pages under `/student-*` for dashboard, buildings, rooms, booking, maintenance, events, emergency, profile, and map. `/login` authenticates against the FastAPI user table; student/admin frontend route guards complement backend authorization.
 
 Unknown routes redirect to `/login`. Admin pages use `AppLayout`; student pages use `StudentLayout`. The frontend stores the short-lived bearer token in `sessionStorage`, validates it with `/auth/me` when a session is restored, and clears it on 401 responses or logout. Backend authorization remains the security boundary.
@@ -30,14 +30,18 @@ From `package.json`: React 19 and React DOM, React Router 7, Vite 8 with the Rea
 
 Campus map geometry, labels, site lines, drawing previews, and inspection reports are static local source-derived files. The 3D building extrusion height and some architectural traces/zones are illustrative; the UI identifies uncertainty in source-plan and floor views. CAD annotations do not establish verified room boundaries, room IDs, floor assignments, or facility/equipment associations unless specifically stated as verified in the source data.
 
-Dashboard summary cards, Campus Status, alerts, forecasts and other workspace sample rows remain illustrative or hard-coded. Occupancy and energy are not live measurements. Maintenance interactions are in-memory only. Booking/scenario/settings interactions are not connected to external services. The FastAPI service has database-backed login and role dependencies for its API routes; this does not add authentication to the separate client-only maintenance/QR workflow.
+Dashboard, Analytics, Occupancy, and Energy query stored data. Demo rooms/floors/buildings/readings are marked and excluded from operational metrics by default; local admin pages have explicit preview controls. Occupancy and energy use the `SIMULATED_DEMO` source. The UI identifies demo readings as fictional historical values, not live telemetry. The separate CAD-based Digital Twin remains illustrative/source-derived and is not verified room inventory.
+
+The FastAPI maintenance API supports authenticated student create/list/read-own operations and admin list/status updates. Booking and maintenance requests for demo rooms are allowed only when the backend verifies the exact marked local SQLite fixture; these local workflow records are explicitly labelled fictional. Every other database mode rejects demo-room workflows. Demo rooms are not editable through room management or eligible for QR-based real-room maintenance selection. Student notice endpoints exclude demo titles even when an older notice was published. Demo emergency alerts are explicitly classified and hidden from student feeds outside the marked local demo. Student/admin frontend route guards complement, but do not replace, backend authorization.
 
 ## Backend authentication
 
 - `POST /auth/login` accepts JSON email/password and verifies PBKDF2-SHA256 password hashes. `GET /auth/me` validates the bearer token against the current user row and role.
-- Tokens use HMAC-SHA256 and expire after 30 minutes. The signing key is read from `backend/.env` as `JWT_SECRET_KEY`; that file is Git-ignored. Do not copy the key into frontend configuration.
-- `/analytics/summary`, `/occupancy`, and `/energy/readings` require the admin role. Building, floor-label, and room directory reads accept admin and student roles. `/`, `/health`, and login are public.
-- No migration, default account, or public registration endpoint is included. `provision_user.py` requires a process-level `DATABASE_URL`, exact expected project/branch/host/database arguments, `--confirm-neon-target-verified`, and the separate `--confirm-user-write` before prompting for an account or opening a session. Use only the verified direct, unpooled Neon target and the existing approved credential-handling procedure; never pass or print the URL on the command line. The script displays only the host/database target claim and states that PostgreSQL cannot independently verify the supplied project/branch IDs. Example from `backend` after setting the process URL securely:
+- Tokens use HMAC-SHA256 and expire after 30 minutes. Normal backend runs read the signing key from `backend/.env` as `JWT_SECRET_KEY`; that file is Git-ignored. The local demo launcher disables dotenv and uses a temporary in-process key, so users must log in again after each restart. Do not copy any signing key into frontend configuration.
+- `/analytics/summary`, `/occupancy`, and `/energy/readings` require the admin role. `include_demo=true` is an explicit preview for operational analytics and occupancy; Energy has its own explicit preview query. Operational totals remain separate and exclude demo records. Building, floor-label, and room directory reads accept admin and student roles. Maintenance creation is student-only; maintenance list/read is admin/student with students limited to their own requests; maintenance status updates are admin-only. Booking creation is student-only, while booking review is admin-only. Demo-room booking/maintenance calls require the marked local SQLite fixture; normal database deployments continue to reject them. `/`, `/health`, and login are public.
+- No migration or public registration endpoint is included. The local demo fixture has fictional `admin` and `student` accounts only; verified local-only login details are in [backend/LOCAL_DEMO_DATA.md](backend/LOCAL_DEMO_DATA.md). The demo backend launcher disables dotenv loading, selects only `backend/campussphere_demo.sqlite3`, and creates a temporary signing key. Never reuse the local demo accounts against another database.
+
+The separate user provisioning utility is not part of local demo setup. Do not run external-database provisioning or seeding for the local demo. If used in another approved context, `provision_user.py` requires independent target confirmation and process-level configuration.
 
   ```powershell
   & .\venv\Scripts\python.exe .\provision_user.py `
@@ -54,7 +58,7 @@ Dashboard summary cards, Campus Status, alerts, forecasts and other workspace sa
 
 ## Suggested API integration points
 
-Treat these as integration seams to design with the backend owner; they are not existing endpoints or schemas.
+The API already provides authenticated login, directories, bookings, notices, alerts, maintenance requests, occupancy, energy, and analytics. The following table describes additional integration/design work, not endpoints currently guaranteed by the service.
 
 | Area | Frontend integration point | Suggested backend capability |
 | --- | --- | --- |
@@ -63,7 +67,7 @@ Treat these as integration seams to design with the backend owner; they are not 
 | Facilities | `CampusFacilitySearch.jsx`, `main-building-facilities.json` | Search facilities with building/floor/room linkage only where verified; decide whether to expose CAD-derived candidates separately from operational records. |
 | Occupancy | `Occupancy.jsx`, `OccupancyChart.jsx`, `StatsGrid.jsx`, `CampusStatus.jsx` | Provide timestamped occupancy readings and aggregation by building/campus, with units, source, freshness, and missing/stale states. |
 | Energy | `Energy.jsx`, dashboard summary/chart components | Provide timestamped energy readings and aggregations with units, meter/building mapping, source, and freshness. |
-| Maintenance | `Maintenance.jsx`, `StudentMaintenance.jsx`, `WorkspacePage.jsx` | Persist requests, status transitions, assignments and history; define validation, permissions, and QR target resolution. Current QR scanning is a placeholder and request creation is local only. |
+| Maintenance | `Maintenance.jsx`, `StudentMaintenance.jsx`, `WorkspacePage.jsx`, `CampusQrScanner.jsx` | Authenticated request creation, own-request reads, and admin status updates are connected to the API; QR scanning resolves an existing non-demo room before opening the request form. Assignment, status history, and external QR target registration are not implemented. |
 
 Prefer a shared API client/data layer and loading/error/empty states over adding network calls independently to page components. Agree on identifiers, units, timestamps, pagination/search behavior, provenance, authorization, and error semantics before binding these screens.
 
@@ -78,4 +82,4 @@ Prefer a shared API client/data layer and loading/error/empty states over adding
 
 ## Handoff/build notes
 
-Run the frontend with `npm run dev`. Run the backend from `backend` with `venv\Scripts\python.exe -m uvicorn main:app --reload --host 127.0.0.1 --port 8000`; configure `DATABASE_URL` and a random `JWT_SECRET_KEY` in the Git-ignored `backend/.env`. A key can be generated with `python -c "import secrets; print(secrets.token_urlsafe(48))"`. The repository `.gitignore` excludes dependencies, build output, logs, and common editor files; it has no rule excluding `src/data`, `docs`, `scripts`, or `public/campus-maps`. CAD/source assets currently visible in `git status` as untracked still need to be included in whatever commit or transfer carries this work; untracked does not mean ignored.
+For the populated local demo, follow [DEMO_RUNBOOK.md](DEMO_RUNBOOK.md) and [backend/LOCAL_DEMO_DATA.md](backend/LOCAL_DEMO_DATA.md). The ordinary backend configuration is separate; do not set it to the local demo file or copy configuration into frontend code. The repository `.gitignore` excludes dependencies, build output, logs, and common editor files; it has no rule excluding `src/data`, `docs`, `scripts`, or `public/campus-maps`. CAD/source assets currently visible in `git status` as untracked still need to be included in whatever commit or transfer carries this work; untracked does not mean ignored.

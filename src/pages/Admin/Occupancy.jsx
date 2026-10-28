@@ -22,7 +22,7 @@ function floorName(number) {
 
 function sourceDescription(source) {
   const normalized = source?.trim().toUpperCase();
-  if (normalized === "SIMULATED") return "Simulated";
+  if (normalized?.includes("SIMULAT")) return "Simulated demo data";
   if (normalized === "RECORDED_VIDEO") return "Recorded video source tag";
   if (normalized === "LIVE" || normalized === "SENSOR" || normalized === "LIVE_SENSOR") {
     return `Source tag: ${source} (not independently verified)`;
@@ -40,17 +40,18 @@ function EmptyState({ roomCount }) {
 
 export default function Occupancy() {
   const [reloadKey, setReloadKey] = useState(0);
+  const [includeDemo, setIncludeDemo] = useState(false);
   const [state, setState] = useState({ loading: true, error: "", roomCount: 0, readings: [] });
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchLatestOccupancy({ signal: controller.signal })
+    fetchLatestOccupancy({ signal: controller.signal, includeDemo })
       .then((result) => setState({ loading: false, error: "", roomCount: result.room_count, readings: result.readings }))
       .catch((error) => {
         if (error.name !== "AbortError") setState((current) => ({ ...current, loading: false, error: error.message }));
       });
     return () => controller.abort();
-  }, [reloadKey]);
+  }, [includeDemo, reloadKey]);
 
   const { loading, error, roomCount, readings } = state;
   const refresh = () => {
@@ -73,13 +74,16 @@ export default function Occupancy() {
   return (
     <div className="occupancy-page module-page">
       <header className="occupancy-page-heading">
-        <div><h1>Occupancy Monitoring</h1><p>Latest stored readings for verified database rooms</p></div>
+        <div><h1>Occupancy Monitoring</h1><p>{includeDemo ? "Explicit preview including simulated demo readings" : "Latest stored readings for verified database rooms"}</p></div>
         <button className="occupancy-refresh" type="button" onClick={refresh} disabled={loading}>
           <RefreshCw size={15} className={loading ? "occupancy-refresh-spinning" : ""} /> Refresh
         </button>
+        <button className="occupancy-refresh" type="button" aria-pressed={includeDemo} onClick={() => { setState((current) => ({ ...current, loading: true, error: "" })); setIncludeDemo((value) => !value); }} disabled={loading}>
+          {includeDemo ? "Hide simulated demo data" : "Show simulated demo data"}
+        </button>
       </header>
 
-      <p className="occupancy-data-note">Latest stored reading per room; timestamps may differ, so this is not a live campus count. Recorded video analysis and CCTV streaming are not implemented.</p>
+      <p className="occupancy-data-note">{includeDemo ? "DEMO PREVIEW: occupancy values are simulated fictional data and are excluded from operational counts. They are not live measurements." : "Latest stored reading per room; timestamps may differ, so this is not a live campus count. Simulated readings are excluded. Recorded video analysis and CCTV streaming are not implemented."}</p>
 
       {error && <div className="occupancy-api-error" role="alert"><TriangleAlert size={17}/><span>{error}</span><button type="button" onClick={refresh}>Retry</button></div>}
       {loading && <p className="occupancy-loading" role="status">Loading room occupancy from the database…</p>}

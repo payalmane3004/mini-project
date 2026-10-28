@@ -5,6 +5,23 @@
 }
 
 .rooms-page > .page-header { margin:0; }
+.rooms-live-inventory { display:grid; gap:14px; padding:20px; border:1px solid #344452; border-radius:10px; background:#111b25; }
+.rooms-live-inventory h2,.rooms-inventory-detail h3 { margin:0; color:#e4edf3; font-size:16px; }
+.rooms-live-inventory > div:first-child p { margin:5px 0 0; color:#a4b2c0; font-size:12px; }
+.rooms-inventory-filters { display:grid; grid-template-columns:repeat(4,minmax(130px,1fr)); gap:10px; }
+.rooms-inventory-filters label { display:grid; gap:5px; color:#aebbc8; font-size:12px; }
+.rooms-inventory-filters select,.rooms-inventory-filters input { min-width:0; height:36px; padding:0 9px; border:1px solid #344452; border-radius:6px; background:#0d151d; color:#e4edf3; }
+.rooms-inventory-table-wrap { overflow:auto; border:1px solid #2b3b49; border-radius:8px; }
+.rooms-inventory-table { width:100%; border-collapse:collapse; text-align:left; font-size:12px; }
+.rooms-inventory-table th,.rooms-inventory-table td { padding:10px 12px; border-bottom:1px solid #263441; white-space:nowrap; }
+.rooms-inventory-table th { color:#91a3b6; font-weight:600; }
+.rooms-inventory-table td { color:#dbe5ec; }
+.rooms-inventory-select { padding:0; border:0; background:none; color:#81d7e3; font:inherit; cursor:pointer; }
+.rooms-inventory-table td small { display:block; color:#d4a34c; font-size:10px; }
+.rooms-inventory-detail { padding:12px; border:1px solid #275061; border-radius:8px; }
+.rooms-inventory-detail p { color:#aebbc8; font-size:12px; }
+.rooms-inventory-detail button { min-height:32px; padding:0 10px; border:1px solid #456170; border-radius:6px; background:#182632; color:#e4edf3; cursor:pointer; }
+@media (max-width:720px) { .rooms-inventory-filters { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .rooms-building-picker { width:100%; max-width:880px; grid-template-columns:minmax(140px,190px) minmax(0,1fr); gap:10px 14px; align-items:center; }
 .rooms-building-picker label { line-height:1.4; }
 .rooms-building-picker select { width:100%; min-width:0; }
@@ -41,6 +58,19 @@
 .rooms-api-error { border-radius:5px; line-height:1.5; overflow-wrap:anywhere; }
 .rooms-create-success { line-height:1.5; }
 .rooms-plan-link { line-height:1.4; overflow-wrap:anywhere; }
+.rooms-qr-open { display:inline-flex; align-items:center; gap:6px; margin-left:auto; padding:8px 10px; border:1px solid #376171; border-radius:6px; background:#132631; color:#b5e9ef; cursor:pointer; white-space:nowrap; }
+.rooms-demo-qr-label { color:#edc979; font-weight:700; }
+.rooms-qr-backdrop { position:fixed; z-index:1200; inset:0; display:grid; place-items:center; padding:20px; background:#050a10cc; }
+.rooms-qr-dialog { position:relative; display:grid; justify-items:center; gap:12px; width:min(100%,440px); padding:26px; border:1px solid #3b5361; border-radius:12px; background:#111c26; color:#e7eff4; text-align:center; box-shadow:0 20px 70px #0009; }
+.rooms-qr-dialog h2,.rooms-qr-dialog p { margin:0; }
+.rooms-qr-dialog p { line-height:1.5; }
+.rooms-qr-dialog code { overflow-wrap:anywhere; color:#87d9e5; }
+.rooms-qr-close { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:34px; height:34px; border:0; border-radius:6px; background:transparent; color:#dce7ed; cursor:pointer; }
+.rooms-qr-image { width:min(100%,310px); aspect-ratio:1; background:#fff; padding:8px; image-rendering:pixelated; }
+.rooms-qr-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.rooms-qr-actions a,.rooms-qr-actions button { display:inline-flex; align-items:center; gap:7px; padding:10px 12px; border:1px solid #426273; border-radius:6px; background:#172b38; color:#d8f2f5; font:inherit; text-decoration:none; cursor:pointer; }
+.rooms-qr-actions [aria-disabled="true"] { opacity:.5; pointer-events:none; }
+@media print { body * { visibility:hidden !important; } .rooms-qr-dialog,.rooms-qr-dialog * { visibility:visible !important; } .rooms-qr-backdrop { position:absolute; inset:0; background:#fff; } .rooms-qr-dialog { position:absolute; inset:0; width:100%; border:0; box-shadow:none; color:#000; } .rooms-qr-close,.rooms-qr-actions { display:none !important; } .rooms-qr-dialog code { color:#000; } }
 
 @media(max-width:760px) {
   .rooms-building-picker { grid-template-columns:minmax(0,1fr); }

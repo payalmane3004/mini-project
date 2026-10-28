@@ -144,6 +144,14 @@ class BackendAuthorizationTests(unittest.TestCase):
     def token_for(self, user_id, role):
         return create_access_token(user_id, role)
 
+    def test_cors_allows_documented_local_demo_frontend_port(self):
+        cors = next(
+            middleware
+            for middleware in main.app.user_middleware
+            if middleware.cls.__name__ == "CORSMiddleware"
+        )
+        self.assertIn("http://127.0.0.1:5174", cors.kwargs["allow_origins"])
+
     def request(self, path, role=None, user_id=None, token=None, method="GET", body=None):
         if token is None and role is not None:
             token = self.token_for(user_id, role)
@@ -162,6 +170,18 @@ class BackendAuthorizationTests(unittest.TestCase):
                 status, body = self.request(path, role="student", user_id=12)
                 self.assertEqual(status, 403)
                 self.assertEqual(body["detail"], "Insufficient permissions")
+
+    def test_student_simulated_read_endpoints_require_student_auth_and_are_read_only(self):
+        for path in ("/student/occupancy/history", "/student/energy/readings"):
+            with self.subTest(path=path):
+                self.assertEqual(self.request(path)[0], 401)
+                status, body = self.request(path, role="student", user_id=12)
+                self.assertEqual(status, 200)
+                self.assertEqual(body["readings"], [])
+                self.assertEqual(self.request(path, role="admin", user_id=11)[0], 403)
+        for path in ("/student/occupancy/history", "/student/energy/readings"):
+            status, body = self.request(path, role="student", user_id=12, method="POST", body={})
+            self.assertEqual(status, 405)
 
     def test_admin_can_access_admin_endpoint(self):
         status, body = self.request("/energy/readings?limit=1", role="admin", user_id=11)
@@ -278,6 +298,16 @@ class BackendAuthorizationTests(unittest.TestCase):
         profile_status, profile = self.request("/auth/me", token=body["access_token"])
         self.assertEqual(profile_status, 200)
         self.assertEqual(profile["role"], "student")
+
+    def test_login_rejects_invalid_password_without_revealing_account_state(self):
+        with patch.object(main, "verify_password", return_value=False):
+            status, body = self.request(
+                "/auth/login", method="POST",
+                body={"email": "student-test@example.invalid", "password": "incorrect-password"},
+            )
+
+        self.assertEqual(status, 401)
+        self.assertEqual(body["detail"], "Invalid email or password")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 
-import { apiFetch } from "./client";
-import { validateBuildingList, validateRoomList } from "./directoryContracts";
+import { apiFetch } from "./client.js";
+import { validateBuildingList, validateRoomList } from "./directoryContracts.js";
 
 async function fetchJson(path, resourceName) {
   let response;

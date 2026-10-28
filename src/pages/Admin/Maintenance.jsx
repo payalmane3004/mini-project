@@ -1,111 +1,258 @@
-import { useMemo, useState } from "react";
-import { AlertCircle, CheckCircle2, ChevronRight, Clock3, QrCode, Plus, Wrench, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { AlertCircle, Building2, CheckCircle2, ChevronRight, Clock3, MapPin, QrCode, RefreshCw, Search, Wrench, X } from "lucide-react";
+import {
+  fetchAdminMaintenanceRequests,
+  updateMaintenanceRequestStatus,
+} from "../../api/maintenance";
+import { fetchBuildings, fetchRooms } from "../../api/buildings";
+import { filterOperationalRooms } from "../../api/demoData.js";
+import { findVerifiedRoomByCode, parseCampusRoomQrPayload } from "../../api/roomQr.js";
+import CampusQrScanner from "../../components/CampusQrScanner";
 
-const initialRequests = [
-  { id: "MNT-001", request: "AC not cooling", location: "CSE-204", category: "HVAC", priority: "High", reported: "18 min ago", assigned: "Maintenance Team A", status: "In Progress" },
-  { id: "MNT-002", request: "Projector failure", location: "MECH-101", category: "AV Equipment", priority: "Medium", reported: "2 hrs ago", assigned: "Maintenance Team B", status: "Pending" },
-  { id: "MNT-003", request: "Water leakage", location: "LIB-201", category: "Plumbing", priority: "Critical", reported: "34 min ago", assigned: "Facilities Team", status: "In Progress" },
-  { id: "MNT-004", request: "Elevator malfunction", location: "Admin Block", category: "Elevator", priority: "Critical", reported: "1 hr ago", assigned: "Elevator Services", status: "Pending" },
-  { id: "MNT-005", request: "Power fluctuation", location: "MECH-202", category: "Electrical", priority: "High", reported: "3 hrs ago", assigned: "Electrical Team", status: "Pending" },
-  { id: "MNT-006", request: "Door lock broken", location: "CSE-302", category: "Security", priority: "Low", reported: "5 hrs ago", assigned: "Security Team", status: "Resolved" },
-  { id: "MNT-007", request: "HVAC fan noise", location: "Hostel A – Floor 3", category: "HVAC", priority: "Medium", reported: "1 day ago", assigned: "Maintenance Team A", status: "Resolved" },
-  { id: "MNT-008", request: "Network outage", location: "CSE-Lab 2", category: "IT", priority: "High", reported: "45 min ago", assigned: "IT Support", status: "In Progress" },
-];
+const filters = ["All", "Open", "In Progress", "Resolved"];
+const statusValues = ["OPEN", "IN_PROGRESS", "RESOLVED"];
 
-const filters = ["All", "Pending", "In Progress", "Resolved"];
+function statusLabel(status) {
+  return ({ OPEN: "Open", IN_PROGRESS: "In Progress", RESOLVED: "Resolved" })[status] || status;
+}
 
 function statusClass(status) {
-  return status.toLowerCase().replace(" ", "-");
+  return status.toLowerCase().replaceAll("_", "-");
+}
+
+function formatTimestamp(value) {
+  if (!value) return "Date unavailable";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "Date unavailable" : date.toLocaleString();
 }
 
 function Maintenance() {
-  const [requests, setRequests] = useState(initialRequests);
+  const [requests, setRequests] = useState([]);
   const [filter, setFilter] = useState("All");
-  const [dialog, setDialog] = useState(null);
   const [selected, setSelected] = useState(null);
-  const filteredRequests = useMemo(() => requests.filter((request) => filter === "All" || request.status === filter), [requests, filter]);
-  const counts = useMemo(() => ({ total: requests.length, pending: requests.filter(({ status }) => status === "Pending").length, progress: requests.filter(({ status }) => status === "In Progress").length, resolved: requests.filter(({ status }) => status === "Resolved").length }), [requests]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [updating, setUpdating] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [roomInventory, setRoomInventory] = useState({ status: "idle", rooms: [], buildings: [], error: "" });
+  const [roomCodeInput, setRoomCodeInput] = useState("");
+  const [scannerError, setScannerError] = useState("");
+  const [matchedRoom, setMatchedRoom] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const scanLoadId = useRef(0);
 
-  function createRequest(event) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const entry = {
-      id: `MNT-${String(requests.length + 1).padStart(3, "0")}`,
-      request: form.get("request"),
-      location: form.get("location"),
-      category: form.get("category"),
-      priority: form.get("priority"),
-      reported: "Just now",
-      assigned: "Unassigned",
-      status: "Pending",
-    };
-    setRequests((items) => [entry, ...items]);
-    setFilter("All");
-    setDialog(null);
+  useEffect(() => {
+    let active = true;
+    fetchAdminMaintenanceRequests().then((rows) => {
+      if (!active) return;
+      setRequests(rows);
+      setError("");
+      setLoading(false);
+    }).catch((requestError) => {
+      if (!active) return;
+      setError(requestError.message || "Could not load maintenance requests.");
+      setLoading(false);
+    });
+    return () => { active = false; };
+  }, [retryKey]);
+
+  const filteredRequests = useMemo(() => requests.filter((request) => (
+    (!selectedRoom || request.room_id === selectedRoom.id)
+    && (filter === "All" || statusLabel(request.status) === filter)
+  )), [requests, filter, selectedRoom]);
+  const counts = useMemo(() => ({
+    total: requests.length,
+    open: requests.filter(({ status }) => status === "OPEN").length,
+    progress: requests.filter(({ status }) => status === "IN_PROGRESS").length,
+    resolved: requests.filter(({ status }) => status === "RESOLVED").length,
+  }), [requests]);
+
+  async function saveStatus(status) {
+    if (!selected || updating || status === selected.status) return;
+    setUpdating(true);
+    setError("");
+    setSuccess("");
+    try {
+      const updated = await updateMaintenanceRequestStatus(selected.id, status);
+      setRequests((current) => current.map((request) => request.id === updated.id ? updated : request));
+      setSelected(updated);
+      setSuccess(`Request #${updated.id} is now ${statusLabel(updated.status).toLowerCase()}.`);
+      try {
+        const refreshed = await fetchAdminMaintenanceRequests();
+        setRequests(refreshed);
+        setSelected(refreshed.find(({ id }) => id === updated.id) || updated);
+      } catch (refreshError) {
+        setError(`Status was saved, but the request list could not be refreshed: ${refreshError.message}`);
+      }
+    } catch (updateError) {
+      setError(updateError.message || "Could not update the request status.");
+    } finally {
+      setUpdating(false);
+    }
   }
+
+  function openRoomScanner() {
+    setScannerOpen(true);
+    setRoomCodeInput("");
+    setScannerError("");
+    setMatchedRoom(null);
+    setRoomInventory({ status: "loading", rooms: [], buildings: [], error: "" });
+    const loadId = ++scanLoadId.current;
+    Promise.all([fetchRooms(), fetchBuildings()]).then(([rooms, buildings]) => {
+      if (scanLoadId.current === loadId) setRoomInventory({ status: "ready", rooms: filterOperationalRooms(rooms), buildings, error: "" });
+    }).catch((loadError) => {
+      if (scanLoadId.current === loadId) setRoomInventory({ status: "error", rooms: [], buildings: [], error: loadError.message || "Could not load verified room records." });
+    });
+  }
+
+  function closeRoomScanner() {
+    scanLoadId.current += 1;
+    setScannerOpen(false);
+  }
+
+  function resolveRoomCode(code) {
+    if (!code?.trim()) {
+      setMatchedRoom(null);
+      setScannerError("Enter or scan a room code to look it up.");
+      return false;
+    }
+    const room = findVerifiedRoomByCode(roomInventory.rooms, code);
+    if (!room) {
+      setMatchedRoom(null);
+      setScannerError(`Room code “${code}” is not in the verified room directory.`);
+      return false;
+    }
+    setMatchedRoom(room);
+    setScannerError("");
+    return true;
+  }
+
+  function handleQrScan(payload) {
+    const parsed = parseCampusRoomQrPayload(payload);
+    if (!parsed.ok) {
+      setScannerError(parsed.error);
+      return false;
+    }
+    return resolveRoomCode(parsed.roomCode);
+  }
+
+  function handleManualRoomLookup(event) {
+    event.preventDefault();
+    resolveRoomCode(roomCodeInput);
+  }
+
+  function chooseMatchedRoom() {
+    if (!matchedRoom) return;
+    setSelectedRoom(matchedRoom);
+    closeRoomScanner();
+  }
+
+  const matchedBuilding = matchedRoom
+    ? roomInventory.buildings.find(({ id }) => id === matchedRoom.building_id)
+    : null;
 
   return (
     <div className="maintenance-page">
       <header className="maintenance-heading">
-        <div><h1>Smart Maintenance</h1><p>QR-based campus maintenance operations</p></div>
+        <div><h1>Smart Maintenance</h1><p>Campus requests submitted by students</p></div>
         <div className="maintenance-actions">
-          <button className="maintenance-scan-button" onClick={() => setDialog("scan")}><QrCode size={17} /> Scan QR Code</button>
-          <button className="maintenance-new-button" onClick={() => setDialog("new")}><Plus size={17} /> New Request</button>
+          <button className="maintenance-scan-button" type="button" onClick={openRoomScanner}><QrCode size={17} /> Scan Room QR</button>
         </div>
       </header>
 
-      <div className="workspace-demo-note">Local demonstration workflow · requests created here remain in page memory and are not sent to a facilities service. QR scanning is a visual placeholder; use “New Request” to enter a request.</div>
+      {selectedRoom && <section className="maintenance-selected-room" aria-label="Selected verified room">
+        <div><MapPin size={18}/><span><strong>{selectedRoom.room_code}{selectedRoom.room_name ? ` · ${selectedRoom.room_name}` : ""}</strong><small>{roomInventory.buildings.find(({ id }) => id === selectedRoom.building_id)?.name || "Building unavailable"} · Room ID {selectedRoom.id} · {requests.filter(({ room_id }) => room_id === selectedRoom.id).length} saved requests</small></span></div>
+        <button type="button" onClick={() => setSelectedRoom(null)}>Clear room selection</button>
+      </section>}
+
+      {success && <p role="status">{success}</p>}
+      {error && <div className="maintenance-api-error" role="alert"><span>{error}</span><button type="button" onClick={() => { setLoading(true); setError(""); setRetryKey((key) => key + 1); }}><RefreshCw size={15} /> Retry</button></div>}
 
       <section className="maintenance-stats" aria-label="Maintenance request summary">
-        <article className="maintenance-stat"><span className="maintenance-stat-title">TOTAL REQUESTS</span><span className="maintenance-stat-icon cyan"><Wrench size={19}/></span><strong>{counts.total}</strong><small>All time</small></article>
-        <article className="maintenance-stat"><span className="maintenance-stat-title">PENDING</span><span className="maintenance-stat-icon amber"><AlertCircle size={19}/></span><strong>{counts.pending}</strong><small>Needs attention</small></article>
-        <article className="maintenance-stat"><span className="maintenance-stat-title">IN PROGRESS</span><span className="maintenance-stat-icon blue"><Clock3 size={19}/></span><strong>{counts.progress}</strong><small>Being handled</small></article>
-        <article className="maintenance-stat"><span className="maintenance-stat-title">RESOLVED</span><span className="maintenance-stat-icon green"><CheckCircle2 size={19}/></span><strong>{counts.resolved}</strong><small>This week</small></article>
+        <article className="maintenance-stat"><span className="maintenance-stat-title">TOTAL REQUESTS</span><span className="maintenance-stat-icon cyan"><Wrench size={19}/></span><strong>{loading ? "…" : counts.total}</strong><small>Persisted requests</small></article>
+        <article className="maintenance-stat"><span className="maintenance-stat-title">OPEN</span><span className="maintenance-stat-icon amber"><AlertCircle size={19}/></span><strong>{loading ? "…" : counts.open}</strong><small>Needs attention</small></article>
+        <article className="maintenance-stat"><span className="maintenance-stat-title">IN PROGRESS</span><span className="maintenance-stat-icon blue"><Clock3 size={19}/></span><strong>{loading ? "…" : counts.progress}</strong><small>Being handled</small></article>
+        <article className="maintenance-stat"><span className="maintenance-stat-title">RESOLVED</span><span className="maintenance-stat-icon green"><CheckCircle2 size={19}/></span><strong>{loading ? "…" : counts.resolved}</strong><small>Marked resolved</small></article>
       </section>
-
-      <button className="maintenance-qr-banner" onClick={() => setDialog("scan")}>
-        <span className="maintenance-qr-icon"><QrCode size={22}/></span>
-        <span className="maintenance-qr-copy"><strong>QR-Based Maintenance Entry</strong><small>Scan the QR code on any room or equipment to access its digital twin and report issues.</small></span>
-        <ChevronRight className="maintenance-banner-arrow" size={19}/>
-      </button>
 
       <div className="maintenance-list-controls">
         <div className="maintenance-filters" role="tablist" aria-label="Filter maintenance requests">
           {filters.map((item) => <button key={item} role="tab" aria-selected={filter === item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}
         </div>
-        <span>{filteredRequests.length} requests</span>
+        <span>{loading ? "Loading…" : `${filteredRequests.length} requests`}</span>
       </div>
 
       <section className="maintenance-table-panel" aria-label="Maintenance requests">
-        <div className="maintenance-table-scroll"><table className="maintenance-table"><thead><tr><th>REQUEST</th><th>LOCATION</th><th>CATEGORY</th><th>PRIORITY</th><th>REPORTED</th><th>ASSIGNED TO</th><th>STATUS</th><th aria-label="Details"/></tr></thead><tbody>
-          {filteredRequests.map((request) => <tr key={request.id} onClick={() => setSelected(request)} tabIndex={0} onKeyDown={(event) => event.key === "Enter" && setSelected(request)}>
-            <td><strong>{request.request}</strong><small>{request.id}</small></td>
-            <td className="maintenance-location">{request.location}</td>
-            <td>{request.category}</td>
-            <td><span className={`maintenance-pill priority-${request.priority.toLowerCase()}`}>{request.priority}</span></td>
-            <td className="maintenance-reported">{request.reported}</td>
-            <td>{request.assigned}</td>
-            <td><span className={`maintenance-pill status-${statusClass(request.status)}`}>{request.status}</span></td>
+        <div className="maintenance-table-scroll"><table className="maintenance-table"><thead><tr><th>REQUEST</th><th>ROOM / BUILDING</th><th>PRIORITY</th><th>REPORTED</th><th>REPORTED BY</th><th>STATUS</th><th aria-label="Details"/></tr></thead><tbody>
+          {!loading && filteredRequests.map((request) => <tr key={request.id} onClick={() => setSelected(request)} tabIndex={0} onKeyDown={(event) => event.key === "Enter" && setSelected(request)}>
+            <td><strong>{request.title}{request.is_demo && <small> · DEMO ONLY</small>}</strong><small>#{request.id}</small></td>
+            <td className="maintenance-location">{request.room_code}{request.is_demo && " · demo-only"}{request.building_name ? ` · ${request.building_name}` : ""}</td>
+            <td><span className={`maintenance-pill priority-${request.priority.toLowerCase()}`}>{request.priority.toLowerCase()}</span></td>
+            <td className="maintenance-reported">{formatTimestamp(request.created_at)}</td>
+            <td>{request.reporter_name || "Student account unavailable"}</td>
+            <td><span className={`maintenance-pill status-${statusClass(request.status)}`}>{statusLabel(request.status)}</span></td>
             <td className="maintenance-row-arrow"><ChevronRight size={17}/></td>
           </tr>)}
-        </tbody></table>{filteredRequests.length === 0 && <div className="maintenance-empty">No maintenance requests in this category.</div>}</div>
+        </tbody></table>
+          {loading && <div className="maintenance-empty" role="status">Loading saved maintenance requests…</div>}
+          {!loading && !error && filteredRequests.length === 0 && <div className="maintenance-empty" role="status">No persisted requests match this filter.</div>}
+        </div>
       </section>
 
-      {dialog === "new" && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && setDialog(null)}><form className="maintenance-dialog" onSubmit={createRequest}>
-        <button className="maintenance-dialog-close" type="button" aria-label="Close" onClick={() => setDialog(null)}><X size={18}/></button><span className="maintenance-dialog-icon"><Wrench size={19}/></span><h2>New Maintenance Request</h2><p>Tell us what needs attention and where.</p>
-        <label>Request title<input name="request" required placeholder="e.g. AC not cooling"/></label>
-        <label>Location<input name="location" required placeholder="Building and room"/></label>
-        <div className="maintenance-form-row"><label>Category<select name="category" defaultValue="HVAC"><option>HVAC</option><option>Electrical</option><option>Plumbing</option><option>IT</option><option>AV Equipment</option><option>Security</option><option>Other</option></select></label><label>Priority<select name="priority" defaultValue="Medium"><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select></label></div>
-        <div className="maintenance-dialog-actions"><button type="button" onClick={() => setDialog(null)}>Cancel</button><button type="submit">Submit Request</button></div>
-      </form></div>}
+      {selected && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && setSelected(null)}><section className="maintenance-dialog maintenance-detail-dialog" aria-labelledby="maintenance-detail-title" aria-modal="true" role="dialog">
+        <button className="maintenance-dialog-close" type="button" aria-label="Close request details" onClick={() => setSelected(null)}>×</button>
+        <span className="maintenance-dialog-id">Request #{selected.id}{selected.is_demo && " · DEMO ONLY"}</span><h2 id="maintenance-detail-title">{selected.title}</h2>
+        <span className={`maintenance-pill status-${statusClass(selected.status)}`}>{statusLabel(selected.status)}</span>
+        <p>{selected.description || "No description provided."}</p>
+        <dl>
+          <div><dt>Room</dt><dd>{selected.room_code}{selected.room_name ? ` · ${selected.room_name}` : ""}</dd></div>
+          <div><dt>Building</dt><dd>{selected.building_name ? `${selected.building_name}${selected.building_code ? ` (${selected.building_code})` : ""}` : "Unavailable"}</dd></div>
+          <div><dt>Priority</dt><dd>{selected.priority.toLowerCase()}</dd></div>
+          <div><dt>Reported by</dt><dd>{selected.reporter_name || "Student account unavailable"}</dd></div>
+          <div><dt>Created</dt><dd>{formatTimestamp(selected.created_at)}</dd></div>
+          <div><dt>Resolved</dt><dd>{selected.resolved_at ? formatTimestamp(selected.resolved_at) : "Not resolved"}</dd></div>
+        </dl>
+        <label className="maintenance-status-control">Update status
+          <select aria-label="Request status" value={selected.status} onChange={(event) => saveStatus(event.target.value)} disabled={updating || selected.is_demo}>
+            {statusValues.map((status) => <option key={status} value={status}>{statusLabel(status)}</option>)}
+          </select>
+          {selected.is_demo && <small>Sample record is read-only and cannot change operational maintenance status.</small>}
+        </label>
+        {updating && <p role="status">Saving status…</p>}
+        <div className="maintenance-dialog-actions"><button type="button" onClick={() => setSelected(null)}>Close</button></div>
+      </section></div>}
 
-      {dialog === "scan" && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && setDialog(null)}><div className="maintenance-dialog maintenance-scan-dialog">
-        <button className="maintenance-dialog-close" type="button" aria-label="Close" onClick={() => setDialog(null)}><X size={18}/></button><span className="maintenance-dialog-icon"><QrCode size={20}/></span><h2>Scan QR Code</h2><p>Point your camera at a room or equipment QR code to start a maintenance request.</p><div className="maintenance-scanner"><span className="scanner-corner top-left"/><span className="scanner-corner top-right"/><span className="scanner-corner bottom-left"/><span className="scanner-corner bottom-right"/><QrCode size={68} strokeWidth={1.2}/><i/></div><button className="maintenance-scan-fallback" onClick={() => setDialog("new")}>Enter a request manually</button>
-      </div></div>}
+      {scannerOpen && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && closeRoomScanner()}><section className="maintenance-dialog maintenance-room-scanner-dialog" aria-labelledby="maintenance-room-scanner-title" aria-modal="true" role="dialog">
+        <button className="maintenance-dialog-close" type="button" aria-label="Close room scanner" onClick={closeRoomScanner}><X size={18}/></button>
+        <span className="maintenance-dialog-icon"><QrCode size={20}/></span>
+        <h2 id="maintenance-room-scanner-title">Scan a non-demo room</h2>
+        <p>Scan a supported campus QR code or enter a room code to look it up. This lookup does not create or modify room records.</p>
 
-      {selected && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && setSelected(null)}><div className="maintenance-dialog maintenance-detail-dialog">
-        <button className="maintenance-dialog-close" type="button" aria-label="Close" onClick={() => setSelected(null)}><X size={18}/></button><span className="maintenance-dialog-id">{selected.id}</span><h2>{selected.request}</h2><span className={`maintenance-pill status-${statusClass(selected.status)}`}>{selected.status}</span><dl><div><dt>Location</dt><dd>{selected.location}</dd></div><div><dt>Category</dt><dd>{selected.category}</dd></div><div><dt>Priority</dt><dd>{selected.priority}</dd></div><div><dt>Reported</dt><dd>{selected.reported}</dd></div><div><dt>Assigned to</dt><dd>{selected.assigned}</dd></div></dl><div className="maintenance-dialog-actions"><button onClick={() => setSelected(null)}>Close</button></div>
-      </div></div>}
+        {roomInventory.status === "loading" && <p role="status">Loading database rooms and buildings…</p>}
+        {roomInventory.status === "error" && <p role="alert">{roomInventory.error}</p>}
+        {roomInventory.status === "ready" && roomInventory.rooms.length === 0 && <p role="status">No verified room records are in the database. Add official room details through <Link className="maintenance-room-management-link" to="/rooms">Admin → Floors &amp; Rooms</Link> before matching a room. The scanner remains available, but scanned codes cannot match until a room record exists.</p>}
+        <CampusQrScanner onScan={handleQrScan} label="Admin room QR scanner" />
+
+        <form className="maintenance-manual-room-lookup" onSubmit={handleManualRoomLookup}>
+          <label htmlFor="admin-room-code-lookup">Manual room-code lookup</label>
+          <div><input id="admin-room-code-lookup" value={roomCodeInput} onChange={(event) => setRoomCodeInput(event.target.value)} placeholder="Enter an exact database room code" disabled={roomInventory.status !== "ready" || roomInventory.rooms.length === 0} /><button type="submit" disabled={roomInventory.status !== "ready" || roomInventory.rooms.length === 0}><Search size={15}/> Find room</button></div>
+        </form>
+        {scannerError && <p className="maintenance-qr-error" role="alert">{scannerError}</p>}
+
+        {matchedRoom && <article className="maintenance-matched-room" aria-live="polite">
+          <h3><Building2 size={17}/> Matched verified database room</h3>
+          <dl>
+            <div><dt>Room code</dt><dd>{matchedRoom.room_code}</dd></div>
+            <div><dt>Room name</dt><dd>{matchedRoom.room_name || "Name unavailable"}</dd></div>
+            <div><dt>Building</dt><dd>{matchedBuilding?.name || "Building unavailable"}{matchedBuilding?.building_code ? ` (${matchedBuilding.building_code})` : ""}</dd></div>
+            <div><dt>Room ID</dt><dd>{matchedRoom.id}</dd></div>
+          </dl>
+          <button type="button" className="maintenance-new-button" onClick={chooseMatchedRoom}>Select this room</button>
+        </article>}
+      </section></div>}
     </div>
   );
 }

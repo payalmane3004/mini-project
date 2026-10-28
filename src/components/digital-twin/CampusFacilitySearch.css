@@ -19,7 +19,7 @@
 .campus-facility-search-empty,.campus-facility-search-warning,.campus-facility-search-footnote{margin:8px 0 0;color:#91a2b5;font-size:9px;line-height:1.5}
 .campus-facility-search-warning{color:#ffd1a3}
 .campus-facility-search-footnote{margin-top:9px}
-@media(max-width:850px){.campus-facility-search-controls{grid-template-columns:1fr 1fr}.campus-facility-query{grid-column:1/-1}}
+@media(max-width:1100px){.campus-facility-search-controls{grid-template-columns:1fr 1fr}.campus-facility-query{grid-column:1/-1}}
 @media(max-width:560px){.campus-facility-search{padding:11px}.campus-facility-search-controls{grid-template-columns:1fr}.campus-facility-query{grid-column:auto}.campus-facility-search-results{grid-template-columns:1fr}.campus-facility-search-header{display:block}.campus-facility-search-header>span{display:block;margin-top:7px}}
 .campus-facility-search { min-width:0; padding:17px; border-radius:9px; }
 .campus-facility-search-header { align-items:center; margin-bottom:14px; }

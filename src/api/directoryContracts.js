@@ -11,6 +11,7 @@ export function validateBuildingList(buildings) {
     || typeof building.building_code !== "string"
     || typeof building.name !== "string"
     || !isOptionalText(building.description)
+    || (building.is_demo !== undefined && typeof building.is_demo !== "boolean")
   ))) {
     throw new Error("The buildings API returned an unexpected response.");
   }
@@ -29,6 +30,7 @@ export function validateRoomList(rooms) {
     || !Number.isInteger(room.floor_number)
     || !(room.capacity === null || Number.isInteger(room.capacity))
     || typeof room.room_type !== "string"
+    || (room.is_demo !== undefined && typeof room.is_demo !== "boolean")
   ))) {
     throw new Error("The rooms API returned an unexpected response.");
   }

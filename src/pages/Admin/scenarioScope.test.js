@@ -21,10 +21,11 @@ test("scenario calculation requires verified buildings, rooms, and booking data"
   assert.equal(hasScenarioSourceData({ buildings, rooms, bookings: null }), false);
   assert.equal(hasScenarioSourceData({ buildings: [], rooms, bookings: [] }), false);
   assert.equal(hasScenarioSourceData({ buildings, rooms: [], bookings: [] }), false);
+  assert.equal(hasScenarioSourceData({ buildings, rooms: [{ id: 12, room_code: "DEMO-B-12" }], bookings: [] }), false);
 });
 
 test("closure scope counts only rooms linked to the selected database building", () => {
-  const result = calculateBuildingClosureScope(2, buildings, rooms, [], "2030-01-02", 1);
+  const result = calculateBuildingClosureScope(2, buildings, [...rooms, { id: 12, building_id: 2, room_code: "DEMO-B-12" }], [], "2030-01-02", 1);
   assert.equal(result.building, buildings[0]);
   assert.equal(result.roomCount, 2);
   assert.equal(result.overlappingBookingCount, 0);

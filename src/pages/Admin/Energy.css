@@ -43,6 +43,8 @@
 .energy-filters { align-items:flex-end; gap:10px 12px; padding:13px; }
 .energy-filters label { min-width:145px; gap:6px 8px; font-size:11px; }
 .energy-filters label:nth-child(3) { min-width:190px; }
+.energy-filters .energy-include-demo { display:flex; align-items:center; min-height:37px; min-width:175px; grid-template-columns:auto 1fr; }
+.energy-filters .energy-include-demo input { width:auto; min-width:0; min-height:0; accent-color:#f2b75f; }
 .energy-filters input,.energy-filters select { width:100%; min-width:0; min-height:37px; font-size:12px; }
 .energy-filters button { min-height:37px; white-space:nowrap; }
 .energy-period-label { max-width:100%; margin:0 2px 8px auto; text-align:right; overflow-wrap:anywhere; }
