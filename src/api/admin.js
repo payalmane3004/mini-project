@@ -17,11 +17,11 @@ export function fetchAdminBookings() {
   return request("/bookings", undefined, "Could not load bookings");
 }
 
-export function updateAdminBookingStatus(bookingId, status) {
+export function updateAdminBookingStatus(bookingId, status, rejectionReason) {
   return request(`/bookings/${encodeURIComponent(bookingId)}/status`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ status, ...(rejectionReason ? { rejection_reason: rejectionReason } : {}) }),
   }, "Could not update booking status");
 }
 

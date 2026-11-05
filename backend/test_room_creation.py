@@ -151,6 +151,8 @@ class RoomCreationTests(unittest.TestCase):
     }
 
     def setUp(self):
+        self.demo_patch = patch.object(main, "_local_demo_is_active", return_value=False)
+        self.demo_patch.start()
         self.secret_patch = patch.dict(os.environ, {"JWT_SECRET_KEY": "unit-test-only-secret-key-not-a-real-token"})
         self.secret_patch.start()
         self.db = FakeSession()
@@ -158,6 +160,7 @@ class RoomCreationTests(unittest.TestCase):
 
     def tearDown(self):
         main.app.dependency_overrides.pop(get_db, None)
+        self.demo_patch.stop()
         self.secret_patch.stop()
 
     def request(self, *, body=None, user_id=None, role=None):

@@ -6,8 +6,8 @@ async function fetchJson(path, resourceName) {
   let response;
   try {
     response = await apiFetch(path);
-  } catch {
-    throw new Error("Could not reach the CampusSphere API. Check that the backend is running.");
+  } catch (error) {
+    throw new Error(`Could not load ${resourceName} from ${path}: ${error.message}`, { cause: error });
   }
 
   if (!response.ok) {

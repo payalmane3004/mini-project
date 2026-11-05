@@ -25,12 +25,12 @@ function OccupancyChart() {
       <div className="chart-header">
         <div>
           <h2>Occupancy — Today</h2>
-          <p>Illustrative sample curve · no occupancy feed is connected</p>
+          <p>Illustrative trend · no occupancy feed is connected</p>
         </div>
 
         <div className="chart-value">
-          <strong>DEMO</strong>
-          <span>Sample series</span>
+          <strong>LOCAL</strong>
+          <span>Illustrative series</span>
         </div>
       </div>
 

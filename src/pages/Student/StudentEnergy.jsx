@@ -115,7 +115,7 @@ export default function StudentEnergy() {
       <button className="student-monitor-refresh" type="button" onClick={refresh} disabled={state.loading}><RefreshCw size={15} className={state.loading ? "student-monitor-spin" : ""}/>Refresh</button>
     </header>
 
-    <div className="student-monitor-banner energy"><strong>SIMULATED DEMO DATA — NOT LIVE METER READINGS</strong><span>Stored sample values only. No live meter feed or energy forecast is connected.</span></div>
+    <div className="student-monitor-banner energy"><strong>SIMULATED VALUES — NOT LIVE METER READINGS</strong><span>Stored simulated values only. No live meter feed or energy forecast is connected.</span></div>
 
     <form className="student-monitor-filters" onSubmit={applyFilters} aria-label="Filter simulated energy readings">
       <label htmlFor="energy-building"><span>Building</span><select id="energy-building" value={building} onChange={(event) => setBuilding(event.target.value)}><option value="">All available buildings</option>{buildingOptions.map(({ code, name }) => <option key={code} value={code}>{code} · {name}</option>)}</select></label>
@@ -134,7 +134,7 @@ export default function StudentEnergy() {
     {view === "populated" && <>
       <section className="student-monitor-metrics" aria-label="Energy summary" aria-busy={state.loading}>
         <Metric icon={Zap} label="READINGS IN PERIOD" value={summary.readingCount.toLocaleString()} detail={periodLabel} tone="cyan"/>
-        <Metric icon={Zap} label="LATEST STORED SAMPLE" value={summary.latest ? `${Number(summary.latest.energy_kwh).toFixed(3)} kWh` : "Unavailable"} detail={summary.latest ? `${summary.latest.building_code} · individual reading` : "No valid reading timestamp is available"} tone="green"/>
+        <Metric icon={Zap} label="LATEST STORED READING" value={summary.latest ? `${Number(summary.latest.energy_kwh).toFixed(3)} kWh` : "Unavailable"} detail={summary.latest ? `${summary.latest.building_code} · individual reading` : "No valid reading timestamp is available"} tone="green"/>
         <Metric icon={Building2} label="BUILDINGS WITH READINGS" value={summary.buildingCount} detail="Distinct linked building records" tone="amber"/>
         <Metric icon={Clock3} label="LATEST READING" value={formatTimestamp(summary.latestTimestamp)} detail="Timestamp of newest selected sample" tone="purple" compact/>
       </section>
@@ -163,22 +163,22 @@ export default function StudentEnergy() {
             <YAxis type="category" dataKey="building_code" width={94} stroke="#8292a6" tick={{ fontSize: 10 }}/>
             <Tooltip content={<EnergyTooltip/>}/>
             <Legend verticalAlign="top" height={28}/>
-            <Bar dataKey="energy_kwh" name="Latest stored sample" fill="#e6b45d" radius={[0, 4, 4, 0]}>
+            <Bar dataKey="energy_kwh" name="Latest simulated reading" fill="#e6b45d" radius={[0, 4, 4, 0]}>
               {summary.latestByBuilding.map((row) => <Cell key={row.building_id} fill="#e6b45d"/>)}
             </Bar>
           </BarChart></ResponsiveContainer>
         </div>
-        <div className="student-monitor-table-wrap"><table><caption>Latest simulated energy sample by building</caption><thead><tr><th>Building</th><th>Latest sample</th><th>Recorded at</th><th>Source</th></tr></thead><tbody>{summary.latestByBuilding.map((row) => <tr key={row.building_id}><td><strong>{row.building_name}</strong><small>{row.building_code}</small></td><td>{Number(row.energy_kwh).toFixed(3)} kWh</td><td>{formatTimestamp(row.recorded_at ? new Date(row.recorded_at) : null)}</td><td><span className="student-monitor-source">{row.reading_source || "Simulated source not specified"}</span></td></tr>)}</tbody></table></div>
+        <div className="student-monitor-table-wrap"><table><caption>Latest simulated energy reading by building</caption><thead><tr><th>Building</th><th>Latest reading</th><th>Recorded at</th><th>Source</th></tr></thead><tbody>{summary.latestByBuilding.map((row) => <tr key={row.building_id}><td><strong>{row.building_name}</strong><small>{row.building_code}</small></td><td>{Number(row.energy_kwh).toFixed(3)} kWh</td><td>{formatTimestamp(row.recorded_at ? new Date(row.recorded_at) : null)}</td><td><span className="student-monitor-source">Simulated</span></td></tr>)}</tbody></table></div>
       </section>
 
       <section className="student-monitor-panel">
         <header className="student-monitor-panel-heading"><div><h2>Reading history</h2><p>Individual stored records, ordered by the API within this filter.</p></div><span>{summary.readingCount.toLocaleString()} samples</span></header>
-        <div className="student-monitor-table-wrap student-monitor-history"><table><caption>Simulated energy reading history in kWh</caption><thead><tr><th>Recorded at</th><th>Building</th><th>Reading</th><th>Source</th></tr></thead><tbody>{state.readings.map((row) => <tr key={row.id}><td>{formatTimestamp(row.recorded_at ? new Date(row.recorded_at) : null)}</td><td><strong>{row.building_name}</strong><small>{row.building_code}</small></td><td>{Number(row.energy_kwh).toFixed(3)} kWh</td><td>{row.reading_source || "Simulated source not specified"}</td></tr>)}</tbody></table></div>
+        <div className="student-monitor-table-wrap student-monitor-history"><table><caption>Simulated energy reading history in kWh</caption><thead><tr><th>Recorded at</th><th>Building</th><th>Reading</th><th>Source</th></tr></thead><tbody>{state.readings.map((row) => <tr key={row.id}><td>{formatTimestamp(row.recorded_at ? new Date(row.recorded_at) : null)}</td><td><strong>{row.building_name}</strong><small>{row.building_code}</small></td><td>{Number(row.energy_kwh).toFixed(3)} kWh</td><td>Simulated</td></tr>)}</tbody></table></div>
       </section>
     </>}
 
     {view === "empty" && <EmptyState title="No simulated readings match these filters" onReset={resetFilters}>{availableDateRange.from
       ? `The returned readings range from ${availableDateRange.from} through ${availableDateRange.through} UTC. Clear the building and date filters to view all available history.`
-      : "No simulated energy readings were returned. Refresh the page or check that the documented local demo API is running."}</EmptyState>}
+      : "No simulated energy readings were returned. Refresh the page or check that the documented local dataset API is running."}</EmptyState>}
   </main>;
 }

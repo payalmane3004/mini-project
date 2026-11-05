@@ -5,7 +5,9 @@ async function request(path, options, fallback) {
   const response = await apiFetch(path, options);
   if (!response.ok) {
     const body = await response.json().catch(() => null);
-    throw new Error(apiErrorMessage(body, `${fallback} (HTTP ${response.status}).`));
+    const error = new Error(apiErrorMessage(body, `${fallback} (HTTP ${response.status}).`));
+    error.status = response.status;
+    throw error;
   }
   if (response.status === 204) return null;
   return response.json();
@@ -17,6 +19,20 @@ export function fetchPublishedNotices() {
 
 export function fetchMyBookings() {
   return request("/bookings", undefined, "Could not load your bookings").then(validateBookingList);
+}
+
+export function checkBookingAvailability({ room_id, start_time, end_time }) {
+  const query = new URLSearchParams({
+    room_id: String(room_id),
+    start_time,
+    end_time,
+  });
+  return request(`/bookings/availability?${query}`, undefined, "Could not check room availability").then((result) => {
+    if (typeof result?.available !== "boolean") {
+      throw new Error("The booking availability API returned an unexpected response.");
+    }
+    return result.available;
+  });
 }
 
 export function createMyBooking(booking) {

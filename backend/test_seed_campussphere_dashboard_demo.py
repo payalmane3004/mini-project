@@ -178,17 +178,16 @@ class DashboardDemoSeederTests(unittest.TestCase):
         self.assertIn("SIMULATED_DEMO", output.getvalue())
         self.assertIn("Dry run only", output.getvalue())
 
-    def test_apply_requires_target_confirmation_and_does_not_write_without_it(self):
-        buildings, rooms = data()
-        session = Session(buildings, rooms)
-        from sqlalchemy.engine import URL
-        database = SimpleNamespace(SessionLocal=lambda: session, engine=SimpleNamespace(dispose=lambda: None, url=URL.create("postgresql+psycopg", host=self.HOST, database="test", query={"sslmode": "require"})))
-        output = io.StringIO()
+    def test_apply_is_disabled_even_with_all_neon_confirmations_before_connecting(self):
         error_output = io.StringIO()
-        with patch.dict(os.environ, {seeder.SEED_DATABASE_ENV: self.SEED_URL}), patch.object(seeder, "_load_application_modules", return_value=(database, Models)), patch.object(seeder, "_load_seed_database", return_value=database), contextlib.redirect_stdout(output), contextlib.redirect_stderr(error_output):
-            self.assertEqual(seeder.main(self.target_args() + ["--apply"]), 3)
-        self.assertEqual(session.added, [])
-        self.assertIn("Refusing to write", error_output.getvalue())
+        args = self.target_args() + ["--apply", "--confirm-demo-write"]
+        with patch.object(seeder, "_load_application_modules") as app_loader, \
+             patch.object(seeder, "_load_seed_database") as seed_loader, \
+             contextlib.redirect_stderr(error_output):
+            self.assertEqual(seeder.main(args), 3)
+        app_loader.assert_not_called()
+        seed_loader.assert_not_called()
+        self.assertIn("writes to PostgreSQL/Neon are disabled", error_output.getvalue())
 
     def test_dry_run_attests_console_target_and_matches_configured_host_database(self):
         buildings, rooms = data()

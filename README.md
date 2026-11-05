@@ -11,16 +11,14 @@ CampusSphere is a React/Vite campus interface with a FastAPI backend for authent
 
 ## Requirements and setup
 
-The frontend uses Node.js/npm and the dependencies in `package.json`. The backend expects the preconfigured `backend/venv` Python environment. No backend `requirements.txt` or other Python dependency lockfile is currently included, so a fresh backend environment is not reproducible from this repository alone.
+The frontend uses Node.js/npm and the dependencies in `package.json`. Backend runtime dependencies are pinned in `backend/requirements.txt`; the preconfigured `backend/venv` is used for local development and tests.
 
 For ordinary local development, the backend defaults to the marked local SQLite fixture at `backend/campussphere_demo.sqlite3`. It does not load `backend/.env` in development mode. A non-SQLite/shared database requires `CAMPUSSPHERE_ENV=production`; production keeps the existing `DATABASE_URL` environment and `backend/.env` configuration path. The current verified local-only accounts are listed in [backend/LOCAL_DEMO_DATA.md](backend/LOCAL_DEMO_DATA.md). Never use them against a shared database.
 
 Start the backend from the repository root using the standard command:
 
 ```powershell
-cd backend
-.\venv\Scripts\Activate.ps1
-python -m uvicorn main:app --reload
+& .\backend\venv\Scripts\python.exe .\backend\run_demo_backend.py
 ```
 
 In another terminal from the repository root, start the frontend:
@@ -36,9 +34,13 @@ Open `http://localhost:5173`. Vite binds to localhost and uses a strict port; th
 Run frontend checks from the repository root:
 
 ```powershell
+npm.cmd test
 npm.cmd run lint
+$env:VITE_API_BASE_URL = 'https://api.example.invalid'
 npm.cmd run build
 ```
+
+Production builds require `VITE_API_BASE_URL`; use the actual HTTPS backend origin when deploying. See [DEPLOYMENT.md](DEPLOYMENT.md) for Vercel, Render, CORS, and reviewed database migration steps.
 
 Run the isolated backend tests from the repository root after setting a process-local SQLite URL and disabling dotenv loading:
 
@@ -73,7 +75,7 @@ Use only the dedicated local fixture and its local accounts:
 1. Sign in as admin and show the database-backed room directory, demo room/floor labels, and admin notice drafts.
 2. Open Dashboard and Analytics with demo preview off to show operational totals, then opt in to the clearly labelled preview to show fictional demo counts and historical trends.
 3. Open Energy and Occupancy; show that operational readings are excluded by default, then opt in to the visibly labelled simulated preview.
-4. Sign in as student and show room browsing and the notice feed. From the dashboard, open **Report an Issue**, select a building and room, and review the title, description, and priority fields. Room booking uses authenticated room IDs and server-side conflict checks; the page reports that no live availability feed is connected. Only create a booking or maintenance request when an explicitly approved demonstration write is intended: the isolated local demo labels eligible DEMO rooms and marks resulting records fictional, and the same demo-room workflow requests are rejected outside that marked local database.
+4. Sign in as student and show room browsing and the notice feed. From the dashboard, open **Report an Issue**, select a building and room, and review the title, description, and priority fields. Room booking checks availability through the authenticated backend and rechecks conflicts when the booking is submitted. Only create a booking or maintenance request when an explicitly approved demonstration write is intended: the isolated local demo labels eligible DEMO rooms and marks resulting records fictional, and the same demo-room workflow requests are rejected outside that marked local database.
 5. Show the explicitly labelled local demo alerts and existing booking/maintenance records. Keep demo notices unpublished.
 6. Demonstrate the static CAD-based Digital Twin separately from verified operational records, and describe predictions as unavailable unless the UI reports otherwise.
 

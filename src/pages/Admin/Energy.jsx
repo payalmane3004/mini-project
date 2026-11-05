@@ -9,7 +9,7 @@ const SOURCE_COLORS = ["#39c9df", "#63d69b", "#f2b75f", "#a78bfa", "#fb7185", "#
 
 function sourceLabel(source) {
   if (!source?.trim()) return "Source not specified";
-  return isSimulatedSource(source) ? "Simulated demo data" : `Stored source: ${source.trim()}`;
+  return isSimulatedSource(source) ? "Simulated local preview data" : `Stored source: ${source.trim()}`;
 }
 
 function formatTimestamp(value) {
@@ -128,7 +128,7 @@ export default function Energy() {
       <label><CalendarDays size={15}/>From<input type="date" value={dateFrom} max={dateTo || undefined} onChange={(event) => setDateFrom(event.target.value)}/></label>
       <label><CalendarDays size={15}/>Through<input type="date" value={dateTo} min={dateFrom || undefined} onChange={(event) => setDateTo(event.target.value)}/></label>
       <label>Source<select value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)}><option value="all">All stored sources</option><option value="recorded">Exclude SIMULATED</option><option value="simulated">SIMULATED only</option></select></label>
-      <label className="energy-include-demo"><input type="checkbox" checked={includeDemo} onChange={(event) => { setState((current) => ({ ...current, loading: true, error: "" })); setIncludeDemo(event.target.checked); }}/> Include demo readings</label>
+      <label className="energy-include-demo"><input type="checkbox" checked={includeDemo} onChange={(event) => { setState((current) => ({ ...current, loading: true, error: "" })); setIncludeDemo(event.target.checked); }}/> Include simulated readings</label>
       <button type="submit" disabled={loading}>Apply period</button>
       <span className="energy-period-label">{periodLabel}</span>
     </form>

@@ -109,7 +109,7 @@ class DemoDatabaseSafetyTests(unittest.TestCase):
         with self.assertRaisesRegex(DemoSetupError, "Unexpected user tables"):
             require_expected_tables(required | {"team_records"}, required)
 
-    def test_invalid_target_stops_both_entry_points_before_database_import(self):
+    def test_legacy_writers_refuse_even_confirmed_neon_operations_before_database_import(self):
         args = ["--expected-project-id", "proj-demo", "--expected-branch-id", "br-demo",
                 "--expected-host", HOST, "--expected-database", DATABASE,
                 "--confirm-neon-target-verified", "--confirm-demo-write"]
@@ -120,11 +120,13 @@ class DemoDatabaseSafetyTests(unittest.TestCase):
                 raise AssertionError("database module import should not be reached")
             return original_import(name, *positional, **named)
 
+        error_output = io.StringIO()
         with patch.dict(os.environ, {"DATABASE_URL": "sqlite:///:memory:"}), \
              patch("builtins.__import__", side_effect=guarded_import), \
-             contextlib.redirect_stderr(io.StringIO()):
+             contextlib.redirect_stderr(error_output):
             self.assertEqual(initialize_demo_db.main(args), 2)
             self.assertEqual(seed_demo.main(args), 2)
+        self.assertIn("disabled", error_output.getvalue())
 
     def test_read_only_preflight_refuses_missing_process_url_before_database_import(self):
         args = ["--expected-project-id", "proj-demo", "--expected-branch-id", "br-demo",
@@ -320,48 +322,24 @@ class DemoDatabaseSafetyTests(unittest.TestCase):
         self.assertEqual(user.role, "ADMIN")
         self.assertEqual(session.added, [user])
 
-    def test_seed_transaction_rolls_back_when_mocked_insert_or_flush_fails(self):
-        class Transaction:
-            def __init__(self): self.rolled_back = False
-            def __enter__(self): return self
-            def __exit__(self, exc_type, *_):
-                self.rolled_back = exc_type is not None
-                return False
-
-        transaction = Transaction()
-
-        class Session:
-            def begin(self): return transaction
-            def close(self): pass
-
-        class Engine:
-            url = URL.create("postgresql+psycopg", username="demo", password="hidden", host=HOST,
-                             database=DATABASE, query={"sslmode": "require"})
-            def dispose(self): pass
-
-        fake_database = SimpleNamespace(
-            engine=Engine(),
-            Base=SimpleNamespace(metadata=SimpleNamespace(tables={name: None for name in seed_demo.SEED_TABLES})),
-            SessionLocal=Session,
-        )
-        fake_models = SimpleNamespace()
-        fake_security = SimpleNamespace(hash_password=lambda password: "hash")
+    def test_seed_demo_apply_is_refused_even_with_neon_confirmations(self):
         args = ["--expected-project-id", "proj-demo", "--expected-branch-id", "br-demo",
                 "--expected-host", HOST, "--expected-database", DATABASE,
                 "--confirm-neon-target-verified", "--confirm-demo-write"]
+        original_import = __import__
 
-        def mocked_seed(session, models, hasher):
-            raise RuntimeError("simulated flush failure")
+        def no_database_import(name, *positional, **named):
+            if name == "database":
+                raise AssertionError("database connection must not be attempted")
+            return original_import(name, *positional, **named)
 
-        with patch.dict(sys.modules, {"database": fake_database, "models": fake_models,
-                                     "security": fake_security}), \
+        with patch("builtins.__import__", side_effect=no_database_import), \
              patch.dict(os.environ, {"DATABASE_URL": URL_TEXT}), \
-             patch.object(seed_demo, "_preflight_schema"), \
-             patch.object(seed_demo, "_seed", side_effect=mocked_seed), \
+             patch.object(seed_demo, "_seed") as seed, \
              contextlib.redirect_stderr(io.StringIO()):
             result = seed_demo.main(args)
-        self.assertEqual(result, 1)
-        self.assertTrue(transaction.rolled_back)
+        self.assertEqual(result, 2)
+        seed.assert_not_called()
 
 
 if __name__ == "__main__":

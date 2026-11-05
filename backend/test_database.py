@@ -5,18 +5,59 @@ import subprocess
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 from fastapi import HTTPException
+import uvicorn
 
 import main
 import security
+import run_neon_backend
 
 
 BACKEND_DIR = Path(__file__).resolve().parent
 
 
 class DatabaseConfigurationTests(unittest.TestCase):
+    def test_neon_launcher_uses_render_port_and_local_fallback(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(run_neon_backend.get_port(), 8001)
+        with patch.dict(os.environ, {"PORT": "10000"}, clear=True):
+            self.assertEqual(run_neon_backend.get_port(), 10000)
+        with patch.dict(os.environ, {"PORT": "invalid"}, clear=True):
+            with self.assertRaisesRegex(ValueError, "PORT must be an integer"):
+                run_neon_backend.get_port()
+
+    def test_neon_launcher_starts_postgresql_app_on_render_interface_and_port(self):
+        database = SimpleNamespace(engine=SimpleNamespace(dialect=SimpleNamespace(name="postgresql")))
+        application = SimpleNamespace(app=object())
+        with patch.dict(os.environ, {"CAMPUSSPHERE_ENV": "development", "PORT": "10000"}, clear=True):
+            with patch.object(run_neon_backend.importlib, "import_module", side_effect=[database, application]):
+                with patch.object(uvicorn, "run") as run_server:
+                    run_neon_backend.main()
+        run_server.assert_called_once_with(application.app, host="0.0.0.0", port=10000)
+
+    def test_production_cors_uses_only_explicit_https_origins(self):
+        origins = main.resolve_cors_origins(
+            "https://campussphere.example,https://campussphere-preview.example",
+            "production",
+        )
+        self.assertEqual(origins, {
+            "https://campussphere.example",
+            "https://campussphere-preview.example",
+        })
+        self.assertNotIn("http://localhost:5173", origins)
+
+    def test_production_cors_rejects_insecure_origins(self):
+        with self.assertRaisesRegex(ValueError, "must use HTTPS"):
+            main.resolve_cors_origins("http://campussphere.example", "production")
+
+    def test_development_cors_keeps_localhost_origins(self):
+        origins = main.resolve_cors_origins(None, "development")
+        self.assertIn("http://localhost:5173", origins)
+        self.assertIn("http://127.0.0.1:5174", origins)
+
     def test_missing_database_url_fails_with_safe_configuration_message(self):
         environment = os.environ.copy()
         environment.pop("DATABASE_URL", None)
@@ -53,6 +94,23 @@ class DatabaseConfigurationTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), "postgresql")
+
+    def test_production_rejects_sqlite_database_urls(self):
+        environment = os.environ.copy()
+        environment["CAMPUSSPHERE_ENV"] = "production"
+        environment["DATABASE_URL"] = "sqlite:///not-a-production-database.sqlite3"
+        environment["PYTHON_DOTENV_DISABLED"] = "1"
+        result = subprocess.run(
+            [sys.executable, "-c", "import database"],
+            cwd=BACKEND_DIR,
+            env=environment,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("requires a PostgreSQL DATABASE_URL", result.stderr)
+        self.assertNotIn("not-a-production-database", result.stderr)
 
     def test_default_development_uses_the_marked_demo_fixture_without_loading_dotenv(self):
         environment = os.environ.copy()

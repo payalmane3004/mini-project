@@ -59,3 +59,13 @@ export function formatSelectedPeriod(start, end) {
   const endLabel = end || "Latest available";
   return `${startLabel} through ${endLabel}`;
 }
+
+export function getHistoricalDateRange(days = 56, now = new Date()) {
+  if (!Number.isInteger(days) || days < 1 || Number.isNaN(now.getTime())) {
+    throw new RangeError("Historical range needs a positive day count and valid date.");
+  }
+  const end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const start = new Date(end);
+  start.setUTCDate(start.getUTCDate() - (days - 1));
+  return { start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10) };
+}

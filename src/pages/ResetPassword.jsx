@@ -24,7 +24,7 @@ function ResetPassword() {
       return;
     }
     if (!token) {
-      setError("This reset link is missing its token. Request a new demo reset link.");
+      setError("This reset link is missing its token. Request a new local reset link.");
       return;
     }
     setSubmitting(true);
@@ -32,7 +32,7 @@ function ResetPassword() {
       await completePasswordReset({ token, newPassword: password, confirmPassword: confirmation });
       navigate("/login?reset=success", { replace: true });
     } catch (resetError) {
-      setError(resetError.message || "This reset link is invalid or expired. Request a new demo reset link.");
+      setError(resetError.message || "This reset link is invalid or expired. Request a new local reset link.");
     } finally {
       setSubmitting(false);
     }
@@ -44,7 +44,7 @@ function ResetPassword() {
       <section className="login-card recovery-card" aria-labelledby="reset-title">
         <div className="login-logo"><GraduationCap size={32} /></div>
         <h1 id="reset-title">Set a new password</h1>
-        <p className="login-subtitle">Choose a strong password for this local demo account.</p>
+        <p className="login-subtitle">Choose a strong password for this local local account.</p>
         <form onSubmit={handleSubmit}>
           <div className="login-field">
             <label htmlFor="new-password">New password</label>

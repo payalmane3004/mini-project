@@ -33,7 +33,7 @@ function ForgotPassword() {
       <section className="login-card recovery-card" aria-labelledby="forgot-title">
         <div className="login-logo"><GraduationCap size={32} /></div>
         <h1 id="forgot-title">Forgot password?</h1>
-        <p className="login-subtitle">Enter the email for your documented local demo account.</p>
+        <p className="login-subtitle">Enter the email for your documented local local account.</p>
         <form onSubmit={handleSubmit}>
           <div className="login-field">
             <label htmlFor="recovery-email">Email</label>
@@ -41,7 +41,7 @@ function ForgotPassword() {
               value={email} onChange={(event) => setEmail(event.target.value)} />
           </div>
           {message && <p className="recovery-message" role="status">{message}</p>}
-          {resetUrl && <p className="recovery-link-result"><Link to={resetUrl}>Open your local demo reset link</Link></p>}
+          {resetUrl && <p className="recovery-link-result"><Link to={resetUrl}>Open your local local reset link</Link></p>}
           {error && <p className="login-error" role="alert">{error}</p>}
           <button className="login-button" type="submit" disabled={submitting}>
             {submitting ? "Preparing…" : "Request reset link"}

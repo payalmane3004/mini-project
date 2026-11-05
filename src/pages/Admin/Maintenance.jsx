@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertCircle, Building2, CheckCircle2, ChevronRight, Clock3, MapPin, QrCode, RefreshCw, Search, Wrench, X } from "lucide-react";
+import { AlertCircle, Building2, CheckCircle2, Clock3, MapPin, QrCode, RefreshCw, Search, Wrench, X } from "lucide-react";
 import {
   fetchAdminMaintenanceRequests,
   updateMaintenanceRequestStatus,
@@ -9,6 +9,7 @@ import { fetchBuildings, fetchRooms } from "../../api/buildings";
 import { filterOperationalRooms } from "../../api/demoData.js";
 import { findVerifiedRoomByCode, parseCampusRoomQrPayload } from "../../api/roomQr.js";
 import CampusQrScanner from "../../components/CampusQrScanner";
+import { useDemoMode } from "../../components/layout/useDemoMode.js";
 
 const filters = ["All", "Open", "In Progress", "Resolved"];
 const statusValues = ["OPEN", "IN_PROGRESS", "RESOLVED"];
@@ -27,7 +28,36 @@ function formatTimestamp(value) {
   return Number.isNaN(date.getTime()) ? "Date unavailable" : date.toLocaleString();
 }
 
+function roomLabel(roomName, roomCode) {
+  const code = String(roomCode || "");
+  const knownName = String(roomName || "");
+  const sampleNames = {
+    "Sample classroom": "Classroom",
+    "Sample computer lab": "Computer Laboratory",
+    "Sample seminar room": "Seminar Room",
+    "Sample study and meeting room": "Student Discussion Room",
+  };
+  const normalized = sampleNames[knownName] || knownName;
+  return normalized || (/^DEMO-/i.test(code) ? "Campus room" : "Room name unavailable");
+}
+
+function roomNumberLabel(roomCode) {
+  const code = String(roomCode || "");
+  if (!/^DEMO-/i.test(code)) return code || "Room number unavailable";
+  const number = code.match(/ROOM-(\d+)/i)?.[1];
+  return number ? `Room ${number}` : "Room number unavailable";
+}
+
+function requestPresentation(request) {
+  return {
+    title: request.title,
+    description: request.description || "No additional description",
+    room: roomLabel(request.room_name, request.room_code),
+  };
+}
+
 function Maintenance() {
+  const demoMode = useDemoMode();
   const [requests, setRequests] = useState([]);
   const [filter, setFilter] = useState("All");
   const [selected, setSelected] = useState(null);
@@ -79,7 +109,7 @@ function Maintenance() {
       const updated = await updateMaintenanceRequestStatus(selected.id, status);
       setRequests((current) => current.map((request) => request.id === updated.id ? updated : request));
       setSelected(updated);
-      setSuccess(`Request #${updated.id} is now ${statusLabel(updated.status).toLowerCase()}.`);
+      setSuccess(`Maintenance request status updated to ${statusLabel(updated.status).toLowerCase()}.`);
       try {
         const refreshed = await fetchAdminMaintenanceRequests();
         setRequests(refreshed);
@@ -153,18 +183,19 @@ function Maintenance() {
   const matchedBuilding = matchedRoom
     ? roomInventory.buildings.find(({ id }) => id === matchedRoom.building_id)
     : null;
+  const selectedPresentation = selected ? requestPresentation(selected) : null;
 
   return (
     <div className="maintenance-page">
       <header className="maintenance-heading">
-        <div><h1>Smart Maintenance</h1><p>Campus requests submitted by students</p></div>
+        <div><h1>Smart Maintenance</h1><p>Maintenance entries support workflow review and may include illustrative records.</p></div>
         <div className="maintenance-actions">
           <button className="maintenance-scan-button" type="button" onClick={openRoomScanner}><QrCode size={17} /> Scan Room QR</button>
         </div>
       </header>
 
       {selectedRoom && <section className="maintenance-selected-room" aria-label="Selected verified room">
-        <div><MapPin size={18}/><span><strong>{selectedRoom.room_code}{selectedRoom.room_name ? ` · ${selectedRoom.room_name}` : ""}</strong><small>{roomInventory.buildings.find(({ id }) => id === selectedRoom.building_id)?.name || "Building unavailable"} · Room ID {selectedRoom.id} · {requests.filter(({ room_id }) => room_id === selectedRoom.id).length} saved requests</small></span></div>
+        <div><MapPin size={18}/><span><strong>{selectedRoom.room_name || selectedRoom.room_code}</strong><small>{roomInventory.buildings.find(({ id }) => id === selectedRoom.building_id)?.name || "Building unavailable"} · {selectedRoom.room_code} · {requests.filter(({ room_id }) => room_id === selectedRoom.id).length} requests</small></span></div>
         <button type="button" onClick={() => setSelectedRoom(null)}>Clear room selection</button>
       </section>}
 
@@ -186,17 +217,26 @@ function Maintenance() {
       </div>
 
       <section className="maintenance-table-panel" aria-label="Maintenance requests">
-        <div className="maintenance-table-scroll"><table className="maintenance-table"><thead><tr><th>REQUEST</th><th>ROOM / BUILDING</th><th>PRIORITY</th><th>REPORTED</th><th>REPORTED BY</th><th>STATUS</th><th aria-label="Details"/></tr></thead><tbody>
-          {!loading && filteredRequests.map((request) => <tr key={request.id} onClick={() => setSelected(request)} tabIndex={0} onKeyDown={(event) => event.key === "Enter" && setSelected(request)}>
-            <td><strong>{request.title}{request.is_demo && <small> · DEMO ONLY</small>}</strong><small>#{request.id}</small></td>
-            <td className="maintenance-location">{request.room_code}{request.is_demo && " · demo-only"}{request.building_name ? ` · ${request.building_name}` : ""}</td>
-            <td><span className={`maintenance-pill priority-${request.priority.toLowerCase()}`}>{request.priority.toLowerCase()}</span></td>
+        <div className="maintenance-table-scroll"><table className="maintenance-table"><thead><tr><th>REQUEST</th><th>BUILDING</th><th>ROOM</th><th>REPORTED</th><th>PRIORITY</th><th>ASSIGNEE</th><th>STATUS</th></tr></thead><tbody>
+          {!loading && filteredRequests.map((request) => { const display = requestPresentation(request); return <tr key={request.id} onClick={() => setSelected(request)} tabIndex={0} onKeyDown={(event) => event.key === "Enter" && setSelected(request)}>
+            <td className="maintenance-request-cell"><strong>{display.title}</strong><small>{display.description}</small></td>
+            <td>{request.building_name || "Building unavailable"}</td>
+            <td><strong>{display.room}</strong><small>{roomNumberLabel(request.room_code)}</small></td>
             <td className="maintenance-reported">{formatTimestamp(request.created_at)}</td>
-            <td>{request.reporter_name || "Student account unavailable"}</td>
+            <td><span className={`maintenance-pill priority-${request.priority.toLowerCase()}`}>{request.priority.toLowerCase()}</span></td>
+            <td>{request.assignee_name || "Unassigned"}</td>
             <td><span className={`maintenance-pill status-${statusClass(request.status)}`}>{statusLabel(request.status)}</span></td>
-            <td className="maintenance-row-arrow"><ChevronRight size={17}/></td>
-          </tr>)}
+          </tr>; })}
         </tbody></table>
+        <div className="maintenance-mobile-list">
+          {!loading && filteredRequests.map((request) => { const display = requestPresentation(request); return <button type="button" className="maintenance-mobile-card" key={request.id} onClick={() => setSelected(request)}>
+            <span className="maintenance-mobile-card-top"><strong>{display.title}</strong><span className={`maintenance-pill status-${statusClass(request.status)}`}>{statusLabel(request.status)}</span></span>
+            <span className="maintenance-mobile-description">{display.description}</span>
+            <span><small>Building</small><strong>{request.building_name || "Building unavailable"}</strong></span>
+            <span><small>Room</small><strong>{display.room} · {roomNumberLabel(request.room_code)}</strong></span>
+            <span className="maintenance-mobile-meta"><span><small>Reported</small><strong>{formatTimestamp(request.created_at)}</strong></span><span><small>Priority</small><strong><span className={`maintenance-pill priority-${request.priority.toLowerCase()}`}>{request.priority.toLowerCase()}</span></strong></span><span><small>Assignee</small><strong>{request.assignee_name || "Unassigned"}</strong></span></span>
+          </button>; })}
+        </div>
           {loading && <div className="maintenance-empty" role="status">Loading saved maintenance requests…</div>}
           {!loading && !error && filteredRequests.length === 0 && <div className="maintenance-empty" role="status">No persisted requests match this filter.</div>}
         </div>
@@ -204,22 +244,23 @@ function Maintenance() {
 
       {selected && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && setSelected(null)}><section className="maintenance-dialog maintenance-detail-dialog" aria-labelledby="maintenance-detail-title" aria-modal="true" role="dialog">
         <button className="maintenance-dialog-close" type="button" aria-label="Close request details" onClick={() => setSelected(null)}>×</button>
-        <span className="maintenance-dialog-id">Request #{selected.id}{selected.is_demo && " · DEMO ONLY"}</span><h2 id="maintenance-detail-title">{selected.title}</h2>
+        <h2 id="maintenance-detail-title">{selectedPresentation.title}</h2>
         <span className={`maintenance-pill status-${statusClass(selected.status)}`}>{statusLabel(selected.status)}</span>
-        <p>{selected.description || "No description provided."}</p>
+        <p>{selectedPresentation.description}</p>
         <dl>
-          <div><dt>Room</dt><dd>{selected.room_code}{selected.room_name ? ` · ${selected.room_name}` : ""}</dd></div>
-          <div><dt>Building</dt><dd>{selected.building_name ? `${selected.building_name}${selected.building_code ? ` (${selected.building_code})` : ""}` : "Unavailable"}</dd></div>
+          <div><dt>Room</dt><dd>{selectedPresentation.room} · {roomNumberLabel(selected.room_code)}</dd></div>
+          <div><dt>Building</dt><dd>{selected.building_name || "Unavailable"}</dd></div>
           <div><dt>Priority</dt><dd>{selected.priority.toLowerCase()}</dd></div>
+          <div><dt>Assignee</dt><dd>{selected.assignee_name || "Unassigned"}</dd></div>
           <div><dt>Reported by</dt><dd>{selected.reporter_name || "Student account unavailable"}</dd></div>
           <div><dt>Created</dt><dd>{formatTimestamp(selected.created_at)}</dd></div>
           <div><dt>Resolved</dt><dd>{selected.resolved_at ? formatTimestamp(selected.resolved_at) : "Not resolved"}</dd></div>
         </dl>
         <label className="maintenance-status-control">Update status
-          <select aria-label="Request status" value={selected.status} onChange={(event) => saveStatus(event.target.value)} disabled={updating || selected.is_demo}>
+          <select aria-label="Request status" value={selected.status} onChange={(event) => saveStatus(event.target.value)} disabled={updating || (selected.is_demo && !demoMode)}>
             {statusValues.map((status) => <option key={status} value={status}>{statusLabel(status)}</option>)}
           </select>
-          {selected.is_demo && <small>Sample record is read-only and cannot change operational maintenance status.</small>}
+          {selected.is_demo && !demoMode && <small>This fictional example is unavailable for workflow updates.</small>}
         </label>
         {updating && <p role="status">Saving status…</p>}
         <div className="maintenance-dialog-actions"><button type="button" onClick={() => setSelected(null)}>Close</button></div>
@@ -228,7 +269,7 @@ function Maintenance() {
       {scannerOpen && <div className="maintenance-overlay" onMouseDown={(event) => event.target === event.currentTarget && closeRoomScanner()}><section className="maintenance-dialog maintenance-room-scanner-dialog" aria-labelledby="maintenance-room-scanner-title" aria-modal="true" role="dialog">
         <button className="maintenance-dialog-close" type="button" aria-label="Close room scanner" onClick={closeRoomScanner}><X size={18}/></button>
         <span className="maintenance-dialog-icon"><QrCode size={20}/></span>
-        <h2 id="maintenance-room-scanner-title">Scan a non-demo room</h2>
+        <h2 id="maintenance-room-scanner-title">Scan a campus room</h2>
         <p>Scan a supported campus QR code or enter a room code to look it up. This lookup does not create or modify room records.</p>
 
         {roomInventory.status === "loading" && <p role="status">Loading database rooms and buildings…</p>}
@@ -248,7 +289,6 @@ function Maintenance() {
             <div><dt>Room code</dt><dd>{matchedRoom.room_code}</dd></div>
             <div><dt>Room name</dt><dd>{matchedRoom.room_name || "Name unavailable"}</dd></div>
             <div><dt>Building</dt><dd>{matchedBuilding?.name || "Building unavailable"}{matchedBuilding?.building_code ? ` (${matchedBuilding.building_code})` : ""}</dd></div>
-            <div><dt>Room ID</dt><dd>{matchedRoom.id}</dd></div>
           </dl>
           <button type="button" className="maintenance-new-button" onClick={chooseMatchedRoom}>Select this room</button>
         </article>}

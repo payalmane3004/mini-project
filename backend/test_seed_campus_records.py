@@ -1,8 +1,14 @@
 from datetime import datetime, timezone
 from types import SimpleNamespace
+import contextlib
+import io
 import unittest
+from unittest.mock import patch
 
+import seed_campus_records as seeder
 from seed_campus_records import (
+    LEGACY_BOOKING_MARKER,
+    LEGACY_MAINTENANCE_MARKER,
     SIMULATED_SOURCE,
     build_plan,
 )
@@ -25,6 +31,30 @@ def fixtures():
 
 
 class SeedPlanTests(unittest.TestCase):
+    def test_neon_sample_apply_is_disabled_before_database_configuration_or_connection(self):
+        error_output = io.StringIO()
+        with patch.object(seeder, "load_application") as load_application, \
+             contextlib.redirect_stderr(error_output):
+            status = seeder.main(["--apply", "--confirm-neon-target"])
+        self.assertEqual(status, 2)
+        load_application.assert_not_called()
+        self.assertIn("writes to PostgreSQL/Neon are disabled", error_output.getvalue())
+
+    def test_v1_seed_markers_prevent_duplicate_booking_and_maintenance_rows(self):
+        buildings, rooms = fixtures()
+        plan = build_plan(
+            buildings, rooms, [], [],
+            {f"{LEGACY_BOOKING_MARKER}{index:03d} | Fictional room booking" for index in range(1, 13)},
+            {f"{LEGACY_MAINTENANCE_MARKER}{index:03d} | Fictional maintenance example" for index in range(1, 13)},
+            student_id=51,
+            now=datetime(2026, 10, 28, 12, tzinfo=timezone.utc),
+        )
+
+        self.assertEqual(plan["bookings"], [])
+        self.assertEqual(plan["maintenance"], [])
+        self.assertEqual(plan["skipped"]["bookings"], 12)
+        self.assertEqual(plan["skipped"]["maintenance"], 12)
+
     def test_plan_counts_and_preserves_existing_fixture_rooms(self):
         buildings, rooms = fixtures()
         plan = build_plan(

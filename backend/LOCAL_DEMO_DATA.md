@@ -25,9 +25,7 @@ The readings generator does not initialize or repair a fixture. An absent, unmar
 From the repository root, start the backend with the standard command:
 
 ```powershell
-cd backend
-.\venv\Scripts\Activate.ps1
-python -m uvicorn main:app --reload
+& .\backend\venv\Scripts\python.exe .\backend\run_demo_backend.py
 ```
 
 In another terminal from the repository root, start the frontend:
@@ -57,7 +55,16 @@ The `DEMO DATA` indicator appears in admin and student top bars only when the ba
 
 ## Fixture contents
 
-All names and records are explicitly labeled fictional. Demo building codes use the `DEMO-` prefix and intentionally do not claim a match to CAD footprints. Demo buildings are excluded from the operational building total. The Digital Twin continues to use its existing CAD geometry and exact-code matching; no demo coordinates or mappings are created.
+For an existing fixture, normalize the generated campus records with the guarded, repeatable command below. It accepts only the marked local SQLite fixture with the expected fixture record counts. It preserves every user account and password hash, and leaves occupancy/energy values and their simulated sources unchanged.
+
+```powershell
+cd backend
+.\venv\Scripts\python.exe .\refresh_local_campus_data.py
+```
+
+The refresh uses consistent campus building codes and room numbers, realistic fictional booking purposes, maintenance requests, floor labels, and unpublished campus notices. The generated records remain identified as local preview records through the protected database marker and API metadata. Occupancy and energy values remain simulated and excluded from operational totals. It does not connect to or write to Neon.
+
+The Digital Twin continues to use its existing CAD geometry and exact-code matching; no fictional coordinates or mappings are created.
 
 | Application table | Records |
 | --- | ---: |

@@ -122,7 +122,7 @@ export default function StudentOccupancy() {
       <button className="student-monitor-refresh" type="button" onClick={refresh} disabled={state.loading}><RefreshCw size={15} className={state.loading ? "student-monitor-spin" : ""}/>Refresh</button>
     </header>
 
-    <div className="student-monitor-banner"><strong>SIMULATED DEMO DATA — NOT LIVE SENSOR READINGS</strong><span>Stored historical observations only. No live occupancy feed or camera-based counting is connected.</span></div>
+    <div className="student-monitor-banner"><strong>SIMULATED VALUES — NOT LIVE SENSOR READINGS</strong><span>Stored historical observations only. No live occupancy feed or camera-based counting is connected.</span></div>
 
     <form className="student-monitor-filters" onSubmit={applyFilters} aria-label="Filter occupancy readings">
       <label htmlFor="occupancy-building"><span>Building</span><select id="occupancy-building" value={building} onChange={(event) => { setBuilding(event.target.value); setRoom(""); }}><option value="">All available buildings</option>{buildingOptions.map(({ code, name }) => <option key={code} value={code}>{code} · {name}</option>)}</select></label>
@@ -174,6 +174,6 @@ export default function StudentOccupancy() {
 
     {view === "empty" && <EmptyState title="No simulated readings match these filters" onReset={resetFilters}>{availableDateRange.from
       ? `The returned readings range from ${availableDateRange.from} through ${availableDateRange.through} UTC. Clear the building, room, and date filters to view all available history.`
-      : "No timestamped simulated readings were returned. Refresh the page or check that the documented local demo API is running."}</EmptyState>}
+      : "No timestamped simulated readings were returned. Refresh the page or check that the documented local dataset API is running."}</EmptyState>}
   </main>;
 }

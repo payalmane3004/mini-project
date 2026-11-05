@@ -1,6 +1,7 @@
 """Occupancy and energy endpoint tests using isolated in-memory SQLite data."""
 
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from unittest.mock import patch
@@ -14,6 +15,8 @@ import models
 
 class ResourceIntegrityTests(unittest.TestCase):
     def setUp(self):
+        self.demo_patch = patch.object(main, "_local_demo_is_active", return_value=False)
+        self.demo_patch.start()
         self.engine = create_engine("sqlite:///:memory:")
         models.Building.__table__.create(self.engine)
         models.Room.__table__.create(self.engine)
@@ -33,6 +36,7 @@ class ResourceIntegrityTests(unittest.TestCase):
         self.db.commit()
 
     def tearDown(self):
+        self.demo_patch.stop()
         self.db.close()
         self.engine.dispose()
 

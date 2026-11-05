@@ -1,8 +1,6 @@
-"""Preview or explicitly add a small simulated dataset for CampusSphere dashboards.
+"""Preview a legacy Neon demo-data plan; apply is disabled for all Neon targets.
 
-Default behavior is read-only. Run with --apply only after reviewing the plan.
-This script may create clearly marked demo notices, but never creates users,
-bookings, alerts, or maintenance requests.
+Use the guarded local SQLite demo tools to create simulated records.
 """
 import argparse
 import os
@@ -317,15 +315,23 @@ def _load_seed_database(seed_url):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--apply", action="store_true", help="insert the reviewed demo dataset")
+    parser.add_argument("--apply", action="store_true", help="rejected: demo writes to Neon are disabled")
     parser.add_argument("--check-config-only", action="store_true", help="validate the seed-only URL without connecting to any database")
     parser.add_argument("--expected-project-id", default="", help="project ID independently checked in Neon Console")
     parser.add_argument("--expected-branch-id", default="", help="branch ID independently checked in Neon Console")
     parser.add_argument("--expected-host", default="", help="endpoint host independently checked in Neon Console")
     parser.add_argument("--expected-database", default="", help="database name independently checked in Neon Console")
     parser.add_argument("--confirm-neon-target-verified", action="store_true", help="attest that project, branch, host, and database were compared with Neon Console")
-    parser.add_argument("--confirm-demo-write", action="store_true", help="authorize the reviewed demo inserts")
+    parser.add_argument("--confirm-demo-write", action="store_true", help="legacy confirmation; cannot enable Neon writes")
     args = parser.parse_args(argv)
+
+    if args.apply:
+        print(
+            "Refused: demo/sample writes to PostgreSQL/Neon are disabled. "
+            "Use the guarded local SQLite demo tools instead. No connection was opened.",
+            file=sys.stderr,
+        )
+        return 3
 
     target_values = (
         args.expected_project_id, args.expected_branch_id,

@@ -45,6 +45,31 @@
 .predictions-chart-caption { padding: 0 14px 12px; color: #8f9fb1; font-size: 9px; line-height: 1.45; }
 .predictions-tooltip { display: grid; gap: 4px; padding: 9px 11px; color: #dce6ed; background: #17212b; border: 1px solid #344552; border-radius: 7px; font-size: 10px; }
 .predictions-tooltip small { color: #9eacbd; }
+.predictions-demo-banner { padding: 10px 13px; margin: 0 0 12px; color: #e8d29c; background: rgba(180,140,61,.1); border: 1px solid rgba(180,140,61,.32); border-radius: 7px; font-size: 10px; line-height: 1.5; font-weight: 650; letter-spacing: .025em; }
+.predictions-status-badge.available { color: #a8d8c6; background: rgba(54,133,98,.12); border-color: rgba(97,180,140,.28); }
+.predictions-forecast-grid,.predictions-insights-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-bottom: 12px; }
+.predictions-forecast-panel { min-width: 0; }
+.predictions-forecast-value { display: flex; align-items: baseline; gap: 8px; padding: 11px 14px 0; }
+.predictions-forecast-value strong { color: #e7eef3; font: 650 22px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.predictions-forecast-value span { color: #99a8b8; font-size: 10px; }
+.predictions-quality { padding: 3px 14px 0; color: #899bad; font-size: 9px; }
+.predictions-quality strong { color: #b8c8d5; font-weight: 650; text-transform: capitalize; }
+.predictions-forecast-chart { height: 210px; }
+.predictions-data-requirements { display: grid; gap: 5px; padding: 0 14px 13px; color: #9eacbd; font-size: 10px; }
+.predictions-data-requirements strong { color: #cad5df; font-size: 10px; }
+.predictions-data-requirements span { font-variant-numeric: tabular-nums; }
+.predictions-data-requirements p { margin-top: 2px; color: #899bad; line-height: 1.45; }
+.predictions-insights-grid { margin-bottom: 12px; }
+.predictions-insight-list,.predictions-recommendation-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.predictions-insight-list li { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 3px 10px; align-items: baseline; padding: 10px 14px; border-bottom: 1px solid #26313d; color: #c9d4de; font-size: 10px; }
+.predictions-insight-list li:last-child,.predictions-recommendation-list li:last-child { border-bottom: 0; }
+.predictions-insight-list li span { min-width: 0; overflow-wrap: anywhere; }
+.predictions-insight-list li strong { color: #dce7ed; font-variant-numeric: tabular-nums; }
+.predictions-insight-list li small { grid-column: 1 / -1; color: #8797a9; font-size: 9px; }
+.predictions-recommendations { margin-bottom: 12px; }
+.predictions-recommendation-list li { display: grid; gap: 4px; padding: 11px 14px; border-bottom: 1px solid #26313d; }
+.predictions-recommendation-list strong { color: #d8e2e9; font-size: 10px; }
+.predictions-recommendation-list span { color: #9eacbd; font-size: 10px; line-height: 1.5; }
 .predictions-requirements { display: grid; grid-template-columns: minmax(190px,.75fr) minmax(0,1.25fr); gap: 14px; align-items: center; padding: 13px 15px; margin-top: 13px; background: #151c25; border: 1px solid #293441; border-radius: 9px; }
 .predictions-requirements > div > span { color: #78cbd8; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
 .predictions-requirements h2 { margin-top: 3px; color: #e5eaf0; font-size: 12px; }
@@ -68,6 +93,7 @@
   .predictions-filter-actions { grid-column: auto; }
   .predictions-filter-actions button { flex: 1 1 auto; }
   .predictions-trend-grid { grid-template-columns: minmax(0,1fr); }
+  .predictions-forecast-grid,.predictions-insights-grid { grid-template-columns: minmax(0,1fr); }
   .predictions-chart { height: 210px; padding-inline: 4px; }
   .predictions-requirements { grid-template-columns: minmax(0,1fr); gap: 7px; }
 }

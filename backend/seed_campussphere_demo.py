@@ -1,8 +1,6 @@
-"""Compatibility entry point for the complete CampusSphere demo dataset.
+"""Compatibility entry point for a legacy demo dataset planner.
 
-The implementation lives in seed_campussphere_dashboard_demo.py. Default is
-read-only; inserts require --apply, verified Neon target arguments, and
---confirm-demo-write.
+Neon writes are disabled; use the guarded local SQLite demo tools.
 """
 import argparse
 import re
@@ -83,10 +81,10 @@ def _apply_plan(session, models, planned):
                 session.add(models.Room(
                     building_id=building.id,
                     room_code=code,
-                    room_name="DEMO room for authorized testing",
+                    room_name="Lecture Room 101",
                     floor_number=0,
-                    capacity=0,
-                    room_type="DEMO",
+                    capacity=60,
+                    room_type="CLASSROOM",
                 ))
                 inserted += 1
         return inserted

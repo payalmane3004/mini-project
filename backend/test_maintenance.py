@@ -92,7 +92,8 @@ class MaintenanceAPITests(unittest.TestCase):
                     id INTEGER PRIMARY KEY, room_id INTEGER NOT NULL REFERENCES rooms(id),
                     reported_by INTEGER REFERENCES users(id), title VARCHAR(150) NOT NULL,
                     description TEXT, priority VARCHAR(20), status VARCHAR(20), qr_code_value TEXT,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, resolved_at DATETIME
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, resolved_at DATETIME,
+                    assignee_name VARCHAR(100)
                 )
             """))
             connection.execute(text("INSERT INTO users (id, full_name, email, password_hash, role) VALUES (11, 'Campus Admin', 'admin@example.invalid', 'x', 'ADMIN'), (12, 'Student One', 'one@example.invalid', 'x', 'STUDENT'), (13, 'Student Two', 'two@example.invalid', 'x', 'STUDENT')"))
@@ -149,10 +150,11 @@ class MaintenanceAPITests(unittest.TestCase):
         self.assertEqual(result["detail"], "Room not found")
 
     def test_demo_room_cannot_receive_maintenance_requests(self):
-        status, result = self.request(
-            "/maintenance/requests", role="student", method="POST",
-            body={"room_id": 33, "title": "Issue", "description": "Demo room issue"},
-        )
+        with patch.object(main, "_local_demo_is_active", return_value=False):
+            status, result = self.request(
+                "/maintenance/requests", role="student", method="POST",
+                body={"room_id": 33, "title": "Issue", "description": "Demo room issue"},
+            )
         self.assertEqual(status, 409)
         self.assertEqual(result["detail"], "Demo rooms are not available for maintenance requests")
         self.assertEqual(self.db.query(models.MaintenanceRequest).count(), 2)
@@ -164,8 +166,8 @@ class MaintenanceAPITests(unittest.TestCase):
                 body={"room_id": 33, "title": "Projector issue", "description": "Fictional demo request"},
             )
         self.assertEqual(status, 201)
-        self.assertTrue(result["title"].startswith("DEMO"))
-        self.assertTrue(result["description"].startswith("DEMO:"))
+        self.assertEqual(result["title"], "Projector issue")
+        self.assertEqual(result["description"], "Fictional demo request")
         self.assertEqual(result["room_code"], "DEMO-B-101")
 
     def test_room_with_missing_building_is_rejected(self):

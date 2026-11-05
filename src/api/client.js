@@ -1,19 +1,19 @@
 import { SESSION_KEY, SESSION_EXPIRED_EVENT } from "../auth/authState.js";
 
 const CONFIGURED_API_BASE_URL = import.meta.env?.VITE_API_BASE_URL;
+const DEVELOPMENT_API_BASE_URL = import.meta.env?.DEV === false ? null : "http://127.0.0.1:8001";
 
-export function resolveApiBaseUrl({ configuredUrl }) {
+export function resolveApiBaseUrl({ configuredUrl, development = import.meta.env?.DEV !== false }) {
   if (configuredUrl) return configuredUrl.replace(/\/$/, "");
-  // The normal uvicorn command binds to port 8000. All local Vite ports use
-  // that same backend unless an explicit API base URL is configured.
-  return "http://127.0.0.1:8000";
+  if (development && DEVELOPMENT_API_BASE_URL) return DEVELOPMENT_API_BASE_URL;
+  throw new Error("VITE_API_BASE_URL must be set for production builds.");
 }
 
 export function getApiBaseUrl() {
   return resolveApiBaseUrl({
     configuredUrl: CONFIGURED_API_BASE_URL,
     frontendPort: typeof window !== "undefined" ? window.location?.port : undefined,
-    development: import.meta.env?.DEV === true,
+    development: import.meta.env?.DEV !== false,
   });
 }
 
@@ -54,7 +54,20 @@ export async function apiFetch(path, options = {}) {
     response = await fetch(`${getApiBaseUrl()}${path}`, { ...requestOptions, headers });
   } catch (error) {
     if (error.name === "AbortError") throw error;
-    throw new Error("Could not reach the CampusSphere API. Check that the backend is running.", { cause: error });
+    console.error("CampusSphere API request failed before receiving a response", {
+      method: requestOptions.method || "GET",
+      path: new URL(path, getApiBaseUrl()).pathname,
+      reason: error.name || "NetworkError",
+    });
+    throw new Error(`Request to ${getApiBaseUrl()}${path} failed before the server returned a response (${error.message || error.name}).`, { cause: error });
+  }
+
+  if (!response.ok) {
+    console.error("CampusSphere API returned an unsuccessful response", {
+      method: requestOptions.method || "GET",
+      path: new URL(path, getApiBaseUrl()).pathname,
+      status: response.status,
+    });
   }
 
   if (response.status === 401 && token) {

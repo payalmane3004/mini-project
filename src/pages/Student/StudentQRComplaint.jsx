@@ -57,7 +57,7 @@ function StudentQRComplaint() {
     const room = findVerifiedRoomByCode(rooms, parsed.roomCode, { allowDemo: demoMode });
     if (!room) {
       const existing = findVerifiedRoomByCode(rooms, parsed.roomCode, { allowDemo: true });
-      setScanError(existing && isDemoRoom(existing) ? `Room code ${parsed.roomCode} is demo-only and unavailable outside the approved local demo.` : `Room code ${parsed.roomCode} was not found in the authenticated room directory.`);
+      setScanError(existing && isDemoRoom(existing) ? `Room code ${parsed.roomCode} is local and unavailable outside the local dataset.` : `Room code ${parsed.roomCode} was not found in the authenticated room directory.`);
       return false;
     }
     setSelectedRoom(room);
@@ -74,7 +74,7 @@ function StudentQRComplaint() {
       setScanComplete(false);
       setSelectionSource("");
       const existing = findVerifiedRoomByCode(rooms, manualRoomCode, { allowDemo: true });
-      setScanError(existing && isDemoRoom(existing) ? `Room code ${manualRoomCode.trim()} is demo-only and unavailable outside the approved local demo.` : `Room code ${manualRoomCode.trim() || "(empty)"} was not found in the authenticated room directory.`);
+      setScanError(existing && isDemoRoom(existing) ? `Room code ${manualRoomCode.trim()} is local and unavailable outside the local dataset.` : `Room code ${manualRoomCode.trim() || "(empty)"} was not found in the authenticated room directory.`);
       return;
     }
     setSelectedRoom(room);
@@ -101,7 +101,7 @@ function StudentQRComplaint() {
     <div className="student-maintenance-page">
       <div className="student-page-header">
         <div>
-          <p className="page-label">{demoMode ? "LOCAL DEMO · ROOM LOOKUP" : "QUICK REPORT"}</p>
+          <p className="page-label">{demoMode ? "LOCAL DATASET · ROOM LOOKUP" : "QUICK REPORT"}</p>
           <h1>QR Complaint</h1>
           <p>Scan a room QR code, or enter its code manually, to verify the room before opening the existing issue form.</p>
         </div>
@@ -124,7 +124,7 @@ function StudentQRComplaint() {
         </div>}
         {!loading && !roomError && eligibleRooms.length === 0 && <div role="status" className="maintenance-room-empty">
           <strong>No eligible room records are available.</strong>
-          <p>{demoMode ? "The authenticated room directory contains no rooms for this local demo." : "An administrator must confirm official room details and add them in Admin → Floors & Rooms. Demo-only rooms are available only in the approved local demo."}</p>
+          <p>{demoMode ? "The authenticated room directory contains no rooms for this local dataset." : "An administrator must confirm official room details and add them in Admin → Floors & Rooms. Local rooms are available only in the local dataset."}</p>
         </div>}
         {!loading && !roomError && eligibleRooms.length > 0 && !selectedRoom && <CampusQrScanner key={scannerKey} onScan={validateScan} onAccepted={() => setScanComplete(true)} onDuplicate={() => setScanError("This QR was already recognized. Continue with the confirmed room or choose Scan another code.")} />}
 
@@ -142,7 +142,7 @@ function StudentQRComplaint() {
           <CheckCircle2 size={20} aria-hidden="true" />
           <div className="maintenance-qr-result-copy">
             <strong>{selectionSource === "qr" && scanComplete ? "Room QR recognized" : selectionSource === "manual" ? "Room found by code" : "Checking scanned room…"}</strong>
-            {isDemoRoom(selectedRoom) && <small className="maintenance-qr-demo-label">DEMO ONLY - local preview inventory; not verified operational inventory</small>}
+            {isDemoRoom(selectedRoom) && <small className="maintenance-qr-demo-label">Local record - local preview inventory; not verified operational inventory</small>}
             <p>{selectedRoom.room_name ? `${selectedRoom.room_name} · ` : ""}{selectedRoom.room_code} · {buildingById.get(selectedRoom.building_id) || `Building ID ${selectedRoom.building_id}`} · Floor {selectedRoom.floor_number}</p>
           </div>
           <button type="button" className="primary-student-button" onClick={openMaintenanceForm}>Continue to Report an Issue</button>
@@ -151,7 +151,7 @@ function StudentQRComplaint() {
 
         <div className="maintenance-qr-guidance">
           <ShieldCheck size={22} />
-          <p>A matched room is checked against the authenticated room directory. Demo-only rooms are available only in the approved local demo and remain visibly labelled. No maintenance request is created until you submit the existing issue form.</p>
+          <p>A matched room is checked against the authenticated room directory. Local rooms are available only in the local dataset and remain visibly labelled. No maintenance request is created until you submit the existing issue form.</p>
         </div>
 
         <button type="button" className="secondary-student-button" onClick={() => navigate("/student-dashboard")} style={{ marginTop: 20 }}>

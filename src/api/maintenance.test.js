@@ -55,7 +55,7 @@ test("student create uses bearer auth and does not accept a client owner ID", as
     room_id: 31, title: "Broken projector", description: "No image", priority: "HIGH",
   });
   assert.equal(created.id, 8);
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/maintenance/requests");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/maintenance/requests");
   assert.equal(calls[0].options.method, "POST");
   assert.equal(new Headers(calls[0].options.headers).get("Content-Type"), "application/json");
   assert.deepEqual(JSON.parse(calls[0].options.body), {
@@ -76,7 +76,7 @@ test("admin status update uses the protected status endpoint and validates its r
   const calls = installRequestMocks(t, async () => new Response(JSON.stringify(updated), { status: 200 }));
   const result = await updateMaintenanceRequestStatus(8, "RESOLVED");
   assert.equal(result.status, "RESOLVED");
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/maintenance/requests/8/status");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/maintenance/requests/8/status");
   assert.equal(calls[0].options.method, "PATCH");
   assert.deepEqual(JSON.parse(calls[0].options.body), { status: "RESOLVED" });
 });
@@ -85,7 +85,7 @@ test("room inventory API accepts empty and actual room records", async (t) => {
   const rows = [{ id: 31, building_id: 21, room_code: "A-101", room_name: "Lecture Room 101", floor_number: 1, capacity: 30, room_type: "CLASSROOM" }];
   const calls = installRequestMocks(t, async () => new Response(JSON.stringify(rows), { status: 200 }));
   assert.deepEqual(await fetchRooms(), rows);
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/rooms");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/rooms");
   assert.equal(new Headers(calls[0].options.headers).get("Authorization"), "Bearer test-token");
 });
 

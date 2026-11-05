@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.engine import URL, make_url
 from sqlalchemy.orm import sessionmaker, declarative_base
 from demo_mode import DEMO_DATABASE_PATH, DemoDatabaseError, is_active_demo_engine
@@ -48,6 +48,14 @@ else:
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL is required when CAMPUSSPHERE_ENV=production.")
 
+try:
+    configured_database_url = make_url(DATABASE_URL)
+except Exception:
+    raise ValueError("DATABASE_URL is invalid; check the deployment environment configuration.") from None
+
+if DATABASE_ENVIRONMENT == "production" and configured_database_url.get_backend_name() != "postgresql":
+    raise ValueError("CAMPUSSPHERE_ENV=production requires a PostgreSQL DATABASE_URL.")
+
 if DATABASE_ENVIRONMENT == "development" and USES_APPROVED_DEMO_FIXTURE:
     if DEMO_DATABASE_PATH.is_symlink() or not DEMO_DATABASE_PATH.is_file():
         raise DemoDatabaseError("The approved local demo SQLite fixture is missing or unsafe; refusing to start.")
@@ -60,6 +68,17 @@ engine = create_engine(
 if DATABASE_ENVIRONMENT == "development" and USES_APPROVED_DEMO_FIXTURE and not is_active_demo_engine(engine):
     engine.dispose()
     raise DemoDatabaseError("Local development requires the marked approved demo SQLite fixture; refusing to start.")
+
+# Small, local-fixture-only additive schema updates. Production schema changes
+# are prepared as migration SQL and are never applied by application startup.
+if DATABASE_ENVIRONMENT == "development" and USES_APPROVED_DEMO_FIXTURE:
+    with engine.begin() as connection:
+        booking_columns = {column["name"] for column in inspect(connection).get_columns("room_bookings")}
+        if "rejection_reason" not in booking_columns:
+            connection.execute(text("ALTER TABLE room_bookings ADD COLUMN rejection_reason TEXT"))
+        maintenance_columns = {column["name"] for column in inspect(connection).get_columns("maintenance_requests")}
+        if "assignee_name" not in maintenance_columns:
+            connection.execute(text("ALTER TABLE maintenance_requests ADD COLUMN assignee_name VARCHAR(100)"))
 
 SessionLocal = sessionmaker(
     autocommit=False,

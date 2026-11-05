@@ -158,14 +158,14 @@ export default function Dashboard() {
       };
       const demoMetricLabels = {
         buildings_total: "Demo buildings",
-        verified_rooms_total: "Demo rooms",
+        verified_rooms_total: "Local rooms",
         occupancy_readings_total: "Simulated occupancy readings",
         energy_readings_total: "Simulated energy readings",
         maintenance_open_total: "Demo open maintenance",
       };
       const useDemoMetric = includeDemoPreview && demoMetricKeys[metric.key];
       const displayedMetric = useDemoMetric
-        ? { ...metric, label: demoMetricLabels[metric.key], detail: "Fictional sample records" }
+        ? { ...metric, label: demoMetricLabels[metric.key], detail: "Fictional fictional records" }
         : metric;
       return [displayedMetric, getDashboardMetricValue(
         summary?.[useDemoMetric ? demoMetricKeys[metric.key] : metric.key], summaryAvailable,
@@ -216,12 +216,12 @@ export default function Dashboard() {
       <div className="dashboard-heading-actions"><span className="dashboard-data-badge"><span aria-hidden="true"/> Stored records · no live telemetry</span><Link to="/buildings" className="dashboard-primary-link"><Building2 size={15}/> Building directory</Link></div>
     </header>
 
-    <aside className="dashboard-demo-notice" aria-label="Sample data preview controls">
-      <strong>SAMPLE DATA</strong><span>{includeDemoPreview ? "Sample preview is enabled. Clearly marked fictional bookings, occupancy, energy, and maintenance are included in preview metrics; readings are simulated, not live sensor data." : "Operational metrics exclude clearly marked sample records. Turn on the preview to include sample data in the displayed counts."}</span>
+    <aside className="dashboard-demo-notice" aria-label="Fictional records preview controls">
+      <strong>LOCAL DATA</strong><span>{includeDemoPreview ? "Local preview is enabled. Clearly marked fictional bookings, occupancy, energy, and maintenance are included in preview metrics; readings are simulated, not live sensor data." : "Operational metrics exclude clearly marked fictional records. Turn on the preview to include fictional records in the displayed counts."}</span>
       <button type="button" aria-pressed={includeDemoPreview} onClick={() => {
         setSummaryState((state) => ({ ...state, loading: true, error: "" }));
         setIncludeDemoPreview((value) => !value);
-      }}>{includeDemoPreview ? "Hide sample preview" : "Show sample preview"}</button>
+      }}>{includeDemoPreview ? "Hide local preview" : "Show local preview"}</button>
     </aside>
 
     <div className="dashboard-toolbar">

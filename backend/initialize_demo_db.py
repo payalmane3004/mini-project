@@ -1,11 +1,6 @@
-"""Initialize model tables in a verified, fresh Neon demo database.
+"""Legacy demo schema initializer; production PostgreSQL DDL is disabled.
 
-The preflight and create_all are separate operations. A session advisory lock
-serializes instances of this initializer that use the same lock key. Other
-clients can still change the schema unless they follow the same protocol.
-PostgreSQL-owned namespaces (pg_catalog, information_schema, pg_toast*, and
-pg_temp*) and the built-in plpgsql extension are allowed. Only public may be
-an application schema, and it must have no user-created objects.
+Production schema changes must use a reviewed migration, never create_all.
 """
 
 import argparse
@@ -23,9 +18,8 @@ from demo_db_safety import (
 def _parser():
     parser = argparse.ArgumentParser(
         description=(
-            "Create current SQLAlchemy model tables in a verified fresh demo database. "
-            "This does not migrate schemas. Project and branch IDs are operator-supplied "
-            "claims and are not independently verified by PostgreSQL."
+            "Legacy command retained for compatibility. Applying schema changes is disabled; "
+            "use reviewed migration SQL for production."
         )
     )
     parser.add_argument("--expected-project-id", required=True)
@@ -131,44 +125,13 @@ def _release_initializer_lock(connection):
 
 
 def main(argv=None):
-    args = _parser().parse_args(argv)
-    engine = None
-    try:
-        require_project_confirmation(args)
-        # Require the explicit process URL before database.py can construct an engine.
-        url = validate_target_url(os.environ.get("DATABASE_URL"), args.expected_host, args.expected_database)
-        print(
-            f"Target claim: project {args.expected_project_id}; branch {args.expected_branch_id}; "
-            f"host {url.host}; database {url.database}. Project/branch IDs are operator-supplied "
-            "claims, not independently verified by PostgreSQL."
-        )
-
-        import database
-        import models  # Register all existing mapped tables on Base.metadata.
-
-        engine = database.engine
-        validate_target_url(engine.url, args.expected_host, args.expected_database)
-        with engine.connect() as connection:
-            _acquire_initializer_lock(connection)
-            try:
-                # Recheck after lock acquisition. Unrelated clients that ignore this
-                # protocol can still race between this read-only check and DDL.
-                _preflight(connection, args.expected_database)
-                database.Base.metadata.create_all(bind=connection, checkfirst=True)
-                connection.commit()
-            finally:
-                _release_initializer_lock(connection)
-        print(f"Initialized CampusSphere model tables on {url.host}/{url.database}.")
-        return 0
-    except DemoSetupError as error:
-        print(f"Refused: {error}", file=sys.stderr)
-        return 2
-    except Exception:
-        print("Initialization failed; database error details were suppressed.", file=sys.stderr)
-        return 1
-    finally:
-        if engine is not None:
-            engine.dispose()
+    _parser().parse_args(argv)
+    print(
+        "Refused: demo schema initialization on PostgreSQL/Neon is disabled. "
+        "Use reviewed migration SQL for production and the local SQLite fixture for demos.",
+        file=sys.stderr,
+    )
+    return 2
 
 
 if __name__ == "__main__":

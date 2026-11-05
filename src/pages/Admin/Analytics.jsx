@@ -162,10 +162,10 @@ export default function Analytics() {
   return <div className="analytics-page">
     <header className="analytics-page-heading">
       <div><span className="analytics-eyebrow"><Activity size={14}/> CAMPUS INTELLIGENCE</span><h1>Campus Intelligence</h1><p>Operational summaries derived from available CampusSphere records.</p></div>
-      <div className="analytics-heading-actions"><span className="analytics-source-status"><span aria-hidden="true"/> Stored database records · no live telemetry</span>{demoMode && <button type="button" aria-pressed={includeDemoPreview} onClick={() => { setLoading(true); setError(""); setIncludeDemoPreview((value) => !value); }}>{includeDemoPreview ? "Hide demo preview" : "Show demo preview"}</button>}<button type="button" onClick={refreshData} disabled={loading || bookingState.loading || alertState.loading} aria-label="Refresh analytics and current booking and alert records"><RefreshCw size={15}/> Refresh</button></div>
+      <div className="analytics-heading-actions"><span className="analytics-source-status"><span aria-hidden="true"/> Stored database records · no live telemetry</span>{demoMode && <button type="button" aria-pressed={includeDemoPreview} onClick={() => { setLoading(true); setError(""); setIncludeDemoPreview((value) => !value); }}>{includeDemoPreview ? "Hide local preview" : "Show local preview"}</button>}<button type="button" onClick={refreshData} disabled={loading || bookingState.loading || alertState.loading} aria-label="Refresh analytics and current booking and alert records"><RefreshCw size={15}/> Refresh</button></div>
     </header>
 
-    {demoMode && <p className="analytics-demo-note">{includeDemoPreview ? "DEMO PREVIEW: chart data includes fictional demo rooms, simulated occupancy/energy readings, demo bookings, alerts, and maintenance. Operational totals remain separate below." : "Demo records are excluded from operational counts. Occupancy and energy demo readings are simulated, historical, and not live."}</p>}
+    {demoMode && <p className="analytics-demo-note">{includeDemoPreview ? "LOCAL PREVIEW: chart data includes fictional local rooms, simulated occupancy/energy readings, campus bookings, alerts, and maintenance. Operational totals remain separate below." : "Local records are excluded from operational counts. Occupancy and energy values are simulated, historical, and not live."}</p>}
     <section className="analytics-filter-bar" aria-label="Analytics date filters">
       <div className="analytics-date-fields">
         <label htmlFor="analytics-start-date">From <input id="analytics-start-date" type="date" value={startDate} max={endDate || undefined} onChange={(event) => updateDate(setStartDate, event.target.value)}/></label>
@@ -193,12 +193,12 @@ export default function Analytics() {
         <AnalyticsMetric icon={Zap} title="ENERGY READINGS" value={numberFormat.format(summary.energy_readings_total)} detail={metricDetail(summary.energy_readings_total, "No readings available for this period", "Individual stored kWh readings · source retained")} tone="blue"/>
         <AnalyticsMetric icon={ClipboardCheck} title="OPEN MAINTENANCE" value={numberFormat.format(summary.maintenance_open_total)} detail={metricDetail(summary.maintenance_open_total, "No open requests in selected period", "Stored requests created in selected period")} tone="amber"/>
       </section>
-      {demoMode && includeDemoPreview && <section className="analytics-metrics" aria-label="Fictional demo preview counts">
-        <AnalyticsMetric icon={Building2} title="DEMO BUILDINGS" value={numberFormat.format(summary.demo_buildings_total)} detail="Fictional local preview buildings" tone="cyan"/>
-        <AnalyticsMetric icon={DoorOpen} title="DEMO ROOMS" value={numberFormat.format(summary.demo_rooms_total)} detail="Not verified or operational inventory" tone="blue"/>
+      {demoMode && includeDemoPreview && <section className="analytics-metrics" aria-label="Fictional local preview counts">
+        <AnalyticsMetric icon={Building2} title="LOCAL BUILDINGS" value={numberFormat.format(summary.demo_buildings_total)} detail="Fictional local preview buildings" tone="cyan"/>
+        <AnalyticsMetric icon={DoorOpen} title="LOCAL ROOMS" value={numberFormat.format(summary.demo_rooms_total)} detail="Not verified or operational inventory" tone="blue"/>
         <AnalyticsMetric icon={Users} title="SIMULATED OCCUPANCY" value={numberFormat.format(summary.demo_occupancy_readings_total)} detail="Historical fictional readings" tone="cyan"/>
         <AnalyticsMetric icon={Zap} title="SIMULATED ENERGY" value={numberFormat.format(summary.demo_energy_readings_total)} detail="Individual fictional kWh readings" tone="blue"/>
-        <AnalyticsMetric icon={Wrench} title="DEMO OPEN MAINTENANCE" value={numberFormat.format(summary.demo_maintenance_open_total)} detail="Fictional local workflow records" tone="amber"/>
+        <AnalyticsMetric icon={Wrench} title="LOCAL OPEN MAINTENANCE" value={numberFormat.format(summary.demo_maintenance_open_total)} detail="Fictional local workflow records" tone="amber"/>
       </section>}
       <p className="analytics-secondary-summary">Resolved maintenance requests in selected period: <strong>{numberFormat.format(summary.maintenance_resolved_total)}</strong>. Values come from the existing read-only analytics summary.</p>
 

@@ -20,5 +20,5 @@ export function DemoModeProvider({ children }) {
 export function DemoModeIndicator() {
   const demoMode = useDemoMode();
   if (!demoMode) return null;
-  return <span className="demo-mode-badge" role="status" aria-label="Demo data mode active">DEMO DATA</span>;
+  return <span className="demo-mode-badge" role="status" aria-label="Local dataset active">Local dataset</span>;
 }

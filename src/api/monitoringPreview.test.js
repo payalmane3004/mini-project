@@ -45,7 +45,7 @@ const energyResponse = {
 test("admin occupancy preview requests simulated latest readings with bearer auth", async (t) => {
   const calls = mockApi(t, occupancyResponse);
   const response = await fetchLatestOccupancy({ includeDemo: true });
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/occupancy?include_demo=true");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/occupancy?include_demo=true");
   assert.equal(new Headers(calls[0].options.headers).get("Authorization"), "Bearer admin-test-token");
   assert.equal(response.demo_preview, true);
   assert.equal(response.readings.length, 1);
@@ -55,14 +55,14 @@ test("admin occupancy preview requests simulated latest readings with bearer aut
 test("admin occupancy operational request omits the simulated preview opt-in", async (t) => {
   const calls = mockApi(t, { ...occupancyResponse, demo_preview: false, readings: [] });
   const response = await fetchLatestOccupancy();
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/occupancy");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/occupancy");
   assert.deepEqual(response.readings, []);
 });
 
 test("admin energy preview opts in while retaining the response schema and auth", async (t) => {
   const calls = mockApi(t, energyResponse);
   const response = await fetchEnergyReadings({ includeDemo: true });
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/energy/readings?limit=1000&include_demo=true");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/energy/readings?limit=1000&include_demo=true");
   assert.equal(new Headers(calls[0].options.headers).get("Authorization"), "Bearer admin-test-token");
   assert.equal(response.readings.length, 1);
   assert.equal(response.readings[0].reading_source, "SIMULATED_DEMO");
@@ -71,14 +71,14 @@ test("admin energy preview opts in while retaining the response schema and auth"
 test("admin energy operational request omits the simulated preview opt-in", async (t) => {
   const calls = mockApi(t, { ...energyResponse, readings: [] });
   const response = await fetchEnergyReadings();
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/energy/readings?limit=1000");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/energy/readings?limit=1000");
   assert.deepEqual(response.readings, []);
 });
 
 test("student occupancy history uses its authenticated read-only endpoint", async (t) => {
   const calls = mockApi(t, { ...occupancyResponse, demo_preview: false });
   const response = await fetchStudentOccupancyHistory({ buildingCode: "DEMO-B1", limit: 2000 });
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/student/occupancy/history?limit=2000&building_code=DEMO-B1");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/student/occupancy/history?limit=2000&building_code=DEMO-B1");
   assert.equal(new Headers(calls[0].options.headers).get("Authorization"), "Bearer admin-test-token");
   assert.equal(response.readings[0].source, "SIMULATED_DEMO");
 });
@@ -86,7 +86,7 @@ test("student occupancy history uses its authenticated read-only endpoint", asyn
 test("student energy history uses its authenticated read-only endpoint", async (t) => {
   const calls = mockApi(t, energyResponse);
   const response = await fetchStudentEnergyReadings({ start: "2026-10-17T00:00:00Z", buildingCode: "DEMO-B1" });
-  assert.equal(calls[0].url, "http://127.0.0.1:8000/student/energy/readings?limit=2000&start=2026-10-17T00%3A00%3A00Z&building_code=DEMO-B1");
+  assert.equal(calls[0].url, "http://127.0.0.1:8001/student/energy/readings?limit=2000&start=2026-10-17T00%3A00%3A00Z&building_code=DEMO-B1");
   assert.equal(new Headers(calls[0].options.headers).get("Authorization"), "Bearer admin-test-token");
   assert.equal(response.readings[0].reading_source, "SIMULATED_DEMO");
 });

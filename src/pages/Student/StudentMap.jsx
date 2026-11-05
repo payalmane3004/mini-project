@@ -17,7 +17,7 @@ function StudentMap() {
         <h2>Verified map locations are unavailable</h2>
         <p>
           CampusSphere does not have verified geographic coordinates for its database building records.
-          The previous schematic used sample markers and counts, so it has been removed rather than shown as a campus map.
+          The previous schematic used placeholder markers and counts, so it has been removed rather than shown as a campus map.
         </p>
         <nav className="student-map-links" aria-label="Campus references">
           <Link className="student-explore-button" to="/student-digital-twin"><Map size={17} /> Open CAD Digital Twin</Link>

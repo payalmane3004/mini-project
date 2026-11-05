@@ -1,19 +1,51 @@
 """Booking workflow tests with isolated sessions; no database connection is used."""
 
+import asyncio
+import json
 import unittest
+import os
 from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 from unittest.mock import patch
+from urllib.parse import urlencode
 
 from fastapi import HTTPException
 from pydantic import ValidationError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine
+from sqlalchemy.pool import StaticPool
 from sqlalchemy.orm import Session
 
 import main
 import models
+from database import get_db
 from schemas import BookingCreateRequest, BookingStatusUpdateRequest, EmergencyAlertCreateRequest, NoticeCreateRequest, NoticeUpdateRequest
+from security import create_access_token
+
+
+async def asgi_request(path, token, *, method="GET", body=None, query_string=b""):
+    headers = [(b"authorization", f"Bearer {token}".encode("ascii"))]
+    if body is not None:
+        headers.append((b"content-type", b"application/json"))
+    scope = {"type": "http", "asgi": {"version": "3.0", "spec_version": "2.3"}, "http_version": "1.1", "method": method, "scheme": "http", "path": path, "raw_path": path.encode("ascii"), "query_string": query_string, "root_path": "", "headers": headers, "server": ("testserver", 80), "client": ("testclient", 12345), "state": {}}
+    delivered = False
+    messages = []
+    request_body = json.dumps(body).encode("utf-8") if body is not None else b""
+
+    async def receive():
+        nonlocal delivered
+        if not delivered:
+            delivered = True
+            return {"type": "http.request", "body": request_body, "more_body": False}
+        return {"type": "http.disconnect"}
+
+    async def send(message):
+        messages.append(message)
+
+    await main.app(scope, receive, send)
+    response = next(message for message in messages if message["type"] == "http.response.start")
+    content = b"".join(message.get("body", b"") for message in messages if message["type"] == "http.response.body")
+    return response["status"], json.loads(content) if content else None
 
 
 class FakeQuery:
@@ -130,7 +162,10 @@ class StudentBookingWorkflowTests(unittest.TestCase):
 
     def test_booking_review_accepts_only_database_compatible_review_statuses(self):
         self.assertEqual(BookingStatusUpdateRequest(status="APPROVED").status, "APPROVED")
-        self.assertEqual(BookingStatusUpdateRequest(status="REJECTED").status, "REJECTED")
+        rejected = BookingStatusUpdateRequest(status="REJECTED", rejection_reason="Room unavailable")
+        self.assertEqual(rejected.status, "REJECTED")
+        with self.assertRaises(ValidationError):
+            BookingStatusUpdateRequest(status="REJECTED")
         for status in ("CONFIRMED", "PENDING", "CANCELLED"):
             with self.subTest(status=status), self.assertRaises(ValidationError):
                 BookingStatusUpdateRequest(status=status)
@@ -163,11 +198,20 @@ class StudentBookingWorkflowTests(unittest.TestCase):
     def test_rejects_demo_room_booking(self):
         db = FakeSession()
         db.room = SimpleNamespace(id=7, room_code="DEMO-B-101", building_id=3)
-        with self.assertRaises(HTTPException) as raised:
-            main.create_booking(valid_payload(), self.student, db)
-        self.assertEqual(raised.exception.status_code, 409)
+        with patch.object(main, "_local_demo_is_active", return_value=False):
+            with self.assertRaises(HTTPException) as raised:
+                main.create_booking(valid_payload(), self.student, db)
+        self.assertEqual(raised.exception.status_code, 422)
         self.assertEqual(db.commits, 0)
         self.assertEqual(db.added, [])
+
+    def test_demo_room_availability_is_a_clear_unavailable_response(self):
+        db = FakeSession()
+        db.room = SimpleNamespace(id=7, room_code="DEMO-B-101", building_id=3)
+        start = datetime.now(timezone.utc) + timedelta(days=1)
+        with patch.object(main, "_local_demo_is_active", return_value=False):
+            result = main.check_booking_availability(7, start, start + timedelta(hours=1), db)
+        self.assertEqual(result, {"available": False})
 
     def test_local_demo_booking_is_allowed_and_visibly_marked(self):
         db = FakeSession()
@@ -176,7 +220,7 @@ class StudentBookingWorkflowTests(unittest.TestCase):
             result = main.create_booking(valid_payload(), self.student, db)
         self.assertEqual(result["room_code"], "DEMO-B-101")
         self.assertTrue(result["is_demo"])
-        self.assertTrue(result["purpose"].startswith("DEMO"))
+        self.assertEqual(result["purpose"], valid_payload().purpose)
         self.assertEqual(db.commits, 1)
 
     def test_rejects_overlapping_booking(self):
@@ -197,7 +241,7 @@ class StudentBookingWorkflowTests(unittest.TestCase):
         db = FakeSession(commit_error=IntegrityError("insert", {}, Exception("constraint")))
         with self.assertRaises(HTTPException) as raised:
             main.create_booking(valid_payload(), self.student, db)
-        self.assertEqual(raised.exception.status_code, 409)
+        self.assertEqual(raised.exception.status_code, 500)
         self.assertEqual(db.rollbacks, 1)
 
     def test_cancellation_rejects_another_students_booking(self):
@@ -245,6 +289,16 @@ class StudentBookingWorkflowTests(unittest.TestCase):
         db = FakeSession(booking=booking)
         result = main.update_booking_status(8, BookingStatusUpdateRequest(status="APPROVED"), db)
         self.assertEqual(result["status"], "APPROVED")
+        self.assertEqual(db.commits, 1)
+
+    def test_admin_can_reject_pending_booking_with_persisted_reason(self):
+        booking = SimpleNamespace(id=8, user_id=12, room_id=7, status="PENDING", start_time=valid_payload().start_time, end_time=valid_payload().end_time, purpose="Study group", created_at=datetime.now(timezone.utc), rejection_reason=None)
+        db = FakeSession(booking=booking)
+        payload = BookingStatusUpdateRequest(status="REJECTED", rejection_reason="Room is reserved for an event")
+        result = main.update_booking_status(8, payload, db)
+        self.assertEqual(result["status"], "REJECTED")
+        self.assertEqual(result["rejection_reason"], "Room is reserved for an event")
+        self.assertEqual(booking.rejection_reason, "Room is reserved for an event")
         self.assertEqual(db.commits, 1)
 
     def test_admin_cannot_approve_overlapping_booking(self):
@@ -312,7 +366,7 @@ class SQLiteBookingPersistenceTests(unittest.TestCase):
         self.assertEqual(persisted.user_id, 12)
         self.assertEqual(persisted.purpose, "Study group")
 
-    def test_demo_room_is_rejected_outside_the_approved_local_demo(self):
+    def test_demo_room_booking_returns_validation_error_outside_the_approved_local_demo(self):
         start = datetime.now(timezone.utc) + timedelta(days=1)
         payload = BookingCreateRequest(
             room_id=32, purpose="Study group", start_time=start,
@@ -321,8 +375,8 @@ class SQLiteBookingPersistenceTests(unittest.TestCase):
         with patch.object(main, "_local_demo_is_active", return_value=False):
             with self.assertRaises(HTTPException) as raised:
                 main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
-        self.assertEqual(raised.exception.status_code, 409)
-        self.assertIn("approved isolated local demo", raised.exception.detail)
+        self.assertEqual(raised.exception.status_code, 422)
+        self.assertIn("not bookable", raised.exception.detail)
         self.assertEqual(self.db.query(models.RoomBooking).count(), 0)
 
     def test_demo_room_booking_is_labelled_when_local_demo_is_confirmed(self):
@@ -334,8 +388,88 @@ class SQLiteBookingPersistenceTests(unittest.TestCase):
         with patch.object(main, "_local_demo_is_active", return_value=True):
             created = main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
         self.assertTrue(created["is_demo"])
-        self.assertTrue(created["purpose"].startswith("DEMO |"))
+        self.assertEqual(created["purpose"], payload.purpose)
         self.assertEqual(self.db.query(models.RoomBooking).count(), 1)
+
+
+class BookingApiEndToEndTests(unittest.TestCase):
+    def setUp(self):
+        self.secret_patch = patch.dict(os.environ, {"JWT_SECRET_KEY": "booking-api-test-secret"})
+        self.secret_patch.start()
+        self.engine = create_engine("sqlite:///:memory:", poolclass=StaticPool, connect_args={"check_same_thread": False})
+        models.Base.metadata.create_all(self.engine)
+        self.db = Session(self.engine, expire_on_commit=False)
+        self.db.add_all([
+            models.User(id=11, full_name="Campus Admin", email="admin@example.invalid", password_hash="x", role="ADMIN"),
+            models.User(id=12, full_name="Student One", email="student@example.invalid", password_hash="x", role="STUDENT"),
+            models.Building(id=21, building_code="BLD-A", name="Academic Block"),
+            models.Room(id=31, building_id=21, room_code="A-101", room_name="Lecture Room 101", floor_number=1, capacity=30, room_type="CLASSROOM"),
+        ])
+        self.db.commit()
+        main.app.dependency_overrides[get_db] = lambda: self.db
+        self.student_token = create_access_token(12, "student")
+        self.admin_token = create_access_token(11, "admin")
+
+    def tearDown(self):
+        main.app.dependency_overrides.pop(get_db, None)
+        self.db.close()
+        self.engine.dispose()
+        self.secret_patch.stop()
+
+    def submit(self, start):
+        return asyncio.run(asgi_request("/bookings", self.student_token, method="POST", body={
+            "room_id": 31, "purpose": "Study group", "requester_id": 11,
+            "start_time": start.isoformat(), "end_time": (start + timedelta(hours=1)).isoformat(),
+        }))
+
+    def test_frontend_get_availability_route_uses_slot_query_and_tracks_booking_post(self):
+        start = datetime.now(timezone.utc) + timedelta(days=5)
+        end = start + timedelta(hours=1)
+        query = urlencode({
+            "room_id": 31,
+            "start_time": start.isoformat(),
+            "end_time": end.isoformat(),
+        }).encode("ascii")
+
+        available_status, available = asyncio.run(asgi_request(
+            "/bookings/availability", self.student_token, query_string=query,
+        ))
+        self.assertEqual(available_status, 200)
+        self.assertEqual(available, {"available": True})
+
+        created_status, created = self.submit(start)
+        self.assertEqual(created_status, 201)
+        occupied_status, occupied = asyncio.run(asgi_request(
+            "/bookings/availability", self.student_token, query_string=query,
+        ))
+        self.assertEqual(occupied_status, 200)
+        self.assertEqual(occupied, {"available": False})
+        own_rows = asyncio.run(asgi_request("/bookings", self.student_token))[1]
+        self.assertIn(created["id"], [row["id"] for row in own_rows])
+
+    def test_student_admin_student_booking_review_cycle(self):
+        start = datetime.now(timezone.utc) + timedelta(days=3)
+        created = self.submit(start)
+        self.assertEqual(created[0], 201)
+        booking = created[1]
+        self.assertEqual(booking["user_id"], 12)
+        self.assertEqual(booking["status"], "PENDING")
+        self.assertEqual(asyncio.run(asgi_request("/bookings", self.admin_token))[1][0]["id"], booking["id"])
+        student_review = asyncio.run(asgi_request(f"/bookings/{booking['id']}/status", self.student_token, method="PATCH", body={"status": "APPROVED"}))
+        self.assertEqual(student_review[0], 403)
+        approved = asyncio.run(asgi_request(f"/bookings/{booking['id']}/status", self.admin_token, method="PATCH", body={"status": "APPROVED"}))
+        self.assertEqual(approved[0], 200)
+        self.assertEqual(approved[1]["status"], "APPROVED")
+        self.assertEqual(asyncio.run(asgi_request("/bookings", self.student_token))[1][0]["status"], "APPROVED")
+
+        second = self.submit(start + timedelta(days=1))[1]
+        rejected = asyncio.run(asgi_request(f"/bookings/{second['id']}/status", self.admin_token, method="PATCH", body={"status": "REJECTED", "rejection_reason": "Room is reserved for an event"}))
+        self.assertEqual(rejected[0], 200)
+        self.assertEqual(rejected[1]["rejection_reason"], "Room is reserved for an event")
+        student_rows = asyncio.run(asgi_request("/bookings", self.student_token))[1]
+        self.assertEqual(student_rows[1]["status"], "REJECTED")
+        self.assertEqual(student_rows[1]["rejection_reason"], "Room is reserved for an event")
+        self.assertEqual(self.db.query(models.RoomBooking).count(), 2)
 
     def test_conflicting_booking_is_rejected_in_isolated_sqlite(self):
         start = datetime.now(timezone.utc) + timedelta(days=1)
@@ -351,8 +485,114 @@ class SQLiteBookingPersistenceTests(unittest.TestCase):
         with self.assertRaises(HTTPException) as raised:
             main.create_booking(payload, SimpleNamespace(id=12, role="STUDENT"), self.db)
         self.assertEqual(raised.exception.status_code, 409)
-        self.assertIn("already booked", raised.exception.detail)
+        self.assertEqual(
+            raised.exception.detail,
+            "This room is unavailable for the selected time. Please choose another time.",
+        )
         self.assertEqual(self.db.query(models.RoomBooking).count(), 1)
+
+    def test_booking_availability_and_submission_respect_statuses_and_interval_edges(self):
+        start = datetime.now(timezone.utc) + timedelta(days=2)
+        requested_start = start + timedelta(minutes=30)
+        requested_end = start + timedelta(hours=1, minutes=30)
+
+        for existing_status, expected_status in (
+            ("PENDING", 409),
+            ("APPROVED", 409),
+            ("REJECTED", 201),
+            ("CANCELLED", 201),
+        ):
+            with self.subTest(existing_status=existing_status):
+                self.db.query(models.RoomBooking).delete()
+                self.db.add(models.RoomBooking(
+                    room_id=31,
+                    user_id=99,
+                    purpose="Existing request",
+                    start_time=start,
+                    end_time=start + timedelta(hours=1),
+                    status=existing_status,
+                ))
+                self.db.commit()
+
+                available = main.check_booking_availability(
+                    31, requested_start, requested_end, self.db
+                )
+                self.assertEqual(available["available"], expected_status == 201)
+
+                response_status, response = asyncio.run(asgi_request(
+                    "/bookings",
+                    self.student_token,
+                    method="POST",
+                    body={
+                        "room_id": 31,
+                        "purpose": "New request",
+                        "start_time": requested_start.isoformat(),
+                        "end_time": requested_end.isoformat(),
+                    },
+                ))
+                self.assertEqual(response_status, expected_status)
+                if expected_status == 409:
+                    self.assertEqual(
+                        response["detail"],
+                        "This room is unavailable for the selected time. Please choose another time.",
+                    )
+                    self.assertEqual(self.db.query(models.RoomBooking).count(), 1)
+                else:
+                    student_bookings = asyncio.run(asgi_request(
+                        "/bookings", self.student_token
+                    ))[1]
+                    self.assertEqual(len(student_bookings), 1)
+                    self.assertEqual(student_bookings[0]["id"], response["id"])
+                    self.assertEqual(student_bookings[0]["status"], "PENDING")
+
+        self.db.query(models.RoomBooking).delete()
+        self.db.add(models.RoomBooking(
+            room_id=31,
+            user_id=99,
+            purpose="Existing request",
+            start_time=start,
+            end_time=start + timedelta(hours=1),
+            status="PENDING",
+        ))
+        self.db.commit()
+        adjacent_available = main.check_booking_availability(
+            31,
+            start + timedelta(hours=1),
+            start + timedelta(hours=2),
+            self.db,
+        )
+        self.assertTrue(adjacent_available["available"])
+        adjacent_status, adjacent_booking = self.submit(start + timedelta(hours=1))
+        self.assertEqual(adjacent_status, 201)
+        self.assertEqual(
+            datetime.fromisoformat(adjacent_booking["start_time"]),
+            start + timedelta(hours=1),
+        )
+
+    def test_offset_booking_times_are_compared_and_returned_as_the_same_utc_instants(self):
+        local_start = datetime.now(timezone.utc) + timedelta(days=4)
+        local_start = local_start.astimezone(timezone(timedelta(hours=5, minutes=30)))
+        utc_start = local_start.astimezone(timezone.utc)
+        response_status, created = asyncio.run(asgi_request(
+            "/bookings",
+            self.student_token,
+            method="POST",
+            body={
+                "room_id": 31,
+                "purpose": "Timezone check",
+                "start_time": local_start.isoformat(),
+                "end_time": (local_start + timedelta(hours=1)).isoformat(),
+            },
+        ))
+        self.assertEqual(response_status, 201)
+        self.assertEqual(
+            datetime.fromisoformat(created["start_time"]),
+            utc_start,
+        )
+        self.assertEqual(
+            datetime.fromisoformat(created["end_time"]),
+            utc_start + timedelta(hours=1),
+        )
 
 
 class NoticeManagementTests(unittest.TestCase):

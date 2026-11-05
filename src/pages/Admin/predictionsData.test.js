@@ -5,6 +5,7 @@ import {
   formatSelectedPeriod,
   getForecastReadiness,
   getPredictionPageState,
+  getHistoricalDateRange,
 } from "./predictionsData.js";
 
 const summary = {
@@ -65,4 +66,11 @@ test("forecast status never claims a configured model and distinguishes no times
 test("selected period labels distinguish all dates from a bounded interval", () => {
   assert.equal(formatSelectedPeriod("", ""), "All available dates");
   assert.equal(formatSelectedPeriod("2030-01-01", "2030-01-31"), "2030-01-01 through 2030-01-31");
+});
+
+test("default historical range ends today and starts in the past", () => {
+  const range = getHistoricalDateRange(56, new Date("2026-11-05T23:30:00-08:00"));
+  assert.equal(range.end, "2026-11-06");
+  assert.equal(range.start, "2026-09-12");
+  assert.ok(range.start <= range.end);
 });

@@ -1,4 +1,4 @@
-"""Idempotently seed clearly fictional CampusSphere records in Neon demo DB."""
+"""Legacy Neon demo seeder; writes are permanently disabled."""
 
 import argparse
 import getpass
@@ -46,10 +46,8 @@ SEED_TABLES = {
 def _parser():
     parser = argparse.ArgumentParser(
         description=(
-            "Seed only clearly marked demo records into an initialized CampusSphere "
-            "Neon demo schema. The seeder never creates or alters tables. Project "
-            "and branch IDs are operator-supplied claims, not values independently "
-            "verified by PostgreSQL."
+            "Legacy command retained for compatibility. Sample/demo writes to "
+            "PostgreSQL/Neon are disabled; use the guarded local SQLite demo tools."
         )
     )
     parser.add_argument("--expected-project-id", required=True)
@@ -370,50 +368,13 @@ def _seed(session, models, hash_password):
 
 
 def main(argv=None):
-    args = _parser().parse_args(argv)
-    engine = None
-    try:
-        require_project_confirmation(args)
-
-        url = validate_target_url(
-            os.environ.get("DATABASE_URL"), args.expected_host, args.expected_database
-        )
-        print(
-            f"Target claim: project {args.expected_project_id}; branch {args.expected_branch_id}; "
-            f"host {url.host}; database {url.database}. Project/branch IDs are operator-supplied "
-            "claims, not independently verified by PostgreSQL."
-        )
-
-        import database
-        import models
-        from security import hash_password
-
-        engine = database.engine
-        validate_target_url(engine.url, args.expected_host, args.expected_database)
-        required_tables = set(database.Base.metadata.tables)
-        if not SEED_TABLES.issubset(required_tables):
-            raise DemoSetupError("The registered ORM models do not include the expected demo workflow tables.")
-        _preflight_schema(engine, args.expected_database, required_tables, SEED_TABLES)
-
-        session = database.SessionLocal()
-        try:
-            with session.begin():
-                _seed(session, models, hash_password)
-        finally:
-            session.close()
-
-        print(f"Demo records are ready on {url.host}/{url.database}; existing matching demo records were preserved.")
-        return 0
-    except DemoSetupError as error:
-        print(f"Refused: {error}", file=sys.stderr)
-        return 2
-    except Exception:
-        # Driver and SQLAlchemy exceptions can include a rendered connection URL.
-        print("Seeding failed; database error details were suppressed and the transaction was rolled back.", file=sys.stderr)
-        return 1
-    finally:
-        if engine is not None:
-            engine.dispose()
+    _parser().parse_args(argv)
+    print(
+        "Refused: sample/demo data writes to PostgreSQL/Neon are disabled. "
+        "Use the guarded local SQLite demo tools instead.",
+        file=sys.stderr,
+    )
+    return 2
 
 
 if __name__ == "__main__":

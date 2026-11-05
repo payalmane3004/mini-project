@@ -87,6 +87,7 @@ class RoomBooking(Base):
     start_time = Column(DateTime(timezone=True), nullable=False)
     end_time = Column(DateTime(timezone=True), nullable=False)
     status = Column(String(20), nullable=False, default="PENDING")
+    rejection_reason = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -103,6 +104,7 @@ class MaintenanceRequest(Base):
     qr_code_value = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     resolved_at = Column(DateTime(timezone=True))
+    assignee_name = Column(String(100))
 
 
 class Notice(Base):

@@ -51,7 +51,7 @@ function SettingsPage() {
   }
 
   return <div className="settings-page">
-    <header className="settings-heading"><h1>Settings</h1><p>Local demonstration preferences</p></header>
+    <header className="settings-heading"><h1>Settings</h1><p>Local datasetnstration preferences</p></header>
     <div className="workspace-demo-note">These switches are held in this page session. No notification service, sensor feed, data retention job, or external API is connected.</div>
     <div className="settings-column">
       <section className="settings-system-card">
@@ -62,7 +62,7 @@ function SettingsPage() {
           <div><dt>Last Sync</dt><dd>Not connected</dd></div>
           <div><dt>Active Sensors</dt><dd>Unavailable</dd></div>
           <div><dt>API Status</dt><dd>Not connected</dd></div>
-          <div><dt>Data Mode</dt><dd>Local demonstration</dd></div>
+          <div><dt>Data Mode</dt><dd>Local datasetnstration</dd></div>
         </dl>
       </section>
       {settingGroups.map(({ title, icon: Icon, items }) => <section className="settings-group-card" key={title}>

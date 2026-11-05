@@ -80,12 +80,13 @@ class FakeSession:
         item.created_at = datetime.now(timezone.utc)
 
 
-async def asgi_request(path, authorization=None, method="GET", body=None):
+async def asgi_request(path, authorization=None, method="GET", body=None, extra_headers=None, return_headers=False):
     headers = []
     if authorization:
         headers.append((b"authorization", authorization.encode("ascii")))
     if body is not None:
         headers.append((b"content-type", b"application/json"))
+    headers.extend((name.lower().encode("ascii"), value.encode("ascii")) for name, value in (extra_headers or {}).items())
     scope = {
         "type": "http",
         "asgi": {"version": "3.0", "spec_version": "2.3"},
@@ -123,7 +124,18 @@ async def asgi_request(path, authorization=None, method="GET", body=None):
         for message in messages
         if message["type"] == "http.response.body"
     )
-    return start["status"], json.loads(body) if body else None
+    if body:
+        try:
+            parsed_body = json.loads(body)
+        except json.JSONDecodeError:
+            parsed_body = body.decode("utf-8")
+    else:
+        parsed_body = None
+    result = (start["status"], parsed_body)
+    if return_headers:
+        response_headers = dict(start.get("headers", []))
+        return (*result, {key.decode("latin-1"): value.decode("latin-1") for key, value in response_headers.items()})
+    return result
 
 
 class BackendAuthorizationTests(unittest.TestCase):
@@ -152,6 +164,37 @@ class BackendAuthorizationTests(unittest.TestCase):
         )
         self.assertIn("http://127.0.0.1:5174", cors.kwargs["allow_origins"])
 
+    def test_local_frontend_preflight_is_allowed_with_required_methods_and_headers(self):
+        for origin in ("http://localhost:5173", "http://127.0.0.1:5173"):
+            with self.subTest(origin=origin):
+                status, _, headers = asyncio.run(asgi_request(
+                    "/bookings",
+                    method="OPTIONS",
+                    extra_headers={
+                        "Origin": origin,
+                        "Access-Control-Request-Method": "POST",
+                        "Access-Control-Request-Headers": "authorization,content-type",
+                    },
+                    return_headers=True,
+                ))
+                self.assertEqual(status, 200)
+                self.assertEqual(headers["access-control-allow-origin"], origin)
+                self.assertEqual(headers["access-control-allow-credentials"], "true")
+                self.assertIn("POST", headers["access-control-allow-methods"])
+                self.assertIn("Authorization", headers["access-control-allow-headers"])
+                self.assertIn("Content-Type", headers["access-control-allow-headers"])
+
+    def test_production_cors_allows_only_configured_https_origins(self):
+        self.assertEqual(main.resolve_cors_origins(None, "production"), set())
+        self.assertEqual(
+            main.resolve_cors_origins("https://campussphere.example, https://preview.example/", "production"),
+            {"https://campussphere.example", "https://preview.example"},
+        )
+        with self.assertRaisesRegex(ValueError, "must use HTTPS"):
+            main.resolve_cors_origins("http://attacker.example", "production")
+        with self.assertRaisesRegex(ValueError, "without paths"):
+            main.resolve_cors_origins("https://campussphere.example/admin", "production")
+
     def request(self, path, role=None, user_id=None, token=None, method="GET", body=None):
         if token is None and role is not None:
             token = self.token_for(user_id, role)
@@ -159,13 +202,23 @@ class BackendAuthorizationTests(unittest.TestCase):
         return asyncio.run(asgi_request(path, authorization, method, body))
 
     def test_anonymous_requests_to_admin_endpoints_return_401(self):
-        for path in ("/energy/readings", "/occupancy", "/analytics/summary"):
+        for path in ("/energy/readings", "/occupancy", "/analytics/summary", "/analytics/predictions"):
             with self.subTest(path=path):
                 status, _ = self.request(path)
                 self.assertEqual(status, 401)
 
+    def test_unhandled_errors_keep_cors_for_allowed_frontend_origins_without_leaking_details(self):
+        response = asyncio.run(main.handle_unexpected_error(
+            SimpleNamespace(headers={"origin": "http://localhost:5173"}, method="GET", url=SimpleNamespace(path="/bookings")),
+            RuntimeError("database credentials must not be exposed"),
+        ))
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(response.headers["access-control-allow-origin"], "http://localhost:5173")
+        self.assertEqual(response.headers["access-control-allow-credentials"], "true")
+        self.assertEqual(json.loads(response.body), {"detail": "Internal server error"})
+
     def test_student_cannot_access_admin_endpoints(self):
-        for path in ("/energy/readings", "/occupancy", "/analytics/summary"):
+        for path in ("/energy/readings", "/occupancy", "/analytics/summary", "/analytics/predictions"):
             with self.subTest(path=path):
                 status, body = self.request(path, role="student", user_id=12)
                 self.assertEqual(status, 403)
@@ -250,7 +303,7 @@ class BackendAuthorizationTests(unittest.TestCase):
         self.assertTrue(self.db.added[-1].active)
 
     def test_admin_only_read_endpoints_remain_denied_to_students(self):
-        for path in ("/energy/readings", "/occupancy", "/analytics/summary", "/emergency/alerts"):
+        for path in ("/energy/readings", "/occupancy", "/analytics/summary", "/analytics/predictions", "/emergency/alerts"):
             with self.subTest(path=path):
                 status, _ = self.request(path, role="student", user_id=12)
                 self.assertEqual(status, 403)

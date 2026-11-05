@@ -125,11 +125,21 @@ class BookingCreateRequest(BaseModel):
 
 class BookingStatusUpdateRequest(BaseModel):
     status: str = Field(pattern="^(APPROVED|REJECTED)$")
+    rejection_reason: Optional[str] = Field(default=None, max_length=1000)
+
+    @model_validator(mode="after")
+    def require_rejection_reason(self):
+        if self.status == "REJECTED" and not (self.rejection_reason or "").strip():
+            raise ValueError("A reason is required when rejecting a booking")
+        if self.status == "APPROVED" and self.rejection_reason:
+            raise ValueError("A rejection reason is only valid for rejected bookings")
+        return self
 
 
 class BookingResponse(BaseModel):
     id: int
     user_id: int
+    requester_name: Optional[str] = None
     room_id: int
     room_code: str
     room_name: Optional[str] = None
@@ -139,6 +149,7 @@ class BookingResponse(BaseModel):
     start_time: datetime
     end_time: datetime
     status: str
+    rejection_reason: Optional[str] = None
     source: str = "DATABASE"
     created_at: Optional[datetime] = None
 
@@ -166,6 +177,7 @@ class MaintenanceRequestResponse(BaseModel):
     building_name: Optional[str] = None
     reported_by: Optional[int] = None
     reporter_name: Optional[str] = None
+    assignee_name: Optional[str] = None
     title: str
     description: Optional[str] = None
     priority: str

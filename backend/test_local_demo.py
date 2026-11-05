@@ -452,9 +452,10 @@ class LocalDemoFixtureTests(unittest.TestCase):
             self.assertEqual(
                 sum(row["room_id"] == simulated_room_id for row in preview["readings"]), 1
             )
-            operational = main.get_latest_room_occupancy(
-                room_id=None, building_code=None, include_demo=False, db=session
-            )
+            with patch.object(main, "_local_demo_is_active", return_value=False):
+                operational = main.get_latest_room_occupancy(
+                    room_id=None, building_code=None, include_demo=False, db=session
+                )
             self.assertEqual(operational["readings"], [])
 
     def test_student_preview_endpoints_return_simulated_rows_only(self):

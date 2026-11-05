@@ -13,7 +13,7 @@ import "./StudentDashboard.css";
 
 const quickLinks = [
   { label: "Buildings", description: "Browse the campus directory", to: "/student-buildings", icon: Building2 },
-  { label: "Rooms", description: "Explore non-demo room records", to: "/student-rooms", icon: DoorOpen },
+  { label: "Rooms", description: "Explore eligible room records", to: "/student-rooms", icon: DoorOpen },
   { label: "Occupancy", description: "Review simulated room history", to: "/student-occupancy", icon: DoorOpen },
   { label: "Energy", description: "Review simulated building usage", to: "/student-energy", icon: Zap },
   { label: "Digital Twin", description: "Explore CAD building footprints", to: "/student-digital-twin", icon: Box },
@@ -78,7 +78,7 @@ function StudentDashboard() {
     }).map((room) => {
       const building = buildingById.get(room.building_id);
       const params = building?.building_code ? `?building=${encodeURIComponent(building.building_code)}` : "";
-      return { kind: isDemoRoom(room) ? "Demo room" : "Room", key: `room-${room.id}`, title: room.room_name || room.name || room.room_code, detail: `${room.room_code}${building ? ` · ${building.name}` : " · Building information unavailable"} · Floor ${room.floor_number}${isDemoRoom(room) ? " · Demo only, not verified or bookable" : ""}`, to: `/student-rooms${params}` };
+      return { kind: isDemoRoom(room) ? "Demo room" : "Room", key: `room-${room.id}`, title: room.room_name || room.name || room.room_code, detail: `${room.room_code}${building ? ` · ${building.name}` : " · Building information unavailable"} · Floor ${room.floor_number}${isDemoRoom(room) ? " · Local record, not verified or bookable" : ""}`, to: `/student-rooms${params}` };
     });
     return [...buildingMatches, ...roomMatches].slice(0, 8);
   }, [buildings, buildingById, query, rooms]);
@@ -97,11 +97,11 @@ function StudentDashboard() {
 
     <section className="student-stats" aria-label="Your campus snapshot">
       <InventoryStat icon={Building2} label="Buildings" state={data.buildings} emptyText="No building records found" />
-      <InventoryStat icon={DoorOpen} label="Non-demo rooms" state={{ ...data.rooms, data: nonDemoRooms }} emptyText="No non-demo room records yet" />
+      <InventoryStat icon={DoorOpen} label="Eligible rooms" state={{ ...data.rooms, data: nonDemoRooms }} emptyText="No eligible room records yet" />
       <InventoryStat icon={CalendarDays} label="My upcoming bookings" state={data.bookings.status === "ready" ? { ...data.bookings, data: activeBookings } : data.bookings} emptyText="No upcoming bookings" />
       <InventoryStat icon={Bell} label="Published notices" state={data.notices} emptyText="No current published notices" />
     </section>
-    {demoRoomCount > 0 && <p className="student-dashboard-data-note">{demoRoomCount} demo-only room record{demoRoomCount === 1 ? "" : "s"} excluded from operational inventory and booking.</p>}
+    {demoRoomCount > 0 && <p className="student-dashboard-data-note">{demoRoomCount} local room record{demoRoomCount === 1 ? "" : "s"} excluded from operational inventory and booking.</p>}
 
     {errors.length > 0 && <div className="student-dashboard-error" role="alert">
       <div><strong>Some dashboard information could not be loaded.</strong><span>{errors.map((item) => item.error).join(" ")}</span></div>
@@ -143,7 +143,7 @@ function StudentDashboard() {
         {data.alerts.status === "loading" && <p role="status">Loading published alerts…</p>}
         {data.alerts.status === "error" && <p className="student-dashboard-muted">Published alerts are unavailable right now.</p>}
         {data.alerts.status === "ready" && data.alerts.data.length === 0 && <p className="student-dashboard-muted">No active published alerts.</p>}
-        {data.alerts.status === "ready" && data.alerts.data.slice(0, 2).map((alert) => <article className="student-dashboard-list-item" key={alert.id}><div><strong>{alert.title}</strong><small>{alert.is_demo ? "DEMO ONLY · fictional alert" : `${alert.severity} · active published alert`}</small></div></article>)}
+        {data.alerts.status === "ready" && data.alerts.data.slice(0, 2).map((alert) => <article className="student-dashboard-list-item" key={alert.id}><div><strong>{alert.title}</strong><small>{alert.is_demo ? "Local record · fictional alert" : `${alert.severity} · active published alert`}</small></div></article>)}
         <Link className="student-link-button" to="/student-emergency">View safety information</Link>
       </section>
       <section className="student-panel student-dashboard-data-limits"><div className="student-panel-header"><div><h2>Live campus data</h2><p>Availability and usage indicators</p></div><Zap size={20} aria-hidden="true" /></div>

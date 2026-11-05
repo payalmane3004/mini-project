@@ -31,6 +31,7 @@ def get_demo_port():
 def main():
     port = get_demo_port()
     os.environ["PYTHON_DOTENV_DISABLED"] = "1"
+    os.environ["CAMPUSSPHERE_ENV"] = "development"
     os.environ["DATABASE_URL"] = URL.create(
         "sqlite", database=str(DEMO_DATABASE_PATH.absolute())
     ).render_as_string(hide_password=False)

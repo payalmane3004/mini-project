@@ -1,7 +1,6 @@
-"""Dry-run-first, idempotent sample inventory for the configured Neon database.
+"""Legacy sample-data planner. PostgreSQL/Neon apply is permanently disabled.
 
-The script only adds records tagged as DEMO/SAMPLE DATA. It never edits buildings,
-users, credentials, alerts, or existing records. Run from the repository root.
+Use the guarded local SQLite demo tools to prepare fictional campus records.
 """
 
 from __future__ import annotations
@@ -11,28 +10,31 @@ from datetime import datetime, time, timedelta, timezone
 from decimal import Decimal
 import os
 from pathlib import Path
+import re
 import sys
 
-from sqlalchemy import inspect, text
+from sqlalchemy import inspect, or_, text
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import SQLAlchemyError
 
 
 BACKEND_DIR = Path(__file__).resolve().parent
-SEED_VERSION = "CAMPUS-SAMPLE-SEED-V1"
-SIMULATED_SOURCE = "SIMULATED_SAMPLE_SEED_V1"
+SEED_VERSION = "CAMPUS-UI-FIXTURE-V2"
+SIMULATED_SOURCE = "SIMULATED_CAMPUS_FIXTURE_V2"
 ROOM_NUMBERS = (101, 102, 201, 202)
 ROOM_SPECS = {
-    101: ("Sample classroom", 1, 60, "CLASSROOM"),
-    102: ("Sample computer lab", 1, 36, "COMPUTER LAB"),
-    201: ("Sample seminar room", 2, 30, "SEMINAR ROOM"),
-    202: ("Sample study and meeting room", 2, 14, "MEETING ROOM"),
+    101: ("Lecture Room 101", 1, 60, "CLASSROOM"),
+    102: ("Computer Laboratory 1", 1, 36, "COMPUTER LAB"),
+    201: ("Seminar Hall", 2, 80, "SEMINAR ROOM"),
+    202: ("Student Discussion Room", 2, 16, "MEETING ROOM"),
 }
 BOOKING_STATUSES = ("APPROVED", "CANCELLED", "REJECTED")
 MAINTENANCE_STATUSES = ("OPEN", "IN_PROGRESS", "RESOLVED")
 ROOM_CODE_PREFIX = "DEMO-"
-BOOKING_MARKER = f"DEMO | SAMPLE DATA | {SEED_VERSION} | BOOKING-"
-MAINTENANCE_MARKER = f"DEMO | SAMPLE DATA | {SEED_VERSION} | MAINTENANCE-"
+BOOKING_MARKER = f"DEMO | FIXTURE | {SEED_VERSION} | BOOKING-"
+MAINTENANCE_MARKER = f"DEMO | FIXTURE | {SEED_VERSION} | MAINTENANCE-"
+LEGACY_BOOKING_MARKER = "DEMO | SAMPLE DATA | CAMPUS-SAMPLE-SEED-V1 | BOOKING-"
+LEGACY_MAINTENANCE_MARKER = "DEMO | SAMPLE DATA | CAMPUS-SAMPLE-SEED-V1 | MAINTENANCE-"
 ADVISORY_LOCK_KEY = 628_410_035
 APPROVED_INSERT_COUNTS = {"rooms": 137, "occupancy": 411, "energy": 105, "bookings": 12, "maintenance": 12}
 APPROVED_BUILDINGS = (
@@ -187,10 +189,14 @@ def build_plan(
 
     booking_specs = []
     skipped_bookings = 0
+    existing_booking_indices = {
+        int(match.group(1)) for value in booking_markers
+        if (match := re.search(r"BOOKING-(\d+)", value, re.IGNORECASE))
+    }
     for index, building in enumerate(eligible[:12], start=1):
         code = room_code(building, ROOM_NUMBERS[0])
-        purpose = f"{BOOKING_MARKER}{index:03d} | Not a real booking"
-        if purpose in booking_markers or student_id is None:
+        purpose = f"{BOOKING_MARKER}{index:03d} | Fictional room booking"
+        if purpose in booking_markers or index in existing_booking_indices or student_id is None:
             skipped_bookings += 1
             continue
         start_time = datetime.combine(
@@ -210,10 +216,14 @@ def build_plan(
 
     maintenance_specs = []
     skipped_maintenance = 0
+    existing_maintenance_indices = {
+        int(match.group(1)) for value in maintenance_markers
+        if (match := re.search(r"MAINTENANCE-(\d+)", value, re.IGNORECASE))
+    }
     ordered_codes = [room_code(building, ROOM_NUMBERS[0]) for building in eligible]
     for index, code in enumerate(ordered_codes[:12], start=1):
-        title = f"{MAINTENANCE_MARKER}{index:03d} | Sample inspection"
-        if title in maintenance_markers:
+        title = f"{MAINTENANCE_MARKER}{index:03d} | Fictional maintenance example"
+        if title in maintenance_markers or index in existing_maintenance_indices:
             skipped_maintenance += 1
             continue
         status = MAINTENANCE_STATUSES[(index - 1) % len(MAINTENANCE_STATUSES)]
@@ -224,7 +234,7 @@ def build_plan(
             "title": title,
             "values": {
                 "title": title,
-                "description": f"SAMPLE DATA ONLY. Fictional maintenance example {index:03d}; no real issue was reported.",
+                "description": "Fictional interface-testing record. No real campus maintenance issue was reported.",
                 "priority": ("LOW", "MEDIUM", "HIGH")[index % 3],
                 "status": status,
                 "reported_by": None,
@@ -298,12 +308,18 @@ def _load_plan(session, models, now):
     ).all()
     booking_markers = {
         row[0] for row in session.query(models.RoomBooking.purpose).filter(
-            models.RoomBooking.purpose.like(f"{BOOKING_MARKER}%")
+            or_(
+                models.RoomBooking.purpose.like(f"{BOOKING_MARKER}%"),
+                models.RoomBooking.purpose.like(f"{LEGACY_BOOKING_MARKER}%"),
+            )
         ).all()
     }
     maintenance_markers = {
         row[0] for row in session.query(models.MaintenanceRequest.title).filter(
-            models.MaintenanceRequest.title.like(f"{MAINTENANCE_MARKER}%")
+            or_(
+                models.MaintenanceRequest.title.like(f"{MAINTENANCE_MARKER}%"),
+                models.MaintenanceRequest.title.like(f"{LEGACY_MAINTENANCE_MARKER}%"),
+            )
         ).all()
     }
     student_id = session.query(models.User.id).filter(
@@ -430,7 +446,7 @@ def print_plan(plan):
     print("  users: 0 / existing accounts preserved")
     print("  emergency_alerts: 0 / none created")
     print("  equipment/resources: 0 / no supporting table exists")
-    print("Sample rows use DEMO room codes, simulated reading sources, and explicit sample booking/maintenance labels.")
+    print("Fictional rows use protected fixture room codes and simulated reading sources; no real campus incidents or bookings are represented.")
     if not plan["student_available"]:
         print("Bookings are skipped because no existing student account is available; no account will be created.")
 
@@ -483,14 +499,21 @@ def apply_plan(session, models, plan):
 
 
 def parser():
-    result = argparse.ArgumentParser(description="Preview or insert clearly marked sample records in configured Neon.")
-    result.add_argument("--apply", action="store_true", help="Insert the reviewed sample plan; default is read-only preview.")
-    result.add_argument("--confirm-neon-target", action="store_true", help="Confirm the configured Neon target before applying.")
+    result = argparse.ArgumentParser(description="Preview the legacy campus fixture plan; PostgreSQL/Neon apply is disabled.")
+    result.add_argument("--apply", action="store_true", help="rejected: sample writes to PostgreSQL/Neon are disabled")
+    result.add_argument("--confirm-neon-target", action="store_true", help="legacy flag; cannot enable Neon sample writes")
     return result
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
+    if args.apply:
+        print(
+            "Refused: sample/demo data writes to PostgreSQL/Neon are disabled. "
+            "Use the guarded local SQLite demo tools instead.",
+            file=sys.stderr,
+        )
+        return 2
     if args.apply and not args.confirm_neon_target:
         print("Refused: --apply also requires --confirm-neon-target.", file=sys.stderr)
         return 2

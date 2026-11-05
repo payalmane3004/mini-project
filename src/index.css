@@ -3048,6 +3048,66 @@ body { font-size: 14px; line-height: 1.5; }
 .student-scan-room-button:hover { background:rgba(8,145,178,.28); border-color:#22d3ee; }
 .maintenance-room-scanner-dialog { width:min(100%,560px); }
 .maintenance-manual-room-lookup { margin-top:16px; padding-top:13px; border-top:1px solid #293441; }
+
+/* Responsive maintenance request table and mobile cards */
+.maintenance-table-scroll { overflow-x:auto; }
+.maintenance-table { width:100%; min-width:960px; table-layout:fixed; }
+.maintenance-table th,.maintenance-table td { min-width:0; padding:13px 14px; white-space:normal; overflow-wrap:anywhere; vertical-align:top; }
+.maintenance-table th:nth-child(1),.maintenance-table td:nth-child(1) { width:23%; }
+.maintenance-table th:nth-child(2),.maintenance-table td:nth-child(2) { width:15%; }
+.maintenance-table th:nth-child(3),.maintenance-table td:nth-child(3) { width:15%; }
+.maintenance-table th:nth-child(4),.maintenance-table td:nth-child(4) { width:15%; }
+.maintenance-table th:nth-child(5),.maintenance-table td:nth-child(5) { width:10%; }
+.maintenance-table th:nth-child(6),.maintenance-table td:nth-child(6) { width:10%; }
+.maintenance-table th:nth-child(7),.maintenance-table td:nth-child(7) { width:12%; }
+.maintenance-table td strong { display:block; min-width:0; color:#e6ebf1; font-size:14px; line-height:1.4; overflow-wrap:anywhere; }
+.maintenance-table td small { display:block; min-width:0; margin-top:4px; color:#91a1b6; font-size:12px; line-height:1.4; overflow-wrap:anywhere; }
+.maintenance-table td.maintenance-reported { font-family:inherit; font-size:13px; }
+.maintenance-table .maintenance-pill { white-space:nowrap; }
+.maintenance-table tbody tr { height:auto; }
+.maintenance-mobile-list { display:none; }
+.maintenance-dialog-id { display:none; }
+.maintenance-detail-dialog dl { display:grid; grid-template-columns:1fr 1fr; column-gap:18px; }
+.maintenance-detail-dialog dd { min-width:0; overflow-wrap:anywhere; }
+
+@media (max-width:1000px) and (min-width:761px) {
+  .maintenance-table { min-width:900px; }
+  .maintenance-stats { gap:10px; }
+  .maintenance-stat { padding-right:14px; padding-left:14px; }
+}
+@media (max-width:760px) {
+  .maintenance-heading { align-items:flex-start; gap:12px; }
+  .maintenance-heading h1 { font-size:23px; }
+  .maintenance-heading p { font-size:14px; }
+  .maintenance-actions button { min-height:42px; height:auto; padding:9px 12px; font-size:13px; }
+  .maintenance-stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:20px; }
+  .maintenance-stat { min-width:0; min-height:124px; padding:16px 14px 12px; }
+  .maintenance-stat-title { font-size:11px; }
+  .maintenance-stat-icon { top:13px; right:12px; width:32px; height:32px; }
+  .maintenance-stat > strong { margin-top:29px; font-size:26px; }
+  .maintenance-stat > small { font-size:12px; }
+  .maintenance-list-controls { align-items:flex-start; flex-direction:column; gap:10px; margin:18px 0; }
+  .maintenance-filters { width:100%; overflow-x:auto; gap:7px; padding-bottom:3px; }
+  .maintenance-filters button { flex:none; min-height:36px; padding:0 12px; }
+  .maintenance-table-panel { overflow:visible; border:0; background:transparent; }
+  .maintenance-table-scroll { overflow:visible; }
+  .maintenance-table { display:none; }
+  .maintenance-mobile-list { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
+  .maintenance-mobile-card { display:grid; min-width:0; gap:12px; padding:15px; color:#cbd5e1; text-align:left; background:#151c25; border:1px solid #293441; border-radius:10px; cursor:pointer; }
+  .maintenance-mobile-card > span { display:grid; min-width:0; gap:3px; }
+  .maintenance-mobile-card small { color:#91a1b6; font-size:11px; }
+  .maintenance-mobile-card strong { min-width:0; color:#e5eaf0; font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
+  .maintenance-mobile-card-top { display:flex !important; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .maintenance-mobile-card-top > strong { font-size:15px; }
+  .maintenance-mobile-card-top .maintenance-pill { flex:none; }
+  .maintenance-mobile-description { display:block !important; color:#a5b2c1; font-size:12px; line-height:1.45; overflow-wrap:anywhere; }
+  .maintenance-mobile-meta { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; padding-top:10px; border-top:1px solid #293441; }
+  .maintenance-selected-room { align-items:flex-start; flex-direction:column; }
+}
+@media (max-width:420px) {
+  .maintenance-detail-dialog dl { grid-template-columns:1fr; }
+  .maintenance-mobile-meta { grid-template-columns:minmax(0,1fr); }
+}
 .maintenance-manual-room-lookup label { display:block; color:#b5c0ce; font-size:12px; }
 .maintenance-manual-room-lookup > div { display:flex; gap:8px; margin-top:7px; }
 .maintenance-manual-room-lookup input { flex:1; min-width:0; height:41px; padding:0 11px; color:#e2e8f0; background:#0e141c; border:1px solid #303b49; border-radius:6px; font:inherit; font-size:13px; }
@@ -5035,6 +5095,22 @@ body { font-size: 14px; line-height: 1.5; }
 
 .booking-submit-button:hover {
   background: #30394b;
+}
+
+.booking-retry-button {
+  margin: 0 0 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f1d69c;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.booking-retry-button:disabled,
+.booking-submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 /* Booking cards */

@@ -2,10 +2,14 @@
 from datetime import datetime, timedelta, timezone
 import hashlib
 import ipaddress
+import logging
+import os
 import secrets
+from urllib.parse import urlsplit
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends, HTTPException, Query, Request, Response
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, func, text
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
@@ -40,6 +44,7 @@ from schemas import (
 )
 from security import create_access_token, get_current_user, require_roles, verify_password
 from security import hash_password
+from predictions import HISTORY_WINDOW_DAYS, build_predictive_summary
 
 
 DEMO_RESET_ACCOUNTS = {
@@ -86,18 +91,63 @@ def _find_documented_demo_user(db, email):
     return user
 
 app = FastAPI(title="CampusSphere API")
+logger = logging.getLogger("campussphere.api")
+LOCAL_DEVELOPMENT_ORIGINS = {
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+}
+def resolve_cors_origins(configured_origins, environment):
+    origins = set()
+
+    if configured_origins is None or not configured_origins.strip():
+        if environment in {"development", "test"}:
+            origins.update(LOCAL_DEVELOPMENT_ORIGINS)
+        return origins
+
+    configured = {origin.strip().rstrip("/") for origin in configured_origins.split(",") if origin.strip()}
+    for origin in configured:
+        parsed = urlsplit(origin)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc or parsed.path or parsed.query or parsed.fragment or parsed.username or parsed.password:
+            raise ValueError("CORS_ORIGINS must contain only comma-separated HTTP(S) origins, without paths or credentials.")
+        if environment == "production" and parsed.scheme != "https":
+            raise ValueError("Production CORS_ORIGINS must use HTTPS.")
+    return origins | configured
+
+
+ALLOWED_CORS_ORIGINS = resolve_cors_origins(os.environ.get("CORS_ORIGINS"), DATABASE_ENVIRONMENT)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=sorted(ALLOWED_CORS_ORIGINS),
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
+
+
+@app.exception_handler(Exception)
+async def handle_unexpected_error(request: Request, error: Exception):
+    """Keep browser-visible 500 responses CORS-readable without leaking internals."""
+    logger.error(
+        "Unhandled API error method=%s path=%s error_type=%s",
+        request.method,
+        request.url.path,
+        type(error).__name__,
+    )
+    headers = {}
+    origin = request.headers.get("origin")
+    if origin in ALLOWED_CORS_ORIGINS:
+        headers.update({
+            "Access-Control-Allow-Origin": origin,
+            "Access-Control-Allow-Credentials": "true",
+            "Vary": "Origin",
+        })
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"},
+        headers=headers,
+    )
 
 
 # Home endpoint
@@ -136,14 +186,14 @@ def demo_status():
 
 
 def _is_demo_room(room):
-    return bool(getattr(room, "is_demo", False)) or (
+    return _local_demo_is_active() or bool(getattr(room, "is_demo", False)) or (
         isinstance(getattr(room, "room_code", None), str)
         and room.room_code.upper().startswith("DEMO-")
     )
 
 
 def _is_demo_building(building):
-    return bool(getattr(building, "is_demo", False)) or (
+    return _local_demo_is_active() or bool(getattr(building, "is_demo", False)) or (
         isinstance(getattr(building, "building_code", None), str)
         and building.building_code.upper().startswith("DEMO-")
     )
@@ -154,7 +204,7 @@ def _local_demo_is_active():
 
 
 def _is_demo_alert(alert):
-    return bool(getattr(alert, "is_demo", False)) or (
+    return _local_demo_is_active() or bool(getattr(alert, "is_demo", False)) or (
         isinstance(getattr(alert, "title", None), str)
         and alert.title.upper().startswith("DEMO ")
     )
@@ -164,7 +214,10 @@ def _is_demo_alert(alert):
 def login(payload: LoginRequest, response: Response, db: Session = Depends(get_db)):
     response.headers["Cache-Control"] = "no-store"
     email = payload.email.strip().lower()
-    user = db.query(models.User).filter(func.lower(models.User.email) == email).first()
+    try:
+        user = db.query(models.User).filter(func.lower(models.User.email) == email).first()
+    except SQLAlchemyError:
+        raise HTTPException(status_code=503, detail="Authentication database is unavailable") from None
     if not verify_password(payload.password, user.password_hash if user else None):
         raise HTTPException(
             status_code=401,
@@ -362,19 +415,48 @@ def delete_draft_notice(notice_id: int, db: Session = Depends(get_db)):
     return Response(status_code=204)
 
 
-def _booking_payload(booking, room, building):
+def _display_account_name(user):
+    if not user:
+        return None
+    name = (getattr(user, "full_name", None) or "").strip()
+    if name.upper().startswith(("DEMO ", "SAMPLE ", "CAMPUS-SAMPLE")):
+        return "Student account" if (getattr(user, "role", "") or "").upper() == "STUDENT" else "Administrator account"
+    return name or None
+
+
+def _booking_time_utc(value):
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def _booking_conflict_query(db, room_id, start_time, end_time, exclude_booking_id=None):
+    query = db.query(models.RoomBooking.id).filter(
+        models.RoomBooking.room_id == room_id,
+        func.upper(models.RoomBooking.status).in_(("PENDING", "APPROVED")),
+        models.RoomBooking.start_time < end_time,
+        models.RoomBooking.end_time > start_time,
+    )
+    if exclude_booking_id is not None:
+        query = query.filter(models.RoomBooking.id != exclude_booking_id)
+    return query
+
+
+def _booking_payload(booking, room, building, requester=None):
     return {
         "id": booking.id,
         "user_id": booking.user_id,
+        "requester_name": _display_account_name(requester),
         "room_id": room.id,
         "room_code": room.room_code,
         "room_name": getattr(room, "room_name", None),
         "is_demo": _is_demo_room(room),
         "building_code": building.building_code if building else None,
         "purpose": booking.purpose,
-        "start_time": booking.start_time,
-        "end_time": booking.end_time,
+        "start_time": _booking_time_utc(booking.start_time),
+        "end_time": _booking_time_utc(booking.end_time),
         "status": booking.status,
+        "rejection_reason": getattr(booking, "rejection_reason", None),
         "source": "DATABASE",
         "created_at": booking.created_at,
     }
@@ -392,13 +474,43 @@ def _lock_room_booking_scope(db: Session, room_id: int) -> None:
     dependencies=[Depends(require_roles("admin", "student"))],
 )
 def get_bookings(user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
-    query = db.query(models.RoomBooking, models.Room, models.Building).join(
+    query = db.query(models.RoomBooking, models.Room, models.Building, models.User).join(
         models.Room, models.Room.id == models.RoomBooking.room_id
-    ).outerjoin(models.Building, models.Building.id == models.Room.building_id)
+    ).outerjoin(models.Building, models.Building.id == models.Room.building_id).outerjoin(
+        models.User, models.User.id == models.RoomBooking.user_id
+    )
     if (user.role or "").lower() == "student":
         query = query.filter(models.RoomBooking.user_id == user.id)
     rows = query.order_by(models.RoomBooking.start_time, models.RoomBooking.id).all()
-    return [_booking_payload(booking, room, building) for booking, room, building in rows]
+    return [_booking_payload(booking, room, building, requester) for booking, room, building, requester in rows]
+
+
+@app.get(
+    "/bookings/availability",
+    dependencies=[Depends(require_roles("student"))],
+)
+def check_booking_availability(
+    room_id: int = Query(gt=0),
+    start_time: datetime = Query(),
+    end_time: datetime = Query(),
+    db: Session = Depends(get_db),
+):
+    """Return only whether a room/time interval is free; do not expose other bookings."""
+    if start_time.tzinfo is None or end_time.tzinfo is None:
+        raise HTTPException(status_code=422, detail="Booking times must include a timezone")
+    if start_time <= datetime.now(start_time.tzinfo):
+        raise HTTPException(status_code=422, detail="start_time must be in the future")
+    if start_time >= end_time:
+        raise HTTPException(status_code=422, detail="start_time must be earlier than end_time")
+    start_time = _booking_time_utc(start_time)
+    end_time = _booking_time_utc(end_time)
+    room = db.query(models.Room).filter(models.Room.id == room_id).first()
+    if room is None:
+        raise HTTPException(status_code=404, detail="Room not found")
+    if _is_demo_room(room) and not _local_demo_is_active():
+        return {"available": False}
+    conflict = _booking_conflict_query(db, room.id, start_time, end_time).first()
+    return {"available": conflict is None}
 
 
 @app.post(
@@ -412,44 +524,41 @@ def create_booking(payload: BookingCreateRequest, user: models.User = Depends(ge
     if room is None:
         raise HTTPException(status_code=404, detail="Room not found")
     if _is_demo_room(room) and not _local_demo_is_active():
-        raise HTTPException(status_code=409, detail="Demo rooms are available for bookings only in the approved isolated local demo")
+        raise HTTPException(status_code=422, detail="This room is not bookable in the current environment")
     building = db.query(models.Building).filter(models.Building.id == room.building_id).first() if room.building_id else None
 
     try:
         # Serialize competing booking attempts for this room on PostgreSQL.
         # This keeps overlap prevention effective without a schema migration.
         _lock_room_booking_scope(db, room.id)
-        conflict = db.query(models.RoomBooking.id).filter(
-            models.RoomBooking.room_id == room.id,
-            func.upper(models.RoomBooking.status).in_(("PENDING", "APPROVED")),
-            models.RoomBooking.start_time < payload.end_time,
-            models.RoomBooking.end_time > payload.start_time,
-        ).first()
+        start_time = _booking_time_utc(payload.start_time)
+        end_time = _booking_time_utc(payload.end_time)
+        conflict = _booking_conflict_query(db, room.id, start_time, end_time).first()
         if conflict:
             db.rollback()
-            raise HTTPException(status_code=409, detail="This room is already booked during the requested time")
+            raise HTTPException(
+                status_code=409,
+                detail="This room is unavailable for the selected time. Please choose another time.",
+            )
 
         booking = models.RoomBooking(
             room_id=room.id,
             user_id=user.id,
-            purpose=(
-                f"DEMO | {payload.purpose[:248]}"
-                if _is_demo_room(room) and not payload.purpose.upper().startswith("DEMO ")
-                else payload.purpose
-            ),
-            start_time=payload.start_time.astimezone(timezone.utc),
-            end_time=payload.end_time.astimezone(timezone.utc),
+            purpose=payload.purpose,
+            start_time=start_time,
+            end_time=end_time,
             status="PENDING",
         )
         db.add(booking)
         db.commit()
         db.refresh(booking)
-        return _booking_payload(booking, room, building)
+        return _booking_payload(booking, room, building, user)
     except HTTPException:
         raise
     except IntegrityError as error:
         db.rollback()
-        raise HTTPException(status_code=409, detail="Booking conflicts with existing database records") from error
+        logger.error("Booking insert failed with an integrity error room_id=%s", room.id)
+        raise HTTPException(status_code=500, detail="Booking could not be saved") from error
 
 
 @app.delete(
@@ -510,20 +619,22 @@ def update_booking_status(booking_id: int, payload: BookingStatusUpdateRequest, 
             db.rollback()
             raise HTTPException(status_code=409, detail="Only pending bookings can be reviewed")
         if payload.status == "APPROVED":
-            conflict = db.query(models.RoomBooking.id).filter(
-                models.RoomBooking.room_id == room.id,
-                models.RoomBooking.id != booking.id,
-                func.upper(models.RoomBooking.status).in_(("PENDING", "APPROVED")),
-                models.RoomBooking.start_time < booking.end_time,
-                models.RoomBooking.end_time > booking.start_time,
+            conflict = _booking_conflict_query(
+                db,
+                room.id,
+                _booking_time_utc(booking.start_time),
+                _booking_time_utc(booking.end_time),
+                exclude_booking_id=booking.id,
             ).first()
             if conflict:
                 db.rollback()
                 raise HTTPException(status_code=409, detail="Another booking overlaps this time; this request cannot be approved")
         booking.status = payload.status
+        booking.rejection_reason = payload.rejection_reason.strip() if payload.status == "REJECTED" else None
         db.commit()
         db.refresh(booking)
-        return _booking_payload(booking, room, building)
+        requester = db.query(models.User).filter(models.User.id == booking.user_id).first()
+        return _booking_payload(booking, room, building, requester)
     except HTTPException:
         raise
     except IntegrityError as error:
@@ -556,7 +667,8 @@ def _maintenance_request_payload(request, room, building, reporter):
         "building_code": building.building_code if building else None,
         "building_name": building.name if building else None,
         "reported_by": request.reported_by,
-        "reporter_name": reporter.full_name if reporter else None,
+        "reporter_name": _display_account_name(reporter),
+        "assignee_name": getattr(request, "assignee_name", None),
         "title": request.title,
         "description": request.description,
         "priority": (request.priority or "MEDIUM").upper(),
@@ -591,16 +703,8 @@ def create_maintenance_request(
     request = models.MaintenanceRequest(
         room_id=room.id,
         reported_by=user.id,
-        title=(
-            f"DEMO | {payload.title[:143]}"
-            if _is_demo_room(room) and not payload.title.upper().startswith("DEMO ")
-            else payload.title
-        ),
-        description=(
-            f"DEMO: {payload.description or ''}"
-            if _is_demo_room(room)
-            else payload.description
-        ),
+        title=payload.title,
+        description=payload.description,
         priority=payload.priority.upper(),
         status="OPEN",
     )
@@ -733,17 +837,9 @@ def get_all_emergency_alerts(db: Session = Depends(get_db)):
 )
 def create_emergency_alert(payload: EmergencyAlertCreateRequest, user: models.User = Depends(get_current_user), db: Session = Depends(get_db)):
     local_demo = _local_demo_is_active()
-    if payload.title.upper().startswith("DEMO ") and not local_demo:
-        raise HTTPException(status_code=409, detail="Demo alerts can be created only in the isolated local demo")
     alert = models.EmergencyAlert(
-        title=(
-            payload.title if payload.title.upper().startswith("DEMO ")
-            else f"DEMO | {payload.title[:192]}"
-        ) if local_demo else payload.title,
-        message=(
-            payload.message if payload.message.upper().startswith("DEMO")
-            else f"DEMO: fictional local preview alert; not a real campus incident. {payload.message}"
-        ) if local_demo else payload.message,
+        title=payload.title,
+        message=(f"Fictional local record for interface review. {payload.message}" if local_demo else payload.message),
         severity=payload.severity,
         active=True,
         created_by=user.id,
@@ -802,7 +898,7 @@ def create_room(payload: RoomCreateRequest, db: Session = Depends(get_db)):
     ).first()
     if building is None:
         raise HTTPException(status_code=404, detail="Building not found")
-    if _is_demo_building(building) or payload.room_code.upper().startswith("DEMO-"):
+    if _is_demo_building(building) or payload.room_code.upper().startswith(("DEMO-", "LOCAL-")):
         raise HTTPException(status_code=409, detail="Demo room inventory is fixed and cannot be changed through room management")
 
     existing_room = db.query(models.Room.id).filter(
@@ -947,11 +1043,11 @@ def get_latest_room_occupancy(
         query = query.filter(models.Room.id == room_id)
     if building_code is not None:
         query = query.filter(models.Building.building_code == building_code)
-    if not include_demo:
+    if not include_demo and not _local_demo_is_active():
         query = query.filter(models.Room.room_code.notilike("DEMO-%"))
 
     room_count_query = db.query(func.count(models.Room.id))
-    if not include_demo:
+    if not include_demo and not _local_demo_is_active():
         room_count_query = room_count_query.filter(models.Room.room_code.notilike("DEMO-%"))
     room_count = room_count_query.scalar() or 0
     readings = []
@@ -1085,12 +1181,14 @@ def get_analytics_summary(
             query = query.filter(timestamp_column < end_utc)
         return query
 
-    buildings_query = db.query(func.count(models.Building.id)).filter(
-        models.Building.building_code.notilike("DEMO-%")
-    )
-    rooms_query = db.query(func.count(models.Room.id)).filter(models.Room.room_code.notilike("DEMO-%"))
-    buildings_total = buildings_query.scalar() or 0
-    rooms_total = rooms_query.scalar() or 0
+    local_fixture = _local_demo_is_active()
+    buildings_query = db.query(func.count(models.Building.id))
+    rooms_query = db.query(func.count(models.Room.id))
+    if not local_fixture:
+        buildings_query = buildings_query.filter(models.Building.building_code.notilike("DEMO-%"))
+        rooms_query = rooms_query.filter(models.Room.room_code.notilike("DEMO-%"))
+    buildings_total = 0 if local_fixture else (buildings_query.scalar() or 0)
+    rooms_total = 0 if local_fixture else (rooms_query.scalar() or 0)
 
     occupancy_query = apply_period(
         db.query(models.RoomOccupancy, models.Room, models.Building)
@@ -1098,10 +1196,9 @@ def get_analytics_summary(
         .outerjoin(models.Building, models.Building.id == models.Room.building_id),
         models.RoomOccupancy.recorded_at,
     )
-    operational_occupancy_query = occupancy_query.filter(
-        models.Room.room_code.notilike("DEMO-%"),
-        func.coalesce(func.upper(models.RoomOccupancy.source), "").notlike("%SIMULAT%"),
-    )
+    operational_occupancy_query = occupancy_query.filter(func.coalesce(func.upper(models.RoomOccupancy.source), "").notlike("%SIMULAT%"))
+    if not local_fixture:
+        operational_occupancy_query = operational_occupancy_query.filter(models.Room.room_code.notilike("DEMO-%"))
     occupancy_count = operational_occupancy_query.with_entities(
         func.count(models.RoomOccupancy.id)
     ).scalar() or 0
@@ -1118,10 +1215,9 @@ def get_analytics_summary(
         .join(models.Building, models.Building.id == models.EnergyReading.building_id),
         models.EnergyReading.recorded_at,
     )
-    operational_energy_query = energy_query.filter(
-        models.Building.building_code.notilike("DEMO-%"),
-        func.coalesce(func.upper(models.EnergyReading.reading_source), "").notlike("%SIMULAT%"),
-    )
+    operational_energy_query = energy_query.filter(func.coalesce(func.upper(models.EnergyReading.reading_source), "").notlike("%SIMULAT%"))
+    if not local_fixture:
+        operational_energy_query = operational_energy_query.filter(models.Building.building_code.notilike("DEMO-%"))
     energy_count = operational_energy_query.with_entities(
         func.count(models.EnergyReading.id)
     ).scalar() or 0
@@ -1145,9 +1241,10 @@ def get_analytics_summary(
     )
     if not include_demo:
         energy_by_building = energy_by_building.filter(
-            models.Building.building_code.notilike("DEMO-%"),
             func.coalesce(func.upper(models.EnergyReading.reading_source), "").notlike("%SIMULAT%"),
         )
+        if not local_fixture:
+            energy_by_building = energy_by_building.filter(models.Building.building_code.notilike("DEMO-%"))
     energy_by_building = energy_by_building.group_by(
         models.Building.building_code,
         models.Building.name,
@@ -1162,7 +1259,10 @@ def get_analytics_summary(
         .join(models.Room, models.Room.id == models.MaintenanceRequest.room_id),
         models.MaintenanceRequest.created_at,
     )
-    maintenance_query = maintenance_query.filter(models.Room.room_code.notilike("DEMO-%"))
+    if local_fixture:
+        maintenance_query = maintenance_query.filter(models.Room.id < 0)
+    else:
+        maintenance_query = maintenance_query.filter(models.Room.room_code.notilike("DEMO-%"))
     maintenance_open = maintenance_query.filter(
         func.upper(models.MaintenanceRequest.status) == "OPEN",
         models.MaintenanceRequest.resolved_at.is_(None),
@@ -1172,10 +1272,11 @@ def get_analytics_summary(
     ).with_entities(func.count(models.MaintenanceRequest.id)).scalar() or 0
     demo_maintenance_query = apply_period(
         db.query(models.MaintenanceRequest)
-        .join(models.Room, models.Room.id == models.MaintenanceRequest.room_id)
-        .filter(models.Room.room_code.ilike("DEMO-%")),
+        .join(models.Room, models.Room.id == models.MaintenanceRequest.room_id),
         models.MaintenanceRequest.created_at,
     )
+    if not local_fixture:
+        demo_maintenance_query = demo_maintenance_query.filter(models.Room.room_code.ilike("DEMO-%"))
     demo_maintenance_open = demo_maintenance_query.filter(
         func.upper(models.MaintenanceRequest.status) == "OPEN",
         models.MaintenanceRequest.resolved_at.is_(None),
@@ -1191,7 +1292,10 @@ def get_analytics_summary(
         func.count(models.Room.id).filter(models.Room.capacity.isnot(None), models.Room.capacity > 0),
         func.sum(models.Room.capacity),
     )
-    capacity_query = capacity_query.filter(models.Room.room_code.notilike("DEMO-%"))
+    if not local_fixture:
+        capacity_query = capacity_query.filter(models.Room.room_code.notilike("DEMO-%"))
+    else:
+        capacity_query = capacity_query.filter(models.Room.id < 0)
     capacity_stats = capacity_query.one()
     latest_occupancy_query = db.query(
         models.RoomOccupancy.room_id.label("room_id"),
@@ -1203,10 +1307,9 @@ def get_analytics_summary(
     ).join(
         models.Room, models.Room.id == models.RoomOccupancy.room_id
     )
-    latest_occupancy_query = latest_occupancy_query.filter(
-        models.Room.room_code.notilike("DEMO-%"),
-        func.coalesce(func.upper(models.RoomOccupancy.source), "").notlike("%SIMULAT%"),
-    )
+    latest_occupancy_query = latest_occupancy_query.filter(func.coalesce(func.upper(models.RoomOccupancy.source), "").notlike("%SIMULAT%"))
+    if not local_fixture:
+        latest_occupancy_query = latest_occupancy_query.filter(models.Room.room_code.notilike("DEMO-%"))
     latest_occupancy = latest_occupancy_query.subquery()
     latest_stats = db.query(
         func.count(latest_occupancy.c.room_id),
@@ -1218,28 +1321,18 @@ def get_analytics_summary(
     if room_count and rooms_with_capacity == room_count and readings_for_rooms == room_count and total_capacity:
         utilization_percent = round(float(total_occupancy or 0) / float(total_capacity) * 100, 2)
 
-    demo_buildings_total = db.query(func.count(models.Building.id)).filter(
-        models.Building.building_code.ilike("DEMO-%")
-    ).scalar() or 0
-    demo_rooms_total = db.query(func.count(models.Room.id)).filter(
-        models.Room.room_code.ilike("DEMO-%")
-    ).scalar() or 0
+    demo_buildings_total = (db.query(func.count(models.Building.id)).scalar() or 0) if local_fixture else (db.query(func.count(models.Building.id)).filter(models.Building.building_code.ilike("DEMO-%")).scalar() or 0)
+    demo_rooms_total = (db.query(func.count(models.Room.id)).scalar() or 0) if local_fixture else (db.query(func.count(models.Room.id)).filter(models.Room.room_code.ilike("DEMO-%")).scalar() or 0)
     demo_occupancy_query = apply_period(
         db.query(models.RoomOccupancy)
         .join(models.Room, models.Room.id == models.RoomOccupancy.room_id)
-        .filter(
-            (models.Room.room_code.ilike("DEMO-%"))
-            | (func.coalesce(func.upper(models.RoomOccupancy.source), "").like("%SIMULAT%"))
-        ),
+        .filter(func.coalesce(func.upper(models.RoomOccupancy.source), "").like("%SIMULAT%") if local_fixture else ((models.Room.room_code.ilike("DEMO-%")) | (func.coalesce(func.upper(models.RoomOccupancy.source), "").like("%SIMULAT%")))),
         models.RoomOccupancy.recorded_at,
     )
     demo_energy_query = apply_period(
         db.query(models.EnergyReading)
         .join(models.Building, models.Building.id == models.EnergyReading.building_id)
-        .filter(
-            (models.Building.building_code.ilike("DEMO-%"))
-            | (func.coalesce(func.upper(models.EnergyReading.reading_source), "").like("%SIMULAT%"))
-        ),
+        .filter(func.coalesce(func.upper(models.EnergyReading.reading_source), "").like("%SIMULAT%") if local_fixture else ((models.Building.building_code.ilike("DEMO-%")) | (func.coalesce(func.upper(models.EnergyReading.reading_source), "").like("%SIMULAT%")))),
         models.EnergyReading.recorded_at,
     )
     return {
@@ -1301,6 +1394,100 @@ def get_analytics_summary(
             for row in energy_by_building
         ],
     }
+
+
+@app.get(
+    "/analytics/predictions",
+    dependencies=[Depends(require_roles("admin"))],
+)
+def get_analytics_predictions(
+    include_demo: bool = False,
+    db: Session = Depends(get_db),
+):
+    """Return evidence-backed weekday/hour baselines, never fabricated live data."""
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=HISTORY_WINDOW_DAYS)
+    local_fixture = is_active_demo_engine(engine)
+    demo_preview = bool(include_demo and local_fixture)
+
+    room_query = db.query(models.Room, models.Building).outerjoin(
+        models.Building, models.Building.id == models.Room.building_id
+    ).filter(models.Room.capacity.isnot(None), models.Room.capacity > 0)
+    if demo_preview:
+        # The marked local fixture contains ordinary campus facility codes;
+        # isolation is established by the active demo engine and simulated source tags.
+        room_query = room_query.filter(models.Room.id.in_(
+            db.query(models.RoomOccupancy.room_id).filter(
+                models.RoomOccupancy.recorded_at >= cutoff,
+                func.coalesce(func.upper(models.RoomOccupancy.source), "").like("%SIMULAT%"),
+            )
+        ))
+    else:
+        room_query = room_query.filter(
+            models.Room.room_code.notilike("DEMO-%"),
+            models.Building.building_code.notilike("DEMO-%"),
+        )
+    rooms = [
+        {
+            "id": room.id,
+            "room_code": room.room_code,
+            "building_code": building.building_code if building else None,
+            "building_name": building.name if building else None,
+            "capacity": room.capacity,
+        }
+        for room, building in room_query.all()
+    ]
+    room_ids = [room["id"] for room in rooms]
+
+    occupancy_query = db.query(models.RoomOccupancy, models.Room).join(
+        models.Room, models.Room.id == models.RoomOccupancy.room_id
+    ).filter(
+        models.RoomOccupancy.recorded_at.isnot(None),
+        models.RoomOccupancy.recorded_at >= cutoff,
+        models.RoomOccupancy.room_id.in_(room_ids) if room_ids else models.Room.id < 0,
+    )
+    energy_query = db.query(models.EnergyReading, models.Building).join(
+        models.Building, models.Building.id == models.EnergyReading.building_id
+    ).filter(
+        models.EnergyReading.recorded_at.isnot(None),
+        models.EnergyReading.recorded_at >= cutoff,
+    )
+    if demo_preview:
+        occupancy_query = occupancy_query.filter(
+            func.coalesce(func.upper(models.RoomOccupancy.source), "").like("%SIMULAT%")
+        )
+        energy_query = energy_query.filter(
+            func.coalesce(func.upper(models.EnergyReading.reading_source), "").like("%SIMULAT%"),
+        )
+    else:
+        occupancy_query = occupancy_query.filter(
+            models.Room.room_code.notilike("DEMO-%"),
+            func.coalesce(func.upper(models.RoomOccupancy.source), "").notlike("%SIMULAT%"),
+        )
+        energy_query = energy_query.filter(
+            models.Building.building_code.notilike("DEMO-%"),
+            func.coalesce(func.upper(models.EnergyReading.reading_source), "").notlike("%SIMULAT%"),
+        )
+
+    occupancy_rows = [
+        {
+            "room_id": reading.room_id,
+            "occupied_count": reading.occupied_count,
+            "recorded_at": reading.recorded_at,
+        }
+        for reading, _room in occupancy_query.order_by(models.RoomOccupancy.recorded_at).all()
+    ]
+    energy_rows = [
+        {
+            "building_id": reading.building_id,
+            "energy_kwh": float(reading.energy_kwh),
+            "recorded_at": reading.recorded_at,
+        }
+        for reading, _building in energy_query.order_by(models.EnergyReading.recorded_at).all()
+    ]
+    return build_predictive_summary(
+        rooms, occupancy_rows, energy_rows, now=now, demo_preview=demo_preview
+    )
 
 
 @app.get(

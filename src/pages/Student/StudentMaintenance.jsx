@@ -115,7 +115,7 @@ function StudentMaintenance() {
     }
     const room = operationalRooms.find(({ room_code }) => room_code === formData.location);
     if (!room || String(room.building_id) !== formData.building_id) {
-      setSubmitError("Choose a building and a room from that building. Demo-only room records cannot be used outside the isolated local demo.");
+      setSubmitError("Choose a building and a room from that building. Local room records cannot be used outside the local dataset.");
       return;
     }
     submittingRef.current = true;
@@ -225,7 +225,7 @@ function StudentMaintenance() {
                 >
                   <option value="">{roomsLoading ? "Loading buildings…" : "Choose a building"}</option>
                   {operationalBuildings.map((building) => <option value={building.id} key={building.id}>
-                    {building.is_demo ? "DEMO ONLY · " : ""}{building.name} ({building.building_code})
+                    {building.is_demo ? "Local record · " : ""}{building.name} ({building.building_code})
                   </option>)}
                 </select>
                 {buildingsError && <small role="alert">{buildingsError}</small>}
@@ -243,12 +243,12 @@ function StudentMaintenance() {
                   disabled={roomsLoading || selectedBuildingRooms.length === 0}
                 >
                   <option value="">{roomsLoading ? "Loading rooms…" : roomsError ? "Rooms unavailable" : selectedBuildingRooms.length ? "Choose a room" : "Choose a building first"}</option>
-                  {selectedBuildingRooms.map((room) => <option value={room.room_code} key={room.id}>{demoMode && room.room_code.toUpperCase().startsWith("DEMO-") ? "DEMO ONLY · " : ""}{room.room_code}{room.room_name ? ` · ${room.room_name}` : ""}</option>)}
+                  {selectedBuildingRooms.map((room) => <option value={room.room_code} key={room.id}>{demoMode && room.room_code.toUpperCase().startsWith("DEMO-") ? "Local record · " : ""}{room.room_code}{room.room_name ? ` · ${room.room_name}` : ""}</option>)}
                 </select>
                 {roomsLoading && <small role="status">Loading campus room records…</small>}
-                {!roomsLoading && !roomsError && operationalRooms.length === 0 && <small role="status">No eligible rooms are available. Demo-only room records cannot be used for maintenance requests outside the isolated local demo.</small>}
-                {!roomsLoading && !roomsError && operationalRooms.length > 0 && operationalRooms.length < rooms.length && <small>Demo-only rooms are excluded from maintenance requests outside the isolated local demo.</small>}
-                {demoMode && <small>LOCAL DEMO: any DEMO-only request is fictional and stored only in this isolated SQLite database.</small>}
+                {!roomsLoading && !roomsError && operationalRooms.length === 0 && <small role="status">No eligible rooms are available. Local room records cannot be used for maintenance requests outside the local dataset.</small>}
+                {!roomsLoading && !roomsError && operationalRooms.length > 0 && operationalRooms.length < rooms.length && <small>Local rooms are excluded from maintenance requests outside the local dataset.</small>}
+                {demoMode && <small>Requests created with this local dataset are fictional records stored in this development database.</small>}
                 {roomsError && <small role="alert">{roomsError}</small>}
                 {formData.location && !operationalRooms.some(({ room_code }) => room_code === formData.location) && !roomsError && <small role="alert">The selected location is not eligible. Choose another room before submitting.</small>}
               </div>
@@ -351,7 +351,7 @@ function StudentMaintenance() {
               <div className="maintenance-request-top">
                 <div>
                   <span className="request-id">Request #{request.id}</span>
-                  <h3>{request.title}{request.is_demo && <small> · DEMO ONLY · fictional</small>}</h3>
+                  <h3>{request.title}{request.is_demo && <small> · Local record · fictional</small>}</h3>
                 </div>
 
                 <span
